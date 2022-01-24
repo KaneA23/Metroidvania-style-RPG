@@ -8,21 +8,31 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
 	[Header("Movement")]
-	float moveSpeed = 3f;
-	float moveHorizontal;
+	public float moveSpeed;
+	public float moveHorizontal;
+	public float defaultSpeed = 3f;
+	public float runSpeed = 4f;
+	public float crouchSpeed = 1.5f;
 
 	[Header("Jumping")]
-	bool isGrounded;
-	float jumpForce = 35f;
+	public bool isGrounded;
+	public float jumpForce = 35f;
 
+	[Header("Double jump")]
+	public bool hasDoubleJump;
 	bool canDoubleJump;
 	float jumpCount;
 
+	[Header("Crouch")]
+	public bool isCrouching;
+
+	CapsuleCollider2D capsule;
 	Rigidbody2D rb;
 	SpriteRenderer spriteRenderer;
 
 	private void Awake()
 	{
+		capsule = GetComponent<CapsuleCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -30,7 +40,9 @@ public class CharacterController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		capsule.enabled = true;
+		isCrouching = false;
+		moveSpeed = defaultSpeed;
 	}
 
 	// Update is called once per frame
@@ -55,6 +67,15 @@ public class CharacterController : MonoBehaviour
 		{
 			Jump();
 		}
+
+		if (Input.GetKey(KeyCode.LeftControl))
+		{
+			Crouch();
+		}
+		if (Input.GetKeyUp(KeyCode.LeftControl))
+		{
+			Uncrouch();
+		}
 	}
 
 	/// <summary>
@@ -62,6 +83,15 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void PlayerMovement()
 	{
+		if (isCrouching)
+		{
+			moveSpeed = crouchSpeed;
+		}
+		else
+		{
+			moveSpeed = defaultSpeed;
+		}
+
 		// Checks which way the player should be facing
 		if (moveHorizontal > 0.1f)
 		{
@@ -81,7 +111,14 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void Jump()
 	{
-		if (isGrounded || canDoubleJump)
+		if (isGrounded)
+		{
+			rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+			jumpCount++;
+
+			StartCoroutine(JumpCooldown());
+		}
+		else if (canDoubleJump && hasDoubleJump)
 		{
 			rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 			jumpCount++;
@@ -90,11 +127,33 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// If touching a platform then the player's jump is reset
-	/// </summary>
-	/// <param name="a_collision">Used to check if player is touching a platform</param>
-	private void OnTriggerEnter2D(Collider2D a_collision)
+	void Crouch()
+	{
+		capsule.enabled = false;
+		isCrouching = true;
+	}
+
+	void Uncrouch()
+	{
+		capsule.enabled = true;
+		isCrouching = false;
+	}
+
+	///// <summary>
+	///// If touching a platform then the player's jump is reset
+	///// </summary>
+	///// <param name="a_collision">Used to check if player is touching a platform</param>
+	//private void OnTriggerEnter2D(Collider2D a_collision)
+	//{
+	//	if (a_collision.gameObject.tag == "Platform")
+	//	{
+	//		isGrounded = true;
+	//		canDoubleJump = true;
+	//		jumpCount = 0;
+	//	}
+	//}
+
+	private void OnCollisionEnter2D(Collision2D a_collision)
 	{
 		if (a_collision.gameObject.tag == "Platform")
 		{
@@ -104,17 +163,24 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Checks if the player is no longer jumping
-	/// </summary>
-	/// <param name="a_collision"></param>
-	private void OnTriggerExit2D(Collider2D a_collision)
+	///// <summary>
+	///// Checks if the player is no longer jumping
+	///// </summary>
+	///// <param name="a_collision"></param>
+	//private void OnTriggerExit2D(Collider2D a_collision)
+	//{
+	//	if (a_collision.gameObject.tag == "Platform")
+	//	{
+	//		isGrounded = false;
+	//	}
+	//}
+
+	private void OnCollisionExit2D(Collision2D a_collision)
 	{
 		if (a_collision.gameObject.tag == "Platform")
 		{
 			isGrounded = false;
 		}
-
 	}
 
 	/// <summary>
