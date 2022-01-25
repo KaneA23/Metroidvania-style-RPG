@@ -10,13 +10,13 @@ public class CharacterController : MonoBehaviour
 	[Header("Movement")]
 	public float moveSpeed;
 	public float moveHorizontal;
-	public float defaultSpeed = 3f;
-	public float runSpeed = 4f;
+	public float defaultSpeed = 2f;
+	public float runSpeed = 3f;
 	public float crouchSpeed = 1.5f;
 
 	[Header("Jumping")]
 	public bool isGrounded;
-	public float jumpForce = 35f;
+	public float jumpForce = 5f;
 
 	[Header("Double jump")]
 	public bool hasDoubleJump;
@@ -113,7 +113,15 @@ public class CharacterController : MonoBehaviour
 	{
 		if (isGrounded)
 		{
-			rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+			if (isCrouching)
+			{
+				rb.AddForce(new Vector2(0f, jumpForce * crouchSpeed), ForceMode2D.Impulse);
+			}
+			else
+			{
+				rb.AddForce(new Vector2(0f, jumpForce * defaultSpeed), ForceMode2D.Impulse);
+			}
+
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
@@ -127,12 +135,18 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Disables head collider so player can fit through short gaps
+	/// </summary>
 	void Crouch()
 	{
 		capsule.enabled = false;
 		isCrouching = true;
 	}
 
+	/// <summary>
+	/// Enables head collider so player is standing up
+	/// </summary>
 	void Uncrouch()
 	{
 		capsule.enabled = true;
@@ -153,6 +167,10 @@ public class CharacterController : MonoBehaviour
 	//	}
 	//}
 
+	/// <summary>
+	/// Checks whether the player is touching a jumpable surface
+	/// </summary>
+	/// <param name="a_collision">Is the object you are standing on a platform</param>
 	private void OnCollisionEnter2D(Collision2D a_collision)
 	{
 		if (a_collision.gameObject.tag == "Platform")
@@ -175,6 +193,10 @@ public class CharacterController : MonoBehaviour
 	//	}
 	//}
 
+	/// <summary>
+	/// Checks whether the player is mid air
+	/// </summary>
+	/// <param name="a_collision">Checks whether the player is touching a platform</param>
 	private void OnCollisionExit2D(Collision2D a_collision)
 	{
 		if (a_collision.gameObject.tag == "Platform")
