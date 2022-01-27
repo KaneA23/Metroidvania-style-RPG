@@ -17,22 +17,33 @@ public class CharacterController : MonoBehaviour
 	[Header("Jumping")]
 	public bool isGrounded;
 	public float jumpForce = 5f;
+	public float radius = 0.1f;
+
+	[Range(0f, 1f)]
+	public float jumpHeight;
+
+	public Transform groundCheck;
+	public LayerMask groundLayer;
 
 	[Header("Double jump")]
 	public bool hasDoubleJump;
-	bool canDoubleJump;
-	float jumpCount;
+	public bool canDoubleJump;
+	public float jumpCount;
 
 	[Header("Crouch")]
+	public bool isCeiling;
 	public bool isCrouching;
 
-	CapsuleCollider2D capsule;
+	public Transform ceilingCheck;
+	public LayerMask ceilingLayer;
+
+	BoxCollider2D headCollider;
 	Rigidbody2D rb;
 	SpriteRenderer spriteRenderer;
 
 	private void Awake()
 	{
-		capsule = GetComponent<CapsuleCollider2D>();
+		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
 	}
@@ -40,20 +51,25 @@ public class CharacterController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		capsule.enabled = true;
+		headCollider.enabled = true;
 		isCrouching = false;
 		moveSpeed = defaultSpeed;
+
+		jumpCount = 0;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		PlayerInput();
+		CheckIfGrounded();
+		CheckIfCeiling();
 	}
 
 	private void FixedUpdate()
 	{
 		PlayerMovement();
+		//Jump();
 	}
 
 	/// <summary>
@@ -63,18 +79,29 @@ public class CharacterController : MonoBehaviour
 	{
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
-		if (Input.GetButtonDown("Jump"))
+		if (Input.GetKeyDown(KeyCode.W))
 		{
 			Jump();
+		}
+
+		if (Input.GetKeyUp(KeyCode.W))
+		{
+			if (rb.velocity.y > 0)
+			{
+				rb.velocity = jumpForce * jumpHeight * Vector2.up;
+			}
+
+			Debug.Log("Jump Magnitude: " + rb.velocity.magnitude);
 		}
 
 		if (Input.GetKey(KeyCode.LeftControl))
 		{
 			Crouch();
 		}
-		if (Input.GetKeyUp(KeyCode.LeftControl))
+		else if (!isCeiling)
 		{
 			Uncrouch();
+
 		}
 	}
 
@@ -83,14 +110,7 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void PlayerMovement()
 	{
-		if (isCrouching)
-		{
-			moveSpeed = crouchSpeed;
-		}
-		else
-		{
-			moveSpeed = defaultSpeed;
-		}
+		//moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		// Checks which way the player should be facing
 		if (moveHorizontal > 0.1f)
@@ -104,6 +124,7 @@ public class CharacterController : MonoBehaviour
 
 		// Moves player accross X-axis
 		rb.AddForce(new Vector2(moveHorizontal * moveSpeed, 0f), ForceMode2D.Impulse);
+		//rb.velocity = moveHorizontal * moveSpeed * Vector2.right;
 	}
 
 	/// <summary>
@@ -113,14 +134,17 @@ public class CharacterController : MonoBehaviour
 	{
 		if (isGrounded)
 		{
-			if (isCrouching)
-			{
-				rb.AddForce(new Vector2(0f, jumpForce * crouchSpeed), ForceMode2D.Impulse);
-			}
-			else
-			{
-				rb.AddForce(new Vector2(0f, jumpForce * defaultSpeed), ForceMode2D.Impulse);
-			}
+			rb.velocity = jumpForce * moveSpeed * Vector2.up;
+			//if (isCrouching)
+			//{
+			//	//rb.AddForce(new Vector2(0f, jumpForce * crouchSpeed), ForceMode2D.Impulse);
+			//	rb.velocity = Vector2.up * jumpForce * crouchSpeed;
+			//}
+			//else
+			//{
+			//	//rb.AddForce(new Vector2(0f, jumpForce * defaultSpeed), ForceMode2D.Impulse);
+			//	rb.velocity = Vector2.up * jumpForce * defaultSpeed;
+			//}
 
 			jumpCount++;
 
@@ -128,11 +152,14 @@ public class CharacterController : MonoBehaviour
 		}
 		else if (canDoubleJump && hasDoubleJump)
 		{
-			rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+			//rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+			rb.velocity = jumpForce * moveSpeed * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
+
+		Debug.Log("Jump Height:" + rb.velocity.magnitude);
 	}
 
 	/// <summary>
@@ -140,8 +167,9 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void Crouch()
 	{
-		capsule.enabled = false;
+		headCollider.enabled = false;
 		isCrouching = true;
+		moveSpeed = crouchSpeed;
 	}
 
 	/// <summary>
@@ -149,9 +177,16 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void Uncrouch()
 	{
-		capsule.enabled = true;
+		headCollider.enabled = true;
 		isCrouching = false;
+		moveSpeed = defaultSpeed;
 	}
+
+	//void ToggleCrouch()
+	//{
+	//	headCollider.enabled = !headCollider.enabled;
+	//	isCrouching = !isCrouching;
+	//}
 
 	///// <summary>
 	///// If touching a platform then the player's jump is reset
@@ -171,15 +206,15 @@ public class CharacterController : MonoBehaviour
 	/// Checks whether the player is touching a jumpable surface
 	/// </summary>
 	/// <param name="a_collision">Is the object you are standing on a platform</param>
-	private void OnCollisionEnter2D(Collision2D a_collision)
-	{
-		if (a_collision.gameObject.tag == "Platform")
-		{
-			isGrounded = true;
-			canDoubleJump = true;
-			jumpCount = 0;
-		}
-	}
+	//private void OnCollisionEnter2D(Collision2D a_collision)
+	//{
+	//	if (a_collision.gameObject.tag == "Platform")
+	//	{
+	//		isGrounded = true;
+	//		canDoubleJump = true;
+	//		jumpCount = 0;
+	//	}
+	//}
 
 	///// <summary>
 	///// Checks if the player is no longer jumping
@@ -197,12 +232,28 @@ public class CharacterController : MonoBehaviour
 	/// Checks whether the player is mid air
 	/// </summary>
 	/// <param name="a_collision">Checks whether the player is touching a platform</param>
-	private void OnCollisionExit2D(Collision2D a_collision)
+	//private void OnCollisionExit2D(Collision2D a_collision)
+	//{
+	//	if (a_collision.gameObject.tag == "Platform")
+	//	{
+	//		isGrounded = false;
+	//	}
+	//}
+
+	private void CheckIfGrounded()
 	{
-		if (a_collision.gameObject.tag == "Platform")
+		isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
+
+		if (isGrounded)
 		{
-			isGrounded = false;
+			canDoubleJump = true;
+			jumpCount = 0;
 		}
+	}
+
+	private void CheckIfCeiling()
+	{
+		isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, radius, ceilingLayer);
 	}
 
 	/// <summary>
@@ -213,7 +264,7 @@ public class CharacterController : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 
-		if (jumpCount < 2)
+		if (jumpCount < 0)
 		{
 			canDoubleJump = true;
 		}
