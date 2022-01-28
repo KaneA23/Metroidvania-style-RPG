@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -10,17 +9,21 @@ public class CharacterController : MonoBehaviour
 	[Header("Movement")]
 	public float moveSpeed;
 	public float moveHorizontal;
-	public float defaultSpeed = 1.5f;
-	public float runSpeed = 2f;
-	public float crouchSpeed = 1f;
+	public float defaultSpeed = 1f;
+	public float runSpeed = 1.25f;      // Also makes jumps higher
+	public float crouchSpeed = 0.75f;   // Also makes jumps shorter
+
+	[Range(0f, 1f)]
+	public float horizontalDamping = 0.75f;
 
 	[Header("Jumping")]
 	public bool isGrounded;
-	public float jumpForce = 5f;
-	public float radius = 0.1f;
+	public float jumpForce = 20f;
 
 	[Range(0f, 1f)]
 	public float jumpHeight;
+
+	public float radius = 0.1f;
 
 	public Transform groundCheck;
 	public LayerMask groundLayer;
@@ -39,7 +42,7 @@ public class CharacterController : MonoBehaviour
 
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
-	SpriteRenderer spriteRenderer;
+	SpriteRenderer spriteRenderer;  // Used to switch character direction
 
 	private void Awake()
 	{
@@ -61,15 +64,15 @@ public class CharacterController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		PlayerInput();
 		CheckIfGrounded();
 		CheckIfCeiling();
+
+		PlayerInput();
 	}
 
 	private void FixedUpdate()
 	{
 		PlayerMovement();
-		//Jump();
 	}
 
 	/// <summary>
@@ -77,6 +80,7 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void PlayerInput()
 	{
+		// Checks what direction the player is wanting to move
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		if (Input.GetButtonDown("Jump"))
@@ -84,25 +88,28 @@ public class CharacterController : MonoBehaviour
 			Jump();
 		}
 
+		// Cuts off jump height when player releases jump button
 		if (Input.GetButtonUp("Jump"))
 		{
 			if (rb.velocity.y > 0)
 			{
 				rb.velocity = jumpForce * jumpHeight * Vector2.up;
 			}
-
-			Debug.Log("Jump Magnitude: " + rb.velocity.magnitude);
 		}
 
+		// Removes head collider if player wants to crouch
 		if (Input.GetKey(KeyCode.LeftControl))
 		{
-			Crouch();
+			headCollider.enabled = false;
+			isCrouching = true;
 		}
 		else if (!isCeiling)
 		{
-			Uncrouch();
+			headCollider.enabled = true;
+			isCrouching = false;
 		}
 
+		// Changes player speed depending on whether you are running, walking or crouching
 		if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
 		{
 			moveSpeed = runSpeed;
@@ -115,7 +122,6 @@ public class CharacterController : MonoBehaviour
 		{
 			moveSpeed = defaultSpeed;
 		}
-
 	}
 
 	/// <summary>
@@ -123,7 +129,7 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	void PlayerMovement()
 	{
-		//moveHorizontal = Input.GetAxisRaw("Horizontal");
+		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
 		// Checks which way the player should be facing
 		if (moveHorizontal > 0.1f)
@@ -137,7 +143,6 @@ public class CharacterController : MonoBehaviour
 
 		// Moves player accross X-axis
 		rb.AddForce(new Vector2(moveHorizontal * moveSpeed, 0f), ForceMode2D.Impulse);
-		//rb.velocity = moveHorizontal * moveSpeed * Vector2.right;
 	}
 
 	/// <summary>
@@ -148,115 +153,25 @@ public class CharacterController : MonoBehaviour
 		if (isGrounded)
 		{
 			rb.velocity = jumpForce * moveSpeed * Vector2.up;
-			//if (isCrouching)
-			//{
-			//	//rb.AddForce(new Vector2(0f, jumpForce * crouchSpeed), ForceMode2D.Impulse);
-			//	rb.velocity = Vector2.up * jumpForce * crouchSpeed;
-			//}
-			//else
-			//{
-			//	//rb.AddForce(new Vector2(0f, jumpForce * defaultSpeed), ForceMode2D.Impulse);
-			//	rb.velocity = Vector2.up * jumpForce * defaultSpeed;
-			//}
-
 			jumpCount++;
-
 			StartCoroutine(JumpCooldown());
 		}
 		else if (canDoubleJump && hasDoubleJump)
 		{
-			//rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
 			rb.velocity = jumpForce * moveSpeed * Vector2.up;
 			jumpCount++;
-
 			StartCoroutine(JumpCooldown());
 		}
-
-		Debug.Log("Jump Height:" + rb.velocity.magnitude);
 	}
 
 	/// <summary>
-	/// Disables head collider so player can fit through short gaps
+	/// Checks whether the player is touching a platform to allow them to jump
 	/// </summary>
-	void Crouch()
-	{
-		headCollider.enabled = false;
-		isCrouching = true;
-		//moveSpeed = crouchSpeed;
-	}
-
-	/// <summary>
-	/// Enables head collider so player is standing up
-	/// </summary>
-	void Uncrouch()
-	{
-		headCollider.enabled = true;
-		isCrouching = false;
-		//moveSpeed = defaultSpeed;
-	}
-
-	//void ToggleCrouch()
-	//{
-	//	headCollider.enabled = !headCollider.enabled;
-	//	isCrouching = !isCrouching;
-	//}
-
-	///// <summary>
-	///// If touching a platform then the player's jump is reset
-	///// </summary>
-	///// <param name="a_collision">Used to check if player is touching a platform</param>
-	//private void OnTriggerEnter2D(Collider2D a_collision)
-	//{
-	//	if (a_collision.gameObject.tag == "Platform")
-	//	{
-	//		isGrounded = true;
-	//		canDoubleJump = true;
-	//		jumpCount = 0;
-	//	}
-	//}
-
-	/// <summary>
-	/// Checks whether the player is touching a jumpable surface
-	/// </summary>
-	/// <param name="a_collision">Is the object you are standing on a platform</param>
-	//private void OnCollisionEnter2D(Collision2D a_collision)
-	//{
-	//	if (a_collision.gameObject.tag == "Platform")
-	//	{
-	//		isGrounded = true;
-	//		canDoubleJump = true;
-	//		jumpCount = 0;
-	//	}
-	//}
-
-	///// <summary>
-	///// Checks if the player is no longer jumping
-	///// </summary>
-	///// <param name="a_collision"></param>
-	//private void OnTriggerExit2D(Collider2D a_collision)
-	//{
-	//	if (a_collision.gameObject.tag == "Platform")
-	//	{
-	//		isGrounded = false;
-	//	}
-	//}
-
-	/// <summary>
-	/// Checks whether the player is mid air
-	/// </summary>
-	/// <param name="a_collision">Checks whether the player is touching a platform</param>
-	//private void OnCollisionExit2D(Collision2D a_collision)
-	//{
-	//	if (a_collision.gameObject.tag == "Platform")
-	//	{
-	//		isGrounded = false;
-	//	}
-	//}
-
 	private void CheckIfGrounded()
 	{
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
 
+		// Resets double jump if the player is touching the ground
 		if (isGrounded)
 		{
 			canDoubleJump = true;
@@ -264,6 +179,9 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Checks wether a crouched player is under a platform to see if they can stand up
+	/// </summary>
 	private void CheckIfCeiling()
 	{
 		isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, radius, ceilingLayer);

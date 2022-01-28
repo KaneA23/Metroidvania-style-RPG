@@ -1676,7 +1676,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 5
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0
@@ -1791,18 +1791,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   moveHorizontal: 0
-  defaultSpeed: 1.5
-  runSpeed: 2
-  crouchSpeed: 1
+  defaultSpeed: 1
+  runSpeed: 1.25
+  crouchSpeed: 0.75
+  horizontalDamping: 0.75
   isGrounded: 0
   jumpForce: 20
   radius: 0.1
-  jumpHeight: 0.5
+  jumpHeight: 0.25
   groundCheck: {fileID: 168185933}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  hasDoubleJump: 1
+  hasDoubleJump: 0
   canDoubleJump: 0
   jumpCount: 0
   isCeiling: 0
