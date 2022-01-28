@@ -10,9 +10,9 @@ public class CharacterController : MonoBehaviour
 	[Header("Movement")]
 	public float moveSpeed;
 	public float moveHorizontal;
-	public float defaultSpeed = 2f;
-	public float runSpeed = 3f;
-	public float crouchSpeed = 1.5f;
+	public float defaultSpeed = 1.5f;
+	public float runSpeed = 2f;
+	public float crouchSpeed = 1f;
 
 	[Header("Jumping")]
 	public bool isGrounded;
@@ -79,12 +79,12 @@ public class CharacterController : MonoBehaviour
 	{
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
-		if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetButtonDown("Jump"))
 		{
 			Jump();
 		}
 
-		if (Input.GetKeyUp(KeyCode.W))
+		if (Input.GetButtonUp("Jump"))
 		{
 			if (rb.velocity.y > 0)
 			{
@@ -101,8 +101,21 @@ public class CharacterController : MonoBehaviour
 		else if (!isCeiling)
 		{
 			Uncrouch();
-
 		}
+
+		if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+		{
+			moveSpeed = runSpeed;
+		}
+		else if (isCrouching)
+		{
+			moveSpeed = crouchSpeed;
+		}
+		else
+		{
+			moveSpeed = defaultSpeed;
+		}
+
 	}
 
 	/// <summary>
@@ -169,7 +182,7 @@ public class CharacterController : MonoBehaviour
 	{
 		headCollider.enabled = false;
 		isCrouching = true;
-		moveSpeed = crouchSpeed;
+		//moveSpeed = crouchSpeed;
 	}
 
 	/// <summary>
@@ -179,7 +192,7 @@ public class CharacterController : MonoBehaviour
 	{
 		headCollider.enabled = true;
 		isCrouching = false;
-		moveSpeed = defaultSpeed;
+		//moveSpeed = defaultSpeed;
 	}
 
 	//void ToggleCrouch()
