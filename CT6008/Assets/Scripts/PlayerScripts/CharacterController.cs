@@ -19,7 +19,6 @@ public class CharacterController : MonoBehaviour
 	[Header("Jumping")]
 	public bool isGrounded;
 	public float jumpForce = 20f;
-
 	[Range(0f, 1f)]
 	public float jumpHeight;
 
@@ -29,7 +28,7 @@ public class CharacterController : MonoBehaviour
 	public LayerMask groundLayer;
 
 	[Header("Double jump")]
-	public bool hasDoubleJump;
+	public bool isDoubleJumpActive;
 	public bool canDoubleJump;
 	public float jumpCount;
 
@@ -156,7 +155,7 @@ public class CharacterController : MonoBehaviour
 			jumpCount++;
 			StartCoroutine(JumpCooldown());
 		}
-		else if (canDoubleJump && hasDoubleJump)
+		else if (canDoubleJump && isDoubleJumpActive)
 		{
 			rb.velocity = jumpForce * moveSpeed * Vector2.up;
 			jumpCount++;
@@ -180,7 +179,7 @@ public class CharacterController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Checks wether a crouched player is under a platform to see if they can stand up
+	/// Checks whether a crouched player is under a platform to see if they can stand up
 	/// </summary>
 	private void CheckIfCeiling()
 	{
