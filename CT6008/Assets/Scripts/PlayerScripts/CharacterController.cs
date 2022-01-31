@@ -2,42 +2,65 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Controls the character's movement dependent on the player's input
+/// Controls character's movement dependent on player's input
 /// </summary>
 public class CharacterController : MonoBehaviour
 {
+	#region Movement Variables
 	[Header("Movement")]
 	public float moveSpeed;
 	public float moveHorizontal;
 	public float defaultSpeed = 1f;
-	public float runSpeed = 1.25f;      // Also makes jumps higher
-	public float crouchSpeed = 0.75f;   // Also makes jumps shorter
+	public float runSpeed = 1.25f;
+	public float crouchSpeed = 0.75f;
 
+	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
 	public float horizontalDamping = 0.75f;
+	#endregion
 
+	#region Jumping Variables
 	[Header("Jumping")]
 	public bool isGrounded;
-	public float jumpForce = 20f;
-	[Range(0f, 1f)]
-	public float jumpHeight;
+	public float jumpForce = 25f;
 
-	public float radius = 0.1f;
+	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
+	[Range(0f, 1f)]
+	public float cutJumpHeight;
 
 	public Transform groundCheck;
-	public LayerMask groundLayer;
+	[Tooltip("Objects that can be jumped off")]
+	public LayerMask groundLayers;
 
-	[Header("Double jump")]
+	public float checkRadius = 0.1f;
+
+	[Space(10)]
 	public bool isDoubleJumpActive;
 	public bool canDoubleJump;
 	public float jumpCount;
 
+	[Space(10)]
+
+	public bool isWallJumpActive;
+	public bool isTouchingWall;
+	public bool canWallJump;
+	public float wallJumpForce = 50f;
+
+	public Transform wallCheck;
+	[Tooltip("Objects that can be wall jumped")]
+	public LayerMask wallLayers;
+
+	#endregion
+
+	#region Crouch Variables
 	[Header("Crouch")]
 	public bool isCeiling;
 	public bool isCrouching;
 
 	public Transform ceilingCheck;
-	public LayerMask ceilingLayer;
+	[Tooltip("Objects player needs to crouch under")]
+	public LayerMask ceilingLayers;
+	#endregion
 
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
@@ -56,7 +79,6 @@ public class CharacterController : MonoBehaviour
 		headCollider.enabled = true;
 		isCrouching = false;
 		moveSpeed = defaultSpeed;
-
 		jumpCount = 0;
 	}
 
@@ -65,6 +87,7 @@ public class CharacterController : MonoBehaviour
 	{
 		CheckIfGrounded();
 		CheckIfCeiling();
+		CheckIfWall();
 
 		PlayerInput();
 	}
@@ -92,7 +115,7 @@ public class CharacterController : MonoBehaviour
 		{
 			if (rb.velocity.y > 0)
 			{
-				rb.velocity = jumpForce * jumpHeight * Vector2.up;
+				rb.velocity = jumpForce * cutJumpHeight * Vector2.up;
 			}
 		}
 
@@ -141,41 +164,11 @@ public class CharacterController : MonoBehaviour
 		}
 
 		// Moves player accross X-axis
-		rb.AddForce(new Vector2(moveHorizontal * moveSpeed, 0f), ForceMode2D.Impulse);
-	}
-
-	/// <summary>
-	/// Checks player can jump and how many times
-	/// </summary>
-	void Jump()
-	{
-		if (isGrounded)
+		if (isGrounded || !isTouchingWall)
 		{
-			rb.velocity = jumpForce * moveSpeed * Vector2.up;
-			jumpCount++;
-			StartCoroutine(JumpCooldown());
+			rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 		}
-		else if (canDoubleJump && isDoubleJumpActive)
-		{
-			rb.velocity = jumpForce * moveSpeed * Vector2.up;
-			jumpCount++;
-			StartCoroutine(JumpCooldown());
-		}
-	}
 
-	/// <summary>
-	/// Checks whether the player is touching a platform to allow them to jump
-	/// </summary>
-	private void CheckIfGrounded()
-	{
-		isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, groundLayer);
-
-		// Resets double jump if the player is touching the ground
-		if (isGrounded)
-		{
-			canDoubleJump = true;
-			jumpCount = 0;
-		}
 	}
 
 	/// <summary>
@@ -183,7 +176,61 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	private void CheckIfCeiling()
 	{
-		isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, radius, ceilingLayer);
+		isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, checkRadius, ceilingLayers);
+	}
+
+	#region Jump Mechanics
+	/// <summary>
+	/// Checks player can jump and how many times
+	/// </summary>
+	void Jump()
+	{
+		if (isGrounded)
+		{
+			rb.velocity = jumpForce * Vector2.up;//* moveSpeed
+			jumpCount++;
+
+			StartCoroutine(JumpCooldown());
+		}
+		else if (canDoubleJump && isDoubleJumpActive)
+		{
+			rb.velocity = jumpForce * Vector2.up;//* moveSpeed 
+			jumpCount++;
+
+			StartCoroutine(JumpCooldown());
+		}
+		else if (isWallJumpActive && isTouchingWall && canWallJump)
+		{
+			rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
+			jumpCount = 0;
+			canWallJump = false;
+
+			StartCoroutine(JumpCooldown());
+		}
+	}
+
+	/// <summary>
+	/// Checks whether the player is touching platform to allow jump
+	/// </summary>
+	private void CheckIfGrounded()
+	{
+		isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayers);
+
+		// Resets double jump if the player is touching the ground
+		if (isGrounded)
+		{
+			canDoubleJump = true;
+			canWallJump = true;
+			jumpCount = 0;
+		}
+	}
+
+	/// <summary>
+	/// Checks whether the player is touching the wall to allow wall jump
+	/// </summary>
+	private void CheckIfWall()
+	{
+		isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, 0.4f, wallLayers);
 	}
 
 	/// <summary>
@@ -194,7 +241,7 @@ public class CharacterController : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 
-		if (jumpCount < 0)
+		if (jumpCount < 1)
 		{
 			canDoubleJump = true;
 		}
@@ -203,4 +250,5 @@ public class CharacterController : MonoBehaviour
 			canDoubleJump = false;
 		}
 	}
+	#endregion
 }
