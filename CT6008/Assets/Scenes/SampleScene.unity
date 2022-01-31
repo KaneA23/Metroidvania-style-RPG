@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 102643502}
   - component: {fileID: 102643501}
-  - component: {fileID: 102643500}
   - component: {fileID: 102643503}
   m_Layer: 6
   m_Name: village parts_3 (4)
@@ -142,32 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &102643500
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102643499}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &102643501
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -292,7 +265,6 @@ GameObject:
   m_Component:
   - component: {fileID: 316095689}
   - component: {fileID: 316095688}
-  - component: {fileID: 316095687}
   - component: {fileID: 316095686}
   m_Layer: 6
   m_Name: village parts_3 (11)
@@ -317,32 +289,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &316095687
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 316095685}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &316095688
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -487,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355076887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.01, y: -1.63, z: 0}
+  m_LocalPosition: {x: -7.37, y: -1.75, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,7 +450,6 @@ GameObject:
   m_Component:
   - component: {fileID: 393715292}
   - component: {fileID: 393715291}
-  - component: {fileID: 393715290}
   - component: {fileID: 393715293}
   m_Layer: 6
   m_Name: village parts_3 (8)
@@ -513,32 +458,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &393715290
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 393715289}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &393715291
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -716,7 +635,6 @@ GameObject:
   m_Component:
   - component: {fileID: 539648356}
   - component: {fileID: 539648355}
-  - component: {fileID: 539648354}
   - component: {fileID: 539648353}
   m_Layer: 6
   m_Name: village parts_3 (9)
@@ -741,32 +659,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &539648354
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539648352}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &539648355
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -943,7 +835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577445974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.54, y: -2.07, z: 0}
+  m_LocalPosition: {x: 6.54, y: -2.03, z: 0}
   m_LocalScale: {x: 7.5, y: 7.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -995,7 +887,6 @@ GameObject:
   m_Component:
   - component: {fileID: 615830216}
   - component: {fileID: 615830215}
-  - component: {fileID: 615830214}
   - component: {fileID: 615830213}
   m_Layer: 6
   m_Name: village parts_3 (12)
@@ -1020,32 +911,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &615830214
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615830212}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &615830215
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1123,7 +988,6 @@ GameObject:
   m_Component:
   - component: {fileID: 766566805}
   - component: {fileID: 766566804}
-  - component: {fileID: 766566803}
   - component: {fileID: 766566806}
   m_Layer: 6
   m_Name: village parts_3 (5)
@@ -1132,32 +996,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &766566803
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766566802}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &766566804
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1439,7 +1277,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1143709547}
   - component: {fileID: 1143709546}
-  - component: {fileID: 1143709545}
   - component: {fileID: 1143709548}
   m_Layer: 6
   m_Name: village parts_3 (6)
@@ -1448,32 +1285,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1143709545
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143709544}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1143709546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1567,7 +1378,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1220785573}
   - component: {fileID: 1220785572}
-  - component: {fileID: 1220785571}
   - component: {fileID: 1220785570}
   m_Layer: 6
   m_Name: village parts_3 (10)
@@ -1592,32 +1402,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &1220785571
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220785569}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1220785572
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1806,7 +1590,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1440293423}
   - component: {fileID: 1440293422}
-  - component: {fileID: 1440293424}
   - component: {fileID: 1440293425}
   m_Layer: 6
   m_Name: village parts_3
@@ -1882,32 +1665,6 @@ Transform:
   m_Father: {fileID: 922054719}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1440293424
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440293421}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!70 &1440293425
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1934,7 +1691,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1604446098}
   - component: {fileID: 1604446097}
-  - component: {fileID: 1604446096}
   - component: {fileID: 1604446099}
   m_Layer: 6
   m_Name: village parts_3 (1)
@@ -1943,32 +1699,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1604446096
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604446095}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1604446097
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2119,7 +1849,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1738667017}
   - component: {fileID: 1738667016}
-  - component: {fileID: 1738667015}
   - component: {fileID: 1738667014}
   m_Layer: 6
   m_Name: village parts_3 (13)
@@ -2144,32 +1873,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &1738667015
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738667013}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1738667016
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2358,7 +2061,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1845442261}
   - component: {fileID: 1845442260}
-  - component: {fileID: 1845442259}
   - component: {fileID: 1845442262}
   m_Layer: 6
   m_Name: village parts_3 (3)
@@ -2367,32 +2069,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1845442259
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1845442258}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1845442260
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2486,7 +2162,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1923419503}
   - component: {fileID: 1923419502}
-  - component: {fileID: 1923419501}
   - component: {fileID: 1923419500}
   m_Layer: 6
   m_Name: village parts_3 (14)
@@ -2511,32 +2186,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.24, y: 0.31}
   m_Direction: 0
---- !u!61 &1923419501
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923419499}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1923419502
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2640,7 +2289,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 5
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0
@@ -2754,35 +2403,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e412551e8bab0540a1f0a452ae191ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   moveHorizontal: 0
-  defaultSpeed: 5
-  runSpeed: 6.5
-  crouchSpeed: 3.5
+  moveSpeed: 0
+  defaultSpeed: 3
+  runSpeed: 5
+  crouchSpeed: 2.5
   horizontalDamping: 0.75
+  isCeiling: 0
+  isCrouching: 0
   isGrounded: 0
   jumpForce: 25
-  cutJumpHeight: 0.25
-  groundCheck: {fileID: 168185933}
-  groundLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  checkRadius: 0.1
-  isDoubleJumpActive: 0
+  cutJumpHeight: 0.2
+  isDoubleJumpActive: 1
   canDoubleJump: 0
   jumpCount: 0
   isWallJumpActive: 1
   isTouchingWall: 0
   canWallJump: 0
   wallJumpForce: 50
-  wallCheck: {fileID: 565647909}
-  wallLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  isCeiling: 0
-  isCrouching: 0
+  isDashActive: 1
+  dashDistance: 20
+  isDashing: 0
+  checkRadius: 0.1
   ceilingCheck: {fileID: 1118996222}
   ceilingLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheck: {fileID: 168185933}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  wallCheck: {fileID: 565647909}
+  wallLayers:
     serializedVersion: 2
     m_Bits: 64
 --- !u!70 &1964109621
@@ -2811,7 +2463,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1974936797}
   - component: {fileID: 1974936796}
-  - component: {fileID: 1974936795}
   - component: {fileID: 1974936798}
   m_Layer: 6
   m_Name: village parts_3 (2)
@@ -2820,32 +2471,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1974936795
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974936794}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1974936796
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2939,7 +2564,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1997767476}
   - component: {fileID: 1997767475}
-  - component: {fileID: 1997767474}
   - component: {fileID: 1997767477}
   m_Layer: 6
   m_Name: village parts_3 (7)
@@ -2948,32 +2572,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1997767474
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997767473}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.24, y: 0.31}
-    newSize: {x: 0.24, y: 0.31}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.31}
-  m_EdgeRadius: 0
 --- !u!212 &1997767475
 SpriteRenderer:
   m_ObjectHideFlags: 0

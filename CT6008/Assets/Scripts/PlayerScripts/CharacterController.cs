@@ -6,10 +6,9 @@ using UnityEngine;
 /// </summary>
 public class CharacterController : MonoBehaviour
 {
-	#region Movement Variables
 	[Header("Movement")]
-	public float moveSpeed;
 	public float moveHorizontal;
+	public float moveSpeed;
 	public float defaultSpeed = 1f;
 	public float runSpeed = 1.25f;
 	public float crouchSpeed = 0.75f;
@@ -17,9 +16,11 @@ public class CharacterController : MonoBehaviour
 	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
 	public float horizontalDamping = 0.75f;
-	#endregion
 
-	#region Jumping Variables
+	[Header("Crouch")]
+	public bool isCeiling;
+	public bool isCrouching;
+
 	[Header("Jumping")]
 	public bool isGrounded;
 	public float jumpForce = 25f;
@@ -28,39 +29,39 @@ public class CharacterController : MonoBehaviour
 	[Range(0f, 1f)]
 	public float cutJumpHeight;
 
-	public Transform groundCheck;
-	[Tooltip("Objects that can be jumped off")]
-	public LayerMask groundLayers;
-
-	public float checkRadius = 0.1f;
-
 	[Space(10)]
 	public bool isDoubleJumpActive;
 	public bool canDoubleJump;
 	public float jumpCount;
 
 	[Space(10)]
-
 	public bool isWallJumpActive;
 	public bool isTouchingWall;
 	public bool canWallJump;
 	public float wallJumpForce = 50f;
 
-	public Transform wallCheck;
-	[Tooltip("Objects that can be wall jumped")]
-	public LayerMask wallLayers;
+	[Header("Dash")]
+	public bool isDashActive;
+	public float dashDistance = 15f;
+	public bool isDashing;
 
-	#endregion
+	[Header("Checks")]
+	public float checkRadius = 0.1f;
 
-	#region Crouch Variables
-	[Header("Crouch")]
-	public bool isCeiling;
-	public bool isCrouching;
-
+	[Space(5)]
 	public Transform ceilingCheck;
 	[Tooltip("Objects player needs to crouch under")]
 	public LayerMask ceilingLayers;
-	#endregion
+
+	[Space(5)]
+	public Transform groundCheck;
+	[Tooltip("Objects that can be jumped off")]
+	public LayerMask groundLayers;
+	
+	[Space(5)]
+	public Transform wallCheck;
+	[Tooltip("Objects that can be wall jumped")]
+	public LayerMask wallLayers;
 
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
@@ -94,7 +95,10 @@ public class CharacterController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		PlayerMovement();
+		if (!isDashing)
+		{
+			PlayerMovement();
+		}
 	}
 
 	/// <summary>
@@ -104,6 +108,16 @@ public class CharacterController : MonoBehaviour
 	{
 		// Checks what direction the player is wanting to move
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
+
+		// Checks which way the player should be facing
+		if (moveHorizontal > 0.1f)
+		{
+			spriteRenderer.flipX = true;    //right
+		}
+		else if (moveHorizontal < -0.1f)
+		{
+			spriteRenderer.flipX = false;   //left
+		}
 
 		if (Input.GetButtonDown("Jump"))
 		{
@@ -144,6 +158,19 @@ public class CharacterController : MonoBehaviour
 		{
 			moveSpeed = defaultSpeed;
 		}
+
+		// Dashing
+		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing)
+		{
+			if (spriteRenderer.flipX)
+			{
+				StartCoroutine(Dash(1));    //dash right
+			}
+			else
+			{
+				StartCoroutine(Dash(-1));   //dash left
+			}
+		}
 	}
 
 	/// <summary>
@@ -153,22 +180,11 @@ public class CharacterController : MonoBehaviour
 	{
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
-		// Checks which way the player should be facing
-		if (moveHorizontal > 0.1f)
-		{
-			spriteRenderer.flipX = true;
-		}
-		else if (moveHorizontal < -0.1f)
-		{
-			spriteRenderer.flipX = false;
-		}
-
-		// Moves player accross X-axis
+		// Moves player across X-axis
 		if (isGrounded || !isTouchingWall)
 		{
 			rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 		}
-
 	}
 
 	/// <summary>
@@ -202,6 +218,8 @@ public class CharacterController : MonoBehaviour
 		else if (isWallJumpActive && isTouchingWall && canWallJump)
 		{
 			rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
+			//.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+			//rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
 
@@ -251,4 +269,19 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 	#endregion
+
+	/// <summary>
+	/// Controls dash mechanic
+	/// </summary>
+	/// <param name="a_direction">Direction that the player is wanted to dash</param>
+	/// <returns>1 second wait between dashes</returns>
+	IEnumerator Dash(float a_direction)
+	{
+		isDashing = true;
+		rb.velocity = new Vector2(rb.velocity.x, 0);
+		rb.AddForce(new Vector2(dashDistance * a_direction, 0), ForceMode2D.Impulse);
+
+		yield return new WaitForSeconds(0.5f);
+		isDashing = false;
+	}
 }
