@@ -7,16 +7,16 @@ public class PlayerHealthSystem : MonoBehaviour
 {
 	public Image healthEnd;
 	public Image healthCurve;
+	public Image healthMid;
 	public Image healthStart;
 
 	public float currentHealth;
 	public float maxHealth = 100;
 
-	public float endPercentage = 0.25f;
-	public float curvePercentage = 0.5f;
-	//public float startPercentage = 0.25f;
-
-	private const float curveFillAmount = 0.75f;
+	public float endPercentage = 0.2f;
+	public float curvePercentage = 0.4f;
+	public float midPercentage = 0.2f;
+	public float startPercentage = 0.2f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -28,7 +28,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//FillHealthBar();
+		FillHealthBar();
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
 			TakeDamage(10);
@@ -84,15 +84,23 @@ public class PlayerHealthSystem : MonoBehaviour
 		float endAmount = endPercentage * maxHealth;
 
 		float curveHealth = currentHealth - endAmount;
-		float curveTotalHealth = maxHealth - (endAmount * 2);
+		float curveTotalHealth = maxHealth - (endAmount * 3);
 		float curveFill = curveHealth / curveTotalHealth;
 		curveFill = Mathf.Clamp(curveFill, 0, 1);
 		healthCurve.fillAmount = curveFill;
 
 		float curveAmount = curvePercentage * maxHealth;
 
-		float startHealth = currentHealth - (curveAmount + endAmount);
-		float startTotalHealth = maxHealth - (curveAmount + endAmount);
+		float midHealth = currentHealth - (curveAmount + endAmount);
+		float midTotalHealth = maxHealth - (curveAmount + endAmount + endAmount);
+		float midFill = midHealth / midTotalHealth;
+		midFill = Mathf.Clamp(midFill, 0, 1);
+		healthMid.fillAmount = midFill;
+
+		float midAmount = midPercentage * maxHealth;
+
+		float startHealth = currentHealth - (midAmount + curveAmount + endAmount);
+		float startTotalHealth = maxHealth - (midAmount + curveAmount + endAmount);
 		float startFill = startHealth / startTotalHealth;
 		startFill = Mathf.Clamp(startFill, 0, 1);
 		healthStart.fillAmount = startFill;
