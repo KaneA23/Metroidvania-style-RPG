@@ -12,11 +12,11 @@ public class EnemyGraphics : MonoBehaviour
     {
         if(aiPath.desiredVelocity.x >= 0.01f)
         {
-            transform.localScale = new Vector3(0.190711f, 0.190711f, 0.190711f);
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         else if (aiPath.desiredVelocity.x <= -0.01f)
         {
-            transform.localScale = new Vector3(-0.190711f, 0.190711f, 0.190711f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 }

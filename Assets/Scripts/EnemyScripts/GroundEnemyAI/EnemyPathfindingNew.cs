@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyPathfindingNew : MonoBehaviour
 {
     public PlayerHealthSystem PHS;
+    public AISetUp AISU;
 
     public float m_Speed;
     public float m_AttackDistance;
@@ -14,17 +15,14 @@ public class EnemyPathfindingNew : MonoBehaviour
     private bool m_MovingToTarget;
 
     private Transform m_Player;
-    //private List<Transform> m_EnemyTransforms;
-    //private Transform[] m_EnemyTransformsArr;
+    
     public GameObject[] m_Enemies;
     public GameObject[] m_Players;
-    private GameObject m_ActivePlayer;
-
-    //private Transform m_ClosestEnemy;
-
+    //private GameObject m_ActivePlayer;
+    
     private Vector3 m_TargetPos;
     private Vector2 m_TargetDir;
-    //private Vector3 m_ClosestEnemyPos;
+    
     private Vector3 m_MovementDirection;
     private Vector3 m_NewDestination;
 
@@ -38,6 +36,10 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     private void Start()
     {
+        AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+
+        PHS = AISU.PHS;
+
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
 
         m_Player = GameObject.Find("Player").GetComponent<Transform>();    
@@ -45,22 +47,11 @@ public class EnemyPathfindingNew : MonoBehaviour
         m_OrigPos = transform.position.x;
 
         rb = GetComponent<Rigidbody2D>();
-        //m_Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        //m_EnemyTransforms = new List<Transform>(m_Enemies.Length);
-
-        //GetEnemies();
+        m_Player = AISU.m_ActivePlayer.transform;
     }
 
-    //private void GetEnemies()
-    //{
-    //    foreach (GameObject enemy in m_Enemies)
-    //    {
-    //        m_EnemyTransforms.Add(enemy.GetComponent<Transform>());
-    //    }
-
-    //    m_EnemyTransformsArr = m_EnemyTransforms.ToArray();
-    //}
+    
 
     Transform GetClosestEnemy(Transform[] Enemies)
     {
@@ -116,7 +107,7 @@ public class EnemyPathfindingNew : MonoBehaviour
             collisionCount++;
         }
 
-        if (otherCollider.name == m_ActivePlayer.tag)
+        if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
             PHS.TakeDamage(m_DamageAmount);
 
@@ -148,31 +139,27 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     #endregion __CHECK_COLLISIONS_END__
 
-    void ChangeDestination()
+    
+
+    //private void GetPlayers()
+    //{
+    //    m_Players = GameObject.FindGameObjectsWithTag("Player");
+
+    //    foreach(GameObject p in m_Players)
+    //    {
+    //        if(p.activeSelf)
+    //        {
+    //            PHS = p.GetComponent<PlayerHealthSystem>();
+    //            m_ActivePlayer = p;
+    //        }
+    //    }
+    //}
+
+    private void FixedUpdate()
     {
-        //m_NewDestination = new Vector2(Random.Range())
-    }
+        //GetPlayers();
 
-    private void GetPlayers()
-    {
-        m_Players = GameObject.FindGameObjectsWithTag("Player");
-
-        foreach(GameObject p in m_Players)
-        {
-            if(p.activeSelf)
-            {
-                PHS = p.GetComponent<PlayerHealthSystem>();
-                m_ActivePlayer = p;
-            }
-        }
-    }
-
-    private void Update()
-    {
-        GetPlayers();
-
-        //m_ClosestEnemy = GetClosestEnemy(m_EnemyTransformsArr);
-        //m_ClosestEnemyPos = new Vector3(m_ClosestEnemy.position.x, -3.48f, m_ClosestEnemy.position.z);
+        
 
         m_TargetPos = new Vector3(m_Player.position.x, -3.48f, m_Player.position.z);
         m_TargetDir = (m_TargetPos - transform.position).normalized;

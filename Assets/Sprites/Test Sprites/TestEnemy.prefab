@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
-  m_Speed: 0.7
+  AISU: {fileID: 0}
+  m_Speed: 10
   m_AttackDistance: 0.5
   HitForce: 250
   m_Enemies: []
