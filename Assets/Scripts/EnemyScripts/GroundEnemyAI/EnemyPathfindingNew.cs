@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyPathfindingNew : MonoBehaviour
 {
+    public PlayerHealthSystem PHS;
+
     public float m_Speed;
     public float m_AttackDistance;
     public float HitForce;
@@ -15,6 +17,8 @@ public class EnemyPathfindingNew : MonoBehaviour
     //private List<Transform> m_EnemyTransforms;
     //private Transform[] m_EnemyTransformsArr;
     public GameObject[] m_Enemies;
+    public GameObject[] m_Players;
+    private GameObject m_ActivePlayer;
 
     //private Transform m_ClosestEnemy;
 
@@ -26,6 +30,8 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     private float m_OrigPos;
 
+    public int m_DamageAmount;
+
     private SpriteRenderer m_SpriteRenderer;
 
     private Rigidbody2D rb;
@@ -34,7 +40,7 @@ public class EnemyPathfindingNew : MonoBehaviour
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        m_Player = GameObject.Find("Player").GetComponent<Transform>();
+        m_Player = GameObject.Find("Player").GetComponent<Transform>();    
 
         m_OrigPos = transform.position.x;
 
@@ -102,28 +108,35 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Collider2D collider = collision.collider;
+        Collider2D otherCollider = collision.collider;
 
-        if (collider.name != "Floor" || collider.tag != "Enemy")
+        if (otherCollider.name != "Floor" || otherCollider.tag != "Enemy")
         {
             //Debug.Log(collider.name);
             collisionCount++;
         }
 
-        if (collider.name == "Player")
+        if (otherCollider.name == m_ActivePlayer.tag)
         {
+            PHS.TakeDamage(m_DamageAmount);
+
             Debug.Log("collision");
 
-            if ((transform.position.x - collider.transform.position.x) < 0)
+            if ((transform.position.x - otherCollider.transform.position.x) < 0)
             {
                 Debug.Log("Left Hit");
                 rb.AddForce(new Vector2(-1f, 0.5f) * HitForce);
             }
-            else if ((transform.position.x - collider.transform.position.x) > 0)
+            else if ((transform.position.x - otherCollider.transform.position.x) > 0)
             {
                 Debug.Log("Right Hit");
                 rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
             }
+        }
+
+        if(otherCollider.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
         }
 
     }
@@ -140,8 +153,23 @@ public class EnemyPathfindingNew : MonoBehaviour
         //m_NewDestination = new Vector2(Random.Range())
     }
 
+    private void GetPlayers()
+    {
+        m_Players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach(GameObject p in m_Players)
+        {
+            if(p.activeSelf)
+            {
+                PHS = p.GetComponent<PlayerHealthSystem>();
+                m_ActivePlayer = p;
+            }
+        }
+    }
+
     private void Update()
     {
+        GetPlayers();
 
         //m_ClosestEnemy = GetClosestEnemy(m_EnemyTransformsArr);
         //m_ClosestEnemyPos = new Vector3(m_ClosestEnemy.position.x, -3.48f, m_ClosestEnemy.position.z);

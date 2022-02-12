@@ -99,10 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20835f9627c49e1418c424b94a265f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 1
+  PHS: {fileID: 0}
+  m_Speed: 0.7
   m_AttackDistance: 0.5
   HitForce: 250
   m_Enemies: []
+  m_Players: []
+  m_DamageAmount: 5
   collisionCount: 0
 --- !u!61 &7011127865980743171
 BoxCollider2D:
