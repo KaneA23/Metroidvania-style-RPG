@@ -41,9 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8276876134521576673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8c690330dc0d8439890ab91167093d, type: 3}
+  m_Script: {fileID: 11500000, guid: f67fae5e80345104ca91fa31e3cc0231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Enemy: {fileID: 2543110532647289942, guid: dc62b062e738a8f4ab7eb9f9c65dfccd, type: 3}
-  m_EnemyNumber: 2
+  m_Enemy: {fileID: 8114687022785207139, guid: 4bb88decd0c05b44e92c1729a6215734, type: 3}
+  m_EnemyNumber: 0
   spawnPos: {x: 0, y: 0}
