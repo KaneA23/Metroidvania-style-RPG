@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Controls character's movement dependent on player's input
+/// Controls character's movement dependent on player's input.
+/// Created by: Kane Adams
 /// </summary>
 public class CharacterController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class CharacterController : MonoBehaviour
 	public float defaultSpeed = 1f;
 	public float runSpeed = 1.25f;
 	public float crouchSpeed = 0.75f;
+
+	public bool isFacingRight = false;
 
 	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
@@ -57,7 +60,7 @@ public class CharacterController : MonoBehaviour
 	public Transform groundCheck;
 	[Tooltip("Objects that can be jumped off")]
 	public LayerMask groundLayers;
-	
+
 	[Space(5)]
 	public Transform wallCheck;
 	[Tooltip("Objects that can be wall jumped")]
@@ -110,13 +113,11 @@ public class CharacterController : MonoBehaviour
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		// Checks which way the player should be facing
-		if (moveHorizontal > 0.1f)
+		if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 		{
-			spriteRenderer.flipX = true;    //right
-		}
-		else if (moveHorizontal < -0.1f)
-		{
-			spriteRenderer.flipX = false;   //left
+			//spriteRenderer.flipX = true;    //right
+			transform.Rotate(new Vector2(0, 180));
+			isFacingRight = !isFacingRight;
 		}
 
 		if (Input.GetButtonDown("Jump"))
@@ -162,13 +163,13 @@ public class CharacterController : MonoBehaviour
 		// Dashing
 		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing)
 		{
-			if (spriteRenderer.flipX)
+			if (isFacingRight)
 			{
 				StartCoroutine(Dash(1));    //dash right
 			}
 			else
 			{
-				StartCoroutine(Dash(-1));   //dash left
+				StartCoroutine(Dash(-1));	// dash left
 			}
 		}
 	}
@@ -218,8 +219,8 @@ public class CharacterController : MonoBehaviour
 		else if (isWallJumpActive && isTouchingWall && canWallJump)
 		{
 			rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
-			//.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-			//rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
+																				  //.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+																				  //rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
 
@@ -275,7 +276,7 @@ public class CharacterController : MonoBehaviour
 	/// </summary>
 	/// <param name="a_direction">Direction that the player is wanted to dash</param>
 	/// <returns>1 second wait between dashes</returns>
-	IEnumerator Dash(float a_direction)
+	IEnumerator Dash(int a_direction)
 	{
 		isDashing = true;
 		rb.velocity = new Vector2(rb.velocity.x, 0);

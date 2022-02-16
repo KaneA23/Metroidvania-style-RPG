@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the player's health and required UI.
+/// Created by: Kane Adams
+/// </summary>
 public class PlayerHealthSystem : MonoBehaviour
 {
 	public Image healthEnd;
 	public Image healthCurve;
 	public Image healthStart;
 
-	public float currentHealth;
-	public float maxHealth = 100;
+	public float currentHP;
+	public float maxHP = 100;
 
 	public float endPercentage = 0.25f;
 	public float curvePercentage = 0.5f;
@@ -21,7 +25,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		currentHealth = maxHealth;
+		currentHP = maxHP;
 		FillHealthBar();
 	}
 
@@ -45,12 +49,11 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_damage">Amount of health last from attack</param>
 	public void TakeDamage(int a_damage)
 	{
-		currentHealth -= a_damage;
+		currentHP -= a_damage;
 
-		if (currentHealth <= 0)
+		if (currentHP <= 0)
 		{
-			//currentHealth = 0;
-			gameObject.SetActive(false);
+			KillPlayer();
 		}
 		FillHealthBar();
 	}
@@ -61,10 +64,10 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_bonusHealth">Amount of extra HP being added</param>
 	void GainHealth(int a_bonusHealth)
 	{
-		currentHealth += a_bonusHealth;
-		if (currentHealth > maxHealth)
+		currentHP += a_bonusHealth;
+		if (currentHP > maxHP)
 		{
-			currentHealth = 100;
+			currentHP = 100;
 		}
 
 		FillHealthBar();
@@ -75,26 +78,32 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// </summary>
 	void FillHealthBar()
 	{
-		float healthPercentage = currentHealth / maxHealth;
+		float healthPercentage = currentHP / maxHP;
 
 		float endFill = healthPercentage / endPercentage;
 		endFill = Mathf.Clamp(endFill, 0, 1);
 		healthEnd.fillAmount = endFill;
 
-		float endAmount = endPercentage * maxHealth;
+		float endAmount = endPercentage * maxHP;
 
-		float curveHealth = currentHealth - endAmount;
-		float curveTotalHealth = maxHealth - (endAmount * 2);
+		float curveHealth = currentHP - endAmount;
+		float curveTotalHealth = maxHP - (endAmount * 2);
 		float curveFill = curveHealth / curveTotalHealth;
 		curveFill = Mathf.Clamp(curveFill, 0, 1);
 		healthCurve.fillAmount = curveFill;
 
-		float curveAmount = curvePercentage * maxHealth;
+		float curveAmount = curvePercentage * maxHP;
 
-		float startHealth = currentHealth - (curveAmount + endAmount);
-		float startTotalHealth = maxHealth - (curveAmount + endAmount);
+		float startHealth = currentHP - (curveAmount + endAmount);
+		float startTotalHealth = maxHP - (curveAmount + endAmount);
 		float startFill = startHealth / startTotalHealth;
 		startFill = Mathf.Clamp(startFill, 0, 1);
 		healthStart.fillAmount = startFill;
+	}
+
+	void KillPlayer()
+	{
+		Debug.Log("<color=Red>I have fallen my Lord!</color>");
+		gameObject.SetActive(false);
 	}
 }
