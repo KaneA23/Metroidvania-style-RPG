@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
 	
 	// Time between each attack type
 	public float lightRate = 2f;
-	public float heavyRate = 4f;
+	public float heavyRate = 1f;
 	public float nextAttackTime = 0f;	// resets timer
 
 	public Transform attackPoint;	// where the player attacks from
