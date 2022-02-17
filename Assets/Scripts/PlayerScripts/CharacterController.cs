@@ -46,6 +46,7 @@ public class CharacterController : MonoBehaviour
 	[Header("Dash")]
 	public bool isDashActive;
 	public float dashDistance = 15f;
+	public bool canDash;
 	public bool isDashing;
 
 	[Header("Checks")]
@@ -161,7 +162,7 @@ public class CharacterController : MonoBehaviour
 		}
 
 		// Dashing
-		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing)
+		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
 		{
 			if (isFacingRight)
 			{
@@ -240,6 +241,7 @@ public class CharacterController : MonoBehaviour
 		{
 			canDoubleJump = true;
 			canWallJump = true;
+			canDash = true;
 			jumpCount = 0;
 		}
 	}
@@ -279,6 +281,7 @@ public class CharacterController : MonoBehaviour
 	IEnumerator Dash(int a_direction)
 	{
 		isDashing = true;
+		canDash = false;
 		rb.velocity = new Vector2(rb.velocity.x, 0);
 		rb.AddForce(new Vector2(dashDistance * a_direction, 0), ForceMode2D.Impulse);
 
