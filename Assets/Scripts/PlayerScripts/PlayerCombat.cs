@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls the player's different attacks.
@@ -27,6 +28,12 @@ public class PlayerCombat : MonoBehaviour
 
 	public LayerMask enemyLayers;   // items the player can attack
 
+
+	public float uiView = 5;
+	double enemyDist;
+
+	GameObject[] enemies;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -49,6 +56,24 @@ public class PlayerCombat : MonoBehaviour
 				nextAttackTime = Time.time + 1f / heavyRate;
 			}
 		}
+
+		enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach (GameObject enemy in enemies)
+		{
+			enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
+			//Debug.Log(enemy.name + ": " + enemyDist);
+
+			Transform enemyUI = enemy.transform.Find("Canvas");
+
+			if (enemyDist < uiView && enemy.GetComponent<EnemyHealthSystem>().currentHP > 0)
+			{
+				enemyUI.gameObject.SetActive(true);
+			}
+			else
+			{
+				enemyUI.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	/// <summary>
@@ -61,7 +86,7 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<TestEnemyScript>().TakeDamage(lightStrength);
+			enemy.GetComponent<EnemyHealthSystem>().TakeDamage(lightStrength);
 		}
 	}
 
@@ -75,7 +100,7 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<TestEnemyScript>().TakeDamage(heavyStrength);
+			enemy.GetComponent<EnemyHealthSystem>().TakeDamage(heavyStrength);
 		}
 	}
 }

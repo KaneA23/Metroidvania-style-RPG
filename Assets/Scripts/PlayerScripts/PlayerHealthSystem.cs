@@ -46,7 +46,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <summary>
 	/// Player's health decreases when attacked
 	/// </summary>
-	/// <param name="a_damage">Amount of health last from attack</param>
+	/// <param name="a_damage">Amount of health lost from attack</param>
 	public void TakeDamage(int a_damage)
 	{
 		currentHP -= a_damage;
