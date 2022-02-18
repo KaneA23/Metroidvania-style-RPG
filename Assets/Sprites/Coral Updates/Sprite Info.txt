@@ -1,0 +1,31 @@
+
+Updates
+-----------------------
+Any updates to sprites will be added to this folder to minimise issues. 
+To update the cut sprite sheets, open the file locations and copy these files to the location of the new ones.
+Any sprites with the same name will be updated and this will not affect the way they are cut. 
+
+
+Naming Conventions
+-----------------------
+Sprite sheets will be named after their type and then their style e.g. FloorCloudSprites
+
+Choose a naming system for when the sprites are cut e.g. FloorCloudSprites_Left, 
+so that if the sprite sheet is rearranged in future, it will be easy to recut and name the 
+sprites so that nothing in the scene needs to be changed. 
+
+
+Sprite Size
+-----------------------
+Floor tiles: 32x32
+Background objects: no size template
+Midground objects: 32x32 grid alignment
+Foreground objects: ???
+Custom backgrounds: send me a list of dimensions
+
+
+Sprite Issues
+-----------------------
+For sprite inconsistencies, send me a screenshot with the sprite sheet name. 
+
+
