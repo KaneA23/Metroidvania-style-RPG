@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyPathfindingNew : MonoBehaviour
 {
     public PlayerHealthSystem PHS;
+    public EnemyHealth EH;
     public AISetUp AISU;
 
     public float m_Speed;
@@ -110,6 +111,7 @@ public class EnemyPathfindingNew : MonoBehaviour
         if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
             PHS.TakeDamage(m_DamageAmount);
+            EH.TakeDamage(m_DamageAmount);
 
             Debug.Log("collision");
 

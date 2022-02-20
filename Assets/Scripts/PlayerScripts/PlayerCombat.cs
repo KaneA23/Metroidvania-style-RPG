@@ -30,8 +30,10 @@ public class PlayerCombat : MonoBehaviour
 
 
 	public float uiView = 5;
+	double barrelDist;
 	double enemyDist;
 
+	GameObject[] barrels;
 	GameObject[] enemies;
 
 	// Start is called before the first frame update
@@ -57,23 +59,41 @@ public class PlayerCombat : MonoBehaviour
 			}
 		}
 
+		barrels = GameObject.FindGameObjectsWithTag("Barrel");
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		foreach (GameObject enemy in enemies)
+
+		foreach (GameObject barrel in barrels)
 		{
-			enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
+			barrelDist = Vector2.Distance(transform.position, barrel.transform.position);
 			//Debug.Log(enemy.name + ": " + enemyDist);
 
-			Transform enemyUI = enemy.transform.Find("Canvas");
+			Transform barrelUI = barrel.transform.Find("Canvas");
 
-			if (enemyDist < uiView && enemy.GetComponent<EnemyHealthSystem>().currentHP > 0)
+			if (barrelDist < uiView && barrel.GetComponent<EnemyHealthSystem>().currentHP > 0)
 			{
-				enemyUI.gameObject.SetActive(true);
+				barrelUI.gameObject.SetActive(true);
 			}
 			else
 			{
-				enemyUI.gameObject.SetActive(false);
-			}
+				barrelUI.gameObject.SetActive(false);
+			}		
 		}
+
+		foreach(GameObject enemy in enemies)
+        {
+			enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
+
+            Transform enemyUI = enemy.transform.Find("Canvas");
+
+            if (enemyDist < uiView && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
+            {
+                enemyUI.gameObject.SetActive(true);
+            }
+            else
+            {
+                enemyUI.gameObject.SetActive(false);
+            }
+        }
 	}
 
 	/// <summary>

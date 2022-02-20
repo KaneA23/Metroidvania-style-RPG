@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class AI : MonoBehaviour
+public class AIRanged : MonoBehaviour
 {
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
-    public AISetUp AISU;   
+    public AISetUp AISU;
 
     public Transform target;
     public float speed = 200f;
@@ -61,7 +61,7 @@ public class AI : MonoBehaviour
     {
         Collider2D otherCollider = collision.collider;
 
-        if(otherCollider.name == AISU.m_ActivePlayer.tag)
+        if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
             PHS.TakeDamage(m_DamageAmount);
             EH.TakeDamage(m_DamageAmount);
