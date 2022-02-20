@@ -110,8 +110,8 @@ public class EnemyPathfindingNew : MonoBehaviour
 
         if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
-            PHS.TakeDamage(m_DamageAmount);
-            EH.TakeDamage(m_DamageAmount);
+            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            //EH.TakeDamage(m_DamageAmount);
 
             Debug.Log("collision");
 

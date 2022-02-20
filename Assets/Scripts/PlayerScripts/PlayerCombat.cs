@@ -106,7 +106,7 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealthSystem>().TakeDamage(lightStrength);
+			enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength);
 		}
 	}
 
@@ -120,7 +120,7 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealthSystem>().TakeDamage(heavyStrength);
+			enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength);
 		}
 	}
 }

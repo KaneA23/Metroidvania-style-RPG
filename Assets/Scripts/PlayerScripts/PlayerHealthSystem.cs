@@ -22,6 +22,14 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	private const float curveFillAmount = 0.75f;
 
+	public float knockForce;
+	public Rigidbody2D rb;
+
+	private void Awake()
+	{
+		rb = GetComponent<Rigidbody2D>();
+	}
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -35,7 +43,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		//FillHealthBar();
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			TakeDamage(10);
+			//TakeDamage(10);
 		}
 		if (Input.GetKeyDown(KeyCode.Equals))
 		{
@@ -47,8 +55,21 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// Player's health decreases when attacked
 	/// </summary>
 	/// <param name="a_damage">Amount of health lost from attack</param>
-	public void TakeDamage(int a_damage)
+	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
+		if ((transform.position.x - a_enemyPos.x) < 0)
+		{
+			Debug.Log("Left Hit");
+			rb.AddForce(new Vector2(-1f, 0.5f) * knockForce);
+			//rb.velocity = new Vector2(-1 * knockForce, 0.1f * knockForce);
+		}
+		else if ((transform.position.x - a_enemyPos.x) > 0)
+		{
+			Debug.Log("Right Hit");
+			rb.AddForce(new Vector2(1f, 0.5f) * knockForce);
+			//rb.velocity = new Vector2(1 * knockForce, 0.15f * knockForce);
+		}
+
 		currentHP -= a_damage;
 
 		if (currentHP <= 0)
