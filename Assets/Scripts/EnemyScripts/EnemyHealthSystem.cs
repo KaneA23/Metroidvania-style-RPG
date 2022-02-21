@@ -53,14 +53,15 @@ public class EnemyHealthSystem : MonoBehaviour
 	{
 		currentHP -= a_damage;
 		healthbar.value = currentHP;
-		Debug.Log(gameObject.name + ": " + currentHP);
 
+		// If enemy runs out of health, particle system activates and enemy dies
 		if (currentHP <= 0)
 		{
 			Debug.Log("<color=Purple>DEATH TO THE ENEMY!</color>");
 			em.enabled = true;
 			enemyParticle.Play();
 			Destroy(sr);
+
 			Invoke(nameof(Die), particleDur);
 		}
 	}
