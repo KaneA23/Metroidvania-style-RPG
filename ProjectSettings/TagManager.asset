@@ -3,25 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Platform
-  - Enemy
-<<<<<<< Updated upstream
-=======
-  - Smashable
-  - Barrel
-  - GroundAttack
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Platform
-  - Obstacle
-  - Enemy
+  - 
+  - 
+  - 
   - 
   - 
   - 
