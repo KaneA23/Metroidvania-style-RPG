@@ -122,9 +122,12 @@ public class PlayerHealthSystem : MonoBehaviour
 		healthStart.fillAmount = startFill;
 	}
 
+	/// <summary>
+	/// Destroys the player
+	/// </summary>
 	void KillPlayer()
 	{
 		Debug.Log("<color=Red>I have fallen my Lord!</color>");
-		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 }

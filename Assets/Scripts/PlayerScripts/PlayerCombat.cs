@@ -24,9 +24,9 @@ public class PlayerCombat : MonoBehaviour
 	public float heavyRate = 1f;
 	public float nextAttackTime = 0f;   // resets timer
 
-	public Transform attackPoint;   // where the player attacks from
+	public Transform attackPoint;		// where the player attacks from
 
-	public LayerMask enemyLayers;   // items the player can attack
+	public LayerMask enemyLayers;		// items the player can attack
 
 
 	public float uiView = 5;
@@ -65,7 +65,6 @@ public class PlayerCombat : MonoBehaviour
 		foreach (GameObject barrel in barrels)
 		{
 			barrelDist = Vector2.Distance(transform.position, barrel.transform.position);
-			//Debug.Log(enemy.name + ": " + enemyDist);
 
 			Transform barrelUI = barrel.transform.Find("Canvas");
 

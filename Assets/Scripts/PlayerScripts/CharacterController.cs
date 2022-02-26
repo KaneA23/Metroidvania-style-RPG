@@ -198,6 +198,7 @@ public class CharacterController : MonoBehaviour
 	}
 
 	#region Jump Mechanics
+
 	/// <summary>
 	/// Checks player can jump and how many times
 	/// </summary>
@@ -271,6 +272,7 @@ public class CharacterController : MonoBehaviour
 			canDoubleJump = false;
 		}
 	}
+
 	#endregion
 
 	/// <summary>

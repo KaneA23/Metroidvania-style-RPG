@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Controls enemies health and required UI
+/// Controls enemies health and required UI.
 /// Created by: Kane Adams
 /// </summary>
 public class EnemyHealthSystem : MonoBehaviour
