@@ -21,7 +21,7 @@ public class BasePlayerClass
 	public int maxConstitutionLvl;  //check if needed
 
 	public int maxHP;				// maximum overall health
-	public int minHP;				// the lowest the healthbar can go
+	public int minHP;				// the lowest the healthbar size can go
 	public float currentHP;
 	public int currentMaxHP;		// maximum health player can reach at current levels
 
@@ -37,13 +37,15 @@ public class BasePlayerClass
 	public int maxStrenthLvl;  //check if needed
 
 	#region attacks
-	public float lightDamage;
+	public float lightDamage = 10f;
 	public float lightMultiplier;
+	public float lightRange = 0.5f;
 	public float lightKnockbackDist;
 
 	public bool isHeavyAttackActive;
-	public float heavyDamage;
+	public float heavyDamage = 25f;
 	public float heavyMultiplier;
+	public float heavyRange = 1f;
 	public float heavyKnockbackDist;
 
 	public float rangeDamage;
@@ -52,7 +54,7 @@ public class BasePlayerClass
 	#endregion
 
 	#region jump power
-	public float jumpHeight;
+	public float jumpForce = 25f;
 
 	public bool isDoubleJumpActive;
 	public float doubleJumpHeight;
@@ -60,6 +62,7 @@ public class BasePlayerClass
 	public bool isWallJumpActive;
 	public float wallJumpHeight;
 	public float wallJumpWidth;   //rename? width don't sound right...
+	public float wallJumpForce = 50f;	//check if using this or separated as width & height
 	#endregion
 
 	public int inventorySize;   //check if fits here
@@ -77,8 +80,9 @@ public class BasePlayerClass
 	public float currentStam;
 	public int currentMaxStam;  // maximum stamina player can reach at current levels
 
-	public float walkSpeed;
-	public float crouchSpeed;
+	public float walkSpeed = 1f;
+	public float crouchSpeed = 0.75f;
+	public float speedMultiplier;
 
 	public float runSpeed;
 	public float runSpeedMultiplier;
@@ -102,11 +106,11 @@ public class BasePlayerClass
 	public float regenRateMP;   // maximum mana player can reach at current levels
 
 	public bool isDashActive;
-	public float dashDist;
+	public float dashDist = 15f;
 	public float dashCooldown;
 	public float dashCost;
 
-	public float uiViewDist;    // distance where an enemy's UI is visible
+	public float uiViewDist = ;    // distance where an enemy's UI is visible
 
 	#endregion
 
