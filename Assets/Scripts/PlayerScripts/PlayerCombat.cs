@@ -9,6 +9,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerCombat : MonoBehaviour
 {
+
+	public BasePlayerClass BPC;
+
 	public bool hasHeavyAttack;
 
 	// distance each attack can reach away from player

@@ -11890,6 +11890,7 @@ GameObject:
   - component: {fileID: 793852829}
   - component: {fileID: 793852828}
   - component: {fileID: 793852827}
+  - component: {fileID: 793852830}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -11946,6 +11947,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793852830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793852826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a26552afae7bc4193b7f2f5958659c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLvl: 0
+  currentLvl: 0
+  maxXP: 0
+  currentXP: 0
+  constitutionLvl: 0
+  maxConstitutionLvl: 0
+  maxHP: 0
+  minHP: 0
+  currentHP: 0
+  currentMaxHP: 0
+  regenRateHP: 0
+  maxRegenRateHP: 0
+  strengthLvl: 0
+  maxStrenthLvl: 0
+  lightDamage: 10
+  lightMultiplier: 0
+  lightRange: 0.5
+  lightKnockbackDist: 0
+  isHeavyAttackActive: 0
+  heavyDamage: 25
+  heavyMultiplier: 0
+  heavyRange: 1
+  heavyKnockbackDist: 0
+  rangeDamage: 0
+  rangeMultiplier: 0
+  rangeKnockbackDist: 0
+  jumpForce: 25
+  isDoubleJumpActive: 0
+  doubleJumpHeight: 0
+  isWallJumpActive: 0
+  wallJumpHeight: 0
+  wallJumpWidth: 0
+  wallJumpForce: 50
+  inventorySize: 0
+  agilityLvl: 0
+  maxAgilityLvl: 0
+  maxStam: 0
+  minStam: 0
+  currentStam: 0
+  currentMaxStam: 0
+  walkSpeed: 1
+  crouchSpeed: 0.75
+  speedMultiplier: 0
+  runSpeed: 0
+  runSpeedMultiplier: 0
+  runCost: 0
+  lightAttackSpeed: 0
+  heavyDecaySpeed: 0
+  rangeAttackSpeed: 0
+  wisdomLvl: 0
+  maxWisdomLvl: 0
+  maxMP: 0
+  minMP: 0
+  currentMP: 0
+  regenRateMP: 0
+  isDashActive: 0
+  dashDist: 15
+  dashCooldown: 0
+  dashCost: 0
+  uiViewDist: 5
+  charismaLvl: 0
+  maxCharismaLvl: 0
+  luckLvl: 0
+  maxLuckLvl: 0
 --- !u!1 &803403879 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5542358016339954390, guid: 33a5baefec4747a42b0b8e4d699c061d, type: 3}
@@ -20372,6 +20449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e412551e8bab0540a1f0a452ae191ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BPC: {fileID: 0}
   moveHorizontal: 0
   moveSpeed: 0
   defaultSpeed: 3
@@ -20457,12 +20535,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e01c1615b79f44458ed228b58f78258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BPC: {fileID: 0}
   hasHeavyAttack: 1
-  lightRange: 0.25
-  heavyRange: 0.75
+  lightRange: 1
+  heavyRange: 1
   lightStrength: 10
   heavyStrength: 25
-  lightRate: 2
+  lightRate: 5
   heavyRate: 1
   nextAttackTime: 0
   attackPoint: {fileID: 2010987158}
@@ -26265,11 +26344,11 @@ PrefabInstance:
       objectReference: {fileID: 4042954495345310181, guid: a530e5d787e90b146b61e991a3770fcb, type: 3}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_FlyingEnemyNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemyNumber
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8276876134521576673, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_Name

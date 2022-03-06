@@ -6,7 +6,7 @@ using UnityEngine;
 /// Contains all the stats needed for player.
 /// Created by: Kane Adams
 /// </summary>
-public class BasePlayerClass
+public class BasePlayerClass : MonoBehaviour
 {
 	public int maxLvl;
 	public int currentLvl;
@@ -18,7 +18,7 @@ public class BasePlayerClass
 	#region Constitution Stats
 
 	public int constitutionLvl;
-	public int maxConstitutionLvl;  //check if needed
+	public int maxConstitutionLvl;  
 
 	public int maxHP;				// maximum overall health
 	public int minHP;				// the lowest the healthbar size can go
@@ -34,7 +34,7 @@ public class BasePlayerClass
 	#region Strength Stats
 
 	public int strengthLvl;
-	public int maxStrenthLvl;  //check if needed
+	public int maxStrenthLvl;  
 
 	#region attacks
 	public float lightDamage = 10f;
@@ -65,7 +65,7 @@ public class BasePlayerClass
 	public float wallJumpForce = 50f;	//check if using this or separated as width & height
 	#endregion
 
-	public int inventorySize;   //check if fits here
+	public int inventorySize;   //inventory
 
 	#endregion
 
@@ -110,7 +110,7 @@ public class BasePlayerClass
 	public float dashCooldown;
 	public float dashCost;
 
-	public float uiViewDist = ;    // distance where an enemy's UI is visible
+	public float uiViewDist = 5f;    // distance where an enemy's UI is visible
 
 	#endregion
 

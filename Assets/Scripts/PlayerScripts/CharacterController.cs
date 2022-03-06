@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class CharacterController : MonoBehaviour
 {
+
+	public BasePlayerClass BPC;
+
 	[Header("Movement")]
 	public float moveHorizontal;
 	public float moveSpeed;
@@ -85,6 +88,9 @@ public class CharacterController : MonoBehaviour
 		isCrouching = false;
 		moveSpeed = defaultSpeed;
 		jumpCount = 0;
+
+
+
 	}
 
 	// Update is called once per frame
