@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls character's movement dependent on player's input.
@@ -52,6 +53,14 @@ public class CharacterController : MonoBehaviour
 	public bool canDash;
 	public bool isDashing;
 
+	[SerializeField]
+	Image manaCooldownUI;
+
+	public bool isManaCooldown;
+	public float cooldownTimer;
+	public float manaCooldownTime = 0.5f;
+
+
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
 
@@ -89,8 +98,8 @@ public class CharacterController : MonoBehaviour
 		moveSpeed = defaultSpeed;
 		jumpCount = 0;
 
-
-
+		isManaCooldown = false;
+		manaCooldownUI.fillAmount = 0.0f;
 	}
 
 	// Update is called once per frame
@@ -167,18 +176,27 @@ public class CharacterController : MonoBehaviour
 			moveSpeed = defaultSpeed;
 		}
 
-		// Dashing
-		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
-		{
-			if (isFacingRight)
+		//if (isManaCooldown)
+		//{
+		//	ApplyCooldown();
+		//}
+		//else
+		//{
+			// Dashing
+			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
 			{
-				StartCoroutine(Dash(1));    //dash right
+				if (isFacingRight)
+				{
+					StartCoroutine(Dash(1));    //dash right
+					//Dash(1);
+				}
+				else
+				{
+					//Dash(-1);
+					StartCoroutine(Dash(-1));   // dash left
+				}
 			}
-			else
-			{
-				StartCoroutine(Dash(-1));	// dash left
-			}
-		}
+		//}
 	}
 
 	/// <summary>
@@ -295,5 +313,36 @@ public class CharacterController : MonoBehaviour
 
 		yield return new WaitForSeconds(0.5f);
 		isDashing = false;
+	}
+
+	//void Dash(int a_dir)
+	//{
+	//	isDashing = true;
+	//	canDash = false;
+
+	//	rb.velocity = new Vector2(rb.velocity.x, 0);
+	//	rb.AddForce(new Vector2(dashDistance * a_dir, 0), ForceMode2D.Impulse);
+
+	//	isManaCooldown = true;
+	//	cooldownTimer = manaCooldownTime;
+	//}
+
+	void ApplyCooldown()
+	{
+		cooldownTimer -= Time.deltaTime;
+		isDashing = false;
+		//Debug.Log("Can attack in: " + cooldownTimer);
+
+		if (cooldownTimer <= 0)
+		{
+			isManaCooldown = false;
+			manaCooldownUI.fillAmount = 0.0f;
+
+			Debug.Log("Gotta Go Fast!");
+		}
+		else
+		{
+			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / manaCooldownTime), 0, 1);
+		}
 	}
 }

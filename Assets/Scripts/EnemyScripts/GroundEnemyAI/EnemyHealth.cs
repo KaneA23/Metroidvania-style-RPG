@@ -8,6 +8,10 @@ public class EnemyHealth : MonoBehaviour
     public float m_MaxHP = 100;
     public float m_CurrentHP;
 
+    public float HitForce = 250;
+
+    Rigidbody2D rb;
+
     public Slider m_HealthBar;
 
     private SpriteRenderer m_SpriteRenderer;
@@ -16,6 +20,8 @@ public class EnemyHealth : MonoBehaviour
     {
         m_HealthBar = GetComponentInChildren<Slider>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Start is called before the first frame update
@@ -27,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
         m_HealthBar.value = m_CurrentHP; 
     }
 
-    public void TakeDamage(float a_Damage)
+    public void TakeDamage(float a_Damage, Vector2 a_PlayerPos)
     {
         m_CurrentHP -= a_Damage;
         m_HealthBar.value = m_CurrentHP;
@@ -36,6 +42,17 @@ public class EnemyHealth : MonoBehaviour
         {
             Debug.Log("<color=Purple>Get Rekt Son</color>");
             Destroy(gameObject);
+        }
+
+        if ((transform.position.x - a_PlayerPos.x) < 0)
+        {
+            Debug.Log("Left Hit");
+            rb.AddForce(new Vector2(-1f, 0.5f) * HitForce);
+        }
+        else if ((transform.position.x - a_PlayerPos.x) > 0)
+        {
+            Debug.Log("Right Hit");
+            rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
         }
     }
 

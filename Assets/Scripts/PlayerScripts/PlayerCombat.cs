@@ -9,10 +9,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerCombat : MonoBehaviour
 {
-
 	public BasePlayerClass BPC;
 
-	public bool hasHeavyAttack;
+	public bool hasHeavyAtk;
 
 	// distance each attack can reach away from player
 	public float lightRange = 0.5f;
@@ -23,13 +22,13 @@ public class PlayerCombat : MonoBehaviour
 	public float heavyStrength = 25;
 
 	// Time between each attack type
-	public float lightRate = 2f;
-	public float heavyRate = 1f;
-	public float nextAttackTime = 0f;   // resets timer
+	public float lightCooldown = 1f;
+	public float heavyCooldown = 5f;
+	//public float nextAttackTime = 0f;   // resets timer
 
-	public Transform attackPoint;		// where the player attacks from
+	public Transform attackPoint;       // where the player attacks from
 
-	public LayerMask enemyLayers;		// items the player can attack
+	public LayerMask enemyLayers;       // items the player can attack
 
 
 	public float uiView = 5;
@@ -39,26 +38,63 @@ public class PlayerCombat : MonoBehaviour
 	GameObject[] barrels;
 	GameObject[] enemies;
 
+	[SerializeField]
+	private Image atkCooldownUI;
+
+	private bool isAtkCooldown;
+	private float cooldownTimer;
+	private float cooldownTime;
+
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		isAtkCooldown = false;
+		atkCooldownUI.fillAmount = 0.0f;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (Time.time >= nextAttackTime)
+		//if (Time.time >= nextAttackTime /*&& !isCooldown*/)
+		//{
+		//	if (Input.GetButtonDown("Fire1"))
+		//	{
+		//		LightAttack();
+		//		//Attack();
+		//		//nextAttackTime = Time.time + 1f / lightCooldownTime;
+		//	}
+		//	else if (Input.GetButtonDown("Fire2") && hasHeavyAttack)
+		//	{
+		//		HeavyAttack();
+		//		//nextAttackTime = Time.time + 1f / heavyCooldownTime;
+		//	}
+		//}
+		//else
+		//{
+		//	ApplyCooldown();
+		//}
+
+		//if (isCooldown)
+		//{
+		//	ApplyCooldown();
+		//}
+
+		if (isAtkCooldown)
+		{
+			ApplyCooldown();
+		}
+		else
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{
 				LightAttack();
-				nextAttackTime = Time.time + 1f / lightRate;
+				//Attack();
+				//nextAttackTime = Time.time + 1f / lightCooldownTime;
 			}
-			else if (Input.GetButtonDown("Fire2") && hasHeavyAttack)
+			else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
 			{
 				HeavyAttack();
-				nextAttackTime = Time.time + 1f / heavyRate;
+				//nextAttackTime = Time.time + 1f / heavyCooldownTime;
 			}
 		}
 
@@ -78,24 +114,24 @@ public class PlayerCombat : MonoBehaviour
 			else
 			{
 				barrelUI.gameObject.SetActive(false);
-			}		
+			}
 		}
 
-		foreach(GameObject enemy in enemies)
-        {
+		foreach (GameObject enemy in enemies)
+		{
 			enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
 
-            Transform enemyUI = enemy.transform.Find("Canvas");
+			Transform enemyUI = enemy.transform.Find("Canvas");
 
-            if (enemyDist < uiView && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
-            {
-                enemyUI.gameObject.SetActive(true);
-            }
-            else
-            {
-                enemyUI.gameObject.SetActive(false);
-            }
-        }
+			if (enemyDist < uiView && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
+			{
+				enemyUI.gameObject.SetActive(true);
+			}
+			else
+			{
+				enemyUI.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	/// <summary>
@@ -103,13 +139,19 @@ public class PlayerCombat : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
+		Debug.Log("light");
 		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength);
+			enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength, gameObject.transform.position);
 		}
+
+		isAtkCooldown = true;
+		cooldownTimer = lightCooldown;
+		cooldownTime = lightCooldown;
+		//ApplyCooldown();
 	}
 
 	/// <summary>
@@ -117,12 +159,49 @@ public class PlayerCombat : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
+		Debug.Log("heavy");
 		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength);
+			enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength, gameObject.transform.position);
+		}
+
+		isAtkCooldown = true;
+		cooldownTimer = heavyCooldown;
+		cooldownTime = heavyCooldown;
+		//ApplyCooldown();
+	}
+
+	public void Attack()
+	{
+		if (isAtkCooldown)
+		{
+			return;
+		}
+		else
+		{
+			isAtkCooldown = true;
+			cooldownTimer = lightCooldown;
+		}
+	}
+
+	void ApplyCooldown()
+	{
+		cooldownTimer -= Time.deltaTime;
+		//Debug.Log("Can attack in: " + cooldownTimer);
+
+		if (cooldownTimer <= 0)
+		{
+			isAtkCooldown = false;
+			atkCooldownUI.fillAmount = 0.0f;
+
+			Debug.Log("Ready to strike!");
+		}
+		else
+		{
+			atkCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / cooldownTime), 0, 1);
 		}
 	}
 }

@@ -22,7 +22,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	private const float curveFillAmount = 0.75f;
 
-	public float knockForce;
+	public float knockForce = 500;
 	public Rigidbody2D rb;
 
 	private void Awake()

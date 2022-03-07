@@ -110,22 +110,22 @@ public class EnemyPathfindingNew : MonoBehaviour
 
         if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            //PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
             //EH.TakeDamage(m_DamageAmount);
 
             Debug.Log("collision");
 
-            if ((transform.position.x - otherCollider.transform.position.x) < 0)
-            {
-                Debug.Log("Left Hit");
-                rb.AddForce(new Vector2(-1f, 0.5f) * HitForce);
-            }
-            else if ((transform.position.x - otherCollider.transform.position.x) > 0)
-            {
-                Debug.Log("Right Hit");
-                rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
-            }
-        }
+			//if ((transform.position.x - otherCollider.transform.position.x) < 0)
+			//{
+			//	Debug.Log("Left Hit");
+			//	rb.AddForce(new Vector2(-1f, 0.5f) * HitForce);
+			//}
+			//else if ((transform.position.x - otherCollider.transform.position.x) > 0)
+			//{
+			//	Debug.Log("Right Hit");
+			//	rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
+			//}
+		}
 
         if(otherCollider.CompareTag("Enemy"))
         {
