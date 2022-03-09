@@ -14,8 +14,9 @@ public class PlayerCombat : MonoBehaviour
 	public bool hasHeavyAtk;
 
 	// distance each attack can reach away from player
-	public float lightRange = 0.5f;
+	public float lightRange = 0.75f;
 	public float heavyRange = 1f;
+	public float attackRangeY = 0.5f;
 
 	// Amount of damage each attack type does
 	public float lightStrength = 10;
@@ -140,7 +141,8 @@ public class PlayerCombat : MonoBehaviour
 	void LightAttack()
 	{
 		Debug.Log("light");
-		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
+		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
+		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(lightRange, attackRangeY), 0, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
@@ -160,7 +162,8 @@ public class PlayerCombat : MonoBehaviour
 	void HeavyAttack()
 	{
 		Debug.Log("heavy");
-		Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
+		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
+		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(heavyRange, attackRangeY), 0, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
@@ -203,5 +206,14 @@ public class PlayerCombat : MonoBehaviour
 		{
 			atkCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / cooldownTime), 0, 1);
 		}
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(attackPoint.position, new Vector2(heavyRange, attackRangeY));
+
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireCube(attackPoint.position, new Vector2(lightRange, attackRangeY));
 	}
 }
