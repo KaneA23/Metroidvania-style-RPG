@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Pathfinding;
 
@@ -12,15 +13,23 @@ public class AIRanged : MonoBehaviour
     public Transform target;
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
+    public float m_AttackDistance = 5.5f;
     public float m_HitForce;
 
     public Transform enemyGraphics;
+
+    private Vector3 m_TargetPos;
+    [SerializeField] private Vector3 m_HoverPos;
+    public Vector3 m_HoverDistance;
+    private float m_Distance;
 
     public int m_DamageAmount;
 
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
+
+    public bool attacking = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -44,7 +53,7 @@ public class AIRanged : MonoBehaviour
     {
         if (seeker.IsDone())
         {
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            seeker.StartPath(rb.position, m_HoverPos, OnPathComplete);
         }
     }
 
@@ -60,11 +69,12 @@ public class AIRanged : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Collider2D otherCollider = collision.collider;
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
         if (otherCollider.name == AISU.m_ActivePlayer.tag)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
-            //EH.TakeDamage(m_DamageAmount);
+            PHS.TakeDamage(m_DamageAmount, enemyPos);
+            EH.TakeDamage(m_DamageAmount, enemyPos);
 
             if ((transform.position.x - otherCollider.transform.position.x) < 0)
             {
@@ -87,6 +97,35 @@ public class AIRanged : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Vector3 velocity = rb.velocity;
+        float a_speed = velocity.magnitude;
+
+        if (target.position.x < transform.position.x)
+        {
+            //m_TargetPos = target.position + new Vector3(3f, 5f);
+
+            if (m_HoverDistance.y < 0f)
+            {
+                m_HoverDistance.y = System.Math.Abs(-m_HoverDistance.y);
+            }
+
+            m_TargetPos = target.position + m_HoverDistance;
+        }
+        else if (target.position.x > transform.position.x)
+        {
+            //m_TargetPos = target.position - new Vector3(3f, -5f);
+
+            if (m_HoverDistance.y > 0f)
+            {
+                m_HoverDistance.y *= -1f;
+            }
+
+            m_TargetPos = target.position - m_HoverDistance;
+        }
+
+        m_HoverPos = m_TargetPos;
+        m_Distance = Vector2.Distance(m_HoverPos, transform.position);
+
         if (path == null)
         {
             return;
@@ -108,19 +147,64 @@ public class AIRanged : MonoBehaviour
         rb.AddForce(force);
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        float finalDistance = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count - 1]);
+        //Debug.Log(distance);
 
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
         }
 
-        if (force.x >= 0.01f)
+        //Debug.Log(a_speed);
+
+        if (finalDistance < 1.6f)
         {
-            enemyGraphics.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            rb.velocity = Vector2.zero;
+
+            attacking = true;
+            //Debug.Log("reached");
+            //if(rb.position.x < target.position.x)
+            //{
+            //    //Debug.Log("reached");
+            //    if (a_speed < 1f)
+            //    {
+            //        //Debug.Log("reached");
+            //        rb.AddForce(-velocity, ForceMode2D.Force);
+            //        //rb.AddForce(new Vector2(-10f, 0), ForceMode2D.Force);
+            //    }
+            //    //else if (rb.velocity.x > 1f)
+            //    //{
+            //    //    //Debug.Log("reached");
+            //    //    rb.AddForce(new Vector2(-20f, 0), ForceMode2D.Force);
+            //    //}
+            //}
+            //else if(rb.position.x > target.position.x)
+            //{
+            //    if (a_speed < 0.5f)
+            //    {
+            //        //Debug.Log("reached");
+            //        rb.AddForce(velocity, ForceMode2D.Force);
+            //        //rb.AddForce(new Vector2(5, 0), ForceMode2D.Force);
+            //    }
+            //    //else if (rb.velocity.x > 1f)
+            //    //{
+            //    //    //Debug.Log("reached");
+            //    //    rb.AddForce(new Vector2(10, 0), ForceMode2D.Force);
+            //    //}
+            //}         
         }
-        else if (force.x <= -0.01f)
+        else
         {
-            enemyGraphics.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            attacking = false;
+        }
+
+        if (rb.transform.position.x < target.position.x)
+        {
+            enemyGraphics.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (rb.transform.position.x > target.position.x)
+        {
+            enemyGraphics.localScale = new Vector3(1f, 1f, 1f);
         }
 
     }

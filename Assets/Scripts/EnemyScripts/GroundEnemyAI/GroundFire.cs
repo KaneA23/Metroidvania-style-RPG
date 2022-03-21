@@ -45,12 +45,13 @@ public class GroundFire : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
         if (collision.gameObject == m_Player)
         {
             Debug.Log("Ouchie");
 
-            PHS.TakeDamage(m_DamageAmount);
+            PHS.TakeDamage(m_DamageAmount, enemyPos);
 
             float heightForce = Random.Range(0.5f, 1f);
 

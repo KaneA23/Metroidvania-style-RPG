@@ -38,11 +38,13 @@ public class AttackPlayer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Collider2D otherObject = collision.collider;        
+        Collider2D otherObject = collision.collider;
+
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
         if (otherObject.gameObject == m_Player)
         {
-            PHS.TakeDamage(m_DamageAmount);
+            PHS.TakeDamage(m_DamageAmount, enemyPos);
 
             if (gameObject.CompareTag("GroundAttack"))
             {
