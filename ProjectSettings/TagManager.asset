@@ -4,20 +4,21 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Platform
-  - Enemy
-  - Smashable
   - Barrel
+  - Smashable
+  - Enemy
+  - GroundAttack
+  - AirAttack
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Enemies
   - Water
   - UI
-  - Platform
-  - Obstacle
-  - Enemy
+  - Player
+  - Projectiles
+  - GroundAttack
   - 
   - 
   - 
