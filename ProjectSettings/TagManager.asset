@@ -3,17 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Barrel
+  - Smashable
+  - Enemy
+  - GroundAttack
+  - AirAttack
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemies
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Projectiles
+  - GroundAttack
   - 
   - 
   - 

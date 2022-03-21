@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4184064189477470436}
   - component: {fileID: 4184064189477470435}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 4888412172254588980}
   - component: {fileID: 4184064189795133360}
   - component: {fileID: -2196216823382376355}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EarthElemental
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &4888412172254588980
 MonoBehaviour:
@@ -242,10 +242,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIR: {fileID: 0}
   AISU: {fileID: 0}
+  m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
+  m_EarthChunk: {fileID: 0}
   m_EarthSpikesPrefab: {fileID: 3831173036676336841, guid: 17065814f7f9e4e4a95aa7ec76a106af, type: 3}
   m_EarthSpikes: {fileID: 0}
   m_Player: {fileID: 0}
   m_GroundAttackSpeed: 0.3
+  m_AboveAttackForce: 15
   m_AttackInterval: 5
 --- !u!1 &4888412172838438551
 GameObject:
@@ -256,7 +259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4888412172838438552}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +299,7 @@ GameObject:
   - component: {fileID: 4888412173106103300}
   - component: {fileID: 4888412173106103299}
   - component: {fileID: 4888412173106103298}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +399,7 @@ GameObject:
   - component: {fileID: 4888412173212749567}
   - component: {fileID: 4888412173212749537}
   - component: {fileID: 4888412173212749536}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4888412173686836420}
   - component: {fileID: 4888412173686836421}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +565,7 @@ GameObject:
   - component: {fileID: 4888412173687309754}
   - component: {fileID: 4888412173687309756}
   - component: {fileID: 4888412173687309755}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

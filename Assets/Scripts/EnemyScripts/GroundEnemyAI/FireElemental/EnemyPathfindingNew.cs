@@ -12,7 +12,7 @@ public class EnemyPathfindingNew : MonoBehaviour
     public float HitForce;
     float minDistance = Mathf.Infinity;
 
-    private bool m_MovingToTarget;
+    public bool m_MovingToTarget;
 
     private Transform m_Player;
     
@@ -21,10 +21,10 @@ public class EnemyPathfindingNew : MonoBehaviour
     //private GameObject m_ActivePlayer;
     
     private Vector3 m_TargetPos;
-    private Vector2 m_TargetDir;
-    
+    private Vector2 m_TargetDir;  
     private Vector3 m_MovementDirection;
     private Vector3 m_NewDestination;
+    private Vector3 m_CurrentPos;
 
     private float m_OrigPos;
 
@@ -130,6 +130,11 @@ public class EnemyPathfindingNew : MonoBehaviour
             Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
         }
 
+        if(otherCollider.CompareTag("GroundAttack"))
+        {
+            Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -159,7 +164,7 @@ public class EnemyPathfindingNew : MonoBehaviour
     {
         //GetPlayers();
 
-        
+        m_CurrentPos = transform.position;
 
         m_TargetPos = new Vector3(m_Player.position.x, -3.48f, m_Player.position.z);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
@@ -171,7 +176,6 @@ public class EnemyPathfindingNew : MonoBehaviour
             float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-
 
         if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
         {

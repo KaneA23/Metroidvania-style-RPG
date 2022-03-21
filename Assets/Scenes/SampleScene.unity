@@ -388,7 +388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &102643501
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -518,7 +518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168185933}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -10977,7 +10977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &393715291
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11345,7 +11345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 565647909}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Wall Check
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -11378,7 +11378,7 @@ GameObject:
   - component: {fileID: 577445976}
   - component: {fileID: 577445975}
   - component: {fileID: 577445977}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: village parts_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11790,7 +11790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &766566804
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12000,7 +12000,7 @@ GameObject:
   - component: {fileID: 843148348}
   - component: {fileID: 843148347}
   - component: {fileID: 843148349}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: village parts_100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17708,7 +17708,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118996222}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Ceiling Check
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -17873,7 +17873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1143709546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18504,7 +18504,7 @@ GameObject:
   - component: {fileID: 1383407669}
   - component: {fileID: 1383407668}
   - component: {fileID: 1383407670}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18551,7 +18551,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.5019608, b: 0, a: 1}
   m_FlipX: 0
@@ -19576,7 +19576,7 @@ GameObject:
   - component: {fileID: 1823079572}
   - component: {fileID: 1823079571}
   - component: {fileID: 1823079573}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: village parts_101
   m_TagString: Smashable
   m_Icon: {fileID: 0}
@@ -19643,7 +19643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823079570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9, y: -3.25, z: 0}
+  m_LocalPosition: {x: -0.63, y: -2.95, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -19783,7 +19783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1845442260
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20220,7 +20220,7 @@ GameObject:
   - component: {fileID: 1964109620}
   - component: {fileID: 1964109622}
   - component: {fileID: 1964109625}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -20334,7 +20334,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964109615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.81, y: -2.81, z: 0}
+  m_LocalPosition: {x: -0.7, y: -0.92, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -20640,7 +20640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1997767475
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20733,7 +20733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2010987158}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -25961,6 +25961,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6513679774268475910, guid: afd99c0c763c7cc409fb626af62562ac, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 6db30dc0e41a1c240b7b90e84bdf6dc9, type: 2}
+    - target: {fileID: 6513679774268475910, guid: afd99c0c763c7cc409fb626af62562ac, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6513679774268475911, guid: afd99c0c763c7cc409fb626af62562ac, type: 3}
       propertyPath: m_Name
       value: NavMesh
@@ -26080,7 +26088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944151336297791204, guid: 8096681bbc49f344a8430b65525e16ce, type: 3}
       propertyPath: data.dataString
-      value: UEsDBBQAAAgIAAAAIexIZN1OdQIAAC0FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzjVjA4mht9YhpIckTGknF19kaY012JJHkgMkw3/vSraxS06I9/bjvdXKn0RIUwOzSm+04M+KA/k+Ie5Mvk0G8glOdK/kTnxAH/MmuC1cEPUxv6kVCvHIpRlVgdWC/ZD70gWHCDZS5EpXa76HRBlrEM5paQAprazLlgh9TsgJf4KVSznjaRa70weeVuHkgkcG0oIeQvvAYD69i+9n8XKxDsK4ywnupqsYS8TrIJr79EayklY1cOdlqBItuzJR20Wiyy7COWKqLIXpJBJ7rv0IElqbBg1iABcULXtd0XSOQAFiX1hnYJz+mucGbKda0/OD0Di7ti75qdqBVtQcWmXvtGy8hNXMq2qLPn/hg8jTuVbVU983Cl0PWwh2+E3PjBo7mvgYfhhJ9wM60vJAsxLeCpAvaqNVIzmSVjcutTEwexj+Xq0lBbDDgLdSb8Cm/npv/fU6Dxfv/pSUosocNV20wK5UfuJ+K0Dj3fxCwX5nTFcCUafir4E/dD9ero54FNpYpDqX0snLVKNdKFn7mTk3jU2UluDhTnQNkpb2vMUy9vYKb7hR2xvmkbpn1DXvuP513KR4eIgPwxtqq47XyzKFOj6DKV4bWwoJg2hHvOCcEiVlu2HjmfRpu0bnlI3S9o3g/68WuZ8vOYN4lVGWZcuQBVHO55wv2CKD+8VydUf87gmJPmm5bYV248Fbk0NxiXvWf10mG01rv+1c0+NGfFRqNHIhc7VjGkC+thWuwkFjE3yXfM0FDmgH1grp75t8pqRU7AA8vRZKvdP1yWqaDlVSUot3ZR2SksR/TlLi4OsubzW8Czi65n2xC7n8A1BLAwQUAAAICAAAACHswQ4d8G0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0kpmxRUpyqrllUmJyUpKFQbKuYVqKcUqKSbJJUqqZiYWlqVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAACHsSGTdTnUCAAAtBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAACHswQ4d8G0AAAB4AAAACQAkAAAAAAAAAAAAAADCAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAHoDAAAAAA==
+      value: UEsDBBQAAAgIAAAAIex6wbwecwIAACsFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzjVjBxJDb61DSA9JmJBOLr7I0hprsCWPJAdIhv/elWxjl5wQ7+3He6uVv4iQpgZmlV5rwZ8UB/JzQtyZ/JgM5CMc6U7JrfiEPuZdcFu4IOpjXqkVCvHIpRlVgdWC/ZK70gWHCDZS5EpXK76DRBlrEM5paQAprazLlgh9TcgRf4KlSznh6SZ2p088LcPJGY8MpAU9hPaBwWx6G9/dxIv5KgjjLie4nS5jLBGvgmjm0xvJSlrVwJ2XoUq06MpEbReJLrsI54ipshSmk0jsqfYjSGhtGjSIAVxQtOx1RdMZAgWIXWGdgXH6S54bsJ1qTU/3QuPs2rrkt2oHWlGzb5V90LLxErymtuTTNzZo6Vyr6rHvGoWugy0E27/SE6PGjuY9hu9Hwv14DrTc06yE9wLks1pr1UiOpNWNS20M3NwPfy/GkgLYfsBbqVdgU3+/tf5ynYez935MSlFljprOW2BbKj9vvxOg8Wb+oGC/MaYrgahT8dfAG92NV6sjHoQ2FqnOpXTyMtVoF0pWfmbOTWMTpSV4uBNdg6SlPW2wjL2+wCtu1PaKeaDuEXXNO65/G1cpHh7iw/CK2qjD5bJMoQ5PYIqXxpZCwiDaEc84p0RJ2e7XeCZ92rbROWWjtF0j+P+rRe5mC84gXmaUZdkiZEGU8xnnczbP4G6+WN4Sv3tCok9ablqh3Xjw1uRQXOKe9d+WyVrT2u861/SwFp+VGo1cyFxtmQaQL22Fi3DQ2ARfJV9xgQPagrVC+vsmXykpFdsDTy+FUu90dbSapkOVlNTiQ1mHpCTxH5OUOPiyyxsNHwIOrnlf7EzO/wBQSwMEFAAACAgAAAAh7MEOHfBtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJKZsUVKcqq5ZVJiclKShUGyrmFainFKikmySVKqmYmFpalSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7HrBvB5zAgAAKwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7MEOHfBtAAAAeAAAAAkAJAAAAAAAAAAAAAAAwAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAB4AwAAAAA=
       objectReference: {fileID: 0}
     - target: {fileID: 7944151336297791205, guid: 8096681bbc49f344a8430b65525e16ce, type: 3}
       propertyPath: m_Name
@@ -26114,7 +26122,7 @@ PrefabInstance:
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemy
       value: 
-      objectReference: {fileID: 8114687022785207139, guid: 4bb88decd0c05b44e92c1729a6215734, type: 3}
+      objectReference: {fileID: 8631005081678416054, guid: 480701f830c40e548a9e454ef7ec5b5e, type: 3}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_FlyingEnemyNumber
       value: 2

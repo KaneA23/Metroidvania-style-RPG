@@ -160,5 +160,7 @@ MonoBehaviour:
   PHS: {fileID: 0}
   m_Player: {fileID: 0}
   m_PlayerBody: {fileID: 0}
+  m_ChunkCollider: {fileID: 0}
+  m_AttackDirection: {x: 0, y: 0}
   m_AttackForce: 10
   m_DamageAmount: 5
