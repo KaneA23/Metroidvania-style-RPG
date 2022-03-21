@@ -147,7 +147,15 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength, gameObject.transform.position);
+
+			if (enemy.CompareTag("Barrel"))
+			{
+				enemy.GetComponent<EnemyHealthSystem>().TakeDamage(lightStrength);
+			}
+			else
+			{
+				enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength, gameObject.transform.position);
+			}
 		}
 
 		isAtkCooldown = true;
@@ -168,7 +176,15 @@ public class PlayerCombat : MonoBehaviour
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			Debug.Log("We hit " + enemy.name);
-			enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength, gameObject.transform.position);
+
+			if (enemy.CompareTag("Barrel"))
+			{
+				enemy.GetComponent<EnemyHealthSystem>().TakeDamage(heavyStrength);
+			}
+			else
+			{
+				enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength, gameObject.transform.position);
+			}
 		}
 
 		isAtkCooldown = true;

@@ -128,6 +128,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	void KillPlayer()
 	{
 		Debug.Log("<color=Red>I have fallen my Lord!</color>");
-		Destroy(gameObject);
+		//Destroy(gameObject);
+		gameObject.active = false;
 	}
 }

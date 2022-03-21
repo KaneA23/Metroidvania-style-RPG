@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 4184064189795133326}
   - component: {fileID: 4184064189795133327}
   - component: {fileID: 4184064189795133312}
-  - component: {fileID: 4888412172254588980}
   - component: {fileID: 4184064189795133360}
   - component: {fileID: -2196216823382376355}
+  - component: {fileID: 6146547738900454307}
   m_Layer: 3
   m_Name: EarthElemental
   m_TagString: Enemy
@@ -188,21 +188,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4888412172254588980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4184064189795133313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad5ba0f9f7884f40991300f2ede8eec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MaxHP: 100
-  m_CurrentHP: 0
-  m_HealthBar: {fileID: 0}
 --- !u!114 &4184064189795133360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
-  EH: {fileID: 4888412172254588980}
+  EH: {fileID: 0}
   AISU: {fileID: 0}
   target: {fileID: 0}
   speed: 150
@@ -250,6 +235,22 @@ MonoBehaviour:
   m_GroundAttackSpeed: 0.3
   m_AboveAttackForce: 15
   m_AttackInterval: 5
+--- !u!114 &6146547738900454307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184064189795133313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2022af2d4e1e4624db65a8f6a52a2e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHP: 100
+  m_CurrentHP: 0
+  HitForce: 250
+  m_HealthBar: {fileID: 4888412173686836421}
 --- !u!1 &4888412172838438551
 GameObject:
   m_ObjectHideFlags: 0

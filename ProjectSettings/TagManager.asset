@@ -19,9 +19,9 @@ TagManager:
   - Player
   - Projectiles
   - GroundAttack
-  - 
-  - 
-  - 
+  - Jumpable
+  - Platforms
+  - Destroyable
   - 
   - 
   - 

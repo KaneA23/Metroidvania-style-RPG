@@ -476,9 +476,9 @@ GameObject:
   - component: {fileID: 6968821533545609034}
   - component: {fileID: 6968821533545609035}
   - component: {fileID: 6968821533545609028}
-  - component: {fileID: 1833478029818585328}
   - component: {fileID: 6968821533545609076}
   - component: {fileID: 1211922233278638867}
+  - component: {fileID: 877644128818358247}
   m_Layer: 0
   m_Name: AirElemental (1) 1
   m_TagString: Enemy
@@ -568,21 +568,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1833478029818585328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6968821533545609029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad5ba0f9f7884f40991300f2ede8eec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MaxHP: 100
-  m_CurrentHP: 0
-  m_HealthBar: {fileID: 0}
 --- !u!114 &6968821533545609076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
-  EH: {fileID: 1833478029818585328}
+  EH: {fileID: 0}
   AISU: {fileID: 0}
   target: {fileID: 0}
   speed: 200
@@ -605,7 +590,7 @@ MonoBehaviour:
   m_HitForce: 250
   enemyGraphics: {fileID: 6968821533359935520}
   m_HoverPos: {x: 0, y: 0, z: 0}
-  m_HoverDistance: {x: 3, y: 5, z: 0}
+  m_HoverDistance: {x: 3, y: 2, z: 0}
   m_DamageAmount: 10
   attacking: 0
 --- !u!114 &1211922233278638867
@@ -623,3 +608,19 @@ MonoBehaviour:
   m_AirProjectilePrefab: {fileID: 8273849458560196847, guid: e2b6d000662c4f8468eed7239cd870d8, type: 3}
   m_ProjectileSpeed: 10
   m_FireInterval: 2
+--- !u!114 &877644128818358247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6968821533545609029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2022af2d4e1e4624db65a8f6a52a2e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHP: 100
+  m_CurrentHP: 0
+  HitForce: 250
+  m_HealthBar: {fileID: 1833478028839312385}

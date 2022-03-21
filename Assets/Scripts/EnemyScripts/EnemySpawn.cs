@@ -22,15 +22,15 @@ public class EnemySpawn : MonoBehaviour
         float x;
         float y = -3.48f; //-2.68f
 
-        //for (int i = 0; i < m_GroundEnemyNumber; i++)
-        //{
-        //    x = Random.Range(-5.5f, -1.4f);
-        //    spawnPos = new Vector2(x, y);
+		for (int i = 0; i < m_GroundEnemyNumber; i++)
+		{
+			x = Random.Range(-5.5f, -1.4f);
+			spawnPos = new Vector2(x, y);
 
-        //    Instantiate(m_GroundEnemy, spawnPos, Quaternion.identity);
-        //}
+			Instantiate(m_GroundEnemy, spawnPos, Quaternion.identity);
+		}
 
-        for (int i = 0; i < m_FlyingEnemyNumber; i++)
+		for (int i = 0; i < m_FlyingEnemyNumber; i++)
         {
             x = Random.Range(-8.51f, 8.51f);
             y = Random.Range(2.49f, 4.5f);
