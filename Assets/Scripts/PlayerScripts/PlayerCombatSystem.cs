@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Controls the player's different attacks.
 /// Created by: Kane Adams
 /// </summary>
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombatSystem : MonoBehaviour
 {
 	public BasePlayerClass BPC;
 
@@ -18,13 +18,17 @@ public class PlayerCombat : MonoBehaviour
 	public float heavyRange = 1f;
 	public float attackRangeY = 0.5f;
 
+	public bool isAttacking;
+	[SerializeField]
+	private float attackAnimDelay = 0.8f;
+
 	// Amount of damage each attack type does
 	public float lightStrength = 10;
 	public float heavyStrength = 25;
 
 	// Time between each attack type
 	public float lightCooldown = 1f;
-	public float heavyCooldown = 5f;
+	public float heavyCooldown = 3f;
 	//public float nextAttackTime = 0f;   // resets timer
 
 	public Transform attackPoint;       // where the player attacks from
@@ -45,6 +49,15 @@ public class PlayerCombat : MonoBehaviour
 	private bool isAtkCooldown;
 	private float cooldownTimer;
 	private float cooldownTime;
+
+	Animator anim;
+
+	const string PLAYER_SWORDATTACK = "Player_SwordAttack";
+
+	private void Awake()
+	{
+		anim = GetComponentInChildren<Animator>();
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -88,6 +101,7 @@ public class PlayerCombat : MonoBehaviour
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{
+				
 				LightAttack();
 				//Attack();
 				//nextAttackTime = Time.time + 1f / lightCooldownTime;
@@ -108,7 +122,7 @@ public class PlayerCombat : MonoBehaviour
 
 			Transform barrelUI = barrel.transform.Find("Canvas");
 
-			if (barrelDist < uiView && barrel.GetComponent<EnemyHealthSystem>().currentHP > 0)
+			if (barrelDist < uiView && barrel.GetComponent<BarrelHealthSystem>().currentHP > 0)
 			{
 				barrelUI.gameObject.SetActive(true);
 			}
@@ -140,6 +154,12 @@ public class PlayerCombat : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
+		anim.Play(PLAYER_SWORDATTACK);
+		isAttacking = true;
+		
+		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+		Invoke("CompleteAttack", attackAnimDelay);
+
 		Debug.Log("light");
 		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(lightRange, attackRangeY), 0, enemyLayers);
@@ -150,7 +170,7 @@ public class PlayerCombat : MonoBehaviour
 
 			if (enemy.CompareTag("Barrel"))
 			{
-				enemy.GetComponent<EnemyHealthSystem>().TakeDamage(lightStrength);
+				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(lightStrength);
 			}
 			else
 			{
@@ -169,6 +189,13 @@ public class PlayerCombat : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
+		//anim.Play(PLAYER_SWORDATTACK);
+		anim.Play(PLAYER_SWORDATTACK);
+		isAttacking = true;
+		
+		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+		Invoke("CompleteAttack", attackAnimDelay);
+
 		Debug.Log("heavy");
 		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(heavyRange, attackRangeY), 0, enemyLayers);
@@ -179,7 +206,7 @@ public class PlayerCombat : MonoBehaviour
 
 			if (enemy.CompareTag("Barrel"))
 			{
-				enemy.GetComponent<EnemyHealthSystem>().TakeDamage(heavyStrength);
+				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(heavyStrength);
 			}
 			else
 			{
@@ -204,6 +231,11 @@ public class PlayerCombat : MonoBehaviour
 			isAtkCooldown = true;
 			cooldownTimer = lightCooldown;
 		}
+	}
+
+	void CompleteAttack()
+	{
+		isAttacking = false;
 	}
 
 	void ApplyCooldown()

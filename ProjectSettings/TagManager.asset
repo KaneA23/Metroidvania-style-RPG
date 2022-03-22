@@ -22,8 +22,8 @@ TagManager:
   - Jumpable
   - Platforms
   - Destroyable
-  - 
-  - 
+  - Background
+  - Foreground
   - 
   - 
   - 
@@ -43,6 +43,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1240474605
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 1862176833
+    locked: 0
+  - name: UI
+    uniqueID: 3688762799
     locked: 0

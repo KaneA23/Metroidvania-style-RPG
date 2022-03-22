@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1833478028838835582}
   - component: {fileID: 1833478028838835576}
   - component: {fileID: 1833478028838835583}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833478028839312384}
   - component: {fileID: 1833478028839312385}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1833478030266521180}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 1833478030378753595}
   - component: {fileID: 1833478030378753573}
   - component: {fileID: 1833478030378753572}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1833478030535726272}
   - component: {fileID: 1833478030535726279}
   - component: {fileID: 1833478030535726278}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6968821533359935520}
   - component: {fileID: 6968821533359935527}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 6968821533545609076}
   - component: {fileID: 1211922233278638867}
   - component: {fileID: 877644128818358247}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AirElemental (1) 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}

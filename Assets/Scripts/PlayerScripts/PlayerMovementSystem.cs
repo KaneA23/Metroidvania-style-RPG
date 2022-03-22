@@ -6,10 +6,10 @@ using UnityEngine.UI;
 /// Controls character's movement dependent on player's input.
 /// Created by: Kane Adams
 /// </summary>
-public class CharacterController : MonoBehaviour
+public class PlayerMovementSystem : MonoBehaviour
 {
-
 	public BasePlayerClass BPC;
+	public PlayerCombatSystem PCS;
 
 	[Header("Movement")]
 	public float moveHorizontal;
@@ -30,7 +30,9 @@ public class CharacterController : MonoBehaviour
 
 	[Header("Jumping")]
 	public bool isGrounded;
+	public bool isJumping;
 	public float jumpForce = 25f;
+	float jumpDelay;
 
 	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
 	[Range(0f, 1f)]
@@ -83,11 +85,22 @@ public class CharacterController : MonoBehaviour
 	Rigidbody2D rb;
 	SpriteRenderer spriteRenderer;  // Used to switch character direction
 
+	public Animator anim;
+
+	// Animation States
+	const string PLAYER_IDLE = "Player_Idle";
+	const string PLAYER_RUN = "Player_Run";
+	const string PLAYER_JUMP = "Player_Jump";
+	const string PLAYER_SWORDATTACK = "Player_SwordAttack";
+
 	private void Awake()
 	{
+		PCS = GetComponent<PlayerCombatSystem>();
 		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+
+		anim = GetComponentInChildren<Animator>();
 	}
 
 	// Start is called before the first frame update
@@ -110,6 +123,12 @@ public class CharacterController : MonoBehaviour
 		CheckIfWall();
 
 		PlayerInput();
+
+		if (isJumping)
+		{
+			//anim.Play(PLAYER_JUMP);
+			isJumping = false;
+		}
 	}
 
 	private void FixedUpdate()
@@ -182,20 +201,20 @@ public class CharacterController : MonoBehaviour
 		//}
 		//else
 		//{
-			// Dashing
-			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
+		// Dashing
+		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
+		{
+			if (isFacingRight)
 			{
-				if (isFacingRight)
-				{
-					StartCoroutine(Dash(1));    //dash right
-					//Dash(1);
-				}
-				else
-				{
-					//Dash(-1);
-					StartCoroutine(Dash(-1));   // dash left
-				}
+				StartCoroutine(Dash(1));    //dash right
+											//Dash(1);
 			}
+			else
+			{
+				//Dash(-1);
+				StartCoroutine(Dash(-1));   // dash left
+			}
+		}
 		//}
 	}
 
@@ -206,10 +225,30 @@ public class CharacterController : MonoBehaviour
 	{
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
+		//if (moveHorizontal == 0 && isGrounded)
+		//{
+		//	anim.Play(PLAYER_IDLE);
+		//}
+		//else
+		//{
 		// Moves player across X-axis
 		if (isGrounded || !isTouchingWall)
 		{
+			//anim.Play(PLAYER_RUN);
 			rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+		}
+		//}
+
+		if (isGrounded && !PCS.isAttacking)
+		{
+			if (moveHorizontal != 0)
+			{
+				anim.Play(PLAYER_RUN);
+			}
+			else
+			{
+				anim.Play(PLAYER_IDLE);
+			}
 		}
 	}
 
@@ -233,12 +272,23 @@ public class CharacterController : MonoBehaviour
 			rb.velocity = jumpForce * Vector2.up;//* moveSpeed
 			jumpCount++;
 
+			//anim.Play(PLAYER_JUMP);
+			isJumping = true;
+
+			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+			Invoke("CompleteJump", jumpDelay);
+
 			StartCoroutine(JumpCooldown());
 		}
 		else if (canDoubleJump && isDoubleJumpActive)
 		{
 			rb.velocity = jumpForce * Vector2.up;//* moveSpeed 
 			jumpCount++;
+
+			isJumping = true;
+			//anim.Play(PLAYER_JUMP);
+			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+			Invoke("CompleteJump", jumpDelay);
 
 			StartCoroutine(JumpCooldown());
 		}
@@ -249,6 +299,11 @@ public class CharacterController : MonoBehaviour
 																				  //rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
+
+			//anim.Play(PLAYER_JUMP);
+			isJumping = true;
+			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+			Invoke("CompleteJump", jumpDelay);
 
 			StartCoroutine(JumpCooldown());
 		}
@@ -295,6 +350,11 @@ public class CharacterController : MonoBehaviour
 		{
 			canDoubleJump = false;
 		}
+	}
+
+	void CompleteJump()
+	{
+		isJumping = false;
 	}
 
 	#endregion

@@ -7,10 +7,10 @@ using UnityEngine.UI;
 /// Controls enemies health and required UI.
 /// Created by: Kane Adams
 /// </summary>
-public class EnemyHealthSystem : MonoBehaviour
+public class BarrelHealthSystem : MonoBehaviour
 {
 	float particleDur;
-	public int maxHP = 100;
+	public int maxHP = 25;
 	public float currentHP;
 
 	public Slider healthbar;
@@ -23,7 +23,7 @@ public class EnemyHealthSystem : MonoBehaviour
 	{
 		healthbar = GetComponentInChildren<Slider>();
 		enemyParticle = GetComponentInChildren<ParticleSystem>();
-		sr = GetComponent<SpriteRenderer>();
+		sr = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	// Start is called before the first frame update
