@@ -88,10 +88,15 @@ public class PlayerMovementSystem : MonoBehaviour
 	public Animator anim;
 
 	// Animation States
+	[SerializeField]
+	private string currentAnimState;
+
 	const string PLAYER_IDLE = "Player_Idle";
 	const string PLAYER_RUN = "Player_Run";
-	const string PLAYER_JUMP = "Player_Jump";
-	const string PLAYER_SWORDATTACK = "Player_SwordAttack";
+	const string PLAYER_JUMPLAUNCH = "Player_JumpLaunch";
+	const string PLAYER_JUMPFALL = "Player_JumpFall";
+	const string PLAYER_JUMPLAND = "Player_JumpLand";
+	// string PLAYER_SWORDATTACK = "Player_SwordAttack";
 
 	private void Awake()
 	{
@@ -118,17 +123,17 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (!isGrounded && !isJumping)
+		{
+			//anim.Play(PLAYER_JUMPFALL);
+			ChangeAnimationState(PLAYER_JUMPFALL);
+		}
+
 		CheckIfGrounded();
 		CheckIfCeiling();
 		CheckIfWall();
 
 		PlayerInput();
-
-		if (isJumping)
-		{
-			//anim.Play(PLAYER_JUMP);
-			isJumping = false;
-		}
 	}
 
 	private void FixedUpdate()
@@ -153,6 +158,15 @@ public class PlayerMovementSystem : MonoBehaviour
 			//spriteRenderer.flipX = true;    //right
 			transform.Rotate(new Vector2(0, 180));
 			isFacingRight = !isFacingRight;
+		}
+
+		if (Input.GetButtonDown("Jump") && isGrounded) {
+			//anim.Play(PLAYER_JUMPLAUNCH);
+			ChangeAnimationState(PLAYER_JUMPLAUNCH);
+			isJumping = true;
+
+			Invoke("CompleteJumpAnim", 0.5f);
+			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
 		}
 
 		if (Input.GetButtonDown("Jump"))
@@ -239,15 +253,17 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		//}
 
-		if (isGrounded && !PCS.isAttacking)
+		if (isGrounded && !PCS.isAttacking && !isJumping)
 		{
 			if (moveHorizontal != 0)
 			{
-				anim.Play(PLAYER_RUN);
+				//anim.Play(PLAYER_RUN);
+				ChangeAnimationState(PLAYER_RUN);
 			}
 			else
 			{
-				anim.Play(PLAYER_IDLE);
+				//anim.Play(PLAYER_IDLE);
+				ChangeAnimationState(PLAYER_IDLE);
 			}
 		}
 	}
@@ -269,41 +285,35 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
+			//anim.Play(PLAYER_JUMPLAUNCH);
+			//Debug.Log("Jump1");
+			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
+
 			rb.velocity = jumpForce * Vector2.up;//* moveSpeed
 			jumpCount++;
-
-			//anim.Play(PLAYER_JUMP);
-			isJumping = true;
-
-			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-			Invoke("CompleteJump", jumpDelay);
 
 			StartCoroutine(JumpCooldown());
 		}
 		else if (canDoubleJump && isDoubleJumpActive)
 		{
+			//anim.Play(PLAYER_JUMPLAUNCH);
+			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
+
 			rb.velocity = jumpForce * Vector2.up;//* moveSpeed 
 			jumpCount++;
-
-			isJumping = true;
-			//anim.Play(PLAYER_JUMP);
-			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-			Invoke("CompleteJump", jumpDelay);
 
 			StartCoroutine(JumpCooldown());
 		}
 		else if (isWallJumpActive && isTouchingWall && canWallJump)
 		{
+			//anim.Play(PLAYER_JUMPLAUNCH);
+			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
+
 			rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
 																				  //.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 																				  //rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
-
-			//anim.Play(PLAYER_JUMP);
-			isJumping = true;
-			jumpDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-			Invoke("CompleteJump", jumpDelay);
 
 			StartCoroutine(JumpCooldown());
 		}
@@ -319,6 +329,14 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Resets double jump if the player is touching the ground
 		if (isGrounded)
 		{
+			if (currentAnimState == PLAYER_JUMPFALL)
+			{
+				Debug.Log("Landing");
+				ChangeAnimationState(PLAYER_JUMPLAND);
+				isJumping = true;
+				Invoke("CompleteJumpAnim", 0.267f);
+			}
+
 			canDoubleJump = true;
 			canWallJump = true;
 			canDash = true;
@@ -333,6 +351,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, 0.4f, wallLayers);
 	}
+
+
 
 	/// <summary>
 	/// Player has to wait before they can jump again
@@ -352,10 +372,26 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-	void CompleteJump()
+	//IEnumerator JumpAnimation(float a_animLength)
+	//{
+	//	yield return new WaitUntil(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
+	//}
+
+	void CompleteJumpAnim()
 	{
 		isJumping = false;
 	}
+
+	//private void OnCollisionEnter2D(Collision2D collision)
+	//{
+	//	if (currentAnimState == PLAYER_JUMPFALL)
+	//	{
+	//		Debug.Log("Landing");
+	//		ChangeAnimationState(PLAYER_JUMPLAND);
+	//		isJumping = true;
+	//		Invoke("CompleteLaunch", 0.5f);
+	//	}
+	//}
 
 	#endregion
 
@@ -404,5 +440,20 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / manaCooldownTime), 0, 1);
 		}
+	}
+
+	public void ChangeAnimationState(string a_newState)
+	{
+		// Stops the same animation from interrupting itself
+		if (currentAnimState == a_newState)
+		{
+			return;
+		}
+
+		// Play the animation
+		anim.Play(a_newState);
+
+		// reassign current state
+		currentAnimState = a_newState;
 	}
 }

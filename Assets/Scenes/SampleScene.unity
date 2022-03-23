@@ -20451,6 +20451,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   anim: {fileID: 0}
+  currentAnimState: 
 --- !u!70 &1964109621
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -20501,6 +20502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPC: {fileID: 0}
+  PMS: {fileID: 0}
   hasHeavyAtk: 1
   lightRange: 1.25
   heavyRange: 1.75
@@ -26304,14 +26306,14 @@ PrefabInstance:
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_FlyingEnemy
       value: 
-      objectReference: {fileID: 6968821533545609029, guid: 5fdd214014b97b74bab2aae88cecc5ea, type: 3}
+      objectReference: {fileID: 4184064189795133313, guid: c8238777026f86d42b03393058523940, type: 3}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemy
       value: 
       objectReference: {fileID: 8631005081678416054, guid: b8c561e797f640b4aa41f94421e542cb, type: 3}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_FlyingEnemyNumber
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemyNumber

@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class PlayerCombatSystem : MonoBehaviour
 {
 	public BasePlayerClass BPC;
+	public PlayerMovementSystem PMS;
 
 	public bool hasHeavyAtk;
 
@@ -56,6 +57,8 @@ public class PlayerCombatSystem : MonoBehaviour
 
 	private void Awake()
 	{
+		PMS = GetComponent<PlayerMovementSystem>();
+
 		anim = GetComponentInChildren<Animator>();
 	}
 
@@ -154,7 +157,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
-		anim.Play(PLAYER_SWORDATTACK);
+		//anim.Play(PLAYER_SWORDATTACK);
+		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
 		
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
@@ -190,7 +194,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	void HeavyAttack()
 	{
 		//anim.Play(PLAYER_SWORDATTACK);
-		anim.Play(PLAYER_SWORDATTACK);
+		//anim.Play(PLAYER_SWORDATTACK);
+		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
 		
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
