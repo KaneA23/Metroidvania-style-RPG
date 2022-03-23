@@ -60,13 +60,13 @@ public class PlayerHealthSystem : MonoBehaviour
 		if ((transform.position.x - a_enemyPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
-			rb.AddForce(new Vector2(-1f, 0.5f) * knockForce);
+			rb.AddForce(new Vector2(-1f * knockForce, 250f) );
 			//rb.velocity = new Vector2(-1 * knockForce, 0.1f * knockForce);
 		}
 		else if ((transform.position.x - a_enemyPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
-			rb.AddForce(new Vector2(1f, 0.5f) * knockForce);
+			rb.AddForce(new Vector2(1f * knockForce, 250f) );
 			//rb.velocity = new Vector2(1 * knockForce, 0.15f * knockForce);
 		}
 
