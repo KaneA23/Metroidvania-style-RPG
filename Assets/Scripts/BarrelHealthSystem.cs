@@ -9,21 +9,24 @@ using UnityEngine.UI;
 /// </summary>
 public class BarrelHealthSystem : MonoBehaviour
 {
-	float particleDur;
-	public int maxHP = 25;
+	[Header("Health")]
+	[SerializeField] private int maxHP = 25;
 	public float currentHP;
 
 	public Slider healthbar;
+
+	[Header("Explosion")]
 	public SpriteRenderer sr;
 
 	public ParticleSystem enemyParticle;
 	ParticleSystem.EmissionModule em;
+	[SerializeField] private float particleDur;
 
 	private void Awake()
 	{
 		healthbar = GetComponentInChildren<Slider>();
 		enemyParticle = GetComponentInChildren<ParticleSystem>();
-		sr = GetComponentInChildren<SpriteRenderer>();
+		//sr = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	// Start is called before the first frame update

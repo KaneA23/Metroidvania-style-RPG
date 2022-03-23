@@ -9,20 +9,23 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerHealthSystem : MonoBehaviour
 {
-	public Image healthEnd;
-	public Image healthCurve;
-	public Image healthStart;
-
+	[Header("Health Values")]
 	public float currentHP;
 	public float maxHP = 100;
 
-	public float endPercentage = 0.25f;
-	public float curvePercentage = 0.5f;
+	[Header("Healthbar")]
+	public Image healthEnd;
+	public Image healthCurve;
+	public Image healthStart;
+	[Space(5)]
+	[SerializeField] private float endPercentage = 0.25f;
+	[SerializeField] private float curvePercentage = 0.5f;
 	//public float startPercentage = 0.25f;
 
 	private const float curveFillAmount = 0.75f;
 
-	public float knockForce = 500;
+	[Header("Knockback")]
+	public float knockForce = 2500;
 	public Rigidbody2D rb;
 
 	private void Awake()
@@ -60,13 +63,13 @@ public class PlayerHealthSystem : MonoBehaviour
 		if ((transform.position.x - a_enemyPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
-			rb.AddForce(new Vector2(-1f * knockForce, 250f) );
+			rb.AddForce(new Vector2(-1f * knockForce, 250f));
 			//rb.velocity = new Vector2(-1 * knockForce, 0.1f * knockForce);
 		}
 		else if ((transform.position.x - a_enemyPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
-			rb.AddForce(new Vector2(1f * knockForce, 250f) );
+			rb.AddForce(new Vector2(1f * knockForce, 250f));
 			//rb.velocity = new Vector2(1 * knockForce, 0.15f * knockForce);
 		}
 

@@ -285,8 +285,9 @@ MonoBehaviour:
   maxHP: 25
   currentHP: 0
   healthbar: {fileID: 993691622}
-  sr: {fileID: 0}
+  sr: {fileID: 514555506}
   enemyParticle: {fileID: 2022530748}
+  particleDur: 0
 --- !u!1 &84825394
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 84825395}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +628,7 @@ GameObject:
   - component: {fileID: 239658194}
   - component: {fileID: 239658192}
   - component: {fileID: 239658193}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Splinter Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5733,7 +5734,7 @@ GameObject:
   - component: {fileID: 270319436}
   - component: {fileID: 270319438}
   - component: {fileID: 270319437}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Splinter Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10788,7 +10789,7 @@ GameObject:
   - component: {fileID: 365606114}
   - component: {fileID: 365606116}
   - component: {fileID: 365606115}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11040,7 +11041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 465128163}
   - component: {fileID: 465128164}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12147,6 +12148,7 @@ MonoBehaviour:
   healthbar: {fileID: 0}
   sr: {fileID: 0}
   enemyParticle: {fileID: 0}
+  particleDur: 0
 --- !u!4 &803403885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6557690799044413947, guid: 33a5baefec4747a42b0b8e4d699c061d, type: 3}
@@ -18417,7 +18419,7 @@ GameObject:
   - component: {fileID: 1277798337}
   - component: {fileID: 1277798339}
   - component: {fileID: 1277798338}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18493,7 +18495,7 @@ GameObject:
   - component: {fileID: 1302261912}
   - component: {fileID: 1302261914}
   - component: {fileID: 1302261913}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18678,7 +18680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1383494168}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18718,7 +18720,7 @@ GameObject:
   - component: {fileID: 1416425832}
   - component: {fileID: 1416425831}
   - component: {fileID: 1416425830}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18920,7 +18922,7 @@ GameObject:
   - component: {fileID: 1443120715}
   - component: {fileID: 1443120714}
   - component: {fileID: 1443120713}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Destructable Barrel (1)
   m_TagString: Barrel
   m_Icon: {fileID: 0}
@@ -18939,11 +18941,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e778c0e8158a8864e8110799f8089b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 25
   currentHP: 0
   healthbar: {fileID: 2147326193}
   sr: {fileID: 1443120715}
   enemyParticle: {fileID: 239658192}
+  particleDur: 0
 --- !u!61 &1443120714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19051,7 +19054,7 @@ GameObject:
   - component: {fileID: 1536465100}
   - component: {fileID: 1536465099}
   - component: {fileID: 1536465098}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20055,7 +20058,7 @@ GameObject:
   - component: {fileID: 1900833622}
   - component: {fileID: 1900833624}
   - component: {fileID: 1900833623}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20480,11 +20483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ed3e04969ee644586bb15fcee2dd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHP: 100
   healthEnd: {fileID: 946679236}
   healthCurve: {fileID: 977413435}
   healthStart: {fileID: 1018246936}
-  currentHP: 0
-  maxHP: 100
   endPercentage: 0.25
   curvePercentage: 0.5
   knockForce: 2500
@@ -20502,23 +20505,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPC: {fileID: 0}
-  PMS: {fileID: 0}
+  PMS: {fileID: 1964109620}
   hasHeavyAtk: 1
   lightRange: 1.25
   heavyRange: 1.75
   attackRangeY: 1
-  isAttacking: 0
-  attackAnimDelay: 0.8
+  attackPoint: {fileID: 2010987158}
   lightStrength: 10
   heavyStrength: 25
   lightCooldown: 1
   heavyCooldown: 3
-  attackPoint: {fileID: 2010987158}
+  atkCooldownUI: {fileID: 264723146}
+  isAtkCooldown: 0
+  cooldownTimer: 0
+  cooldownTime: 0
+  isAttacking: 0
+  attackAnimDelay: 0.8
   enemyLayers:
     serializedVersion: 2
     m_Bits: 2056
   uiView: 5
-  atkCooldownUI: {fileID: 264723146}
+  barrelDist: 0
+  enemyDist: 0
 --- !u!1 &1974936794
 GameObject:
   m_ObjectHideFlags: 0
@@ -25820,7 +25828,7 @@ GameObject:
   - component: {fileID: 2036724374}
   - component: {fileID: 2036724376}
   - component: {fileID: 2036724373}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Destructable Barrel
   m_TagString: Barrel
   m_Icon: {fileID: 0}
@@ -25839,11 +25847,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e778c0e8158a8864e8110799f8089b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 25
   currentHP: 0
   healthbar: {fileID: 465128164}
   sr: {fileID: 2036724374}
   enemyParticle: {fileID: 270319438}
+  particleDur: 0
 --- !u!212 &2036724374
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -26062,7 +26071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2147326194}
   - component: {fileID: 2147326193}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

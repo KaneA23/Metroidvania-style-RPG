@@ -9,47 +9,52 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerCombatSystem : MonoBehaviour
 {
+	[Header("Referenced Scripts")]
 	public BasePlayerClass BPC;
 	public PlayerMovementSystem PMS;
 
+	[Header("Modular attacks")]
 	public bool hasHeavyAtk;
 
+	[Header("Attack Ranges")]
 	// distance each attack can reach away from player
 	public float lightRange = 0.75f;
 	public float heavyRange = 1f;
 	public float attackRangeY = 0.5f;
 
-	public bool isAttacking;
-	[SerializeField]
-	private float attackAnimDelay = 0.8f;
+	public Transform attackPoint;       // where the player attacks from
 
+	[Header("Attack Strengths")]
 	// Amount of damage each attack type does
 	public float lightStrength = 10;
 	public float heavyStrength = 25;
 
+	[Header("Attack cooldowns")]
 	// Time between each attack type
 	public float lightCooldown = 1f;
 	public float heavyCooldown = 3f;
 	//public float nextAttackTime = 0f;   // resets timer
+	
+	[SerializeField] private Image atkCooldownUI;
 
-	public Transform attackPoint;       // where the player attacks from
+	[SerializeField] private bool isAtkCooldown;
+	[SerializeField] private float cooldownTimer;
+	[SerializeField] private float cooldownTime;
 
+	[Header("Animation values")]
+	public bool isAttacking;
+	[SerializeField]
+	private float attackAnimDelay = 0.8f;
+
+	[Header("Enemy values")]
 	public LayerMask enemyLayers;       // items the player can attack
-
-
 	public float uiView = 5;
-	double barrelDist;
-	double enemyDist;
+	
+	[SerializeField] private double barrelDist;
+	[SerializeField] private double enemyDist;
 
 	GameObject[] barrels;
 	GameObject[] enemies;
-
-	[SerializeField]
-	private Image atkCooldownUI;
-
-	private bool isAtkCooldown;
-	private float cooldownTimer;
-	private float cooldownTime;
 
 	Animator anim;
 
@@ -72,39 +77,14 @@ public class PlayerCombatSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//if (Time.time >= nextAttackTime /*&& !isCooldown*/)
-		//{
-		//	if (Input.GetButtonDown("Fire1"))
-		//	{
-		//		LightAttack();
-		//		//Attack();
-		//		//nextAttackTime = Time.time + 1f / lightCooldownTime;
-		//	}
-		//	else if (Input.GetButtonDown("Fire2") && hasHeavyAttack)
-		//	{
-		//		HeavyAttack();
-		//		//nextAttackTime = Time.time + 1f / heavyCooldownTime;
-		//	}
-		//}
-		//else
-		//{
-		//	ApplyCooldown();
-		//}
-
-		//if (isCooldown)
-		//{
-		//	ApplyCooldown();
-		//}
-
 		if (isAtkCooldown)
 		{
 			ApplyCooldown();
 		}
-		else
+		else if (PMS.isGrounded)
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{
-
 				LightAttack();
 				//Attack();
 				//nextAttackTime = Time.time + 1f / lightCooldownTime;
@@ -189,9 +169,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// Attacks any enemies within attack range with heavy strike
 	/// </summary>
 	void HeavyAttack()
-	{
-		//anim.Play(PLAYER_SWORDATTACK);
-		//anim.Play(PLAYER_SWORDATTACK);
+	{ 
 		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
 
