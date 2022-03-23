@@ -104,7 +104,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{
-				
+
 				LightAttack();
 				//Attack();
 				//nextAttackTime = Time.time + 1f / lightCooldownTime;
@@ -160,18 +160,15 @@ public class PlayerCombatSystem : MonoBehaviour
 		//anim.Play(PLAYER_SWORDATTACK);
 		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
-		
+
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
 		Invoke("CompleteAttack", attackAnimDelay);
 
-		Debug.Log("light");
 		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(lightRange, attackRangeY), 0, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
-			Debug.Log("We hit " + enemy.name);
-
 			if (enemy.CompareTag("Barrel"))
 			{
 				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(lightStrength);
@@ -197,18 +194,15 @@ public class PlayerCombatSystem : MonoBehaviour
 		//anim.Play(PLAYER_SWORDATTACK);
 		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
-		
+
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
 		Invoke("CompleteAttack", attackAnimDelay);
 
-		Debug.Log("heavy");
 		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(heavyRange, attackRangeY), 0, enemyLayers);
 
 		foreach (Collider2D enemy in hitEnemies)
 		{
-			Debug.Log("We hit " + enemy.name);
-
 			if (enemy.CompareTag("Barrel"))
 			{
 				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(heavyStrength);
@@ -252,8 +246,6 @@ public class PlayerCombatSystem : MonoBehaviour
 		{
 			isAtkCooldown = false;
 			atkCooldownUI.fillAmount = 0.0f;
-
-			Debug.Log("Ready to strike!");
 		}
 		else
 		{

@@ -160,7 +160,8 @@ public class PlayerMovementSystem : MonoBehaviour
 			isFacingRight = !isFacingRight;
 		}
 
-		if (Input.GetButtonDown("Jump") && isGrounded) {
+		if (Input.GetButtonDown("Jump") && jumpCount < 1/*&& isGrounded*/)
+		{
 			//anim.Play(PLAYER_JUMPLAUNCH);
 			ChangeAnimationState(PLAYER_JUMPLAUNCH);
 			isJumping = true;
@@ -294,6 +295,19 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			StartCoroutine(JumpCooldown());
 		}
+		else if (isWallJumpActive && isTouchingWall && canWallJump)
+		{
+			//anim.Play(PLAYER_JUMPLAUNCH);
+			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
+
+			//rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
+			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+			rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
+			jumpCount = 0;
+			canWallJump = false;
+
+			StartCoroutine(JumpCooldown());
+		}
 		else if (canDoubleJump && isDoubleJumpActive)
 		{
 			//anim.Play(PLAYER_JUMPLAUNCH);
@@ -304,19 +318,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (isWallJumpActive && isTouchingWall && canWallJump)
-		{
-			//anim.Play(PLAYER_JUMPLAUNCH);
-			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
 
-			rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
-																				  //.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-																				  //rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
-			jumpCount = 0;
-			canWallJump = false;
-
-			StartCoroutine(JumpCooldown());
-		}
 	}
 
 	/// <summary>
@@ -331,7 +333,6 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if (currentAnimState == PLAYER_JUMPFALL)
 			{
-				Debug.Log("Landing");
 				ChangeAnimationState(PLAYER_JUMPLAND);
 				isJumping = true;
 				Invoke("CompleteJumpAnim", 0.267f);
