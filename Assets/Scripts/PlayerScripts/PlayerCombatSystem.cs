@@ -81,22 +81,34 @@ public class PlayerCombatSystem : MonoBehaviour
 		{
 			ApplyCooldown();
 		}
-		else if (PMS.isGrounded)
-		{
-			if (Input.GetButtonDown("Fire1"))
-			{
-				LightAttack();
-				//Attack();
-				//nextAttackTime = Time.time + 1f / lightCooldownTime;
-			}
-			else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
-			{
-				HeavyAttack();
-				//nextAttackTime = Time.time + 1f / heavyCooldownTime;
-			}
-		}
+        //else if (PMS.isGrounded)
+        //{
+        //	if (Input.GetButtonDown("Fire1"))
+        //	{
+        //		LightAttack();
+        //		//Attack();
+        //		//nextAttackTime = Time.time + 1f / lightCooldownTime;
+        //	}
+        //	else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
+        //	{
+        //		HeavyAttack();
+        //		//nextAttackTime = Time.time + 1f / heavyCooldownTime;
+        //	}
+        //}
 
-		barrels = GameObject.FindGameObjectsWithTag("Barrel");
+        if (Input.GetButtonDown("Fire1"))
+        {
+            LightAttack();
+            //Attack();
+            //nextAttackTime = Time.time + 1f / lightCooldownTime;
+        }
+        else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
+        {
+            HeavyAttack();
+            //nextAttackTime = Time.time + 1f / heavyCooldownTime;
+        }
+
+        barrels = GameObject.FindGameObjectsWithTag("Barrel");
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach (GameObject barrel in barrels)

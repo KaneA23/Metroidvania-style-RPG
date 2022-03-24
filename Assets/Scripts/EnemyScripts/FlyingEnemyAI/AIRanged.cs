@@ -46,7 +46,6 @@ public class AIRanged : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InvokeRepeating("UpdatePath", 0f, .5f);
-
     }
 
     void UpdatePath()
@@ -79,12 +78,12 @@ public class AIRanged : MonoBehaviour
             if ((transform.position.x - otherCollider.transform.position.x) < 0)
             {
                 Debug.Log("Left Hit");
-                rb.AddForce(new Vector2(-1f, 0f) * m_HitForce);
+                //rb.AddForce(new Vector2(-1f, 0f) * m_HitForce);
             }
             else if ((transform.position.x - otherCollider.transform.position.x) > 0)
             {
                 Debug.Log("Right Hit");
-                rb.AddForce(new Vector2(1f, 0f) * m_HitForce);
+                //rb.AddForce(new Vector2(1f, 0f) * m_HitForce);
             }
         }
 
@@ -99,6 +98,14 @@ public class AIRanged : MonoBehaviour
     {
         Vector3 velocity = rb.velocity;
         float a_speed = velocity.magnitude;
+
+        Vector3 enemyPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Vector3 playerPos = new Vector3(target.position.x, target.position.y, target.position.z);
+
+        if(enemyPos.magnitude > playerPos.magnitude + 6)
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+        }
 
         if (target.position.x < transform.position.x)
         {

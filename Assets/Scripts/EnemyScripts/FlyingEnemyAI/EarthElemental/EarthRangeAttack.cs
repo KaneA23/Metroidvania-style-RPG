@@ -20,13 +20,19 @@ public class EarthRangeAttack : MonoBehaviour
     private Vector3 m_SpikeSpawnPos;
     private Vector3 m_ChunkHitDir;
     private Vector3 m_ChunkSpawnPos;
+    private Vector3 m_PlayerPos;
+
+    public ParticleSystem m_SpikeRumble;
 
     public float m_GroundAttackSpeed;
     public float m_AboveAttackForce;
     public float m_AttackInterval;
 
+    int m_spikeCount = 0;
+
     private bool m_Attacking;
     private bool CR_RUNNING;
+    private bool m_AttackFinished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,15 +56,16 @@ public class EarthRangeAttack : MonoBehaviour
 
             if (m_Player.transform.position.y > -2.467551)
             {
-                if(!CR_RUNNING)
-                { 
+                if (!CR_RUNNING)
+                {
                     StartCoroutine(AboveAttack(m_AboveAttackForce));
-                }                
+                }
             }
             else if (m_Player.transform.position.y < -2.467551)
             {
                 if (!CR_RUNNING)
                 {
+                    m_PlayerPos = m_Player.transform.position;
                     StartCoroutine(GroundAttack(m_SpikeHeight, m_GroundAttackSpeed));
                 }
             }
@@ -74,35 +81,84 @@ public class EarthRangeAttack : MonoBehaviour
     {
         CR_RUNNING = true;
 
+        if (GameObject.FindGameObjectsWithTag("GroundAttack") != null)
+        {
+            GameObject[] spikes = GameObject.FindGameObjectsWithTag("GroundAttack");
+            foreach(GameObject spike in spikes)
+            {
+                Destroy(spike);
+            }
+        }
+
         while (m_Attacking)
         {
-            if (m_Player.transform.hasChanged)
+            if (m_AttackFinished && !m_Attacking)
             {
-                position = new Vector3(m_Player.transform.position.x, -3.8599999f);
+                break;
             }
 
-            m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
+            //if (m_Player.transform.hasChanged)
+            //{
+            //    position = new Vector3(m_PlayerPos.x, -3.8599999f);
+            //}
 
-            float elapsedTime = 0;
-            Vector3 startPosition = m_EarthSpikes.transform.position;
+            Debug.Log("Spike Count: " + m_spikeCount);
 
-            while (elapsedTime < timeToAppear)
+            if (m_EarthSpikes == null)
             {
-                m_EarthSpikes.transform.position = Vector3.Lerp(startPosition, position, elapsedTime / timeToAppear);
-                elapsedTime += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-            
-            elapsedTime = 0;
-
-            while (elapsedTime < timeToAppear)
-            {
-                m_EarthSpikes.transform.position = Vector3.Lerp(position, startPosition, elapsedTime / timeToAppear);
-                elapsedTime += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
+                Debug.Log("Yup");
+                m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
+                position = new Vector3(m_PlayerPos.x, -3.8599999f);
+                m_spikeCount = 1;
             }
 
-            Destroy(m_EarthSpikes);
+            if (m_EarthSpikes != null || m_Player.transform.hasChanged)
+            {
+                m_AttackFinished = false;
+
+                ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_Player.transform.position, Quaternion.identity);
+                spikeRumble.Play();
+                float particleDuration = spikeRumble.duration + spikeRumble.startLifetime;
+                Destroy(spikeRumble, particleDuration);
+                yield return new WaitForSeconds(particleDuration - 2);
+
+                float elapsedTime = 0;
+
+                //Debug.Log("Spike Count: " + m_spikeCount);
+
+                if (GameObject.FindGameObjectWithTag("GroundAttack"))
+                {
+                    Debug.Log("Spikes");
+                }
+
+                Vector3 startPosition = m_EarthSpikes.transform.position;
+
+                while (elapsedTime < timeToAppear)
+                {
+                    if (m_EarthSpikes != null)
+                    {
+                        m_EarthSpikes.transform.position = Vector3.Lerp(startPosition, position, elapsedTime / timeToAppear);
+                    }
+                    elapsedTime += Time.deltaTime;
+                    yield return new WaitForEndOfFrame();
+                }
+
+                elapsedTime = 0;
+
+                while (elapsedTime < timeToAppear)
+                {
+                    if (m_EarthSpikes != null)
+                    {
+                        m_EarthSpikes.transform.position = Vector3.Lerp(position, startPosition, elapsedTime / timeToAppear);
+                    }
+                    elapsedTime += Time.deltaTime;
+                    yield return new WaitForEndOfFrame();
+                }
+
+                Destroy(m_EarthSpikes);
+                m_spikeCount = 0;
+                m_AttackFinished = true;
+            }
         }
     }
 
@@ -110,9 +166,9 @@ public class EarthRangeAttack : MonoBehaviour
     {
         CR_RUNNING = true;
 
-        while(m_Attacking)
+        while (m_Attacking)
         {
-            float x = Random.Range(-8.66f, 8.66f);;
+            float x = Random.Range(-8.66f, 8.66f); ;
 
             m_ChunkSpawnPos = new Vector3(x, 5.6f);
 

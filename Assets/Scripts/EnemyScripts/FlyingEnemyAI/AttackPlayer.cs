@@ -14,6 +14,8 @@ public class AttackPlayer : MonoBehaviour
 
     public Vector2 m_AttackDirection;
 
+    public ParticleSystem m_EarthExplosion;
+
     public float m_AttackForce;
     public int m_DamageAmount;
 
@@ -41,6 +43,14 @@ public class AttackPlayer : MonoBehaviour
         Collider2D otherObject = collision.collider;
 
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+        
+        if(gameObject.CompareTag("AirAttack"))
+        {
+            ParticleSystem EarthBreak = Instantiate(m_EarthExplosion, transform.position, Quaternion.identity);
+            float particleDuration = EarthBreak.duration + EarthBreak.startLifetime;
+            EarthBreak.Play();
+            Destroy(EarthBreak, particleDuration);
+        }
 
         if (otherObject.gameObject == m_Player)
         {
@@ -67,6 +77,12 @@ public class AttackPlayer : MonoBehaviour
             }
             else if (gameObject.CompareTag("AirAttack"))
             {
+
+                ParticleSystem EarthBreak = Instantiate(m_EarthExplosion, transform.position, Quaternion.identity);
+                float particleDuration = EarthBreak.duration + EarthBreak.startLifetime;
+                EarthBreak.Play();
+                Destroy(EarthBreak, particleDuration);
+
                 if (m_Player.transform.position.x < transform.position.x)
                 {
                     m_AttackDirection = new Vector2(-1f, 0f) * m_AttackForce;

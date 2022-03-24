@@ -53,6 +53,7 @@ MonoBehaviour:
   m_PlayerBody: {fileID: 0}
   m_ChunkCollider: {fileID: 0}
   m_AttackDirection: {x: 0, y: 0}
+  m_EarthExplosion: {fileID: 7817527901324537411, guid: afdff5e5c7f9efc4ab1840d9e3978cc8, type: 3}
   m_AttackForce: 100
   m_DamageAmount: 5
 --- !u!50 &7807609913113860745
