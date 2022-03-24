@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9b8cfad72113b9c4f9e2a4683ce65da0
+guid: 370486ee143b4b7499dcd22b0a751677
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FloorDungeonSprites_0
+      name: FloorSpritesTemplate_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f801fa3cfdcaf14a8c7f3a05906746a
-      internalID: -56281313
+      spriteID: 850b768ddd83ecd4e87e19866532671d
+      internalID: -1367046283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_1
+      name: FloorSpritesTemplate_1
       rect:
         serializedVersion: 2
         x: 32
@@ -163,14 +163,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1162bb4110842f489880b7f1b7d221d
-      internalID: 1055291947
+      spriteID: d9fb9f5fb8f61ad48b5bd7bcccdac62c
+      internalID: -635661946
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_2
+      name: FloorSpritesTemplate_2
       rect:
         serializedVersion: 2
         x: 64
@@ -184,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7250d0a9583216648b41b3c6aede2526
-      internalID: -344990420
+      spriteID: dfee10a4b2f55154a9eeb4655f50a455
+      internalID: 451016421
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_3
+      name: FloorSpritesTemplate_3
       rect:
         serializedVersion: 2
         x: 96
@@ -205,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6a10b0e91dad61438dea8ce59f54a46
-      internalID: 311984162
+      spriteID: 7e3a32a25df33eb40b5b4432f45e1913
+      internalID: 1541730849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_4
+      name: FloorSpritesTemplate_4
       rect:
         serializedVersion: 2
         x: 0
@@ -226,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cb411fbed5670f469299bb0d8651ad6
-      internalID: -815155416
+      spriteID: 1b9bbc2a0c7ec1447a577f65bc36a753
+      internalID: -1791900307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_5
+      name: FloorSpritesTemplate_5
       rect:
         serializedVersion: 2
         x: 32
@@ -247,14 +247,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b409e3265df08a4439f012e88175cdd9
-      internalID: 1260992981
+      spriteID: 747d6f86dffc280408737b4c1f3410af
+      internalID: 1220197287
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_6
+      name: FloorSpritesTemplate_6
       rect:
         serializedVersion: 2
         x: 64
@@ -268,14 +268,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ed21a7a3beabf847aaa66881a77f884
-      internalID: -1389257694
+      spriteID: c80f62c2571b5c14fa9536fb74c12011
+      internalID: 1908906101
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_7
+      name: FloorSpritesTemplate_7
       rect:
         serializedVersion: 2
         x: 96
@@ -289,14 +289,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fff49a22cc25f54cbda5e793c26c4c6
-      internalID: 414244844
+      spriteID: 405811423504a5d4284d03a21a4b3786
+      internalID: 1247124164
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_8
+      name: FloorSpritesTemplate_8
       rect:
         serializedVersion: 2
         x: 128
@@ -310,14 +310,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00bf1a8ec2f565f4a84b1375cb77970b
-      internalID: -52355710
+      spriteID: 67a64738500a80347ae0e76614c97e09
+      internalID: 1358872313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_9
+      name: FloorSpritesTemplate_9
       rect:
         serializedVersion: 2
         x: 160
@@ -331,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccefd15ea1ce7e043a8d16f8aad4b1f1
-      internalID: 844003939
+      spriteID: 525987fa02fa2a341b0f9865ebbd61b8
+      internalID: 626125554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_10
+      name: FloorSpritesTemplate_10
       rect:
         serializedVersion: 2
         x: 0
@@ -352,14 +352,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd714c7b22de8be45bd6f52a6eced6b9
-      internalID: -1152345340
+      spriteID: c5680ecb85ee5f64b89adf010a34f3ed
+      internalID: 620547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_11
+      name: FloorSpritesTemplate_11
       rect:
         serializedVersion: 2
         x: 32
@@ -373,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e72b3c799e199284790601a113eaa3b6
-      internalID: 893679989
+      spriteID: 1768b6c9e9af1df43af834e33758e0f6
+      internalID: -1158670745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_12
+      name: FloorSpritesTemplate_12
       rect:
         serializedVersion: 2
         x: 64
@@ -394,14 +394,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f429460d0a434c4b9283e12668f8c17
-      internalID: -1466330138
+      spriteID: 4b19339bcd9be2447a7de8e4154c4e11
+      internalID: 1220297698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_13
+      name: FloorSpritesTemplate_13
       rect:
         serializedVersion: 2
         x: 96
@@ -415,14 +415,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3676edbcf35b854a82de8bc1eea1c7f
-      internalID: 1961537300
+      spriteID: a726a14cc444801409384b53ba9481e7
+      internalID: -916780075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_14
+      name: FloorSpritesTemplate_14
       rect:
         serializedVersion: 2
         x: 128
@@ -436,14 +436,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15cb03fbacf588c4eb6d5026e5671a4a
-      internalID: 1091795855
+      spriteID: 5cc6e9fee589f4844a5ab0dbbf7426ea
+      internalID: 721083504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_15
+      name: FloorSpritesTemplate_15
       rect:
         serializedVersion: 2
         x: 160
@@ -457,14 +457,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ec24d5895766dd46be8bee2b564eabe
-      internalID: -480426778
+      spriteID: 61a758c3194fa7b4fbafde13b4dbcb55
+      internalID: -1771821561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_16
+      name: FloorSpritesTemplate_16
       rect:
         serializedVersion: 2
         x: 0
@@ -478,14 +478,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8be76138b62390248a43dd6c900dfb7f
-      internalID: -174976966
+      spriteID: 00859e077566c9141a934db800e00b90
+      internalID: 552250818
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_17
+      name: FloorSpritesTemplate_17
       rect:
         serializedVersion: 2
         x: 32
@@ -499,14 +499,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88ff680f9e8240142a3655100acd0150
-      internalID: -1803173565
+      spriteID: 7cf1a89c31069cf4290e10e2e8bb5f30
+      internalID: 1960230332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_18
+      name: FloorSpritesTemplate_18
       rect:
         serializedVersion: 2
         x: 64
@@ -520,14 +520,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87576cb42def3f3488b377fc15f5918e
-      internalID: 840558867
+      spriteID: 28356b8564e51ec45bfaac7df0ec4fd4
+      internalID: 1297506122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_19
+      name: FloorSpritesTemplate_19
       rect:
         serializedVersion: 2
         x: 96
@@ -541,14 +541,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86bf3a07cd0bf5f4496683473ab8d34c
-      internalID: 1703838835
+      spriteID: 5fcdba04f43e5274bae12fe564e4f737
+      internalID: -560232849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_20
+      name: FloorSpritesTemplate_20
       rect:
         serializedVersion: 2
         x: 128
@@ -562,14 +562,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3451adf036cee8a4c954c5219ecca660
-      internalID: 362316769
+      spriteID: 2d4cd12913aff6341a289a867d29149d
+      internalID: -1395570639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_21
+      name: FloorSpritesTemplate_21
       rect:
         serializedVersion: 2
         x: 160
@@ -583,14 +583,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73d940d16430aaf4caedde92e3b5f456
-      internalID: -116830593
+      spriteID: ed475fb931255a84b8a832e46f29feb4
+      internalID: -238153628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_22
+      name: FloorSpritesTemplate_22
       rect:
         serializedVersion: 2
         x: 0
@@ -604,14 +604,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0bfa1eccdfd58340aeced36eaf4e41b
-      internalID: -455946957
+      spriteID: d5f521cfa629e4b4c8b8c35999aca640
+      internalID: -1351822362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_23
+      name: FloorSpritesTemplate_23
       rect:
         serializedVersion: 2
         x: 32
@@ -625,14 +625,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 095181533410f774189bfe3eb8410d85
-      internalID: 704352501
+      spriteID: 81400b2530a0e73428c3fcfa3e99e21d
+      internalID: -1114093638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_24
+      name: FloorSpritesTemplate_24
       rect:
         serializedVersion: 2
         x: 64
@@ -646,14 +646,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 138c00e84d1ac01479635c7753662882
-      internalID: -433999825
+      spriteID: 136111c8eff97c840a9273cf1a6689b7
+      internalID: 203120506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_25
+      name: FloorSpritesTemplate_25
       rect:
         serializedVersion: 2
         x: 96
@@ -667,14 +667,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47456fe119e1bf840ba5bea4639aeb91
-      internalID: 2003407483
+      spriteID: 5a019e99f34d94842af621357940838d
+      internalID: 613801219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_26
+      name: FloorSpritesTemplate_26
       rect:
         serializedVersion: 2
         x: 128
@@ -688,14 +688,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c7f2087957ed34479ba3870e51e113c
-      internalID: -1008074478
+      spriteID: fd7cae9f1db413641a600c33c949766d
+      internalID: 105776483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_27
+      name: FloorSpritesTemplate_27
       rect:
         serializedVersion: 2
         x: 160
@@ -709,14 +709,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9be7b18fd0f1684e9e61e34a8d207a1
-      internalID: -1299310406
+      spriteID: 95482a2759f71e5418b49cb0f42ec19c
+      internalID: 1734712658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_28
+      name: FloorSpritesTemplate_28
       rect:
         serializedVersion: 2
         x: 0
@@ -730,14 +730,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7c009f1a54dc284b981ecd30f9bd09f
-      internalID: 1737659522
+      spriteID: 2701448868569304e86676a5e18ce8d8
+      internalID: -1302698188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_29
+      name: FloorSpritesTemplate_29
       rect:
         serializedVersion: 2
         x: 32
@@ -751,14 +751,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 166cd75b5d1e4ca46a85e72a11e79a62
-      internalID: 2012834295
+      spriteID: 5e60b2b9074707d4fa3361133d034cce
+      internalID: -626391463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_30
+      name: FloorSpritesTemplate_30
       rect:
         serializedVersion: 2
         x: 64
@@ -772,14 +772,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56b707f0425597241b24c1c379678dca
-      internalID: 753202343
+      spriteID: 32290eef24e3d604e9ea15ad350b674b
+      internalID: 235203072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_31
+      name: FloorSpritesTemplate_31
       rect:
         serializedVersion: 2
         x: 96
@@ -793,14 +793,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca3ffc934bafd6f41940fcee64ccf682
-      internalID: 650570083
+      spriteID: 83ac66a8085fb35419dea28c12f08547
+      internalID: 1089256052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_32
+      name: FloorSpritesTemplate_32
       rect:
         serializedVersion: 2
         x: 128
@@ -814,14 +814,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d38d140b7894544c9bc71ac2aff6a62
-      internalID: -899234590
+      spriteID: 3f5fef9642a5cbe4da50693a41c99893
+      internalID: -1458691290
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorDungeonSprites_33
+      name: FloorSpritesTemplate_33
       rect:
         serializedVersion: 2
         x: 160
@@ -835,8 +835,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dee56a0fb1066b49b3708d13d97cb19
-      internalID: 992664052
+      spriteID: 6d2cbf905cb175847a1528cd5b4c28c2
+      internalID: -1489140563
       vertices: []
       indices: 
       edges: []
@@ -852,40 +852,40 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FloorDungeonSprites_22: -455946957
-      FloorDungeonSprites_11: 893679989
-      FloorDungeonSprites_33: 992664052
-      FloorDungeonSprites_23: 704352501
-      FloorDungeonSprites_6: -1389257694
-      FloorDungeonSprites_10: -1152345340
-      FloorDungeonSprites_30: 753202343
-      FloorDungeonSprites_18: 840558867
-      FloorDungeonSprites_16: -174976966
-      FloorDungeonSprites_2: -344990420
-      FloorDungeonSprites_25: 2003407483
-      FloorDungeonSprites_21: -116830593
-      FloorDungeonSprites_20: 362316769
-      FloorDungeonSprites_28: 1737659522
-      FloorDungeonSprites_14: 1091795855
-      FloorDungeonSprites_24: -433999825
-      FloorDungeonSprites_19: 1703838835
-      FloorDungeonSprites_9: 844003939
-      FloorDungeonSprites_15: -480426778
-      FloorDungeonSprites_31: 650570083
-      FloorDungeonSprites_29: 2012834295
-      FloorDungeonSprites_8: -52355710
-      FloorDungeonSprites_12: -1466330138
-      FloorDungeonSprites_13: 1961537300
-      FloorDungeonSprites_17: -1803173565
-      FloorDungeonSprites_0: -56281313
-      FloorDungeonSprites_27: -1299310406
-      FloorDungeonSprites_1: 1055291947
-      FloorDungeonSprites_32: -899234590
-      FloorDungeonSprites_3: 311984162
-      FloorDungeonSprites_7: 414244844
-      FloorDungeonSprites_26: -1008074478
-      FloorDungeonSprites_4: -815155416
-      FloorDungeonSprites_5: 1260992981
+      FloorSpritesTemplate_23: -1114093638
+      FloorSpritesTemplate_6: 1908906101
+      FloorSpritesTemplate_30: 235203072
+      FloorSpritesTemplate_32: -1458691290
+      FloorSpritesTemplate_15: -1771821561
+      FloorSpritesTemplate_17: 1960230332
+      FloorSpritesTemplate_14: 721083504
+      FloorSpritesTemplate_5: 1220197287
+      FloorSpritesTemplate_10: 620547
+      FloorSpritesTemplate_21: -238153628
+      FloorSpritesTemplate_16: 552250818
+      FloorSpritesTemplate_31: 1089256052
+      FloorSpritesTemplate_1: -635661946
+      FloorSpritesTemplate_19: -560232849
+      FloorSpritesTemplate_27: 1734712658
+      FloorSpritesTemplate_9: 626125554
+      FloorSpritesTemplate_28: -1302698188
+      FloorSpritesTemplate_25: 613801219
+      FloorSpritesTemplate_26: 105776483
+      FloorSpritesTemplate_33: -1489140563
+      FloorSpritesTemplate_24: 203120506
+      FloorSpritesTemplate_7: 1247124164
+      FloorSpritesTemplate_8: 1358872313
+      FloorSpritesTemplate_29: -626391463
+      FloorSpritesTemplate_22: -1351822362
+      FloorSpritesTemplate_12: 1220297698
+      FloorSpritesTemplate_0: -1367046283
+      FloorSpritesTemplate_2: 451016421
+      FloorSpritesTemplate_3: 1541730849
+      FloorSpritesTemplate_13: -916780075
+      FloorSpritesTemplate_4: -1791900307
+      FloorSpritesTemplate_11: -1158670745
+      FloorSpritesTemplate_18: 1297506122
+      FloorSpritesTemplate_20: -1395570639
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
