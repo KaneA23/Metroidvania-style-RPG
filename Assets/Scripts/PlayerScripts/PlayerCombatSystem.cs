@@ -11,8 +11,8 @@ public class PlayerCombatSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
 	public BasePlayerClass BPC;
-	public PlayerMovementSystem PMS;
 	public PlayerHealthSystem PHS;
+	public PlayerAnimationManager PAM;
 
 	[Header("Modular attacks")]
 	public bool hasHeavyAtk;
@@ -23,7 +23,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	public float heavyRange = 1f;
 	public float attackRangeY = 0.5f;
 
-	public Transform attackPoint;       // where the player attacks from
+	public Transform attackPoint;	// where the player attacks from
 
 	[Header("Attack Strengths")]
 	// Amount of damage each attack type does
@@ -34,7 +34,6 @@ public class PlayerCombatSystem : MonoBehaviour
 	// Time between each attack type
 	public float lightCooldown = 0.75f;
 	public float heavyCooldown = 1.5f;
-	//public float nextAttackTime = 0f;   // resets timer
 
 	[SerializeField] private Image atkCooldownUI;
 
@@ -48,7 +47,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	private float attackAnimDelay;
 
 	[Header("Enemy values")]
-	public LayerMask enemyLayers;       // items the player can attack
+	public LayerMask enemyLayers;	// items the player can attack
 	public float uiView = 5;
 
 	[SerializeField] private double barrelDist;
@@ -64,8 +63,8 @@ public class PlayerCombatSystem : MonoBehaviour
 
 	private void Awake()
 	{
-		PMS = GetComponent<PlayerMovementSystem>();
 		PHS = GetComponent<PlayerHealthSystem>();
+		PAM = GetComponent<PlayerAnimationManager>();
 
 		anim = GetComponentInChildren<Animator>();
 	}
@@ -89,13 +88,10 @@ public class PlayerCombatSystem : MonoBehaviour
 			if (Input.GetButtonDown("Fire1"))
 			{
 				LightAttack();
-				//Attack();
-				//nextAttackTime = Time.time + 1f / lightCooldownTime;
 			}
 			else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
 			{
 				HeavyAttack();
-				//nextAttackTime = Time.time + 1f / heavyCooldownTime;
 			}
 		}
 
@@ -140,17 +136,13 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
-		//anim.Play(PLAYER_SWORDATTACK);
-		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
+		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
+		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
 		isAttacking = true;
-
 		attackAnimDelay = 0.35f;
-		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-		Invoke("CompleteAttack", attackAnimDelay);
+		Invoke(nameof(CompleteAttack), attackAnimDelay);
 
-		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, lightRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(lightRange, attackRangeY), 0, enemyLayers);
-
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			if (enemy.CompareTag("Barrel"))
@@ -166,7 +158,6 @@ public class PlayerCombatSystem : MonoBehaviour
 		isAtkCooldown = true;
 		cooldownTimer = lightCooldown;
 		cooldownTime = lightCooldown;
-		//ApplyCooldown();
 	}
 
 	/// <summary>
@@ -174,16 +165,13 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
-		PMS.ChangeAnimationState(PLAYER_HEAVYATTACK);
+		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
+		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
 		isAttacking = true;
-
 		attackAnimDelay = 0.517f;
-		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
-		Invoke("CompleteAttack", attackAnimDelay);
+		Invoke(nameof(CompleteAttack), attackAnimDelay);
 
-		//Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, heavyRange, enemyLayers);
 		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(heavyRange, attackRangeY), 0, enemyLayers);
-
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			if (enemy.CompareTag("Barrel"))
@@ -199,31 +187,22 @@ public class PlayerCombatSystem : MonoBehaviour
 		isAtkCooldown = true;
 		cooldownTimer = heavyCooldown;
 		cooldownTime = heavyCooldown;
-		//ApplyCooldown();
 	}
 
-	public void Attack()
-	{
-		if (isAtkCooldown)
-		{
-			return;
-		}
-		else
-		{
-			isAtkCooldown = true;
-			cooldownTimer = lightCooldown;
-		}
-	}
-
+	/// <summary>
+	/// 
+	/// </summary>
 	void CompleteAttack()
 	{
 		isAttacking = false;
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	void ApplyCooldown()
 	{
 		cooldownTimer -= Time.deltaTime;
-		//Debug.Log("Can attack in: " + cooldownTimer);
 
 		if (cooldownTimer <= 0)
 		{
@@ -236,6 +215,9 @@ public class PlayerCombatSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Allows to see attack ranges in editor
+	/// </summary>
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;

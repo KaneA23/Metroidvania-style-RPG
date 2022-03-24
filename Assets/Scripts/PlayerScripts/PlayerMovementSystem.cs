@@ -8,7 +8,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerMovementSystem : MonoBehaviour
 {
+	[Header("Referenced Script")]
 	public BasePlayerClass BPC;
+	public PlayerAnimationManager PAM;
 	public PlayerCombatSystem PCS;
 	public PlayerHealthSystem PHS;
 
@@ -33,7 +35,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public bool isGrounded;
 	public bool isJumping;
 	public float jumpForce = 25f;
-	float jumpDelay;
+	private float jumpDelay;
 
 	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
 	[Range(0f, 1f)]
@@ -63,7 +65,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	public float cooldownTimer;
 	public float manaCooldownTime = 0.5f;
 
-
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
 
@@ -84,7 +85,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
-	SpriteRenderer spriteRenderer;  // Used to switch character direction
 
 	public Animator anim;
 
@@ -92,13 +92,13 @@ public class PlayerMovementSystem : MonoBehaviour
 	[SerializeField]
 	private string currentAnimState;
 
-	const string PLAYER_IDLE = "Player_Idle";
-	const string PLAYER_WALK = "Player_Walk";
-	const string PLAYER_RUN = "Player_Run";
-	const string PLAYER_JUMPLAUNCH = "Player_JumpLaunch";
-	const string PLAYER_JUMPFALL = "Player_JumpFall";
-	const string PLAYER_JUMPLAND = "Player_JumpLand";
-	const string PLAYER_DASH = "Player_Dash";
+	//const string PLAYER_IDLE = "Player_Idle";
+	//const string PLAYER_WALK = "Player_Walk";
+	//const string PLAYER_RUN = "Player_Run";
+	//const string PLAYER_JUMPLAUNCH = "Player_JumpLaunch";
+	//const string PLAYER_JUMPFALL = "Player_JumpFall";
+	//const string PLAYER_JUMPLAND = "Player_JumpLand";
+	//const string PLAYER_DASH = "Player_Dash";
 	// string PLAYER_SWORDATTACK = "Player_SwordAttack";
 
 	private void Awake()
@@ -108,9 +108,9 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		anim = GetComponentInChildren<Animator>();
+		PAM = GetComponent<PlayerAnimationManager>();
 	}
 
 	// Start is called before the first frame update
@@ -118,7 +118,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		headCollider.enabled = true;
 		isCrouching = false;
-		moveSpeed = defaultSpeed;
 		jumpCount = 0;
 
 		isManaCooldown = false;
@@ -130,8 +129,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
 		{
-			//anim.Play(PLAYER_JUMPFALL);
-			ChangeAnimationState(PLAYER_JUMPFALL);
+			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 		}
 
 		CheckIfGrounded();
@@ -163,19 +162,17 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Checks which way the player should be facing
 		if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 		{
-			//spriteRenderer.flipX = true;    //right
 			transform.Rotate(new Vector2(0, 180));
 			isFacingRight = !isFacingRight;
 		}
 
-		if (Input.GetButtonDown("Jump") && jumpCount < 1/*&& isGrounded*/)
+		if (Input.GetButtonDown("Jump") && jumpCount < 1)
 		{
-			//anim.Play(PLAYER_JUMPLAUNCH);
-			ChangeAnimationState(PLAYER_JUMPLAUNCH);
+			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
 			isJumping = true;
-
-			Invoke("CompleteJumpAnim", 0.5f);
-			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
+			jumpDelay = 0.5f;
+			Invoke(nameof(CompleteJumpAnim), jumpDelay);
 		}
 
 		if (Input.GetButtonDown("Jump"))
@@ -248,41 +245,34 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
-		//if (moveHorizontal == 0 && isGrounded)
-		//{
-		//	anim.Play(PLAYER_IDLE);
-		//}
-		//else
-		//{
 		// Moves player across X-axis
 		if (!PCS.isAttacking)
 		{
 			if (isGrounded || !isTouchingWall)
 			{
-				//anim.Play(PLAYER_RUN);
 				rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
 			}
 		}
-		//}
 
 		if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying)
 		{
 			if (moveHorizontal != 0)
 			{
-				//anim.Play(PLAYER_RUN);
 				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
 				{
-					ChangeAnimationState(PLAYER_RUN);
+					//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
 				}
 				else
 				{
-					ChangeAnimationState(PLAYER_WALK);
+					//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_WALK);
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_WALK);
 				}
 			}
 			else
 			{
-				//anim.Play(PLAYER_IDLE);
-				ChangeAnimationState(PLAYER_IDLE);
+				//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 			}
 		}
 	}
@@ -304,21 +294,13 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
-			//anim.Play(PLAYER_JUMPLAUNCH);
-			//Debug.Log("Jump1");
-			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
-
-			rb.velocity = jumpForce * Vector2.up;//* moveSpeed
+			rb.velocity = jumpForce * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
 		else if (isWallJumpActive && isTouchingWall && canWallJump)
 		{
-			//anim.Play(PLAYER_JUMPLAUNCH);
-			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
-
-			//rb.velocity = new Vector2(wallJumpForce * -moveHorizontal, jumpForce);//* moveSpeed
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 			rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
@@ -328,10 +310,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (canDoubleJump && isDoubleJumpActive)
 		{
-			//anim.Play(PLAYER_JUMPLAUNCH);
-			//StartCoroutine(JumpAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
-
-			rb.velocity = jumpForce * Vector2.up;//* moveSpeed 
+			rb.velocity = jumpForce * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
@@ -348,11 +327,13 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Resets double jump if the player is touching the ground
 		if (isGrounded)
 		{
-			if (currentAnimState == PLAYER_JUMPFALL)
+			if (PAM.currentAnimState == "Player_Fall")
 			{
-				ChangeAnimationState(PLAYER_JUMPLAND);
+				//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
 				isJumping = true;
-				Invoke("CompleteJumpAnim", 0.267f);
+				jumpDelay = 0.267f;
+				Invoke(nameof(CompleteJumpAnim), jumpDelay);
 			}
 
 			canDoubleJump = true;
@@ -388,26 +369,10 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-	//IEnumerator JumpAnimation(float a_animLength)
-	//{
-	//	yield return new WaitUntil(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
-	//}
-
 	void CompleteJumpAnim()
 	{
 		isJumping = false;
 	}
-
-	//private void OnCollisionEnter2D(Collision2D collision)
-	//{
-	//	if (currentAnimState == PLAYER_JUMPFALL)
-	//	{
-	//		Debug.Log("Landing");
-	//		ChangeAnimationState(PLAYER_JUMPLAND);
-	//		isJumping = true;
-	//		Invoke("CompleteLaunch", 0.5f);
-	//	}
-	//}
 
 	#endregion
 
@@ -441,26 +406,32 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	void Dash(int a_dir)
 	{
-		ChangeAnimationState(PLAYER_DASH);
+		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASH);
+		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASH);
 
 		isDashing = true;
 		canDash = false;
 		rb.velocity = new Vector2(rb.velocity.x, 0);
 		rb.AddForce(new Vector2(dashDistance * a_dir, 0), ForceMode2D.Impulse);
 
-		Invoke("CompleteDash", 0.85f);
+		Invoke(nameof(CompleteDash), 0.85f);
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	void CompleteDash()
 	{
 		isDashing = false;
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	void ApplyCooldown()
 	{
 		cooldownTimer -= Time.deltaTime;
 		isDashing = false;
-		//Debug.Log("Can attack in: " + cooldownTimer);
 
 		if (cooldownTimer <= 0)
 		{
@@ -473,20 +444,5 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / manaCooldownTime), 0, 1);
 		}
-	}
-
-	public void ChangeAnimationState(string a_newState)
-	{
-		// Stops the same animation from interrupting itself
-		if (currentAnimState == a_newState)
-		{
-			return;
-		}
-
-		// Play the animation
-		anim.Play(a_newState);
-
-		// reassign current state
-		currentAnimState = a_newState;
 	}
 }

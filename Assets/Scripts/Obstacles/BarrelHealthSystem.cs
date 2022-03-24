@@ -20,7 +20,7 @@ public class BarrelHealthSystem : MonoBehaviour
 
 	public ParticleSystem enemyParticle;
 	ParticleSystem.EmissionModule em;
-	[SerializeField] private float particleDur;
+	private float particleDur;
 
 	private void Awake()
 	{
