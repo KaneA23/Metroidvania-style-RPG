@@ -10,6 +10,7 @@ public class PlayerMovementSystem : MonoBehaviour
 {
 	public BasePlayerClass BPC;
 	public PlayerCombatSystem PCS;
+	public PlayerHealthSystem PHS;
 
 	[Header("Movement")]
 	public float moveHorizontal;
@@ -51,7 +52,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	[Header("Dash")]
 	public bool isDashActive;
-	public float dashDistance = 15f;
+	public float dashDistance = 25f;
 	public bool canDash;
 	public bool isDashing;
 
@@ -92,15 +93,19 @@ public class PlayerMovementSystem : MonoBehaviour
 	private string currentAnimState;
 
 	const string PLAYER_IDLE = "Player_Idle";
+	const string PLAYER_WALK = "Player_Walk";
 	const string PLAYER_RUN = "Player_Run";
 	const string PLAYER_JUMPLAUNCH = "Player_JumpLaunch";
 	const string PLAYER_JUMPFALL = "Player_JumpFall";
 	const string PLAYER_JUMPLAND = "Player_JumpLand";
+	const string PLAYER_DASH = "Player_Dash";
 	// string PLAYER_SWORDATTACK = "Player_SwordAttack";
 
 	private void Awake()
 	{
 		PCS = GetComponent<PlayerCombatSystem>();
+		PHS = GetComponent<PlayerHealthSystem>();
+
 		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -123,7 +128,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!isGrounded && !isJumping)
+		if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
 		{
 			//anim.Play(PLAYER_JUMPFALL);
 			ChangeAnimationState(PLAYER_JUMPFALL);
@@ -133,12 +138,15 @@ public class PlayerMovementSystem : MonoBehaviour
 		CheckIfCeiling();
 		CheckIfWall();
 
-		PlayerInput();
+		if (!PHS.isHit)
+		{
+			PlayerInput();
+		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (!isDashing)
+		if (!isDashing && !PHS.isHit)
 		{
 			PlayerMovement();
 		}
@@ -221,13 +229,13 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if (isFacingRight)
 			{
-				StartCoroutine(Dash(1));    //dash right
-											//Dash(1);
+				//StartCoroutine(Dash(1));    //dash right
+				Dash(1);
 			}
 			else
 			{
-				//Dash(-1);
-				StartCoroutine(Dash(-1));   // dash left
+				Dash(-1);
+				//StartCoroutine(Dash(-1));   // dash left
 			}
 		}
 		//}
@@ -247,19 +255,29 @@ public class PlayerMovementSystem : MonoBehaviour
 		//else
 		//{
 		// Moves player across X-axis
-		if (isGrounded || !isTouchingWall)
+		if (!PCS.isAttacking)
 		{
-			//anim.Play(PLAYER_RUN);
-			rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+			if (isGrounded || !isTouchingWall)
+			{
+				//anim.Play(PLAYER_RUN);
+				rb.velocity = new Vector2(moveHorizontal * moveSpeed, rb.velocity.y);
+			}
 		}
 		//}
 
-		if (isGrounded && !PCS.isAttacking && !isJumping)
+		if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying)
 		{
 			if (moveHorizontal != 0)
 			{
 				//anim.Play(PLAYER_RUN);
-				ChangeAnimationState(PLAYER_RUN);
+				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+				{
+					ChangeAnimationState(PLAYER_RUN);
+				}
+				else
+				{
+					ChangeAnimationState(PLAYER_WALK);
+				}
 			}
 			else
 			{
@@ -318,7 +336,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			StartCoroutine(JumpCooldown());
 		}
-
 	}
 
 	/// <summary>
@@ -352,8 +369,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, 0.4f, wallLayers);
 	}
-
-
 
 	/// <summary>
 	/// Player has to wait before they can jump again
@@ -401,16 +416,16 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	/// <param name="a_direction">Direction that the player is wanted to dash</param>
 	/// <returns>1 second wait between dashes</returns>
-	IEnumerator Dash(int a_direction)
-	{
-		isDashing = true;
-		canDash = false;
-		rb.velocity = new Vector2(rb.velocity.x, 0);
-		rb.AddForce(new Vector2(dashDistance * a_direction, 0), ForceMode2D.Impulse);
+	//IEnumerator Dash(int a_direction)
+	//{
+	//	isDashing = true;
+	//	canDash = false;
+	//	rb.velocity = new Vector2(rb.velocity.x, 0);
+	//	rb.AddForce(new Vector2(dashDistance * a_direction, 0), ForceMode2D.Impulse);
 
-		yield return new WaitForSeconds(0.5f);
-		isDashing = false;
-	}
+	//	yield return new WaitForSeconds(0.5f);
+	//	isDashing = false;
+	//}
 
 	//void Dash(int a_dir)
 	//{
@@ -423,6 +438,23 @@ public class PlayerMovementSystem : MonoBehaviour
 	//	isManaCooldown = true;
 	//	cooldownTimer = manaCooldownTime;
 	//}
+
+	void Dash(int a_dir)
+	{
+		ChangeAnimationState(PLAYER_DASH);
+
+		isDashing = true;
+		canDash = false;
+		rb.velocity = new Vector2(rb.velocity.x, 0);
+		rb.AddForce(new Vector2(dashDistance * a_dir, 0), ForceMode2D.Impulse);
+
+		Invoke("CompleteDash", 0.85f);
+	}
+
+	void CompleteDash()
+	{
+		isDashing = false;
+	}
 
 	void ApplyCooldown()
 	{

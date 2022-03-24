@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 583d86bc9c67ad94292900c9a037cd4f
+guid: 86547279e03333b428df6712529cd582
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerJumpSprites_0
+      name: PlayerDashSprites_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 96
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,41 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e218ec3d1aaf5294bb98e1732ba3f60e
-      internalID: -790034878
+      spriteID: 199a0f919c426684ab093243f716a981
+      internalID: 135037913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerJumpSprites_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8d88cbffc707a7a428a0e34f94807f72
-      internalID: 2122214391
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerJumpSprites_2
+      name: PlayerDashSprites_1
       rect:
         serializedVersion: 2
         x: 64
-        y: 32
-        width: 32
-        height: 32
+        y: 96
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +139,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c8660aaa8f3a9249b8553572df154de
-      internalID: 2096573264
+      spriteID: e413dd4b5c59e734ab0767b87d8490b6
+      internalID: 1960810398
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerJumpSprites_3
+      name: PlayerDashSprites_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
+        x: 128
+        y: 96
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +160,104 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa0f4b7c1dff7b14ab070f37564872d8
-      internalID: 594712044
+      spriteID: d7fc8b8ee260db64eb792002dc6bcf6d
+      internalID: 1891383420
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerJumpSprites_4
+      name: PlayerDashSprites_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 64
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f51d8231c81ee5440a4ac520a724928c
+      internalID: -1391813075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDashSprites_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 64
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 182695ee12c9ad746bca676ea5368c7d
+      internalID: 6891352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDashSprites_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 48
+        width: 64
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bafad80535797ff488686690bf500bb7
+      internalID: -1291464433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDashSprites_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
+        width: 64
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cd7092b3015b3e40b5b9d3de37dc672
+      internalID: 1631981910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDashSprites_7
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,41 +265,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69d9e6cc5c25c424b97f4213a107a132
-      internalID: 1581052846
+      spriteID: c2382f16aa93103448986a32c4120981
+      internalID: 322610718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerJumpSprites_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bd0c8ce4d06fd9d4a9d87c0f9c91acbe
-      internalID: 1444721657
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerJumpSprites_6
+      name: PlayerDashSprites_8
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,20 +286,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ec3168aab3566448907ff06299aac24
-      internalID: 840300809
+      spriteID: b0f5f2dabc5e838419dd1bf39df4501e
+      internalID: -636041608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerJumpSprites_7
+      name: PlayerDashSprites_9
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 48
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,8 +307,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f0d1fe60fc5202438f59af6fa9c4717
-      internalID: 1559665682
+      spriteID: 66a0191a357cc6a42a3f2d2d08f49562
+      internalID: 295456319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerDashSprites_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 64
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 479b5ba236f066341aef29274c466efb
+      internalID: 1385232758
       vertices: []
       indices: 
       edges: []
@@ -282,14 +345,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerJumpSprites_6: 840300809
-      PlayerJumpSprites_1: 2122214391
-      PlayerJumpSprites_3: 594712044
-      PlayerJumpSprites_0: -790034878
-      PlayerJumpSprites_2: 2096573264
-      PlayerJumpSprites_4: 1581052846
-      PlayerJumpSprites_7: 1559665682
-      PlayerJumpSprites_5: 1444721657
+      PlayerDashSprites_2: 1891383420
+      PlayerDashSprites_10: 1385232758
+      PlayerDashSprites_0: 135037913
+      PlayerDashSprites_3: -1391813075
+      PlayerDashSprites_4: 6891352
+      PlayerDashSprites_8: -636041608
+      PlayerDashSprites_6: 1631981910
+      PlayerDashSprites_9: 295456319
+      PlayerDashSprites_1: 1960810398
+      PlayerDashSprites_5: -1291464433
+      PlayerDashSprites_7: 322610718
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -17,9 +17,21 @@ public class PlayerHealthSystem : MonoBehaviour
 	public Image healthEnd;
 	public Image healthCurve;
 	public Image healthStart;
+
+	//public Image healthBase;
+	//public Image healthLongNeck;
+	//public Image healthMidNeck;
+	//public Image healthSmallNeck;
+	//public Image healthLid;
+
 	[Space(5)]
 	[SerializeField] private float endPercentage = 0.25f;
 	[SerializeField] private float curvePercentage = 0.5f;
+
+	//[SerializeField] private float basePercentage = 0.35f;
+	//[SerializeField] private float longNeckPercentage = 0.35f;
+	//[SerializeField] private float midNeckPercentage = 0.165f;
+	//[SerializeField] private float smallNeckPercentage = 0.165f;
 	//public float startPercentage = 0.25f;
 
 	private const float curveFillAmount = 0.75f;
@@ -28,15 +40,34 @@ public class PlayerHealthSystem : MonoBehaviour
 	public float knockForce = 2500;
 	public Rigidbody2D rb;
 
+	public PlayerMovementSystem PMS;
+
+	const string PLAYER_HIT = "Player_Hit";
+	const string PLAYER_DEATH = "Player_Death";
+
+	public bool isHit;
+	public bool isDying;
+
+	[SerializeField]
+	private float hitAnimDelay = 0.517f;
+
+	[SerializeField]
+	private float deathDelay = 4f;
+
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+
+		PMS = GetComponent<PlayerMovementSystem>();
 	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		currentHP = maxHP;
+		isHit = false;
+		isDying = false;
+
 		FillHealthBar();
 	}
 
@@ -46,11 +77,19 @@ public class PlayerHealthSystem : MonoBehaviour
 		//FillHealthBar();
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			//TakeDamage(10);
+			TakeDamage(10, gameObject.transform.position);
 		}
 		if (Input.GetKeyDown(KeyCode.Equals))
 		{
 			GainHealth(10);
+		}
+
+		if (currentHP <= 0 && !isHit)
+		{
+			isDying = true;
+			PMS.ChangeAnimationState(PLAYER_DEATH);
+			Invoke("KillPlayer", deathDelay);
+			//KillPlayer();
 		}
 	}
 
@@ -60,25 +99,28 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_damage">Amount of health lost from attack</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
+		isHit = true;
+		PMS.ChangeAnimationState(PLAYER_HIT);
+
+		Invoke("CompleteDaze", hitAnimDelay);
+
 		if ((transform.position.x - a_enemyPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
+			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(-1f * knockForce, 250f));
 			//rb.velocity = new Vector2(-1 * knockForce, 0.1f * knockForce);
 		}
 		else if ((transform.position.x - a_enemyPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
+			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(1f * knockForce, 250f));
 			//rb.velocity = new Vector2(1 * knockForce, 0.15f * knockForce);
 		}
 
 		currentHP -= a_damage;
 
-		if (currentHP <= 0)
-		{
-			KillPlayer();
-		}
 		FillHealthBar();
 	}
 
@@ -123,6 +165,50 @@ public class PlayerHealthSystem : MonoBehaviour
 		float startFill = startHealth / startTotalHealth;
 		startFill = Mathf.Clamp(startFill, 0, 1);
 		healthStart.fillAmount = startFill;
+
+		//float healthPercentage = currentHP / maxHP;
+
+		//float baseFill = healthPercentage / basePercentage;
+		//baseFill = Mathf.Clamp(baseFill, 0, 1);
+		//healthBase.fillAmount = baseFill;
+
+		//float baseAmount = basePercentage * maxHP;
+
+		//float longNeckHealth = currentHP - baseAmount;
+		//float longNeckTotalHealth = maxHP - baseAmount;
+		//float longNeckFill = longNeckHealth / longNeckTotalHealth;
+		//longNeckFill = Mathf.Clamp(longNeckFill, 0, 1);
+		//healthLongNeck.fillAmount = longNeckFill;
+
+		//float longNeckAmount = longNeckPercentage * maxHP;
+
+		////float lidHealth = currentHP - longNeckAmount;
+		////float lidTotalHealth = maxHP - (longNeckAmount + baseAmount);
+		////float lidFill = lidHealth / lidTotalHealth;
+		////lidFill = Mathf.Clamp(lidFill, 0, 1);
+		////healthLid.fillAmount = lidFill;
+
+		//float midNeckHealth = currentHP - (longNeckAmount + baseAmount);
+		//float midNeckTotalHealth = maxHP - (longNeckAmount + baseAmount);
+		//float midNeckFill = midNeckHealth / midNeckTotalHealth;
+		//midNeckFill = Mathf.Clamp(midNeckFill, 0, 1);
+		//healthMidNeck.fillAmount = midNeckFill;
+
+		//float midNeckAmount = midNeckPercentage * maxHP;
+
+		//float smallNeckHealth = currentHP - (midNeckAmount + longNeckAmount + baseAmount);
+		//float smallNeckTotalHealth = maxHP - (midNeckAmount + longNeckAmount + baseAmount);
+		//float smallNeckFill = smallNeckHealth / smallNeckTotalHealth;
+		//smallNeckFill = Mathf.Clamp(smallNeckFill, 0, 1);
+		//healthSmallNeck.fillAmount = smallNeckFill;
+
+		//float smallNeckAmount = smallNeckPercentage * maxHP;
+
+		//float lidHealth = currentHP - (smallNeckAmount + midNeckAmount + longNeckAmount + baseAmount);
+		//float lidTotalHealth = maxHP - (smallNeckAmount + midNeckAmount + longNeckAmount + baseAmount);
+		//float lidFill = lidHealth / lidTotalHealth;
+		//lidFill = Mathf.Clamp(lidFill, 0, 1);
+		//healthLid.fillAmount = lidFill;
 	}
 
 	/// <summary>
@@ -130,8 +216,12 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// </summary>
 	void KillPlayer()
 	{
-		Debug.Log("<color=Red>I have fallen my Lord!</color>");
 		//Destroy(gameObject);
-		gameObject.active = false;
+		gameObject.SetActive(false);
+	}
+
+	void CompleteDaze()
+	{
+		isHit = false;
 	}
 }

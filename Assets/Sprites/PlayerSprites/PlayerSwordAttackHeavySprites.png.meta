@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba4f8f69b10423b4bb18b080929f00fd
+guid: fcb93d2f6e3479b4eb4de3028f0d2874
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -104,43 +104,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerIdle_0
+      name: PlayerSwordAttackHeavySprites_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.46875, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f888aed20bfb6d54d938e329a023ee7a
-      internalID: 423413320
+      spriteID: a1889b0e94a53d14bbe0ce893f4575cb
+      internalID: -1671698201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerIdle_1
+      name: PlayerSwordAttackHeavySprites_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0}
+      pivot: {x: 0.46875, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53721a180d66b8146bc8b13bb07e83fb
-      internalID: -1272541420
+      spriteID: e5a33c14cd730c748b73a08d540e9872
+      internalID: 1260374439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSwordAttackHeavySprites_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46875, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c118f6ee2f67a499d8728a39378754
+      internalID: -62043249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSwordAttackHeavySprites_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.25, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8c40857e66aed4468614df0a05095a3
+      internalID: 1906612664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSwordAttackHeavySprites_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46875, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee270e65a20f904f9fc26f6b9ec6eb5
+      internalID: -510138065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSwordAttackHeavySprites_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46875, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d7dec80b7ef37443a509256583dd86d
+      internalID: 713558664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerSwordAttackHeavySprites_6
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.46875, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 991f0eee23f6e41448f3414d35d84ee9
+      internalID: 1779165200
       vertices: []
       indices: 
       edges: []
@@ -156,8 +261,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerIdle_0: 423413320
-      PlayerIdle_1: -1272541420
+      PlayerSwordAttackHeavySprites_0: -1671698201
+      PlayerSwordAttackHeavySprites_5: 713558664
+      PlayerSwordAttackHeavySprites_4: -510138065
+      PlayerSwordAttackHeavySprites_6: 1779165200
+      PlayerSwordAttackHeavySprites_3: 1906612664
+      PlayerSwordAttackHeavySprites_1: 1260374439
+      PlayerSwordAttackHeavySprites_2: -62043249
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

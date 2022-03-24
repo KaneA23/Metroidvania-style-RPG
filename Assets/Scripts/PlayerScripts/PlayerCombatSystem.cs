@@ -12,6 +12,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	[Header("Referenced Scripts")]
 	public BasePlayerClass BPC;
 	public PlayerMovementSystem PMS;
+	public PlayerHealthSystem PHS;
 
 	[Header("Modular attacks")]
 	public bool hasHeavyAtk;
@@ -26,15 +27,15 @@ public class PlayerCombatSystem : MonoBehaviour
 
 	[Header("Attack Strengths")]
 	// Amount of damage each attack type does
-	public float lightStrength = 10;
-	public float heavyStrength = 25;
+	public float lightStrength = 25;
+	public float heavyStrength = 50;
 
 	[Header("Attack cooldowns")]
 	// Time between each attack type
-	public float lightCooldown = 1f;
-	public float heavyCooldown = 3f;
+	public float lightCooldown = 0.75f;
+	public float heavyCooldown = 1.5f;
 	//public float nextAttackTime = 0f;   // resets timer
-	
+
 	[SerializeField] private Image atkCooldownUI;
 
 	[SerializeField] private bool isAtkCooldown;
@@ -44,12 +45,12 @@ public class PlayerCombatSystem : MonoBehaviour
 	[Header("Animation values")]
 	public bool isAttacking;
 	[SerializeField]
-	private float attackAnimDelay = 0.8f;
+	private float attackAnimDelay;
 
 	[Header("Enemy values")]
 	public LayerMask enemyLayers;       // items the player can attack
 	public float uiView = 5;
-	
+
 	[SerializeField] private double barrelDist;
 	[SerializeField] private double enemyDist;
 
@@ -59,10 +60,12 @@ public class PlayerCombatSystem : MonoBehaviour
 	Animator anim;
 
 	const string PLAYER_SWORDATTACK = "Player_SwordAttack";
+	const string PLAYER_HEAVYATTACK = "Player_HeavyAttack";
 
 	private void Awake()
 	{
 		PMS = GetComponent<PlayerMovementSystem>();
+		PHS = GetComponent<PlayerHealthSystem>();
 
 		anim = GetComponentInChildren<Animator>();
 	}
@@ -81,34 +84,22 @@ public class PlayerCombatSystem : MonoBehaviour
 		{
 			ApplyCooldown();
 		}
-        //else if (PMS.isGrounded)
-        //{
-        //	if (Input.GetButtonDown("Fire1"))
-        //	{
-        //		LightAttack();
-        //		//Attack();
-        //		//nextAttackTime = Time.time + 1f / lightCooldownTime;
-        //	}
-        //	else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
-        //	{
-        //		HeavyAttack();
-        //		//nextAttackTime = Time.time + 1f / heavyCooldownTime;
-        //	}
-        //}
+		else if (!PHS.isHit)
+		{
+			if (Input.GetButtonDown("Fire1"))
+			{
+				LightAttack();
+				//Attack();
+				//nextAttackTime = Time.time + 1f / lightCooldownTime;
+			}
+			else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
+			{
+				HeavyAttack();
+				//nextAttackTime = Time.time + 1f / heavyCooldownTime;
+			}
+		}
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            LightAttack();
-            //Attack();
-            //nextAttackTime = Time.time + 1f / lightCooldownTime;
-        }
-        else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
-        {
-            HeavyAttack();
-            //nextAttackTime = Time.time + 1f / heavyCooldownTime;
-        }
-
-        barrels = GameObject.FindGameObjectsWithTag("Barrel");
+		barrels = GameObject.FindGameObjectsWithTag("Barrel");
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 		foreach (GameObject barrel in barrels)
@@ -153,6 +144,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
 		isAttacking = true;
 
+		attackAnimDelay = 0.35f;
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
 		Invoke("CompleteAttack", attackAnimDelay);
 
@@ -181,10 +173,11 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// Attacks any enemies within attack range with heavy strike
 	/// </summary>
 	void HeavyAttack()
-	{ 
-		PMS.ChangeAnimationState(PLAYER_SWORDATTACK);
+	{
+		PMS.ChangeAnimationState(PLAYER_HEAVYATTACK);
 		isAttacking = true;
 
+		attackAnimDelay = 0.517f;
 		//attackAnimDelay = anim.GetCurrentAnimatorStateInfo(0).length;
 		Invoke("CompleteAttack", attackAnimDelay);
 
