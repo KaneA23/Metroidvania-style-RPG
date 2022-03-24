@@ -12,6 +12,7 @@ public class EarthRangeAttack : MonoBehaviour
     public GameObject m_EarthSpikesPrefab;
     public GameObject m_EarthSpikes;
     public GameObject m_Player;
+    public GameObject m_Floor;
 
     private Rigidbody2D m_PlayerBody;
     private Rigidbody2D m_ChunkBody;
@@ -21,12 +22,14 @@ public class EarthRangeAttack : MonoBehaviour
     private Vector3 m_ChunkHitDir;
     private Vector3 m_ChunkSpawnPos;
     private Vector3 m_PlayerPos;
+    private Vector3 m_FlooorPos;
 
     public ParticleSystem m_SpikeRumble;
 
     public float m_GroundAttackSpeed;
     public float m_AboveAttackForce;
     public float m_AttackInterval;
+    public float m_FloorDistance;
 
     int m_spikeCount = 0;
 
@@ -42,30 +45,41 @@ public class EarthRangeAttack : MonoBehaviour
 
         m_Player = AISU.m_ActivePlayer;
         m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();
+
+        m_FlooorPos = m_Floor.transform.position;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         m_SpikeHeight = new Vector3(m_Player.transform.position.x, -3.8599999f);
-        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, -4.6f);
+        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y - 0.5f, -1.0f);
 
+        m_PlayerPos = m_Player.transform.position;
+
+        //RaycastHit hit;
+
+        //if(Physics.Linecast(m_PlayerPos, m_FlooorPos, out hit))
+        //{
+        //    m_FloorDistance = hit.distance;
+        //}
+        
         if (AIR.attacking)
         {
             m_Attacking = true;
 
-            if (m_Player.transform.position.y > -2.467551)
+            Debug.Log("Player y Pos: " + m_PlayerPos.y);
+
+            if (m_PlayerPos.y > -3f)
             {
                 if (!CR_RUNNING)
                 {
                     StartCoroutine(AboveAttack(m_AboveAttackForce));
                 }
             }
-            else if (m_Player.transform.position.y < -2.467551)
+            else if (m_PlayerPos.y < -3f)
             {
                 if (!CR_RUNNING)
-                {
-                    m_PlayerPos = m_Player.transform.position;
+                {                   
                     StartCoroutine(GroundAttack(m_SpikeHeight, m_GroundAttackSpeed));
                 }
             }
@@ -84,7 +98,7 @@ public class EarthRangeAttack : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("GroundAttack") != null)
         {
             GameObject[] spikes = GameObject.FindGameObjectsWithTag("GroundAttack");
-            foreach(GameObject spike in spikes)
+            foreach (GameObject spike in spikes)
             {
                 Destroy(spike);
             }
@@ -92,29 +106,25 @@ public class EarthRangeAttack : MonoBehaviour
 
         while (m_Attacking)
         {
-            if (m_AttackFinished && !m_Attacking)
-            {
-                break;
-            }
-
-            //if (m_Player.transform.hasChanged)
+            //if (m_AttackFinished && !m_Attacking)
             //{
-            //    position = new Vector3(m_PlayerPos.x, -3.8599999f);
+            //    break;
             //}
 
             Debug.Log("Spike Count: " + m_spikeCount);
 
             if (m_EarthSpikes == null)
             {
-                Debug.Log("Yup");
                 m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
-                position = new Vector3(m_PlayerPos.x, -3.8599999f);
+                position = new Vector3(m_PlayerPos.x, m_PlayerPos.y);
                 m_spikeCount = 1;
             }
 
             if (m_EarthSpikes != null || m_Player.transform.hasChanged)
             {
                 m_AttackFinished = false;
+
+                position = new Vector3(m_PlayerPos.x, m_PlayerPos.y);
 
                 ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_Player.transform.position, Quaternion.identity);
                 spikeRumble.Play();
@@ -126,10 +136,6 @@ public class EarthRangeAttack : MonoBehaviour
 
                 //Debug.Log("Spike Count: " + m_spikeCount);
 
-                if (GameObject.FindGameObjectWithTag("GroundAttack"))
-                {
-                    Debug.Log("Spikes");
-                }
 
                 Vector3 startPosition = m_EarthSpikes.transform.position;
 
@@ -168,9 +174,9 @@ public class EarthRangeAttack : MonoBehaviour
 
         while (m_Attacking)
         {
-            float x = Random.Range(-8.66f, 8.66f); ;
+            float x = Random.Range(m_PlayerPos.x - 5f, m_PlayerPos.x + 5f); ;
 
-            m_ChunkSpawnPos = new Vector3(x, 5.6f);
+            m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 5.5f);
 
             m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
 
