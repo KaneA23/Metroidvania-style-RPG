@@ -35,7 +35,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public bool isGrounded;
 	public bool isJumping;
 	public float jumpForce = 25f;
-	private float jumpDelay;
+	private float moveAnimDelay;
 
 	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
 	[Range(0f, 1f)]
@@ -88,19 +88,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	public Animator anim;
 
-	// Animation States
-	[SerializeField]
-	private string currentAnimState;
-
-	//const string PLAYER_IDLE = "Player_Idle";
-	//const string PLAYER_WALK = "Player_Walk";
-	//const string PLAYER_RUN = "Player_Run";
-	//const string PLAYER_JUMPLAUNCH = "Player_JumpLaunch";
-	//const string PLAYER_JUMPFALL = "Player_JumpFall";
-	//const string PLAYER_JUMPLAND = "Player_JumpLand";
-	//const string PLAYER_DASH = "Player_Dash";
-	// string PLAYER_SWORDATTACK = "Player_SwordAttack";
-
 	private void Awake()
 	{
 		PCS = GetComponent<PlayerCombatSystem>();
@@ -129,7 +116,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
 		{
-			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 		}
 
@@ -160,82 +146,91 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		// Checks which way the player should be facing
-		if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
+		if (PAM.currentAnimState != "Player_DashEnter")
 		{
-			transform.Rotate(new Vector2(0, 180));
-			isFacingRight = !isFacingRight;
-		}
-
-		if (Input.GetButtonDown("Jump") && jumpCount < 1)
-		{
-			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
-			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
-			isJumping = true;
-			jumpDelay = 0.5f;
-			Invoke(nameof(CompleteJumpAnim), jumpDelay);
-		}
-
-		if (Input.GetButtonDown("Jump"))
-		{
-			Jump();
-		}
-
-		// Cuts off jump height when player releases jump button
-		if (Input.GetButtonUp("Jump"))
-		{
-			if (rb.velocity.y > 0)
+			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 			{
-				rb.velocity = jumpForce * cutJumpHeight * Vector2.up;
+				transform.Rotate(new Vector2(0, 180));
+				isFacingRight = !isFacingRight;
 			}
 		}
 
-		// Removes head collider if player wants to crouch
-		if (Input.GetKey(KeyCode.LeftControl))
+		if (!isDashing)
 		{
-			headCollider.enabled = false;
-			isCrouching = true;
-		}
-		else if (!isCeiling)
-		{
-			headCollider.enabled = true;
-			isCrouching = false;
-		}
-
-		// Changes player speed depending on whether you are running, walking or crouching
-		if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
-		{
-			moveSpeed = runSpeed;
-		}
-		else if (isCrouching)
-		{
-			moveSpeed = crouchSpeed;
-		}
-		else
-		{
-			moveSpeed = defaultSpeed;
-		}
-
-		//if (isManaCooldown)
-		//{
-		//	ApplyCooldown();
-		//}
-		//else
-		//{
-		// Dashing
-		if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
-		{
-			if (isFacingRight)
+			if (Input.GetButtonDown("Jump") && jumpCount < 1)
 			{
-				//StartCoroutine(Dash(1));    //dash right
-				Dash(1);
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
+				isJumping = true;
+				moveAnimDelay = 0.5f;
+				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
+			}
+
+			if (Input.GetButtonDown("Jump"))
+			{
+				Jump();
+			}
+
+			// Cuts off jump height when player releases jump button
+			if (Input.GetButtonUp("Jump"))
+			{
+				if (rb.velocity.y > 0)
+				{
+					rb.velocity = jumpForce * cutJumpHeight * Vector2.up;
+				}
+			}
+
+			// Removes head collider if player wants to crouch
+			if (Input.GetKey(KeyCode.LeftControl))
+			{
+				headCollider.enabled = false;
+				isCrouching = true;
+			}
+			else if (!isCeiling)
+			{
+				headCollider.enabled = true;
+				isCrouching = false;
+			}
+
+			// Changes player speed depending on whether you are running, walking or crouching
+			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+			{
+				moveSpeed = runSpeed;
+			}
+			else if (isCrouching)
+			{
+				moveSpeed = crouchSpeed;
 			}
 			else
 			{
-				Dash(-1);
-				//StartCoroutine(Dash(-1));   // dash left
+				moveSpeed = defaultSpeed;
 			}
+
+			//if (isManaCooldown)
+			//{
+			//	ApplyCooldown();
+			//}
+			//else
+			//{
+			// Dashing
+			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
+			{
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
+				isDashing = true;
+				moveAnimDelay = 0.35f;
+				Invoke(nameof(Dash), moveAnimDelay);
+				//if (isFacingRight)
+				//{
+				//	//StartCoroutine(Dash(1));    //dash right
+				//	Dash(1);
+				//}
+				//else
+				//{
+				//	Dash(-1);
+				//	//StartCoroutine(Dash(-1));   // dash left
+				//}
+			}
+			//}
 		}
-		//}
 	}
 
 	/// <summary>
@@ -260,18 +255,15 @@ public class PlayerMovementSystem : MonoBehaviour
 			{
 				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
 				{
-					//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
 				}
 				else
 				{
-					//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_WALK);
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_WALK);
 				}
 			}
 			else
 			{
-				//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 			}
 		}
@@ -329,11 +321,10 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if (PAM.currentAnimState == "Player_Fall")
 			{
-				//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
 				isJumping = true;
-				jumpDelay = 0.27f;
-				Invoke(nameof(CompleteJumpAnim), jumpDelay);
+				moveAnimDelay = 0.27f;
+				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
 			canDoubleJump = true;
@@ -376,6 +367,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	#endregion
 
+	#region Dash
+
 	/// <summary>
 	/// Controls dash mechanic
 	/// </summary>
@@ -404,25 +397,48 @@ public class PlayerMovementSystem : MonoBehaviour
 	//	cooldownTimer = manaCooldownTime;
 	//}
 
-	void Dash(int a_dir)
+	void Dash()
 	{
-		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASH);
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASH);
 
-		isDashing = true;
+		int dir;
+
+		if (isFacingRight)
+		{
+			dir = 1;
+		}
+		else
+		{
+			dir = -1;
+		}
+
 		canDash = false;
 		rb.velocity = new Vector2(rb.velocity.x, 0);
-		rb.AddForce(new Vector2(dashDistance * a_dir, 0), ForceMode2D.Impulse);
+		rb.AddForce(new Vector2(dashDistance * dir, 0), ForceMode2D.Impulse);
 
-		Invoke(nameof(CompleteDash), 0.85f);
+		moveAnimDelay = 0.5f;
+		Invoke(nameof(CompleteDash), moveAnimDelay);
 	}
 
 	/// <summary>
-	/// 
+	/// Allows dash animation to play
 	/// </summary>
 	void CompleteDash()
 	{
-		isDashing = false;
+		if (PAM.currentAnimState == "Player_DashEnter")
+		{
+			Dash();
+		}
+		else if (PAM.currentAnimState == "Player_Dash")
+		{
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHEXIT);
+			moveAnimDelay = 0.35f;
+			Invoke(nameof(CompleteDash), moveAnimDelay);
+		}
+		else
+		{
+			isDashing = false;
+		}
 	}
 
 	/// <summary>
@@ -442,7 +458,10 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else
 		{
+
 			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / manaCooldownTime), 0, 1);
 		}
 	}
+
+	#endregion
 }

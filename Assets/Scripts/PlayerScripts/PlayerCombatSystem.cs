@@ -13,6 +13,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	public BasePlayerClass BPC;
 	public PlayerHealthSystem PHS;
 	public PlayerAnimationManager PAM;
+	public PlayerMovementSystem PMS;
 
 	[Header("Modular attacks")]
 	public bool hasHeavyAtk;
@@ -23,7 +24,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	public float heavyRange = 1f;
 	public float attackRangeY = 0.5f;
 
-	public Transform attackPoint;	// where the player attacks from
+	public Transform attackPoint;   // where the player attacks from
 
 	[Header("Attack Strengths")]
 	// Amount of damage each attack type does
@@ -47,7 +48,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	private float attackAnimDelay;
 
 	[Header("Enemy values")]
-	public LayerMask enemyLayers;	// items the player can attack
+	public LayerMask enemyLayers;   // items the player can attack
 	public float uiView = 5;
 
 	[SerializeField] private double barrelDist;
@@ -65,6 +66,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	{
 		PHS = GetComponent<PlayerHealthSystem>();
 		PAM = GetComponent<PlayerAnimationManager>();
+		PMS = GetComponent<PlayerMovementSystem>();
 
 		anim = GetComponentInChildren<Animator>();
 	}
@@ -83,7 +85,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		{
 			ApplyCooldown();
 		}
-		else if (!PHS.isHit)
+		else if (!PHS.isHit && !PMS.isDashing)
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{

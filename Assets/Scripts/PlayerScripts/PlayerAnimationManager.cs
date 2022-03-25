@@ -14,7 +14,9 @@ public enum PlayerAnimationState
 	PLAYER_JUMPLAUNCH,
 	PLAYER_JUMPFALL,
 	PLAYER_JUMPLAND,
+	PLAYER_DASHENTER,
 	PLAYER_DASH,
+	PLAYER_DASHEXIT,
 
 	// Combat
 	PLAYER_SWORDATTACK,
@@ -33,8 +35,8 @@ public class PlayerAnimationManager : MonoBehaviour
 
 	public string currentAnimState;
 
-	private string[] animations = { 
-		"Player_Idle", "Player_Walk", "Player_Run", "Player_JumpLaunch", "Player_JumpFall", "Player_JumpLand", "Player_Dash", "Player_SwordAttack", "Player_HeavyAttack", "Player_Hit", "Player_Death"
+	private string[] animations = {
+		"Player_Idle", "Player_Walk", "Player_Run", "Player_JumpLaunch", "Player_JumpFall", "Player_JumpLand", "Player_DashEnter", "Player_Dash", "Player_DashExit", "Player_SwordAttack", "Player_HeavyAttack", "Player_Hit", "Player_Death"
 	};
 
 	//// Movement
@@ -60,7 +62,7 @@ public class PlayerAnimationManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		
+
 	}
 
 	// Update is called once per frame
