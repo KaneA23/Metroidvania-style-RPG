@@ -146,7 +146,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		// Checks which way the player should be facing
-		if (PAM.currentAnimState != "Player_DashEnter")
+		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit")
 		{
 			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 			{
@@ -367,7 +367,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	#endregion
 
-	#region Dash
+	#region Dash Mechanics
 
 	/// <summary>
 	/// Controls dash mechanic
