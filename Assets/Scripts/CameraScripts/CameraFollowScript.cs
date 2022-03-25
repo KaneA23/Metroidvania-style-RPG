@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the camera position, dependent on player position.
+/// Created by: Kane Adams
+/// </summary>
 public class CameraFollowScript : MonoBehaviour
 {
-    [SerializeField]
     private Transform playerTransform;
 
     public float yOffset;

@@ -9,6 +9,9 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerHealthSystem : MonoBehaviour
 {
+	[Header("Referenced Scripts")]
+	public PlayerAnimationManager PAM;
+
 	[Header("Health Values")]
 	public float currentHP;
 	public float maxHP = 100;
@@ -40,25 +43,16 @@ public class PlayerHealthSystem : MonoBehaviour
 	public float knockForce = 2500;
 	public Rigidbody2D rb;
 
-	public PlayerMovementSystem PMS;
-
-	const string PLAYER_HIT = "Player_Hit";
-	const string PLAYER_DEATH = "Player_Death";
-
 	public bool isHit;
 	public bool isDying;
 
-	[SerializeField]
-	private float hitAnimDelay = 0.517f;
-
-	[SerializeField]
-	private float deathDelay = 4f;
+	private float animDelay;
 
 	private void Awake()
 	{
-		rb = GetComponent<Rigidbody2D>();
+		PAM = GetComponent<PlayerAnimationManager>();
 
-		PMS = GetComponent<PlayerMovementSystem>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	// Start is called before the first frame update
@@ -74,7 +68,6 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//FillHealthBar();
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
 			TakeDamage(10, gameObject.transform.position);
@@ -87,9 +80,10 @@ public class PlayerHealthSystem : MonoBehaviour
 		if (currentHP <= 0 && !isHit)
 		{
 			isDying = true;
-			PMS.ChangeAnimationState(PLAYER_DEATH);
-			Invoke("KillPlayer", deathDelay);
-			//KillPlayer();
+			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
+			animDelay = 4f;
+			Invoke(nameof(KillPlayer), animDelay);
 		}
 	}
 
@@ -100,23 +94,22 @@ public class PlayerHealthSystem : MonoBehaviour
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
 		isHit = true;
-		PMS.ChangeAnimationState(PLAYER_HIT);
-
-		Invoke("CompleteDaze", hitAnimDelay);
+		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
+		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
+		animDelay = 0.517f;
+		Invoke(nameof(CompleteDaze), animDelay);
 
 		if ((transform.position.x - a_enemyPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(-1f * knockForce, 250f));
-			//rb.velocity = new Vector2(-1 * knockForce, 0.1f * knockForce);
 		}
 		else if ((transform.position.x - a_enemyPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
 			rb.velocity = Vector2.zero;
 			rb.AddForce(new Vector2(1f * knockForce, 250f));
-			//rb.velocity = new Vector2(1 * knockForce, 0.15f * knockForce);
 		}
 
 		currentHP -= a_damage;
@@ -220,6 +213,9 @@ public class PlayerHealthSystem : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
+	/// <summary>
+	/// Allows player controls after hit animation ends
+	/// </summary>
 	void CompleteDaze()
 	{
 		isHit = false;
