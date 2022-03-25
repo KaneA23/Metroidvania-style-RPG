@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8829739367384853656}
   - component: {fileID: 8829739367384853658}
   - component: {fileID: 8829739367384853653}
+  - component: {fileID: -4467127217449544242}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -150,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPC: {fileID: 0}
+  PAM: {fileID: 0}
   PCS: {fileID: 8829739367384853653}
   PHS: {fileID: 8829739367384853658}
   moveHorizontal: 0
@@ -207,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ed3e04969ee644586bb15fcee2dd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PAM: {fileID: 0}
   currentHP: 0
   maxHP: 100
   healthEnd: {fileID: 0}
@@ -216,11 +219,8 @@ MonoBehaviour:
   curvePercentage: 0.5
   knockForce: 500
   rb: {fileID: 8829739367384853660}
-  PMS: {fileID: 8829739367384853656}
   isHit: 0
   isDying: 0
-  hitAnimDelay: 0.517
-  deathDelay: 4
 --- !u!114 &8829739367384853653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BPC: {fileID: 0}
-  PMS: {fileID: 8829739367384853656}
   PHS: {fileID: 0}
+  PAM: {fileID: 0}
   hasHeavyAtk: 1
   lightRange: 1.5
   heavyRange: 2
@@ -257,6 +257,19 @@ MonoBehaviour:
   uiView: 5
   barrelDist: 0
   enemyDist: 0
+--- !u!114 &-4467127217449544242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829739367384853635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4663b951b662d7c419181439c2455d13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAnimState: 
 --- !u!1 &8829739367421391880
 GameObject:
   m_ObjectHideFlags: 0

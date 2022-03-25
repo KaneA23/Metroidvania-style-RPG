@@ -332,7 +332,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAND);
 				isJumping = true;
-				jumpDelay = 0.267f;
+				jumpDelay = 0.27f;
 				Invoke(nameof(CompleteJumpAnim), jumpDelay);
 			}
 
