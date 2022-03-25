@@ -8,7 +8,9 @@ public class AIRanged : MonoBehaviour
 {
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
-    public AISetUp AISU;
+    //public AISetUp AISU;
+
+    public GameObject m_Player;
 
     public Transform target;
     public float speed = 200f;
@@ -35,12 +37,12 @@ public class AIRanged : MonoBehaviour
     Rigidbody2D rb;
 
     // Start is called before the first frame update
-    private void Start()
+    public void Start()
     {
-        AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
-        PHS = AISU.PHS;
+        //AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+        //PHS = AISU.PHS;
 
-        target = AISU.m_ActivePlayer.transform;
+        target = m_Player.transform;
 
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -70,7 +72,7 @@ public class AIRanged : MonoBehaviour
         Collider2D otherCollider = collision.collider;
         Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
 
-        if (otherCollider.name == AISU.m_ActivePlayer.tag)
+        if (otherCollider.name == m_Player.tag)
         {
             PHS.TakeDamage(m_DamageAmount, enemyPos);
             //EH.TakeDamage(m_DamageAmount, enemyPos);

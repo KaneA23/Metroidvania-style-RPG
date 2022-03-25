@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
   EH: {fileID: 0}
-  AISU: {fileID: 0}
+  m_Player: {fileID: 0}
   target: {fileID: 0}
   speed: 150
   nextWaypointDistance: 10
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_GroundAttackSpeed: 0.3
   m_AboveAttackForce: 15
   m_AttackInterval: 5
+  m_FloorDistance: 0
 --- !u!114 &7410952584687796349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,8 +242,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 653803041, guid: 1b848d9bf48cf5046996beb730cb52b9, type: 3}
-  m_Color: {r: 0.17493767, g: 0.7924528, b: 0.24632381, a: 0.8039216}
+  m_Sprite: {fileID: 21300000, guid: aacb15f934bf79349b457e8ba2e3630d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

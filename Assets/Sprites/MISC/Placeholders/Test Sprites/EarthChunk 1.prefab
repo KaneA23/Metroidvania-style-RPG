@@ -54,7 +54,7 @@ MonoBehaviour:
   m_ChunkCollider: {fileID: 0}
   m_AttackDirection: {x: 0, y: 0}
   m_EarthExplosion: {fileID: 7817527901324537411, guid: afdff5e5c7f9efc4ab1840d9e3978cc8, type: 3}
-  m_AttackForce: 100
+  m_AttackForce: 25
   m_DamageAmount: 5
 --- !u!50 &7807609913113860745
 Rigidbody2D:
@@ -166,8 +166,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a0c13a43d2d65d044b8ad41a96ec6768, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: aacb15f934bf79349b457e8ba2e3630d, type: 3}
+  m_Color: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
