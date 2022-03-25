@@ -21,7 +21,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public float runSpeed = 1.25f;
 	public float crouchSpeed = 0.75f;
 
-	public bool isFacingRight = false;
+	public bool isFacingRight;
 
 	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
@@ -109,6 +109,9 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		isManaCooldown = false;
 		manaCooldownUI.fillAmount = 0.0f;
+
+		isFacingRight = true;
+		transform.Rotate(new Vector2(0, 180));
 	}
 
 	// Update is called once per frame
