@@ -8,115 +8,153 @@ using UnityEngine;
 /// </summary>
 public class BasePlayerClass : MonoBehaviour
 {
+	[Header("Leveling System")]
 	public int maxLvl;
 	public int currentLvl;
 
-	public int maxXP;       // max XP for current level (dependent on level)
+	[Space(2)]
+	public int maxXP;		// max XP for current level (dependent on level)
 	public int currentXP;
+
+	[Space(2)]
+	public int skillPoints;
 
 	// Health and regen speed
 	#region Constitution Stats
 
+	[Header("Constitution Stats")]
 	public int constitutionLvl;
 	public int maxConstitutionLvl;  
 
+	[Space(5)]
 	public int maxHP;				// maximum overall health
 	public int minHP;				// the lowest the healthbar size can go
 	public float currentHP;
-	public int currentMaxHP;		// maximum health player can reach at current levels
+	public int currentMaxHP = 100;	// maximum health player can reach at current levels
 
+	[Space(2)]
 	public float regenRateHP;
-	public float maxRegenRateHP;
+	public float maxRegenRateHP = 20;	// Max health to naturally regen
 
 	#endregion
 
 	// Attack damage and jump heights
 	#region Strength Stats
 
+	[Header("Strength Stats")]
 	public int strengthLvl;
 	public int maxStrenthLvl;  
 
 	#region attacks
-	public float lightDamage = 10f;
-	public float lightMultiplier;
-	public float lightRange = 0.5f;
-	public float lightKnockbackDist;
+	[Space(5)]
+	public float lightAtkDamage = 35f;
+	public float lightAtkMultiplier;
+	public float lightKnockbackDist = 200;
 
-	public bool isHeavyAttackActive;
-	public float heavyDamage = 25f;
-	public float heavyMultiplier;
-	public float heavyRange = 1f;
-	public float heavyKnockbackDist;
+	[Space(5)]
+	public bool hasHeavyAtk;
+	public float heavyAtkDamage = 60f;
+	public float heavyAtkMultiplier;
+	public float heavyKnockbackDist = 300;
 
-	public float rangeDamage;
-	public float rangeMultiplier;
-	public float rangeKnockbackDist;
+	[Space(5)]
+	// Post COMX
+	public float rangeAtkDamage;	//post COMX
+	public float rangeAtkMultiplier;	//post COMX
+	public float rangeKnockbackDist;	//post COMX
 	#endregion
 
 	#region jump power
+	[Space(5)]
 	public float jumpForce = 25f;
 
-	public bool isDoubleJumpActive;
+	[Space(2)]
+	public bool hasDoubleJump;
 	public float doubleJumpHeight;
 
-	public bool isWallJumpActive;
-	public float wallJumpHeight;
-	public float wallJumpWidth;   //rename? width don't sound right...
-	public float wallJumpForce = 50f;	//check if using this or separated as width & height
+	[Space(2)]
+	public bool hasWallJump;
+	public float wallJumpForce = 50f;
 	#endregion
 
-	public int inventorySize;   //inventory
+	[Space(5)]
+	public int inventorySize;
 
 	#endregion
 
 	// Speed, knockback taken, stamina
 	#region Agility Stats
 
+	[Header("Agility Stats")]
 	public int agilityLvl;
 	public int maxAgilityLvl;
 
-	public int maxStam;         // max overall stamina
-	public int minStam;         // the lowest the stamina bar can go
+	[Space(5)]
+	public int maxStam;					// max overall stamina
+	public int minStam;					// the lowest the stamina bar can go
 	public float currentStam;
-	public int currentMaxStam;  // maximum stamina player can reach at current levels
+	public int currentMaxStam = 100;	// maximum stamina player can reach at current levels
 
-	public float walkSpeed = 1f;
-	public float crouchSpeed = 0.75f;
+	[Space(5)]
+	public float walkSpeed = 10f;
+	public float crouchSpeed = 5f;
 	public float speedMultiplier;
 
-	public float runSpeed;
+	[Space(2)]
+	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
 	public float runCost;
 
-	public float lightAttackSpeed;
-	public float heavyDecaySpeed;
-	public float rangeAttackSpeed;  //post COMX
+	[Space(5)]
+	// Speeds determined by animation?
+	public float lightAtkSpeed = 0.35f;
+	public float heavyAtkSpeed = 0.517f;
+	public float rangeAtkSpeed;	//post COMX
+
+	[Space(5)]
+	public float lightAtkCooldown = 0.5f;
+	public float heavyAtkCooldown = 1f;
+	public float rangeAtkCooldown;	//post COMX
+
+	[Space(5)]
+	public float knockbackTaken = 500f;
 
 	#endregion
 
 	// Magic, dash
 	#region Wisdom Stats
 
+	[Header("Wisdom Stats")]
 	public int wisdomLvl;
 	public int maxWisdomLvl;
 
-	public int maxMP;           // maximum overal mana
-	public int minMP;           // the lowest the Manabar can go
+	[Space(5)]
+	public int maxMP;				// maximum overal mana
+	public int minMP;				// the lowest the Manabar can go
 	public float currentMP;
-	public float regenRateMP;   // maximum mana player can reach at current levels
+	public int currentMaxMP = 100;	// maximum mana player can reach at current levels
+	public float regenRateMP;   
 
-	public bool isDashActive;
-	public float dashDist = 15f;
-	public float dashCooldown;
+	[Space(5)]
+	public bool hasDash;
+	public float dashDist = 50f;
+	public float dashCooldown = 0.5f;
 	public float dashCost;
 
-	public float uiViewDist = 5f;    // distance where an enemy's UI is visible
+	[Space(5)]
+	public float lightAtkRange = 1.5f;
+	public float heavyAtkRange = 2f;
+	public float rangeAtkRange;	//post COMX
+
+	[Space(5)]
+	public float uiViewDist = 5f;	// distance where an enemy's UI is visible
 
 	#endregion
 
 	// Shop cost, rableon talk speed
 	#region Charisma Stats
 
+	[Header("Charisma Stats")]
 	public int charismaLvl;
 	public int maxCharismaLvl;
 
@@ -125,6 +163,7 @@ public class BasePlayerClass : MonoBehaviour
 	// Drop rate, enemy spawns
 	#region Luck Stats
 
+	[Header("Luck Stats")]
 	public int luckLvl;
 	public int maxLuckLvl;
 

@@ -26,7 +26,7 @@ public class BarrelHealthSystem : MonoBehaviour
 	{
 		healthbar = GetComponentInChildren<Slider>();
 		enemyParticle = GetComponentInChildren<ParticleSystem>();
-		//sr = GetComponentInChildren<SpriteRenderer>();
+		sr = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	// Start is called before the first frame update

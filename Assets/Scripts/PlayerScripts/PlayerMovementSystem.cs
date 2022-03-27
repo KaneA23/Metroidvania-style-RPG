@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,19 +10,17 @@ using UnityEngine.UI;
 public class PlayerMovementSystem : MonoBehaviour
 {
 	[Header("Referenced Script")]
-	public BasePlayerClass BPC;
-	public PlayerAnimationManager PAM;
-	public PlayerCombatSystem PCS;
-	public PlayerHealthSystem PHS;
+	BasePlayerClass BPC;
+	PlayerAnimationManager PAM;
+	PlayerCombatSystem PCS;
+	PlayerHealthSystem PHS;
+
+	GameObject eventSystem;
 
 	[Header("Movement")]
+	public bool isFacingRight;
 	public float moveHorizontal;
 	public float moveSpeed;
-	public float defaultSpeed = 1f;
-	public float runSpeed = 1.25f;
-	public float crouchSpeed = 0.75f;
-
-	public bool isFacingRight;
 
 	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
@@ -34,7 +33,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	[Header("Jumping")]
 	public bool isGrounded;
 	public bool isJumping;
-	public float jumpForce = 25f;
 	private float moveAnimDelay;
 
 	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
@@ -42,19 +40,14 @@ public class PlayerMovementSystem : MonoBehaviour
 	public float cutJumpHeight;
 
 	[Space(10)]
-	public bool isDoubleJumpActive;
 	public bool canDoubleJump;
 	public float jumpCount;
 
 	[Space(10)]
-	public bool isWallJumpActive;
 	public bool isTouchingWall;
 	public bool canWallJump;
-	public float wallJumpForce = 50f;
 
 	[Header("Dash")]
-	public bool isDashActive;
-	public float dashDistance = 25f;
 	public bool canDash;
 	public bool isDashing;
 
@@ -63,7 +56,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	public bool isManaCooldown;
 	public float cooldownTimer;
-	public float manaCooldownTime = 0.5f;
 
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
@@ -86,18 +78,17 @@ public class PlayerMovementSystem : MonoBehaviour
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
 
-	public Animator anim;
-
 	private void Awake()
 	{
+		eventSystem = GameObject.Find("EventSystem");
+		BPC = eventSystem.GetComponent<BasePlayerClass>();
+		
+		PAM = GetComponent<PlayerAnimationManager>();
 		PCS = GetComponent<PlayerCombatSystem>();
 		PHS = GetComponent<PlayerHealthSystem>();
 
 		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
-
-		anim = GetComponentInChildren<Animator>();
-		PAM = GetComponent<PlayerAnimationManager>();
 	}
 
 	// Start is called before the first frame update
@@ -178,7 +169,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			{
 				if (rb.velocity.y > 0)
 				{
-					rb.velocity = jumpForce * cutJumpHeight * Vector2.up;
+					rb.velocity = BPC.jumpForce * cutJumpHeight * Vector2.up;
 				}
 			}
 
@@ -197,15 +188,15 @@ public class PlayerMovementSystem : MonoBehaviour
 			// Changes player speed depending on whether you are running, walking or crouching
 			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
 			{
-				moveSpeed = runSpeed;
+				moveSpeed = BPC.runSpeed;
 			}
 			else if (isCrouching)
 			{
-				moveSpeed = crouchSpeed;
+				moveSpeed = BPC.crouchSpeed;
 			}
 			else
 			{
-				moveSpeed = defaultSpeed;
+				moveSpeed = BPC.walkSpeed;
 			}
 
 			//if (isManaCooldown)
@@ -215,7 +206,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			//else
 			//{
 			// Dashing
-			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash)
+			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
 				isDashing = true;
@@ -289,23 +280,23 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
-			rb.velocity = jumpForce * Vector2.up;
+			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (isWallJumpActive && isTouchingWall && canWallJump)
+		else if (BPC.hasWallJump && isTouchingWall && canWallJump)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-			rb.AddForce(new Vector2(wallJumpForce * -moveHorizontal, jumpForce), ForceMode2D.Impulse);
+			rb.AddForce(new Vector2(BPC.wallJumpForce * -moveHorizontal, BPC.jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (canDoubleJump && isDoubleJumpActive)
+		else if (canDoubleJump && BPC.hasDoubleJump)
 		{
-			rb.velocity = jumpForce * Vector2.up;
+			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
@@ -417,7 +408,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		canDash = false;
 		rb.velocity = new Vector2(rb.velocity.x, 0);
-		rb.AddForce(new Vector2(dashDistance * dir, 0), ForceMode2D.Impulse);
+		rb.AddForce(new Vector2(BPC.dashDist * dir, 0), ForceMode2D.Impulse);
 
 		moveAnimDelay = 0.5f;
 		Invoke(nameof(CompleteDash), moveAnimDelay);
@@ -461,8 +452,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else
 		{
-
-			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / manaCooldownTime), 0, 1);
+			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / BPC.dashCooldown), 0, 1);
 		}
 	}
 

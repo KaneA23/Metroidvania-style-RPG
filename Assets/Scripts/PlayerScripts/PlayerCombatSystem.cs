@@ -10,46 +10,30 @@ using UnityEngine.UI;
 public class PlayerCombatSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
-	public BasePlayerClass BPC;
-	public PlayerHealthSystem PHS;
-	public PlayerAnimationManager PAM;
-	public PlayerMovementSystem PMS;
-
-	[Header("Modular attacks")]
-	public bool hasHeavyAtk;
+	BasePlayerClass BPC;
+	PlayerHealthSystem PHS;
+	PlayerAnimationManager PAM;
+	PlayerMovementSystem PMS;
+	
+	GameObject eventSystem;
 
 	[Header("Attack Ranges")]
 	// distance each attack can reach away from player
-	public float lightRange = 0.75f;
-	public float heavyRange = 1f;
-	public float attackRangeY = 0.5f;
-
+	public float attackRangeY = 0.5f;//Query whether goes in stats?
 	public Transform attackPoint;   // where the player attacks from
 
-	[Header("Attack Strengths")]
-	// Amount of damage each attack type does
-	public float lightStrength = 25;
-	public float heavyStrength = 50;
-
-	[Header("Attack cooldowns")]
-	// Time between each attack type
-	public float lightCooldown = 0.75f;
-	public float heavyCooldown = 1.5f;
-
+	[Header("Attack Cooldowns")]
 	[SerializeField] private Image atkCooldownUI;
-
+	
 	[SerializeField] private bool isAtkCooldown;
 	[SerializeField] private float cooldownTimer;
 	[SerializeField] private float cooldownTime;
 
 	[Header("Animation values")]
 	public bool isAttacking;
-	[SerializeField]
-	private float attackAnimDelay;
 
 	[Header("Enemy values")]
 	public LayerMask enemyLayers;   // items the player can attack
-	public float uiView = 5;
 
 	[SerializeField] private double barrelDist;
 	[SerializeField] private double enemyDist;
@@ -57,18 +41,14 @@ public class PlayerCombatSystem : MonoBehaviour
 	GameObject[] barrels;
 	GameObject[] enemies;
 
-	Animator anim;
-
-	const string PLAYER_SWORDATTACK = "Player_SwordAttack";
-	const string PLAYER_HEAVYATTACK = "Player_HeavyAttack";
-
 	private void Awake()
 	{
-		PHS = GetComponent<PlayerHealthSystem>();
+		eventSystem = GameObject.Find("EventSystem");
+		BPC = eventSystem.GetComponent<BasePlayerClass>();
+		
 		PAM = GetComponent<PlayerAnimationManager>();
+		PHS = GetComponent<PlayerHealthSystem>();
 		PMS = GetComponent<PlayerMovementSystem>();
-
-		anim = GetComponentInChildren<Animator>();
 	}
 
 	// Start is called before the first frame update
@@ -91,7 +71,7 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				LightAttack();
 			}
-			else if (Input.GetButtonDown("Fire2") && hasHeavyAtk)
+			else if (Input.GetButtonDown("Fire2") && BPC.hasHeavyAtk)
 			{
 				HeavyAttack();
 			}
@@ -106,7 +86,7 @@ public class PlayerCombatSystem : MonoBehaviour
 
 			Transform barrelUI = barrel.transform.Find("Canvas");
 
-			if (barrelDist < uiView && barrel.GetComponent<BarrelHealthSystem>().currentHP > 0)
+			if (barrelDist < BPC.uiViewDist && barrel.GetComponent<BarrelHealthSystem>().currentHP > 0)
 			{
 				barrelUI.gameObject.SetActive(true);
 			}
@@ -122,7 +102,7 @@ public class PlayerCombatSystem : MonoBehaviour
 
 			Transform enemyUI = enemy.transform.Find("Canvas");
 
-			if (enemyDist < uiView && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
+			if (enemyDist < BPC.uiViewDist && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
 			{
 				enemyUI.gameObject.SetActive(true);
 			}
@@ -138,28 +118,26 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
-		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
 		isAttacking = true;
-		attackAnimDelay = 0.35f;
-		Invoke(nameof(CompleteAttack), attackAnimDelay);
+		Invoke(nameof(CompleteAttack), BPC.lightAtkSpeed);
 
-		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(lightRange, attackRangeY), 0, enemyLayers);
+		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(BPC.lightAtkRange, attackRangeY), 0, enemyLayers);
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			if (enemy.CompareTag("Barrel"))
 			{
-				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(lightStrength);
+				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(BPC.lightAtkDamage);
 			}
 			else
 			{
-				enemy.GetComponent<EnemyHealth>().TakeDamage(lightStrength, gameObject.transform.position);
+				enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
 			}
 		}
 
 		isAtkCooldown = true;
-		cooldownTimer = lightCooldown;
-		cooldownTime = lightCooldown;
+		cooldownTimer = BPC.lightAtkCooldown;
+		cooldownTime = BPC.lightAtkCooldown;
 	}
 
 	/// <summary>
@@ -167,28 +145,26 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
-		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
 		isAttacking = true;
-		attackAnimDelay = 0.517f;
-		Invoke(nameof(CompleteAttack), attackAnimDelay);
+		Invoke(nameof(CompleteAttack), BPC.heavyAtkSpeed);
 
-		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(heavyRange, attackRangeY), 0, enemyLayers);
+		Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, new Vector2(BPC.heavyAtkRange, attackRangeY), 0, enemyLayers);
 		foreach (Collider2D enemy in hitEnemies)
 		{
 			if (enemy.CompareTag("Barrel"))
 			{
-				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(heavyStrength);
+				enemy.GetComponent<BarrelHealthSystem>().TakeDamage(BPC.heavyAtkDamage);
 			}
 			else
 			{
-				enemy.GetComponent<EnemyHealth>().TakeDamage(heavyStrength, gameObject.transform.position);
+				enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
 			}
 		}
 
 		isAtkCooldown = true;
-		cooldownTimer = heavyCooldown;
-		cooldownTime = heavyCooldown;
+		cooldownTimer = BPC.heavyAtkCooldown;
+		cooldownTime = BPC.heavyAtkCooldown;
 	}
 
 	/// <summary>
@@ -222,10 +198,11 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	private void OnDrawGizmosSelected()
 	{
+		// Need to manually add Gizmo ranges to work, can't reference other script
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireCube(attackPoint.position, new Vector2(heavyRange, attackRangeY));
+		Gizmos.DrawWireCube(attackPoint.position, new Vector2(2, attackRangeY));
 
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireCube(attackPoint.position, new Vector2(lightRange, attackRangeY));
+		Gizmos.DrawWireCube(attackPoint.position, new Vector2(1.5f, attackRangeY));
 	}
 }

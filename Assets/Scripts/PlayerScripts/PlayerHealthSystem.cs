@@ -10,11 +10,11 @@ using UnityEngine.UI;
 public class PlayerHealthSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
-	public PlayerAnimationManager PAM;
+	BasePlayerClass BPC;
+	PlayerAnimationManager PAM;
+	PlayerMovementSystem PMS;
 
-	[Header("Health Values")]
-	public float currentHP;
-	public float maxHP = 100;
+	GameObject eventSystem;
 
 	[Header("Healthbar")]
 	public Image healthEnd;
@@ -40,9 +40,9 @@ public class PlayerHealthSystem : MonoBehaviour
 	private const float curveFillAmount = 0.75f;
 
 	[Header("Knockback")]
-	public float knockForce = 2500;
 	public Rigidbody2D rb;
 
+	[Header("Animations")]
 	public bool isHit;
 	public bool isDying;
 
@@ -50,7 +50,11 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	private void Awake()
 	{
+		eventSystem = GameObject.Find("EventSystem");
+		BPC = eventSystem.GetComponent<BasePlayerClass>();
+
 		PAM = GetComponent<PlayerAnimationManager>();
+		PMS = GetComponent<PlayerMovementSystem>();
 
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -58,7 +62,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		currentHP = maxHP;
+		BPC.currentHP = BPC.currentMaxHP;
 		isHit = false;
 		isDying = false;
 
@@ -77,10 +81,9 @@ public class PlayerHealthSystem : MonoBehaviour
 			GainHealth(10);
 		}
 
-		if (currentHP <= 0 && !isHit)
+		if (BPC.currentHP <= 0 && !isHit)
 		{
 			isDying = true;
-			//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
 			animDelay = 4f;
 			Invoke(nameof(KillPlayer), animDelay);
@@ -93,28 +96,30 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_damage">Amount of health lost from attack</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
-		isHit = true;
-		//PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
-		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
-		animDelay = 0.517f;
-		Invoke(nameof(CompleteDaze), animDelay);
-
-		if ((transform.position.x - a_enemyPos.x) < 0)
+		if (!PMS.isDashing)
 		{
-			Debug.Log("Left Hit");
-			rb.velocity = Vector2.zero;
-			rb.AddForce(new Vector2(-1f * knockForce, 250f));
-		}
-		else if ((transform.position.x - a_enemyPos.x) > 0)
-		{
-			Debug.Log("Right Hit");
-			rb.velocity = Vector2.zero;
-			rb.AddForce(new Vector2(1f * knockForce, 250f));
-		}
+			isHit = true;
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
+			animDelay = 0.517f;
+			Invoke(nameof(CompleteDaze), animDelay);
 
-		currentHP -= a_damage;
+			if ((transform.position.x - a_enemyPos.x) < 0)
+			{
+				Debug.Log("Left Hit");
+				rb.velocity = Vector2.zero;
+				rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
+			}
+			else if ((transform.position.x - a_enemyPos.x) > 0)
+			{
+				Debug.Log("Right Hit");
+				rb.velocity = Vector2.zero;
+				rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
+			}
 
-		FillHealthBar();
+			BPC.currentHP -= a_damage;
+
+			FillHealthBar();
+		}
 	}
 
 	/// <summary>
@@ -123,10 +128,10 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_bonusHealth">Amount of extra HP being added</param>
 	void GainHealth(int a_bonusHealth)
 	{
-		currentHP += a_bonusHealth;
-		if (currentHP > maxHP)
+		BPC.currentHP += a_bonusHealth;
+		if (BPC.currentHP > BPC.currentMaxHP)
 		{
-			currentHP = 100;
+			BPC.currentHP = 100;
 		}
 
 		FillHealthBar();
@@ -137,24 +142,24 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// </summary>
 	void FillHealthBar()
 	{
-		float healthPercentage = currentHP / maxHP;
+		float healthPercentage = BPC.currentHP / BPC.currentMaxHP;
 
 		float endFill = healthPercentage / endPercentage;
 		endFill = Mathf.Clamp(endFill, 0, 1);
 		healthEnd.fillAmount = endFill;
 
-		float endAmount = endPercentage * maxHP;
+		float endAmount = endPercentage * BPC.currentMaxHP;
 
-		float curveHealth = currentHP - endAmount;
-		float curveTotalHealth = maxHP - (endAmount * 2);
+		float curveHealth = BPC.currentHP - endAmount;
+		float curveTotalHealth = BPC.currentMaxHP - (endAmount * 2);
 		float curveFill = curveHealth / curveTotalHealth;
 		curveFill = Mathf.Clamp(curveFill, 0, 1);
 		healthCurve.fillAmount = curveFill;
 
-		float curveAmount = curvePercentage * maxHP;
+		float curveAmount = curvePercentage * BPC.currentMaxHP;
 
-		float startHealth = currentHP - (curveAmount + endAmount);
-		float startTotalHealth = maxHP - (curveAmount + endAmount);
+		float startHealth = BPC.currentHP - (curveAmount + endAmount);
+		float startTotalHealth = BPC.currentMaxHP - (curveAmount + endAmount);
 		float startFill = startHealth / startTotalHealth;
 		startFill = Mathf.Clamp(startFill, 0, 1);
 		healthStart.fillAmount = startFill;
