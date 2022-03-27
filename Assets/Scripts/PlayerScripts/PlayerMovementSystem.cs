@@ -54,8 +54,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	[SerializeField]
 	Image manaCooldownUI;
 
-	public bool isManaCooldown;
-	public float cooldownTimer;
+	[SerializeField] private bool isManaCooldown;
+	[SerializeField] private float cooldownTimer;
 
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
@@ -82,7 +82,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		eventSystem = GameObject.Find("EventSystem");
 		BPC = eventSystem.GetComponent<BasePlayerClass>();
-		
+
 		PAM = GetComponent<PlayerAnimationManager>();
 		PCS = GetComponent<PlayerCombatSystem>();
 		PHS = GetComponent<PlayerHealthSystem>();
@@ -199,31 +199,21 @@ public class PlayerMovementSystem : MonoBehaviour
 				moveSpeed = BPC.walkSpeed;
 			}
 
-			//if (isManaCooldown)
-			//{
-			//	ApplyCooldown();
-			//}
-			//else
-			//{
-			// Dashing
-			if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash)
+			if (isManaCooldown)
 			{
-				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
-				isDashing = true;
-				moveAnimDelay = 0.35f;
-				Invoke(nameof(Dash), moveAnimDelay);
-				//if (isFacingRight)
-				//{
-				//	//StartCoroutine(Dash(1));    //dash right
-				//	Dash(1);
-				//}
-				//else
-				//{
-				//	Dash(-1);
-				//	//StartCoroutine(Dash(-1));   // dash left
-				//}
+				ApplyCooldown();
 			}
-			//}
+			else
+			{
+				// Dashing
+				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash)
+				{
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
+					isDashing = true;
+					moveAnimDelay = 0.35f;
+					Invoke(nameof(Dash), moveAnimDelay);
+				}
+			}
 		}
 	}
 
@@ -366,31 +356,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// <summary>
 	/// Controls dash mechanic
 	/// </summary>
-	/// <param name="a_direction">Direction that the player is wanted to dash</param>
-	/// <returns>1 second wait between dashes</returns>
-	//IEnumerator Dash(int a_direction)
-	//{
-	//	isDashing = true;
-	//	canDash = false;
-	//	rb.velocity = new Vector2(rb.velocity.x, 0);
-	//	rb.AddForce(new Vector2(dashDistance * a_direction, 0), ForceMode2D.Impulse);
-
-	//	yield return new WaitForSeconds(0.5f);
-	//	isDashing = false;
-	//}
-
-	//void Dash(int a_dir)
-	//{
-	//	isDashing = true;
-	//	canDash = false;
-
-	//	rb.velocity = new Vector2(rb.velocity.x, 0);
-	//	rb.AddForce(new Vector2(dashDistance * a_dir, 0), ForceMode2D.Impulse);
-
-	//	isManaCooldown = true;
-	//	cooldownTimer = manaCooldownTime;
-	//}
-
 	void Dash()
 	{
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASH);
@@ -432,6 +397,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		else
 		{
 			isDashing = false;
+			isManaCooldown = true;
+			cooldownTimer = BPC.dashCooldown;
 		}
 	}
 

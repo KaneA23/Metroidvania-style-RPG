@@ -138,7 +138,7 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(5)]
 	public bool hasDash;
 	public float dashDist = 50f;
-	public float dashCooldown = 0.5f;
+	public float dashCooldown = 1f;
 	public float dashCost;
 
 	[Space(5)]

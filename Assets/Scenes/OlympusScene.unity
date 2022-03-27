@@ -1348,7 +1348,7 @@ MonoBehaviour:
   regenRateMP: 0
   hasDash: 1
   dashDist: 50
-  dashCooldown: 0.5
+  dashCooldown: 1
   dashCost: 0
   lightAtkRange: 1.5
   heavyAtkRange: 2
