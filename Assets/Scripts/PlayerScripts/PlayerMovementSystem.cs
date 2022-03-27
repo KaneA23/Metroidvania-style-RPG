@@ -414,8 +414,6 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			isManaCooldown = false;
 			manaCooldownUI.fillAmount = 0.0f;
-
-			Debug.Log("Gotta Go Fast!");
 		}
 		else
 		{

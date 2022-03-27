@@ -16,10 +16,10 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	GameObject eventSystem;
 
-	[Header("Healthbar")]
-	public Image healthEnd;
-	public Image healthCurve;
-	public Image healthStart;
+	//[Header("Healthbar")]
+	//public Image healthEnd;
+	//public Image healthCurve;
+	//public Image healthStart;
 
 	//public Image healthBase;
 	//public Image healthLongNeck;
@@ -27,9 +27,16 @@ public class PlayerHealthSystem : MonoBehaviour
 	//public Image healthSmallNeck;
 	//public Image healthLid;
 
-	[Space(5)]
-	[SerializeField] private float endPercentage = 0.25f;
-	[SerializeField] private float curvePercentage = 0.5f;
+	public Image healthBase;
+	public Image[] healthNecks;
+	public Image healthNeck;
+	public Image healthLid;
+
+	GameObject[] neckObjects;
+
+	//[Space(5)]
+	//[SerializeField] private float endPercentage = 0.25f;
+	//[SerializeField] private float curvePercentage = 0.5f;
 
 	//[SerializeField] private float basePercentage = 0.35f;
 	//[SerializeField] private float longNeckPercentage = 0.35f;
@@ -37,7 +44,16 @@ public class PlayerHealthSystem : MonoBehaviour
 	//[SerializeField] private float smallNeckPercentage = 0.165f;
 	//public float startPercentage = 0.25f;
 
-	private const float curveFillAmount = 0.75f;
+
+
+	[Space(5)]
+	[SerializeField] private float basePercentage = 0.5f;
+	[SerializeField] private float neckPercentage;
+	[SerializeField] private float lidPercentage = 0.25f;
+
+	[SerializeField] private float healthPercentage;
+
+
 
 	[Header("Knockback")]
 	public Rigidbody2D rb;
@@ -57,11 +73,26 @@ public class PlayerHealthSystem : MonoBehaviour
 		PMS = GetComponent<PlayerMovementSystem>();
 
 		rb = GetComponent<Rigidbody2D>();
+
+		neckObjects = GameObject.FindGameObjectsWithTag("HealthbarNeck");
+
+		healthNecks = new Image[neckObjects.Length];
+
+		for (int i = 0; i < healthNecks.Length; i++)
+		{
+			healthNecks[i] = neckObjects[i].GetComponent<Image>();
+			Debug.Log(healthNecks.Length);
+			Debug.Log(healthNecks[i]);
+		}
 	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		neckPercentage = 1 - (basePercentage + lidPercentage);
+		neckPercentage /= healthNecks.Length;
+		Debug.Log(neckPercentage);
+
 		BPC.currentHP = BPC.currentMaxHP;
 		isHit = false;
 		isDying = false;
@@ -142,71 +173,62 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// </summary>
 	void FillHealthBar()
 	{
+		//float healthPercentage = BPC.currentHP / BPC.currentMaxHP;
+
+		//float endFill = healthPercentage / endPercentage;
+		//endFill = Mathf.Clamp(endFill, 0, 1);
+		//healthEnd.fillAmount = endFill;
+
+		//float endAmount = endPercentage * BPC.currentMaxHP;
+
+		//float curveHealth = BPC.currentHP - endAmount;
+		//float curveTotalHealth = BPC.currentMaxHP - (endAmount * 2);
+		//float curveFill = curveHealth / curveTotalHealth;
+		//curveFill = Mathf.Clamp(curveFill, 0, 1);
+		//healthCurve.fillAmount = curveFill;
+
+		//float curveAmount = curvePercentage * BPC.currentMaxHP;
+
+		//float startHealth = BPC.currentHP - (curveAmount + endAmount);
+		//float startTotalHealth = BPC.currentMaxHP - (curveAmount + endAmount);
+		//float startFill = startHealth / startTotalHealth;
+		//startFill = Mathf.Clamp(startFill, 0, 1);
+		//healthStart.fillAmount = startFill;
+
+		float baseAmount = basePercentage * BPC.currentMaxHP;
+		float neckAmount = (neckPercentage / healthNecks.Length) * BPC.currentMaxHP;
+		float lidAmount = lidPercentage * BPC.currentMaxHP;
+
 		float healthPercentage = BPC.currentHP / BPC.currentMaxHP;
 
-		float endFill = healthPercentage / endPercentage;
-		endFill = Mathf.Clamp(endFill, 0, 1);
-		healthEnd.fillAmount = endFill;
+		float baseFill = healthPercentage / basePercentage;
+		baseFill = Mathf.Clamp(baseFill, 0, 1);
+		healthBase.fillAmount = baseFill;
 
-		float endAmount = endPercentage * BPC.currentMaxHP;
+		// Static neck health
+		float neckHealth = BPC.currentHP - baseAmount;
+		float neckTotalHealth = BPC.currentMaxHP - (baseAmount + lidAmount);    // calculate what health percentage is neck
+		float neckFill = neckHealth / neckTotalHealth;
+		neckFill = Mathf.Clamp(neckFill, 0, 1);
+		healthNeck.fillAmount = neckFill;
 
-		float curveHealth = BPC.currentHP - endAmount;
-		float curveTotalHealth = BPC.currentMaxHP - (endAmount * 2);
-		float curveFill = curveHealth / curveTotalHealth;
-		curveFill = Mathf.Clamp(curveFill, 0, 1);
-		healthCurve.fillAmount = curveFill;
+		// Dynamic neck health
+		//for (int i = 0; i < healthNecks.Length; i++)
+		//{
+		//	Debug.Log(healthNecks.Length);
+		//	float neckHealth = BPC.currentHP - (baseAmount + (neckAmount * i));
+		//	float neckTotalHealth = BPC.currentMaxHP - (baseAmount + lidAmount + (neckAmount * (healthNecks.Length - 1)));    // calculate what health percentage is neck
+		//	float neckFill = neckHealth / neckTotalHealth;
+		//	neckFill = Mathf.Clamp(neckFill, 0, 1);
+		//	healthNecks[i].fillAmount = neckFill;
+		//}
 
-		float curveAmount = curvePercentage * BPC.currentMaxHP;
-
-		float startHealth = BPC.currentHP - (curveAmount + endAmount);
-		float startTotalHealth = BPC.currentMaxHP - (curveAmount + endAmount);
-		float startFill = startHealth / startTotalHealth;
-		startFill = Mathf.Clamp(startFill, 0, 1);
-		healthStart.fillAmount = startFill;
-
-		//float healthPercentage = currentHP / maxHP;
-
-		//float baseFill = healthPercentage / basePercentage;
-		//baseFill = Mathf.Clamp(baseFill, 0, 1);
-		//healthBase.fillAmount = baseFill;
-
-		//float baseAmount = basePercentage * maxHP;
-
-		//float longNeckHealth = currentHP - baseAmount;
-		//float longNeckTotalHealth = maxHP - baseAmount;
-		//float longNeckFill = longNeckHealth / longNeckTotalHealth;
-		//longNeckFill = Mathf.Clamp(longNeckFill, 0, 1);
-		//healthLongNeck.fillAmount = longNeckFill;
-
-		//float longNeckAmount = longNeckPercentage * maxHP;
-
-		////float lidHealth = currentHP - longNeckAmount;
-		////float lidTotalHealth = maxHP - (longNeckAmount + baseAmount);
-		////float lidFill = lidHealth / lidTotalHealth;
-		////lidFill = Mathf.Clamp(lidFill, 0, 1);
-		////healthLid.fillAmount = lidFill;
-
-		//float midNeckHealth = currentHP - (longNeckAmount + baseAmount);
-		//float midNeckTotalHealth = maxHP - (longNeckAmount + baseAmount);
-		//float midNeckFill = midNeckHealth / midNeckTotalHealth;
-		//midNeckFill = Mathf.Clamp(midNeckFill, 0, 1);
-		//healthMidNeck.fillAmount = midNeckFill;
-
-		//float midNeckAmount = midNeckPercentage * maxHP;
-
-		//float smallNeckHealth = currentHP - (midNeckAmount + longNeckAmount + baseAmount);
-		//float smallNeckTotalHealth = maxHP - (midNeckAmount + longNeckAmount + baseAmount);
-		//float smallNeckFill = smallNeckHealth / smallNeckTotalHealth;
-		//smallNeckFill = Mathf.Clamp(smallNeckFill, 0, 1);
-		//healthSmallNeck.fillAmount = smallNeckFill;
-
-		//float smallNeckAmount = smallNeckPercentage * maxHP;
-
-		//float lidHealth = currentHP - (smallNeckAmount + midNeckAmount + longNeckAmount + baseAmount);
-		//float lidTotalHealth = maxHP - (smallNeckAmount + midNeckAmount + longNeckAmount + baseAmount);
-		//float lidFill = lidHealth / lidTotalHealth;
-		//lidFill = Mathf.Clamp(lidFill, 0, 1);
-		//healthLid.fillAmount = lidFill;
+		Debug.Log("total neck amount: " + (neckAmount * (healthNecks.Length)));
+		float lidHealth = BPC.currentHP - (baseAmount + (neckAmount * (healthNecks.Length)));
+		float lidTotalHealth = BPC.currentMaxHP - (baseAmount + (neckAmount * (healthNecks.Length)));
+		float lidFill = lidHealth / lidTotalHealth;
+		lidFill = Mathf.Clamp(lidFill, 0, 1);
+		healthLid.fillAmount = lidFill;
 	}
 
 	/// <summary>
