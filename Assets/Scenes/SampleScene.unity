@@ -25458,7 +25458,7 @@ PrefabInstance:
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_FlyingEnemy
       value: 
-      objectReference: {fileID: 685913493984771167, guid: 13237a04d43af254cb1bd8dd4fc7c565, type: 3}
+      objectReference: {fileID: 704486223252902766, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemy
       value: 
@@ -25469,7 +25469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8276876134521576672, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_GroundEnemyNumber
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8276876134521576673, guid: 20b200abf06c70e4d9e3dac01710b666, type: 3}
       propertyPath: m_Name

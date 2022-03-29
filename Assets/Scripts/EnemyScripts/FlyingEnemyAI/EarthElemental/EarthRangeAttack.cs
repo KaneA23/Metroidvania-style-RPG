@@ -7,6 +7,8 @@ public class EarthRangeAttack : MonoBehaviour
     public AIRanged AIR;
     public AISetUp AISU;
 
+    public LayerMask ground;
+
     public GameObject m_EarthChunkPrefab;
     public GameObject m_EarthChunk;
     public GameObject m_EarthSpikesPrefab;
@@ -30,6 +32,7 @@ public class EarthRangeAttack : MonoBehaviour
     public float m_AboveAttackForce;
     public float m_AttackInterval;
     public float m_FloorDistance;
+    private float m_DistanceFromGround;
 
     int m_spikeCount = 0;
 
@@ -64,19 +67,26 @@ public class EarthRangeAttack : MonoBehaviour
         //{
         //    m_FloorDistance = hit.distance;
         //}
+
+        RaycastHit2D hit = Physics2D.Raycast(m_Player.transform.position, -Vector2.up, ground.value);
         
+        if(hit.collider != null)
+        {
+            m_DistanceFromGround = Mathf.Abs(hit.point.y - m_Player.transform.position.y);
+        }
+
         if (AIR.attacking)
         {
             m_Attacking = true;
 
-            if (m_PlayerPos.y > 6f)
+            if (m_DistanceFromGround > 0.1f)
             {
                 if (!CR_RUNNING)
                 {
                     StartCoroutine(AboveAttack(m_AboveAttackForce));
                 }
             }
-            else if (m_PlayerPos.y <= 6f)
+            else if (m_DistanceFromGround <= 0.1f)
             {
                 if (!CR_RUNNING)
                 {                   
