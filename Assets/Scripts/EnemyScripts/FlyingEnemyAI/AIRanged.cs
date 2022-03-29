@@ -8,7 +8,7 @@ public class AIRanged : MonoBehaviour
 {
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
-    //public AISetUp AISU;
+    public AISetUp AISU;
 
     public GameObject m_Player;
 
@@ -39,8 +39,10 @@ public class AIRanged : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        //AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
-        //PHS = AISU.PHS;
+        AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+        PHS = AISU.PHS;
+
+        m_Player = AISU.m_ActivePlayer;
 
         target = m_Player.transform;
 
@@ -98,6 +100,12 @@ public class AIRanged : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if(m_Player == null)
+        {
+
+        }
+
         Vector3 velocity = rb.velocity;
         float a_speed = velocity.magnitude;
 

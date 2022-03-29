@@ -11,12 +11,16 @@ public class AISetUp : MonoBehaviour
 
     void Start()
     {
-        
+        m_ActivePlayer = GameObject.Find("Player");
+        PHS = m_ActivePlayer.GetComponent<PlayerHealthSystem>();
     }
 
     void FixedUpdate()
     {
-        GetPlayers();
+        if(m_ActivePlayer == null)
+        {
+            GetPlayers();
+        }     
     }
 
     private void GetPlayers()
