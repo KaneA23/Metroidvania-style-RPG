@@ -77,7 +77,7 @@ public class EarthRangeAttack : MonoBehaviour
             m_DistanceFromGround = Mathf.Abs(hit.point.y - m_Player.transform.position.y);
         }
 
-        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, hit.collider.gameObject.transform.position.y, -1.0f);
+        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, hit.collider.gameObject.transform.position.y - 0.2f, -1.0f);
 
         if (AIR.attacking)
         {
@@ -140,10 +140,10 @@ public class EarthRangeAttack : MonoBehaviour
 
             ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_SpikeSpawnPos, Quaternion.identity);
             spikeRumble.Play();
-            float particleDuration = spikeRumble.duration + spikeRumble.startLifetime;
+            float particleDuration = spikeRumble.main.duration;
             Destroy(spikeRumble, particleDuration);
 
-            yield return new WaitForSeconds(particleDuration - 2);
+            yield return new WaitForSeconds(1.5f);
 
             float elapsedTime = 0;
 

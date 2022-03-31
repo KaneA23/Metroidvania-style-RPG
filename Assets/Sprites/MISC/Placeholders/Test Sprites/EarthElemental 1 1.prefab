@@ -130,7 +130,7 @@ MonoBehaviour:
   AISU: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 16319
+    m_Bits: 1028
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_EarthChunk: {fileID: 0}
   m_EarthSpikesPrefab: {fileID: 3831173036676336841, guid: 17065814f7f9e4e4a95aa7ec76a106af, type: 3}
