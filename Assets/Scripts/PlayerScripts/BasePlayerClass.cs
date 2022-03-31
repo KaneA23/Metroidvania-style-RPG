@@ -29,12 +29,12 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(5)]
 	public int maxHP;				// maximum overall health
 	public int minHP;				// the lowest the healthbar size can go
-	public int currentHP = 20;
-	public int currentMaxHP = 20;	// maximum health player can reach at current levels
+	public float currentHP;
+	public float currentMaxHP = 100;	// maximum health player can reach at current levels
 
 	[Space(2)]
 	public float regenRateHP;
-	public float maxRegenHP = 10;	// Max health to naturally regen
+	public float maxRegenHP = 20;	// Max health to naturally regen
 
 	#endregion
 
@@ -59,7 +59,7 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Space(5)]
 	// Post COMX
-	public float rangeAtkDamage;	//post COMX
+	public float rangeAtkDamage;		//post COMX
 	public float rangeAtkMultiplier;	//post COMX
 	public float rangeKnockbackDist;	//post COMX
 	#endregion
@@ -67,6 +67,7 @@ public class BasePlayerClass : MonoBehaviour
 	#region jump power
 	[Space(5)]
 	public float jumpForce = 25f;
+	public int jumpCost = 5;
 
 	[Space(2)]
 	public bool hasDoubleJump;
@@ -93,7 +94,8 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxStam;					// max overall stamina
 	public int minStam;					// the lowest the stamina bar can go
 	public float currentStam;
-	public int currentMaxStam = 75;	// maximum stamina player can reach at current levels
+	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
+	public float regenRateStam = 0.5f;
 
 	[Space(5)]
 	public float walkSpeed = 10f;
@@ -103,13 +105,17 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(2)]
 	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
-	public float runCost;
+	public float runCost = 0.5f;
 
 	[Space(5)]
 	// Speeds determined by animation?
 	public float lightAtkSpeed = 0.35f;
 	public float heavyAtkSpeed = 0.517f;
-	public float rangeAtkSpeed;	//post COMX
+	public float rangeAtkSpeed; //post COMX
+
+	[Space(2)]
+	public int lightAtkCost = 5;
+	public int heavyAtkCost = 10;
 
 	[Space(5)]
 	public float lightAtkCooldown = 0.5f;
@@ -132,14 +138,14 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxMP;				// maximum overal mana
 	public int minMP;				// the lowest the Manabar can go
 	public float currentMP;
-	public int currentMaxMP = 50;	// maximum mana player can reach at current levels
+	public int currentMaxMP = 100;	// maximum mana player can reach at current levels
 	public float regenRateMP;   
 
 	[Space(5)]
 	public bool hasDash;
 	public float dashDist = 50f;
 	public float dashCooldown = 1f;
-	public int dashCost = 7;
+	public int dashCost = 30;
 
 	[Space(5)]
 	public float lightAtkRange = 1.5f;

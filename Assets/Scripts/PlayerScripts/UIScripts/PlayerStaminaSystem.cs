@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls player's stamina UI
@@ -8,18 +9,103 @@ using UnityEngine;
 /// </summary>
 public class PlayerStaminaSystem : MonoBehaviour
 {
-    [Header("Referenced Scripts")]
-    BasePlayerClass BPC;
+	[Header("Referenced Scripts")]
+	public PlayerMovementSystem PMS;
+	BasePlayerClass BPC;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[Space(5)]
+	GameObject eventSystem;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[Header("Stamina bar objects")]
+	public GameObject stamBarEmpty;
+
+	public Image stamFrontFillBar;
+	public Image stamBackFillBar;
+
+	[Header("Lerping Stamina decresae")]
+	public float stamLerpTimer;
+	public float stamLerpSpeed = 15f;
+
+	private void Awake()
+	{
+		eventSystem = GameObject.Find("EventSystem");
+		BPC = eventSystem.GetComponent<BasePlayerClass>();
+	}
+
+	// Start is called before the first frame update
+	void Start()
+	{
+		BPC.currentStam = BPC.currentMaxStam;
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
+
+		if (!PMS.isRunning && !PMS.isJumping)
+		{
+			if (BPC.currentStam < BPC.currentMaxStam)
+			{
+				RegenStamina(BPC.regenRateStam * Time.deltaTime);
+			}
+		}
+
+		UpdateStamUI();
+	}
+
+	public void TakeStamina(float a_stamCost)
+	{
+		BPC.currentStam -= a_stamCost;
+
+		if (BPC.currentStam < 0)
+		{
+			BPC.currentStam = 0;
+		}
+
+		stamLerpTimer = 0f;
+	}
+
+	public void RegenStamina(float a_stamRegen)
+	{
+		BPC.currentStam += a_stamRegen;
+
+		if (BPC.currentStam > BPC.currentMaxStam)
+		{
+			BPC.currentStam = BPC.currentMaxStam;
+		}
+
+		stamLerpTimer = 0f;
+	}
+
+	public void UpdateStamUI()
+	{
+		float fillF = stamFrontFillBar.fillAmount;
+		float fillB = stamBackFillBar.fillAmount;
+
+		float stamFraction = (float)BPC.currentStam / (float)BPC.currentMaxStam;
+
+		if (fillB > stamFraction)
+		{
+			stamFrontFillBar.fillAmount = stamFraction;
+			stamLerpTimer += Time.deltaTime;
+
+			float percentComplete = stamLerpTimer / stamLerpSpeed;
+			percentComplete *= percentComplete;
+
+			stamBackFillBar.fillAmount = Mathf.Lerp(fillB, stamFraction, percentComplete);
+		}
+
+
+		if (fillF < stamFraction)
+		{
+			stamBackFillBar.fillAmount = stamFraction;
+			stamLerpTimer += Time.deltaTime;
+
+			float percentComplete = stamLerpTimer / stamLerpSpeed;
+			percentComplete *= percentComplete;
+
+			stamFrontFillBar.fillAmount = Mathf.Lerp(fillF, stamBackFillBar.fillAmount, percentComplete);
+		}
+	}
 }

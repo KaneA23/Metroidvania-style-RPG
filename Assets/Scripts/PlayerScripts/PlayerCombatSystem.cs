@@ -14,7 +14,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	PlayerHealthSystem PHS;
 	PlayerAnimationManager PAM;
 	PlayerMovementSystem PMS;
-	
+	public PlayerStaminaSystem PSS;
+
 	GameObject eventSystem;
 
 	[Header("Attack Ranges")]
@@ -24,7 +25,7 @@ public class PlayerCombatSystem : MonoBehaviour
 
 	[Header("Attack Cooldowns")]
 	[SerializeField] private Image atkCooldownUI;
-	
+
 	[SerializeField] private bool isAtkCooldown;
 	[SerializeField] private float cooldownTimer;
 	[SerializeField] private float cooldownTime;
@@ -45,7 +46,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	{
 		eventSystem = GameObject.Find("EventSystem");
 		BPC = eventSystem.GetComponent<BasePlayerClass>();
-		
+
 		PAM = GetComponent<PlayerAnimationManager>();
 		PHS = GetComponent<PlayerHealthSystem>();
 		PMS = GetComponent<PlayerMovementSystem>();
@@ -61,54 +62,57 @@ public class PlayerCombatSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (isAtkCooldown)
+		if (!PHS.isDying)
 		{
-			ApplyCooldown();
-		}
-		else if (!PHS.isHit && !PMS.isDashing)
-		{
-			if (Input.GetButtonDown("Fire1"))
+			if (isAtkCooldown)
 			{
-				LightAttack();
+				ApplyCooldown();
 			}
-			else if (Input.GetButtonDown("Fire2") && BPC.hasHeavyAtk)
+			else if (!PHS.isHit && !PMS.isDashing)
 			{
-				HeavyAttack();
+				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost)
+				{
+					LightAttack();
+				}
+				else if (Input.GetButtonDown("Fire2") && BPC.currentStam > BPC.heavyAtkCost && BPC.hasHeavyAtk)
+				{
+					HeavyAttack();
+				}
 			}
-		}
 
-		barrels = GameObject.FindGameObjectsWithTag("Barrel");
-		enemies = GameObject.FindGameObjectsWithTag("Enemy");
+			barrels = GameObject.FindGameObjectsWithTag("Barrel");
+			enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-		foreach (GameObject barrel in barrels)
-		{
-			barrelDist = Vector2.Distance(transform.position, barrel.transform.position);
-
-			Transform barrelUI = barrel.transform.Find("Canvas");
-
-			if (barrelDist < BPC.uiViewDist && barrel.GetComponent<BarrelHealthSystem>().currentHP > 0)
+			foreach (GameObject barrel in barrels)
 			{
-				barrelUI.gameObject.SetActive(true);
+				barrelDist = Vector2.Distance(transform.position, barrel.transform.position);
+
+				Transform barrelUI = barrel.transform.Find("Canvas");
+
+				if (barrelDist < BPC.uiViewDist && barrel.GetComponent<BarrelHealthSystem>().currentHP > 0)
+				{
+					barrelUI.gameObject.SetActive(true);
+				}
+				else
+				{
+					barrelUI.gameObject.SetActive(false);
+				}
 			}
-			else
-			{
-				barrelUI.gameObject.SetActive(false);
-			}
-		}
 
-		foreach (GameObject enemy in enemies)
-		{
-			enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
-
-			Transform enemyUI = enemy.transform.Find("Canvas");
-
-			if (enemyDist < BPC.uiViewDist && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
+			foreach (GameObject enemy in enemies)
 			{
-				enemyUI.gameObject.SetActive(true);
-			}
-			else
-			{
-				enemyUI.gameObject.SetActive(false);
+				enemyDist = Vector2.Distance(transform.position, enemy.transform.position);
+
+				Transform enemyUI = enemy.transform.Find("Canvas");
+
+				if (enemyDist < BPC.uiViewDist && enemy.GetComponent<EnemyHealth>().m_CurrentHP > 0)
+				{
+					enemyUI.gameObject.SetActive(true);
+				}
+				else
+				{
+					enemyUI.gameObject.SetActive(false);
+				}
 			}
 		}
 	}
@@ -118,6 +122,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
+		PSS.TakeStamina(BPC.lightAtkCost);
+
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
 		isAttacking = true;
 		Invoke(nameof(CompleteAttack), BPC.lightAtkSpeed);
@@ -145,6 +151,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
+		PSS.TakeStamina(BPC.heavyAtkCost);
+
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
 		isAttacking = true;
 		Invoke(nameof(CompleteAttack), BPC.heavyAtkSpeed);

@@ -19,49 +19,12 @@ public class PlayerHealthSystem : MonoBehaviour
 	public float lerpTimer;
 	public float chipSpeed = 15f;
 
-	//[Header("Healthbar")]
-	//public Image healthEnd;
-	//public Image healthCurve;
-	//public Image healthStart;
-
-	//public Image healthBase;
-	//public Image healthLongNeck;
-	//public Image healthMidNeck;
-	//public Image healthSmallNeck;
-	//public Image healthLid;
-
-	//public Image healthBase;
-	//public Image[] healthNecks;
-	//public Image healthNeck;
-	//public Image healthLid;
-
-	//GameObject[] neckObjects;
-
-	//[Space(5)]
-	//[SerializeField] private float endPercentage = 0.25f;
-	//[SerializeField] private float curvePercentage = 0.5f;
-
-	//[SerializeField] private float basePercentage = 0.35f;
-	//[SerializeField] private float longNeckPercentage = 0.35f;
-	//[SerializeField] private float midNeckPercentage = 0.165f;
-	//[SerializeField] private float smallNeckPercentage = 0.165f;
-	//public float startPercentage = 0.25f;
-
-
-
-	//[Space(5)]
-	//[SerializeField] private float basePercentage = 0.5f;
-	//[SerializeField] private float neckPercentage;
-	//[SerializeField] private float lidPercentage = 0.25f;
-
-	//[SerializeField] private float healthPercentage;
-
 	public Image frontHealthBar;
 	public GameObject healthBorder;
 
 	public Image backHealthBar;
 
-	RectTransform rt;	// Change health bar length
+	RectTransform rt;   // Change health bar length
 
 	[Header("Knockback")]
 	public Rigidbody2D rb;
@@ -82,32 +45,14 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		rb = GetComponent<Rigidbody2D>();
 		rt = healthBorder.GetComponent<RectTransform>();
-
-		//neckObjects = GameObject.FindGameObjectsWithTag("HealthbarNeck");
-
-		//healthNecks = new Image[neckObjects.Length];
-
-		//for (int i = 0; i < healthNecks.Length; i++)
-		//{
-		//	healthNecks[i] = neckObjects[i].GetComponent<Image>();
-		//	Debug.Log(healthNecks.Length);
-		//	Debug.Log(healthNecks[i]);
-		//}
 	}
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		//neckPercentage = 1 - (basePercentage + lidPercentage);
-		//neckPercentage /= healthNecks.Length;
-		//Debug.Log(neckPercentage);
-
 		BPC.currentHP = BPC.currentMaxHP;
 		isHit = false;
 		isDying = false;
-
-
-		rt.sizeDelta = new Vector2(BPC.currentMaxHP * 10, 32);
 
 		UpdateHealthUI();
 	}
@@ -115,15 +60,24 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		rt.sizeDelta = new Vector2(BPC.currentMaxHP * 10, 32);
+		rt.sizeDelta = new Vector2(BPC.currentMaxHP, 32);
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			TakeDamage(Random.Range(1, 5), gameObject.transform.position);
+			TakeDamage(Random.Range(5, 10), gameObject.transform.position);
 		}
 		if (Input.GetKeyDown(KeyCode.Equals))
 		{
 			GainHealth(1);
+		}
+
+		if (!isHit && !isDying)
+		{
+			if (BPC.currentHP < BPC.maxRegenHP)
+			{
+				RegenHealth(BPC.maxRegenHP * Time.deltaTime);
+			}
+
 		}
 
 		if (BPC.currentHP <= 0 && !isHit)
@@ -165,8 +119,6 @@ public class PlayerHealthSystem : MonoBehaviour
 
 			BPC.currentHP -= a_damage;
 			lerpTimer = 0f;
-
-			//FillHealthBar();
 		}
 	}
 
@@ -183,22 +135,29 @@ public class PlayerHealthSystem : MonoBehaviour
 		}
 
 		lerpTimer = 0f;
-
-		//FillHealthBar();
-		//UpdateHealthUI();
 	}
 
-	//void FillHealthBar()
-	//{
-	//	healthFill.fillAmount = (float)BPC.currentHP / (float)BPC.currentMaxHP;
-	//}
+	void RegenHealth(float a_healthRegen)
+	{
+		BPC.currentHP += a_healthRegen;
 
+		if (BPC.currentHP > BPC.maxRegenHP)
+		{
+			BPC.currentHP = BPC.maxRegenHP;
+		}
+
+		lerpTimer = 0f;
+	}
+
+	/// <summary>
+	/// Decreases/Increases bar fills when health changes with chipping effect
+	/// </summary>
 	public void UpdateHealthUI()
 	{
 		float fillF = frontHealthBar.fillAmount;
 		float fillB = backHealthBar.fillAmount;
 
-		float healthFraction = (float)BPC.currentHP / (float)BPC.currentMaxHP;
+		float healthFraction = BPC.currentHP / (float)BPC.currentMaxHP;
 
 		if (fillB > healthFraction)
 		{
@@ -220,71 +179,6 @@ public class PlayerHealthSystem : MonoBehaviour
 			frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
 		}
 	}
-
-	
-
-	///// <summary>
-	///// Alters health bar to new health level
-	///// </summary>
-	//void FillHealthBar()
-	//{
-	//	//float healthPercentage = BPC.currentHP / BPC.currentMaxHP;
-
-	//	//float endFill = healthPercentage / endPercentage;
-	//	//endFill = Mathf.Clamp(endFill, 0, 1);
-	//	//healthEnd.fillAmount = endFill;
-
-	//	//float endAmount = endPercentage * BPC.currentMaxHP;
-
-	//	//float curveHealth = BPC.currentHP - endAmount;
-	//	//float curveTotalHealth = BPC.currentMaxHP - (endAmount * 2);
-	//	//float curveFill = curveHealth / curveTotalHealth;
-	//	//curveFill = Mathf.Clamp(curveFill, 0, 1);
-	//	//healthCurve.fillAmount = curveFill;
-
-	//	//float curveAmount = curvePercentage * BPC.currentMaxHP;
-
-	//	//float startHealth = BPC.currentHP - (curveAmount + endAmount);
-	//	//float startTotalHealth = BPC.currentMaxHP - (curveAmount + endAmount);
-	//	//float startFill = startHealth / startTotalHealth;
-	//	//startFill = Mathf.Clamp(startFill, 0, 1);
-	//	//healthStart.fillAmount = startFill;
-
-	//	float baseAmount = basePercentage * BPC.currentMaxHP;
-	//	float neckAmount = (neckPercentage / healthNecks.Length) * BPC.currentMaxHP;
-	//	float lidAmount = lidPercentage * BPC.currentMaxHP;
-
-	//	float healthPercentage = BPC.currentHP / BPC.currentMaxHP;
-
-	//	float baseFill = healthPercentage / basePercentage;
-	//	baseFill = Mathf.Clamp(baseFill, 0, 1);
-	//	healthBase.fillAmount = baseFill;
-
-	//	//// Static neck health
-	//	//float neckHealth = BPC.currentHP - baseAmount;
-	//	//float neckTotalHealth = BPC.currentMaxHP - (baseAmount + lidAmount);    // calculate what health percentage is neck
-	//	//float neckFill = neckHealth / neckTotalHealth;
-	//	//neckFill = Mathf.Clamp(neckFill, 0, 1);
-	//	//healthNeck.fillAmount = neckFill;
-
-	//	float fillThis = baseFill * healthNecks.Length;
-	//	fillThis = Mathf.Ceil(fillThis);
-	//	int fillInt = (int)fillThis;
-	//	Debug.Log("fillThis:" + fillThis);
-
-	//	float fillValue = baseFill % healthNecks.Length;
-
-	//	float neckFill = fillValue;
-
-	//	healthNecks[fillInt - 1].fillAmount = neckFill;
-
-	//	Debug.Log("total neck amount: " + (neckAmount * (healthNecks.Length)));
-	//	float lidHealth = BPC.currentHP - (baseAmount + (neckAmount * (healthNecks.Length)));
-	//	float lidTotalHealth = BPC.currentMaxHP - (baseAmount + (neckAmount * (healthNecks.Length)));
-	//	float lidFill = lidHealth / lidTotalHealth;
-	//	lidFill = Mathf.Clamp(lidFill, 0, 1);
-	//	healthLid.fillAmount = lidFill;
-	//}
 
 	/// <summary>
 	/// Destroys the player
