@@ -129,6 +129,7 @@ public class EarthRangeAttack : MonoBehaviour
         if (m_EarthSpikes == null)
         {
             m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
+            
 
             //if (m_EarthSpikes != null || m_Player.transform.hasChanged)
             //{
@@ -138,10 +139,12 @@ public class EarthRangeAttack : MonoBehaviour
             spikePos = m_EarthSpikes.transform.position;
             Vector3 spikePosNew = new Vector3(spikePos.x, spikePos.y + height, spikePos.z);
 
-            ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_SpikeSpawnPos, Quaternion.identity);
+            //ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_SpikeSpawnPos, Quaternion.identity);
+            ParticleSystem spikeRumble = m_EarthSpikes.GetComponent<ParticleSystem>();
+
             spikeRumble.Play();
-            float particleDuration = spikeRumble.main.duration;
-            Destroy(spikeRumble, particleDuration);
+            //float particleDuration = spikeRumble.main.duration;
+            //Destroy(spikeRumble, particleDuration);
 
             yield return new WaitForSeconds(1.5f);
 

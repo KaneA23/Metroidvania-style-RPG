@@ -133,7 +133,7 @@ MonoBehaviour:
     m_Bits: 1028
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_EarthChunk: {fileID: 0}
-  m_EarthSpikesPrefab: {fileID: 3831173036676336841, guid: 17065814f7f9e4e4a95aa7ec76a106af, type: 3}
+  m_EarthSpikesPrefab: {fileID: 8651266294975768818, guid: 198f7d7e970399a48a281a91c5822134, type: 3}
   m_EarthSpikes: {fileID: 0}
   m_Player: {fileID: 0}
   m_SpikeRumble: {fileID: 2213698547649566809, guid: 4fc1dd1a1199b2f49a3bc2c2caa1ec5d, type: 3}
