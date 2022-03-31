@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerMovementSystem : MonoBehaviour
 {
-	[Header("Referenced Script")]
+	[Header("Referenced Scripts")]
 	BasePlayerClass BPC;
 	PlayerAnimationManager PAM;
 	PlayerCombatSystem PCS;
@@ -78,6 +78,24 @@ public class PlayerMovementSystem : MonoBehaviour
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
 
+
+	public GameObject emptyManaBar;
+
+	public Image manaFrontFillBar;
+	public Image manaBackFillBar;
+
+	public GameObject emptyStamBar;
+
+	public Image stamFrontFillBar;
+	public Image stamBackFillBar;
+
+	//RectTransform rt;   // Change UI bar length
+
+	public float manaLerpTimer;
+	public float stamLerpTimer;
+	public float chipSpeed = 15f;
+
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -103,11 +121,25 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		isFacingRight = true;
 		transform.Rotate(new Vector2(0, 180));
+
+
+		BPC.currentMP = BPC.currentMaxMP;
+		BPC.currentStam = BPC.currentMaxStam;
+
+		emptyManaBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP * 10, 32);
+		emptyStamBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam * 10, 32);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		emptyManaBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP * 10, 32);
+		emptyStamBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam * 10, 32);
+
+		UpdateManaUI();
+		UpdateStamUI();
+
+
 		if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
@@ -121,6 +153,11 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			PlayerInput();
 		}
+
+		//if (moveHorizontal != 0 && Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+		//{
+		//	TakeStamina(1);
+		//}
 	}
 
 	private void FixedUpdate()
@@ -206,8 +243,10 @@ public class PlayerMovementSystem : MonoBehaviour
 			else
 			{
 				// Dashing
-				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash)
+				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash && BPC.currentMP >= BPC.dashCost)
 				{
+					TakeMana(BPC.dashCost);
+
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
 					isDashing = true;
 					moveAnimDelay = 0.35f;
@@ -270,6 +309,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
+			TakeStamina(3);
+
 			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
 
@@ -386,6 +427,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (PAM.currentAnimState == "Player_DashEnter")
 		{
+			Debug.Log("Hello!");
 			Dash();
 		}
 		else if (PAM.currentAnimState == "Player_Dash")
@@ -422,4 +464,84 @@ public class PlayerMovementSystem : MonoBehaviour
 	}
 
 	#endregion
+
+	void TakeMana(int a_manaCost)
+	{
+		BPC.currentMP -= a_manaCost;
+
+		if (BPC.currentMP < 0)
+		{
+			BPC.currentMP = 0;
+		}
+
+		manaLerpTimer = 0f;
+	}
+
+	void TakeStamina(int a_stamCost)
+	{
+		BPC.currentStam -= a_stamCost;
+
+		if (BPC.currentStam < 0)
+		{
+			BPC.currentStam = 0;
+		}
+
+		stamLerpTimer = 0f;
+	}
+
+	public void UpdateManaUI()
+	{
+		float fillF = manaFrontFillBar.fillAmount;
+		float fillB = manaBackFillBar.fillAmount;
+
+		float manaFraction = (float)BPC.currentMP / (float)BPC.currentMaxMP;
+
+		if (fillB > manaFraction)
+		{
+			manaFrontFillBar.fillAmount = manaFraction;
+
+			manaLerpTimer += Time.deltaTime;
+			float percentComplete = manaLerpTimer / chipSpeed;
+			percentComplete *= percentComplete;
+
+			manaBackFillBar.fillAmount = Mathf.Lerp(fillB, manaFraction, percentComplete);
+		}
+
+		if (fillF < manaFraction)
+		{
+			manaBackFillBar.fillAmount = manaFraction;
+			manaLerpTimer += Time.deltaTime;
+			float percentComplete = manaLerpTimer / chipSpeed;
+			percentComplete *= percentComplete;
+			manaFrontFillBar.fillAmount = Mathf.Lerp(fillF, manaBackFillBar.fillAmount, percentComplete);
+		}
+	}
+
+	public void UpdateStamUI()
+	{
+		float fillF = stamFrontFillBar.fillAmount;
+		float fillB = stamBackFillBar.fillAmount;
+
+		float stamFraction = (float)BPC.currentStam / (float)BPC.currentMaxStam;
+
+		if (fillB > stamFraction)
+		{
+			stamFrontFillBar.fillAmount = stamFraction;
+
+			stamLerpTimer += Time.deltaTime;
+			float percentComplete = stamLerpTimer / chipSpeed;
+			percentComplete *= percentComplete;
+
+			stamBackFillBar.fillAmount = Mathf.Lerp(fillB, stamFraction, percentComplete);
+		}
+
+		if (fillF < stamFraction)
+		{
+			stamBackFillBar.fillAmount = stamFraction;
+			stamLerpTimer += Time.deltaTime;
+			float percentComplete = stamLerpTimer / chipSpeed;
+			percentComplete *= percentComplete;
+			stamFrontFillBar.fillAmount = Mathf.Lerp(fillF, stamBackFillBar.fillAmount, percentComplete);
+		}
+	}
 }

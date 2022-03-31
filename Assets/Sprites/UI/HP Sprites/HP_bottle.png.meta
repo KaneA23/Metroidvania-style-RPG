@@ -107,9 +107,9 @@ TextureImporter:
       name: HP_bottle_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 28
+        x: 6
+        y: 6
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,9 +128,9 @@ TextureImporter:
       name: HP_bottle_1
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
-        width: 28
+        x: 47
+        y: 6
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -149,9 +149,9 @@ TextureImporter:
       name: HP_bottle_2
       rect:
         serializedVersion: 2
-        x: 75
-        y: 0
-        width: 10
+        x: 88
+        y: 6
+        width: 4
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -170,9 +170,9 @@ TextureImporter:
       name: HP_bottle_3
       rect:
         serializedVersion: 2
-        x: 107
-        y: 0
-        width: 10
+        x: 157
+        y: 6
+        width: 4
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -191,10 +191,10 @@ TextureImporter:
       name: HP_bottle_4
       rect:
         serializedVersion: 2
-        x: 138
-        y: 0
-        width: 12
-        height: 13
+        x: 170
+        y: 6
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,8 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9a0dacae44dd9945804ffaa47f3da1b
-      internalID: -1993451193
+      spriteID: 385ca2c1a525abe48bb3588ec6dcc5c3
+      internalID: -1277415679
       vertices: []
       indices: 
       edges: []
@@ -212,10 +212,10 @@ TextureImporter:
       name: HP_bottle_5
       rect:
         serializedVersion: 2
-        x: 171
-        y: 0
-        width: 10
-        height: 16
+        x: 211
+        y: 6
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,8 +223,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1d4af79ccbf7444d875e1c724b9b603
-      internalID: 1460292813
+      spriteID: 769a0cefcd5fed44e8f7ff8c915e164c
+      internalID: -2122961880
       vertices: []
       indices: 
       edges: []
@@ -233,10 +233,10 @@ TextureImporter:
       name: HP_bottle_6
       rect:
         serializedVersion: 2
-        x: 203
-        y: 0
-        width: 10
-        height: 16
+        x: 252
+        y: 6
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,92 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 719259ad80c63c544acf616d3ce3c12d
-      internalID: 1386715972
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HP_bottle_7
-      rect:
-        serializedVersion: 2
-        x: 235
-        y: 0
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14a2dbfcfe426c54a8c6f6b298076520
-      internalID: 1623004409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HP_bottle_8
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 0
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4bc8db1053e3ce438cfe778864822c1
-      internalID: 1034177853
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HP_bottle_9
-      rect:
-        serializedVersion: 2
-        x: 298
-        y: 0
-        width: 12
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65e0a5e545e6bef46aef1ff4ab0b109e
-      internalID: 1955335534
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HP_bottle_10
-      rect:
-        serializedVersion: 2
-        x: 330
-        y: 1
-        width: 12
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f1a1527587da9f4fb4009ffe0b30a56
-      internalID: -924171080
+      spriteID: 453aa82de1d30b74097ed4cf92de38af
+      internalID: 1518798387
       vertices: []
       indices: 
       edges: []
@@ -345,17 +261,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HP_bottle_9: 1955335534
-      HP_bottle_7: 1623004409
-      HP_bottle_4: -1993451193
-      HP_bottle_5: 1460292813
+      HP_bottle_4: -1277415679
+      HP_bottle_5: -2122961880
       HP_bottle_3: -1909757620
-      HP_bottle_10: -924171080
       HP_bottle_0: 1707739585
-      HP_bottle_6: 1386715972
+      HP_bottle_6: 1518798387
       HP_bottle_1: 326831231
       HP_bottle_2: -1739453516
-      HP_bottle_8: 1034177853
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
