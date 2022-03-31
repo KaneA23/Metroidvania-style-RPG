@@ -128,9 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIR: {fileID: 0}
   AISU: {fileID: 0}
-  ground:
+  ignoreMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 16319
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_EarthChunk: {fileID: 0}
   m_EarthSpikesPrefab: {fileID: 3831173036676336841, guid: 17065814f7f9e4e4a95aa7ec76a106af, type: 3}
@@ -141,6 +141,10 @@ MonoBehaviour:
   m_AboveAttackForce: 15
   m_AttackInterval: 5
   m_FloorDistance: 0
+  m_SpikeHeight: 1
+  m_RaycastDistance: 0
+  m_Attacking: 0
+  CR_RUNNING: 0
 --- !u!114 &7393488717277228876
 MonoBehaviour:
   m_ObjectHideFlags: 0

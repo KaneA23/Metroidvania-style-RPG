@@ -7,7 +7,7 @@ public class EarthRangeAttack : MonoBehaviour
     public AIRanged AIR;
     public AISetUp AISU;
 
-    public LayerMask ground;
+    public LayerMask ignoreMask;
 
     public GameObject m_EarthChunkPrefab;
     public GameObject m_EarthChunk;
@@ -19,7 +19,6 @@ public class EarthRangeAttack : MonoBehaviour
     private Rigidbody2D m_PlayerBody;
     private Rigidbody2D m_ChunkBody;
 
-    private Vector3 m_SpikeHeight;
     private Vector3 m_SpikeSpawnPos;
     private Vector3 m_ChunkHitDir;
     private Vector3 m_ChunkSpawnPos;
@@ -32,12 +31,14 @@ public class EarthRangeAttack : MonoBehaviour
     public float m_AboveAttackForce;
     public float m_AttackInterval;
     public float m_FloorDistance;
+    public float m_SpikeHeight;
+    public float m_RaycastDistance;
     private float m_DistanceFromGround;
 
     int m_spikeCount = 0;
 
-    private bool m_Attacking;
-    private bool CR_RUNNING;
+    [SerializeField] private bool m_Attacking;
+    [SerializeField] private bool CR_RUNNING;
     private bool m_AttackFinished = false;
 
     void Start()
@@ -54,10 +55,9 @@ public class EarthRangeAttack : MonoBehaviour
         //m_FlooorPos = m_Floor.transform.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        m_SpikeHeight = new Vector3(m_Player.transform.position.x, -3.8599999f);
-        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y - 0.5f, -1.0f);
+        
 
         m_PlayerPos = m_Player.transform.position;
 
@@ -68,28 +68,32 @@ public class EarthRangeAttack : MonoBehaviour
         //    m_FloorDistance = hit.distance;
         //}
 
-        RaycastHit2D hit = Physics2D.Raycast(m_Player.transform.position, -Vector2.up, ground.value);
-        
-        if(hit.collider != null)
+        RaycastHit2D hit = Physics2D.Raycast(m_Player.transform.position, -Vector2.up, Mathf.Infinity, ignoreMask);
+
+        Debug.Log(hit.collider.gameObject.name);
+
+        if (hit.collider != null)
         {
             m_DistanceFromGround = Mathf.Abs(hit.point.y - m_Player.transform.position.y);
         }
+
+        m_SpikeSpawnPos = new Vector3(m_Player.transform.position.x, hit.collider.gameObject.transform.position.y, -1.0f);
 
         if (AIR.attacking)
         {
             m_Attacking = true;
 
-            if (m_DistanceFromGround > 0.1f)
+            if (m_DistanceFromGround > 0.08f)
             {
                 if (!CR_RUNNING)
                 {
                     StartCoroutine(AboveAttack(m_AboveAttackForce));
                 }
             }
-            else if (m_DistanceFromGround <= 0.1f)
+            else if (m_DistanceFromGround <= 0.08f)
             {
                 if (!CR_RUNNING)
-                {                   
+                {
                     StartCoroutine(GroundAttack(m_SpikeHeight, m_GroundAttackSpeed));
                 }
             }
@@ -101,100 +105,99 @@ public class EarthRangeAttack : MonoBehaviour
         }
     }
 
-    public IEnumerator GroundAttack(Vector3 position, float timeToAppear)
+    public IEnumerator GroundAttack(float height, float timeToAppear)
     {
         CR_RUNNING = true;
 
-        if (GameObject.FindGameObjectsWithTag("GroundAttack") != null)
-        {
-            GameObject[] spikes = GameObject.FindGameObjectsWithTag("GroundAttack");
-            foreach (GameObject spike in spikes)
-            {
-                Destroy(spike);
-            }
-        }
+        Vector3 spikePos;
 
-        while (m_Attacking)
+        //if (GameObject.FindGameObjectsWithTag("GroundAttack") != null)
+        //{
+        //    GameObject[] spikes = GameObject.FindGameObjectsWithTag("GroundAttack");
+        //    foreach (GameObject spike in spikes)
+        //    {
+        //        Destroy(spike);
+        //    }
+        //}
+
+
+        //if (m_AttackFinished && !m_Attacking)
+        //{
+        //    break;
+        //}
+
+        if (m_EarthSpikes == null)
         {
-            //if (m_AttackFinished && !m_Attacking)
+            m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
+
+            //if (m_EarthSpikes != null || m_Player.transform.hasChanged)
             //{
-            //    break;
-            //}
+            //    m_AttackFinished = false;
 
-            Debug.Log("Spike Count: " + m_spikeCount);
 
-            if (m_EarthSpikes == null)
+            spikePos = m_EarthSpikes.transform.position;
+            Vector3 spikePosNew = new Vector3(spikePos.x, spikePos.y + height, spikePos.z);
+
+            ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_SpikeSpawnPos, Quaternion.identity);
+            spikeRumble.Play();
+            float particleDuration = spikeRumble.duration + spikeRumble.startLifetime;
+            Destroy(spikeRumble, particleDuration);
+
+            yield return new WaitForSeconds(particleDuration - 2);
+
+            float elapsedTime = 0;
+
+            //Debug.Log("Spike Count: " + m_spikeCount);
+
+            Vector3 startPosition = m_EarthSpikes.transform.position;
+
+            while (elapsedTime < timeToAppear)
             {
-                m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
-                m_spikeCount = 1;
+                if (m_EarthSpikes != null)
+                {
+                    m_EarthSpikes.transform.position = Vector3.Lerp(startPosition, spikePosNew, elapsedTime / timeToAppear);
+                }
+                elapsedTime += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
             }
 
-            if (m_EarthSpikes != null || m_Player.transform.hasChanged)
+            elapsedTime = 0;
+
+            while (elapsedTime < timeToAppear)
             {
-                m_AttackFinished = false;
-
-                position = new Vector3(m_PlayerPos.x, m_PlayerPos.y);
-
-                ParticleSystem spikeRumble = Instantiate(m_SpikeRumble, m_Player.transform.position, Quaternion.identity);
-                spikeRumble.Play();
-                float particleDuration = spikeRumble.duration + spikeRumble.startLifetime;
-                Destroy(spikeRumble, 3f);
-                yield return new WaitForSeconds(particleDuration - 2);
-
-                float elapsedTime = 0;
-
-                //Debug.Log("Spike Count: " + m_spikeCount);
-
-                Vector3 startPosition = m_EarthSpikes.transform.position;
-
-                while (elapsedTime < timeToAppear)
+                if (m_EarthSpikes != null)
                 {
-                    if (m_EarthSpikes != null)
-                    {
-                        m_EarthSpikes.transform.position = Vector3.Lerp(startPosition, position, elapsedTime / timeToAppear);
-                    }
-                    elapsedTime += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
+                    m_EarthSpikes.transform.position = Vector3.Lerp(spikePosNew, startPosition, elapsedTime / timeToAppear);
                 }
-
-                elapsedTime = 0;
-
-                while (elapsedTime < timeToAppear)
-                {
-                    if (m_EarthSpikes != null)
-                    {
-                        m_EarthSpikes.transform.position = Vector3.Lerp(position, startPosition, elapsedTime / timeToAppear);
-                    }
-                    elapsedTime += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
-                }
-
-                Destroy(m_EarthSpikes);
-                m_spikeCount = 0;
-                m_AttackFinished = true;
+                elapsedTime += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
             }
+            Destroy(m_EarthSpikes);
+
         }
+        CR_RUNNING = false;
+
+        yield return new WaitForSeconds(1.5f);
     }
 
     public IEnumerator AboveAttack(float force)
     {
         CR_RUNNING = true;
 
-        while (m_Attacking)
-        {
-            float x = Random.Range(m_PlayerPos.x - 5f, m_PlayerPos.x + 5f); ;
+        float x = Random.Range(m_PlayerPos.x - 5f, m_PlayerPos.x + 5f); ;
 
-            m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 8f);
+        m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 8f);
 
-            m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
+        m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
 
-            m_ChunkBody = m_EarthChunk.GetComponent<Rigidbody2D>();
+        m_ChunkBody = m_EarthChunk.GetComponent<Rigidbody2D>();
 
-            m_ChunkHitDir = (m_Player.transform.position - m_EarthChunk.transform.position).normalized;
+        m_ChunkHitDir = (m_Player.transform.position - m_EarthChunk.transform.position).normalized;
 
-            m_ChunkBody.AddForce(m_ChunkHitDir * force, ForceMode2D.Impulse);
+        m_ChunkBody.AddForce(m_ChunkHitDir * force, ForceMode2D.Impulse);
 
-            yield return new WaitForSeconds(4f);
-        }
+        yield return new WaitForSeconds(1.5f);
+
+        CR_RUNNING = false;
     }
 }
