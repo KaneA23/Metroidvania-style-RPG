@@ -95,7 +95,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int minStam;					// the lowest the stamina bar can go
 	public float currentStam;
 	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
-	public float regenRateStam = 0.5f;
+	public float regenRateStam = 2;
 
 	[Space(5)]
 	public float walkSpeed = 10f;
@@ -105,7 +105,7 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(2)]
 	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
-	public float runCost = 0.5f;
+	public float runCost = 3;
 
 	[Space(5)]
 	// Speeds determined by animation?
@@ -135,11 +135,11 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxWisdomLvl;
 
 	[Space(5)]
-	public int maxMP;				// maximum overal mana
+	public int maxMP;				// maximum overall mana
 	public int minMP;				// the lowest the Manabar can go
 	public float currentMP;
 	public int currentMaxMP = 100;	// maximum mana player can reach at current levels
-	public float regenRateMP;   
+	public float regenRateMP = 1;   
 
 	[Space(5)]
 	public bool hasDash;

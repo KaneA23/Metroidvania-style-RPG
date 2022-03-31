@@ -43,7 +43,10 @@ public class PlayerStaminaSystem : MonoBehaviour
 	{
 		stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
 
-		if (!PMS.isRunning && !PMS.isJumping)
+		float fillF = Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
+		float fillB = Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
+
+		if (!PMS.isRunning && !PMS.isJumping && fillF == fillB)
 		{
 			if (BPC.currentStam < BPC.currentMaxStam)
 			{

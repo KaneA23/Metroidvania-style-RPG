@@ -44,7 +44,10 @@ public class PlayerManaSystem : MonoBehaviour
 	{
 		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
 
-		if (!PMS.isDashing)
+		float fillF = Mathf.Round(manaFrontFillBar.fillAmount * 100) * 0.01f;
+		float fillB = Mathf.Round(manaBackFillBar.fillAmount * 100) * 0.01f;
+
+		if (!PMS.isDashing && fillF == fillB)
 		{
 			if (BPC.currentMP < BPC.currentMaxMP)
 			{

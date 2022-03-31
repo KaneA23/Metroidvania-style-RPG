@@ -17,14 +17,12 @@ public class PlayerHealthSystem : MonoBehaviour
 	GameObject eventSystem;
 
 	public float lerpTimer;
-	public float chipSpeed = 15f;
+	public float healthLerpSpeed = 15f;
 
-	public Image frontHealthBar;
-	public GameObject healthBorder;
+	public Image healthFrontFillBar;
+	public GameObject healthBarEmpty;
 
-	public Image backHealthBar;
-
-	RectTransform rt;   // Change health bar length
+	public Image healthBackHealthBar;
 
 	[Header("Knockback")]
 	public Rigidbody2D rb;
@@ -44,7 +42,6 @@ public class PlayerHealthSystem : MonoBehaviour
 		PMS = GetComponent<PlayerMovementSystem>();
 
 		rb = GetComponent<Rigidbody2D>();
-		rt = healthBorder.GetComponent<RectTransform>();
 	}
 
 	// Start is called before the first frame update
@@ -60,7 +57,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		rt.sizeDelta = new Vector2(BPC.currentMaxHP, 32);
+		healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxHP, 32);
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
@@ -71,7 +68,10 @@ public class PlayerHealthSystem : MonoBehaviour
 			GainHealth(1);
 		}
 
-		if (!isHit && !isDying)
+		float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
+		float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
+
+		if (!isHit && !isDying && fillB == fillF)
 		{
 			if (BPC.currentHP < BPC.maxRegenHP)
 			{
@@ -154,29 +154,29 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// </summary>
 	public void UpdateHealthUI()
 	{
-		float fillF = frontHealthBar.fillAmount;
-		float fillB = backHealthBar.fillAmount;
+		float fillF = healthFrontFillBar.fillAmount;
+		float fillB = healthBackHealthBar.fillAmount;
 
 		float healthFraction = BPC.currentHP / (float)BPC.currentMaxHP;
 
 		if (fillB > healthFraction)
 		{
-			frontHealthBar.fillAmount = healthFraction;
+			healthFrontFillBar.fillAmount = healthFraction;
 
 			lerpTimer += Time.deltaTime;
-			float percentComplete = lerpTimer / chipSpeed;
+			float percentComplete = lerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
 
-			backHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
+			healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
 		}
 
 		if (fillF < healthFraction)
 		{
-			backHealthBar.fillAmount = healthFraction;
+			healthBackHealthBar.fillAmount = healthFraction;
 			lerpTimer += Time.deltaTime;
-			float percentComplete = lerpTimer / chipSpeed;
+			float percentComplete = lerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
-			frontHealthBar.fillAmount = Mathf.Lerp(fillF, backHealthBar.fillAmount, percentComplete);
+			healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackHealthBar.fillAmount, percentComplete);
 		}
 	}
 
