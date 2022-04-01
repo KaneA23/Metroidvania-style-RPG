@@ -8,6 +8,7 @@ public class AttackPlayer : MonoBehaviour
     public PlayerHealthSystem PHS;
 
     public GameObject m_Player;
+    public GameObject m_Enemy;
 
     public Rigidbody2D m_PlayerBody;
     public Collider2D m_ChunkCollider;
@@ -28,7 +29,7 @@ public class AttackPlayer : MonoBehaviour
 
         PHS = m_Player.GetComponent<PlayerHealthSystem>();
 
-        m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();        
+        m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -36,6 +37,11 @@ public class AttackPlayer : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(3, 7);
         Physics2D.IgnoreLayerCollision(7, 7);
+
+        if (m_Enemy == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,7 +53,7 @@ public class AttackPlayer : MonoBehaviour
         if(gameObject.CompareTag("AirAttack"))
         {
             ParticleSystem EarthBreak = Instantiate(m_EarthExplosion, transform.position, Quaternion.identity);
-            float particleDuration = EarthBreak.duration + EarthBreak.startLifetime;
+            float particleDuration = EarthBreak.main.duration;
             EarthBreak.Play();
             Destroy(EarthBreak, particleDuration);
         }
@@ -57,7 +63,7 @@ public class AttackPlayer : MonoBehaviour
             PHS.TakeDamage(m_DamageAmount, enemyPos);
 
             if (gameObject.CompareTag("GroundAttack"))
-            {
+            {               
                 float heightForce = Random.Range(0.5f, 1f);
 
                 if (m_Player.transform.position.x < transform.position.x)
@@ -77,11 +83,6 @@ public class AttackPlayer : MonoBehaviour
             }
             else if (gameObject.CompareTag("AirAttack"))
             {
-
-                ParticleSystem EarthBreak = Instantiate(m_EarthExplosion, transform.position, Quaternion.identity);
-                float particleDuration = EarthBreak.duration + EarthBreak.startLifetime;
-                EarthBreak.Play();
-                Destroy(EarthBreak, particleDuration);
 
                 if (m_Player.transform.position.x < transform.position.x)
                 {

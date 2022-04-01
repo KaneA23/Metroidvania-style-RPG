@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 704486223252902753}
   - component: {fileID: 704486223252902767}
   - component: {fileID: 704486223252902751}
-  - component: {fileID: 5932197446506525874}
   - component: {fileID: 7393488717277228876}
   - component: {fileID: 3735206246946354413}
+  - component: {fileID: 2784498478717954213}
   m_Layer: 3
   m_Name: EarthElemental 1 1
   m_TagString: Enemy
@@ -114,37 +114,6 @@ MonoBehaviour:
   m_HoverDistance: {x: 3, y: 2.51, z: 0}
   m_DamageAmount: 5
   attacking: 0
---- !u!114 &5932197446506525874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704486223252902766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc0e0c47ad1f0a349b4de8d128be7c92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIR: {fileID: 0}
-  AISU: {fileID: 0}
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 1028
-  m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
-  m_EarthChunk: {fileID: 0}
-  m_EarthSpikesPrefab: {fileID: 8651266294975768818, guid: 198f7d7e970399a48a281a91c5822134, type: 3}
-  m_EarthSpikes: {fileID: 0}
-  m_Player: {fileID: 0}
-  m_SpikeRumble: {fileID: 2213698547649566809, guid: 4fc1dd1a1199b2f49a3bc2c2caa1ec5d, type: 3}
-  m_GroundAttackSpeed: 0.3
-  m_AboveAttackForce: 15
-  m_AttackInterval: 5
-  m_FloorDistance: 0
-  m_SpikeHeight: 1
-  m_RaycastDistance: 0
-  m_Attacking: 0
-  CR_RUNNING: 0
 --- !u!114 &7393488717277228876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2022af2d4e1e4624db65a8f6a52a2e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHP: 25
+  m_MaxHP: 100
   m_CurrentHP: 0
   HitForce: 250
   m_HealthBar: {fileID: 8070800943333128234}
@@ -177,6 +146,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.03}
   m_Size: {x: 0.31, y: 1.19}
   m_Direction: 0
+--- !u!114 &2784498478717954213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704486223252902766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99364087a4cc60479fe456b8c420f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
+  m_AboveAttackForce: 20
+  m_AttackInterval: 1.5
+  m_Attacking: 0
 --- !u!1 &704486224008737802
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class AIRanged : MonoBehaviour
     private float m_Distance;
 
     public int m_DamageAmount;
+    private int m_Timer = 0;
 
     Path path;
     int currentWaypoint = 0;
@@ -100,21 +101,18 @@ public class AIRanged : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if(m_Player == null)
-        {
-
-        }
-
         Vector3 velocity = rb.velocity;
         float a_speed = velocity.magnitude;
 
         Vector3 enemyPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         Vector3 playerPos = new Vector3(target.position.x, target.position.y, target.position.z);
 
-        if(enemyPos.magnitude > playerPos.magnitude + 6)
+        if (enemyPos.magnitude > playerPos.magnitude + 6)
         {
-            rb.velocity = new Vector3(0, 0, 0);
+            if (rb.velocity.magnitude > 1)
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
 
         if (target.position.x < transform.position.x)
@@ -223,6 +221,5 @@ public class AIRanged : MonoBehaviour
         {
             enemyGraphics.localScale = new Vector3(1f, 1f, 1f);
         }
-
     }
 }

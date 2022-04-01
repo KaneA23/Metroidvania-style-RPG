@@ -57,8 +57,6 @@ public class EarthRangeAttack : MonoBehaviour
 
     void Update()
     {
-        
-
         m_PlayerPos = m_Player.transform.position;
 
         //RaycastHit hit;
@@ -129,7 +127,8 @@ public class EarthRangeAttack : MonoBehaviour
         if (m_EarthSpikes == null)
         {
             m_EarthSpikes = Instantiate(m_EarthSpikesPrefab, m_SpikeSpawnPos, Quaternion.identity);
-            
+
+            m_EarthSpikes.GetComponent<AttackPlayer>().m_Enemy = gameObject;
 
             //if (m_EarthSpikes != null || m_Player.transform.hasChanged)
             //{
@@ -192,6 +191,8 @@ public class EarthRangeAttack : MonoBehaviour
         m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 8f);
 
         m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
+
+        m_EarthChunk.GetComponent<AttackPlayer>().m_Enemy = gameObject;
 
         m_ChunkBody = m_EarthChunk.GetComponent<Rigidbody2D>();
 

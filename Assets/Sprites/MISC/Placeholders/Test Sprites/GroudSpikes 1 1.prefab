@@ -77,6 +77,7 @@ MonoBehaviour:
   AISU: {fileID: 0}
   PHS: {fileID: 0}
   m_Player: {fileID: 0}
+  m_Enemy: {fileID: 704486223252902766, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
   m_PlayerBody: {fileID: 0}
   m_ChunkCollider: {fileID: 0}
   m_AttackDirection: {x: 0, y: 0}

@@ -477,8 +477,8 @@ GameObject:
   - component: {fileID: 6968821533545609035}
   - component: {fileID: 6968821533545609028}
   - component: {fileID: 6968821533545609076}
-  - component: {fileID: 1211922233278638867}
   - component: {fileID: 877644128818358247}
+  - component: {fileID: -1241695571838052847}
   m_Layer: 3
   m_Name: AirElemental (1) 1
   m_TagString: Enemy
@@ -583,8 +583,9 @@ MonoBehaviour:
   PHS: {fileID: 0}
   EH: {fileID: 0}
   AISU: {fileID: 0}
+  m_Player: {fileID: 0}
   target: {fileID: 0}
-  speed: 200
+  speed: 100
   nextWaypointDistance: 10
   m_AttackDistance: 4.5
   m_HitForce: 250
@@ -593,21 +594,6 @@ MonoBehaviour:
   m_HoverDistance: {x: 3, y: 2, z: 0}
   m_DamageAmount: 10
   attacking: 0
---- !u!114 &1211922233278638867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6968821533545609029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e0efb0b976deb4ebd8b9fc24959035, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AirProjectilePrefab: {fileID: 8273849458560196847, guid: e2b6d000662c4f8468eed7239cd870d8, type: 3}
-  m_ProjectileSpeed: 10
-  m_FireInterval: 2
 --- !u!114 &877644128818358247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,3 +610,23 @@ MonoBehaviour:
   m_CurrentHP: 0
   HitForce: 250
   m_HealthBar: {fileID: 1833478028839312385}
+--- !u!114 &-1241695571838052847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6968821533545609029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d749e2dd92de6754ab072cd512f29f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EarthSpikesPrefab: {fileID: 8651266294975768818, guid: 198f7d7e970399a48a281a91c5822134, type: 3}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 1028
+  m_SpikeAttackSpeed: 0.3
+  m_SpikeHeight: 1
+  m_RaycastDistance: 0
+  m_Attacking: 0

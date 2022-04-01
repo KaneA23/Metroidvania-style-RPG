@@ -50,6 +50,7 @@ MonoBehaviour:
   AISU: {fileID: 0}
   PHS: {fileID: 0}
   m_Player: {fileID: 0}
+  m_Enemy: {fileID: 704486223252902766, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
   m_PlayerBody: {fileID: 0}
   m_ChunkCollider: {fileID: 0}
   m_AttackDirection: {x: 0, y: 0}
@@ -68,10 +69,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.05
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -92,7 +93,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.65
+  m_Radius: 0.31
 --- !u!1 &7897509920801944712
 GameObject:
   m_ObjectHideFlags: 0
