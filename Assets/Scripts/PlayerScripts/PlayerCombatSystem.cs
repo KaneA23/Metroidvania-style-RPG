@@ -68,7 +68,7 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				ApplyCooldown();
 			}
-			else if (!PHS.isHit && !PMS.isDashing)
+			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching)
 			{
 				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost)
 				{

@@ -118,6 +118,18 @@ public class PlayerMovementSystem : MonoBehaviour
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 			}
 
+			if (isCrouching && PAM.currentAnimState != "Player_CrouchEnter")
+			{
+				if (moveHorizontal != 0)
+				{
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHWALK);
+				}
+				else
+				{
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHIDLE);
+				}
+			}
+
 			CheckIfGrounded();
 			CheckIfCeiling();
 			CheckIfWall();
@@ -157,7 +169,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		if (!isDashing)
 		{
-			if (Input.GetButtonDown("Jump") && jumpCount < 1)
+			if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
 				isJumping = true;
@@ -165,7 +177,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
-			if (Input.GetButtonDown("Jump"))
+			if (Input.GetButtonDown("Jump") && !isCrouching)
 			{
 				Jump();
 			}
@@ -180,15 +192,25 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 
 			// Removes head collider if player wants to crouch
-			if (Input.GetKey(KeyCode.LeftControl))
+			if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
 			{
-				headCollider.enabled = false;
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
+				moveAnimDelay = 1.02f;
 				isCrouching = true;
+				headCollider.enabled = false;
+				Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 			}
 			else if (!isCeiling)
 			{
 				headCollider.enabled = true;
-				isCrouching = false;
+				if (Input.GetKeyUp(KeyCode.LeftControl))
+				{
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
+					moveAnimDelay = 1.02f;
+					Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+				}
+
+				//isCrouching = false;
 			}
 
 			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && BPC.currentStam >= BPC.runCost)
@@ -251,11 +273,11 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 		}
 
-		if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying)
+		if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying && !isCrouching)
 		{
 			if (moveHorizontal != 0)
 			{
-				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+				if (Input.GetKey(KeyCode.LeftShift) )
 				{
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
 				}
@@ -442,4 +464,29 @@ public class PlayerMovementSystem : MonoBehaviour
 	}
 
 	#endregion
+
+	void CompleteCrouchAnim()
+	{
+		if (PAM.currentAnimState == "Player_CrouchEnter")
+		{
+			if (moveHorizontal != 0)
+			{
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHWALK);
+			}
+			else
+			{
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHIDLE);
+			}
+		}
+		//else if (PAM.currentAnimState == "Player_CrouchIdle" || PAM.currentAnimState == "Player_CrouchWalk")
+		//{
+		//	PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
+		//	moveAnimDelay = 0.517f;
+		//	Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+		//}
+		else
+		{
+			isCrouching = false;
+		}
+	}
 }
