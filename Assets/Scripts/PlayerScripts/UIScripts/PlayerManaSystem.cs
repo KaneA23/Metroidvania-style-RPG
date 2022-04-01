@@ -25,7 +25,7 @@ public class PlayerManaSystem : MonoBehaviour
 
 	[Header("Lerping Mana decresae")]
 	public float manaLerpTimer;
-	public float manaLerpSpeed = 15f;
+	public float manaLerpSpeed/* = 15f*/;
 
 	private void Awake()
 	{
@@ -37,19 +37,21 @@ public class PlayerManaSystem : MonoBehaviour
 	void Start()
 	{
 		BPC.currentMP = BPC.currentMaxMP;
+		BPC.maxRegenMP = (float)BPC.currentMaxMP * 0.3f;
+		BPC.maxRegenMP = Mathf.RoundToInt(BPC.maxRegenMP);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
+		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP, 32);   // Changes size of player stamina bar
 
 		float fillF = Mathf.Round(manaFrontFillBar.fillAmount * 100) * 0.01f;
 		float fillB = Mathf.Round(manaBackFillBar.fillAmount * 100) * 0.01f;
 
 		if (!PMS.isDashing && fillF == fillB)
 		{
-			if (BPC.currentMP < BPC.currentMaxMP)
+			if (BPC.currentMP < BPC.maxRegenMP)
 			{
 				RegenMana(BPC.regenRateMP * Time.deltaTime);
 			}
@@ -91,6 +93,7 @@ public class PlayerManaSystem : MonoBehaviour
 
 		if (fillB > manaFraction)
 		{
+			manaLerpSpeed = 15f;
 			manaFrontFillBar.fillAmount = manaFraction;
 
 			manaLerpTimer += Time.deltaTime;
@@ -102,7 +105,9 @@ public class PlayerManaSystem : MonoBehaviour
 
 		if (fillF < manaFraction)
 		{
+			manaLerpSpeed = 1f;
 			manaBackFillBar.fillAmount = manaFraction;
+
 			manaLerpTimer += Time.deltaTime;
 			float percentComplete = manaLerpTimer / manaLerpSpeed;
 			percentComplete *= percentComplete;

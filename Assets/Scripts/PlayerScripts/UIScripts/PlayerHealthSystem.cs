@@ -17,7 +17,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	GameObject eventSystem;
 
 	public float lerpTimer;
-	public float healthLerpSpeed = 15f;
+	public float healthLerpSpeed/* = 15f*/;
 
 	public Image healthFrontFillBar;
 	public GameObject healthBarEmpty;
@@ -48,6 +48,8 @@ public class PlayerHealthSystem : MonoBehaviour
 	void Start()
 	{
 		BPC.currentHP = BPC.currentMaxHP;
+		BPC.maxRegenHP = (float)BPC.currentMaxHP * 0.2f;
+		BPC.maxRegenHP = Mathf.RoundToInt(BPC.maxRegenHP);
 		isHit = false;
 		isDying = false;
 
@@ -161,6 +163,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (fillB > healthFraction)
 		{
+			healthLerpSpeed = 15f;
+
 			healthFrontFillBar.fillAmount = healthFraction;
 
 			lerpTimer += Time.deltaTime;
@@ -172,6 +176,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (fillF < healthFraction)
 		{
+			healthLerpSpeed = 1f;
+
 			healthBackHealthBar.fillAmount = healthFraction;
 			lerpTimer += Time.deltaTime;
 			float percentComplete = lerpTimer / healthLerpSpeed;

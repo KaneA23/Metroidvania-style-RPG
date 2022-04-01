@@ -24,7 +24,7 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 	[Header("Lerping Stamina decresae")]
 	public float stamLerpTimer;
-	public float stamLerpSpeed = 15f;
+	public float stamLerpSpeed/* = 15f*/;
 
 	private void Awake()
 	{
@@ -90,6 +90,8 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 		if (fillB > stamFraction)
 		{
+			stamLerpSpeed = 15f;
+
 			stamFrontFillBar.fillAmount = stamFraction;
 			stamLerpTimer += Time.deltaTime;
 
@@ -102,6 +104,8 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 		if (fillF < stamFraction)
 		{
+			stamLerpSpeed = 0.5f;
+
 			stamBackFillBar.fillAmount = stamFraction;
 			stamLerpTimer += Time.deltaTime;
 

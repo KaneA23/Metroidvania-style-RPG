@@ -310,6 +310,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: runCost
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: jumpCost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: maxRegenHP
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: regenRateHP
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: regenRateMP
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: currentMaxHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: currentMaxMP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: heavyAtkCost
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: lightAtkCost
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472147408282458682, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
+      propertyPath: regenRateStam
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3436f5c9cf3e534ea82b368d73c6d3d, type: 3}
 --- !u!114 &149501179 stripped

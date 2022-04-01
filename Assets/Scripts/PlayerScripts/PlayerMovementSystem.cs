@@ -207,12 +207,12 @@ public class PlayerMovementSystem : MonoBehaviour
 				//isCrouching = false;
 			}
 
-			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && BPC.currentStam >= BPC.runCost)
+			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && BPC.currentStam > (BPC.runCost * 0.5f))
 			{
 				isRunning = true;
 				PSS.TakeStamina(BPC.runCost * Time.deltaTime);
 			}
-			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < BPC.runCost)
+			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost *  0.5f))
 			{
 				isRunning = false;
 			}

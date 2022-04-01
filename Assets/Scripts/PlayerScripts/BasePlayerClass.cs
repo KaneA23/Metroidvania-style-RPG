@@ -34,7 +34,7 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Space(2)]
 	public float regenRateHP;
-	public float maxRegenHP = 20;	// Max health to naturally regen
+	public float maxRegenHP;	// Max health to naturally regen
 
 	#endregion
 
@@ -67,7 +67,7 @@ public class BasePlayerClass : MonoBehaviour
 	#region jump power
 	[Space(5)]
 	public float jumpForce = 25f;
-	public int jumpCost = 5;
+	public int jumpCost = 10;
 
 	[Space(2)]
 	public bool hasDoubleJump;
@@ -95,7 +95,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int minStam;					// the lowest the stamina bar can go
 	public float currentStam;
 	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
-	public float regenRateStam = 2;
+	public float regenRateStam = 60;
 
 	[Space(5)]
 	public float walkSpeed = 10f;
@@ -105,7 +105,7 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(2)]
 	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
-	public float runCost = 3;
+	public float runCost = 20;
 
 	[Space(5)]
 	// Speeds determined by animation?
@@ -114,8 +114,8 @@ public class BasePlayerClass : MonoBehaviour
 	public float rangeAtkSpeed; //post COMX
 
 	[Space(2)]
-	public int lightAtkCost = 5;
-	public int heavyAtkCost = 10;
+	public int lightAtkCost = 20;
+	public int heavyAtkCost = 30;
 
 	[Space(5)]
 	public float lightAtkCooldown = 0.5f;
@@ -139,7 +139,8 @@ public class BasePlayerClass : MonoBehaviour
 	public int minMP;				// the lowest the Manabar can go
 	public float currentMP;
 	public int currentMaxMP = 100;	// maximum mana player can reach at current levels
-	public float regenRateMP = 1;   
+	public float regenRateMP = 50;   
+	public float maxRegenMP/* = 30*/;	// Third of max   
 
 	[Space(5)]
 	public bool hasDash;
