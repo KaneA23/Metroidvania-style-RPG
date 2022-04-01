@@ -14,6 +14,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	PlayerAnimationManager PAM;
 	PlayerCombatSystem PCS;
 	PlayerHealthSystem PHS;
+	public PlayerManaSystem PMS;
+	public PlayerStaminaSystem PSS;
 
 	GameObject eventSystem;
 
@@ -21,6 +23,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public bool isFacingRight;
 	public float moveHorizontal;
 	public float moveSpeed;
+	public bool isRunning;
 
 	[Tooltip("Acceleration decreases the closer to 1")]
 	[Range(0f, 1f)]
@@ -29,6 +32,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	[Header("Crouch")]
 	public bool isCeiling;
 	public bool isCrouching;
+	public bool isCrouchEnter;
+	public bool isCrouchExit;
 
 	[Header("Jumping")]
 	public bool isGrounded;
@@ -78,24 +83,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
 
-
-	public GameObject emptyManaBar;
-
-	public Image manaFrontFillBar;
-	public Image manaBackFillBar;
-
-	public GameObject emptyStamBar;
-
-	public Image stamFrontFillBar;
-	public Image stamBackFillBar;
-
-	//RectTransform rt;   // Change UI bar length
-
-	public float manaLerpTimer;
-	public float stamLerpTimer;
-	public float chipSpeed = 15f;
-
-
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -121,48 +108,32 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		isFacingRight = true;
 		transform.Rotate(new Vector2(0, 180));
-
-
-		BPC.currentMP = BPC.currentMaxMP;
-		BPC.currentStam = BPC.currentMaxStam;
-
-		emptyManaBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP * 10, 32);
-		emptyStamBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam * 10, 32);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		emptyManaBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP * 10, 32);
-		emptyStamBar.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam * 10, 32);
-
-		UpdateManaUI();
-		UpdateStamUI();
-
-
-		if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
+		if (!PHS.isDying)
 		{
-			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
+			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
+			{
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
+			}
+
+			CheckIfGrounded();
+			CheckIfCeiling();
+			CheckIfWall();
+
+			if (!PHS.isHit)
+			{
+				PlayerInput();
+			}
 		}
-
-		CheckIfGrounded();
-		CheckIfCeiling();
-		CheckIfWall();
-
-		if (!PHS.isHit)
-		{
-			PlayerInput();
-		}
-
-		//if (moveHorizontal != 0 && Input.GetKey(KeyCode.LeftShift) && !isCrouching)
-		//{
-		//	TakeStamina(1);
-		//}
 	}
 
 	private void FixedUpdate()
 	{
-		if (!isDashing && !PHS.isHit)
+		if (!isDashing && !PHS.isHit && !PHS.isDying)
 		{
 			PlayerMovement();
 		}
@@ -188,7 +159,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		if (!isDashing)
 		{
-			if (Input.GetButtonDown("Jump") && jumpCount < 1)
+			if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
 				isJumping = true;
@@ -196,7 +167,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
-			if (Input.GetButtonDown("Jump"))
+			if (Input.GetButtonDown("Jump") && !isCrouching)
 			{
 				Jump();
 			}
@@ -211,19 +182,43 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 
 			// Removes head collider if player wants to crouch
-			if (Input.GetKey(KeyCode.LeftControl))
+			if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
 			{
-				headCollider.enabled = false;
+				isCrouchEnter = true;
+
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
+				moveAnimDelay = 1.015f;
 				isCrouching = true;
+				Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 			}
-			else if (!isCeiling)
+			else if (!isCeiling && isCrouching)
 			{
-				headCollider.enabled = true;
-				isCrouching = false;
+				if (!Input.GetKey(KeyCode.LeftControl))
+				{
+					if (!isCrouchEnter)
+					{
+						isCrouchExit = true;
+						PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
+						moveAnimDelay = 1.015f;
+						Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+					}
+				}
+
+				//isCrouching = false;
+			}
+
+			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && BPC.currentStam > (BPC.runCost * 0.5f))
+			{
+				isRunning = true;
+				PSS.TakeStamina(BPC.runCost * Time.deltaTime);
+			}
+			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost *  0.5f))
+			{
+				isRunning = false;
 			}
 
 			// Changes player speed depending on whether you are running, walking or crouching
-			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && BPC.currentStam >= BPC.runCost)
 			{
 				moveSpeed = BPC.runSpeed;
 			}
@@ -245,7 +240,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				// Dashing
 				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash && BPC.currentMP >= BPC.dashCost)
 				{
-					TakeMana(BPC.dashCost);
+					PMS.TakeMana(BPC.dashCost);
 
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
 					isDashing = true;
@@ -264,7 +259,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
 		// Moves player across X-axis
-		if (!PCS.isAttacking)
+		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit)
 		{
 			if (isGrounded || !isTouchingWall)
 			{
@@ -272,11 +267,22 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 		}
 
-		if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying)
+		if (isCrouching && !isCrouchEnter && !isCrouchExit)
 		{
 			if (moveHorizontal != 0)
 			{
-				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching)
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHWALK);
+			}
+			else
+			{
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHIDLE);
+			}
+		}
+		else if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying && !isCrouching)
+		{
+			if (moveHorizontal != 0)
+			{
+				if (Input.GetKey(KeyCode.LeftShift))
 				{
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
 				}
@@ -309,7 +315,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
-			TakeStamina(3);
+			PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
@@ -318,6 +324,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (BPC.hasWallJump && isTouchingWall && canWallJump)
 		{
+			PSS.TakeStamina(BPC.jumpCost);
+
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 			rb.AddForce(new Vector2(BPC.wallJumpForce * -moveHorizontal, BPC.jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
@@ -327,6 +335,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (canDoubleJump && BPC.hasDoubleJump)
 		{
+			PSS.TakeStamina(BPC.jumpCost);
+
 			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
 
@@ -425,12 +435,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	void CompleteDash()
 	{
-		if (PAM.currentAnimState == "Player_DashEnter")
-		{
-			Debug.Log("Hello!");
-			Dash();
-		}
-		else if (PAM.currentAnimState == "Player_Dash")
+		if (PAM.currentAnimState == "Player_Dash")
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHEXIT);
 			moveAnimDelay = 0.35f;
@@ -465,83 +470,24 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	#endregion
 
-	void TakeMana(int a_manaCost)
+	void CompleteCrouchAnim()
 	{
-		BPC.currentMP -= a_manaCost;
-
-		if (BPC.currentMP < 0)
+		if (PAM.currentAnimState == "Player_CrouchEnter")
 		{
-			BPC.currentMP = 0;
+			headCollider.enabled = false;
+			isCrouchEnter = false;
 		}
-
-		manaLerpTimer = 0f;
-	}
-
-	void TakeStamina(int a_stamCost)
-	{
-		BPC.currentStam -= a_stamCost;
-
-		if (BPC.currentStam < 0)
+		//else if (PAM.currentAnimState == "Player_CrouchIdle" || PAM.currentAnimState == "Player_CrouchWalk")
+		//{
+		//	PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
+		//	moveAnimDelay = 0.517f;
+		//	Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+		//}
+		else if (PAM.currentAnimState == "Player_CrouchExit") 
 		{
-			BPC.currentStam = 0;
-		}
-
-		stamLerpTimer = 0f;
-	}
-
-	public void UpdateManaUI()
-	{
-		float fillF = manaFrontFillBar.fillAmount;
-		float fillB = manaBackFillBar.fillAmount;
-
-		float manaFraction = (float)BPC.currentMP / (float)BPC.currentMaxMP;
-
-		if (fillB > manaFraction)
-		{
-			manaFrontFillBar.fillAmount = manaFraction;
-
-			manaLerpTimer += Time.deltaTime;
-			float percentComplete = manaLerpTimer / chipSpeed;
-			percentComplete *= percentComplete;
-
-			manaBackFillBar.fillAmount = Mathf.Lerp(fillB, manaFraction, percentComplete);
-		}
-
-		if (fillF < manaFraction)
-		{
-			manaBackFillBar.fillAmount = manaFraction;
-			manaLerpTimer += Time.deltaTime;
-			float percentComplete = manaLerpTimer / chipSpeed;
-			percentComplete *= percentComplete;
-			manaFrontFillBar.fillAmount = Mathf.Lerp(fillF, manaBackFillBar.fillAmount, percentComplete);
-		}
-	}
-
-	public void UpdateStamUI()
-	{
-		float fillF = stamFrontFillBar.fillAmount;
-		float fillB = stamBackFillBar.fillAmount;
-
-		float stamFraction = (float)BPC.currentStam / (float)BPC.currentMaxStam;
-
-		if (fillB > stamFraction)
-		{
-			stamFrontFillBar.fillAmount = stamFraction;
-
-			stamLerpTimer += Time.deltaTime;
-			float percentComplete = stamLerpTimer / chipSpeed;
-			percentComplete *= percentComplete;
-
-			stamBackFillBar.fillAmount = Mathf.Lerp(fillB, stamFraction, percentComplete);
-		}
-
-		if (fillF < stamFraction)
-		{
-			stamBackFillBar.fillAmount = stamFraction;
-			stamLerpTimer += Time.deltaTime;
-			float percentComplete = stamLerpTimer / chipSpeed;
-			percentComplete *= percentComplete;
-			stamFrontFillBar.fillAmount = Mathf.Lerp(fillF, stamBackFillBar.fillAmount, percentComplete);
+			headCollider.enabled = true;
+			isCrouching = false;
+			isCrouchExit = false;
 		}
 	}
 }
