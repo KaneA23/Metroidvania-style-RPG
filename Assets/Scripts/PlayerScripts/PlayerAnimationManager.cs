@@ -29,6 +29,7 @@ public enum PlayerAnimationState
 	PLAYER_DEATH,
 }
 
+
 /// <summary>
 /// Controls the change in the player's animations.
 /// Created by: Kane Adams
