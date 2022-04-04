@@ -10,12 +10,14 @@ using UnityEngine.UI;
 public class PlayerMovementSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
+	public PlayerManaSystem PMS;
+	public PlayerStaminaSystem PSS;
 	BasePlayerClass BPC;
 	PlayerAnimationManager PAM;
 	PlayerCombatSystem PCS;
 	PlayerHealthSystem PHS;
-	public PlayerManaSystem PMS;
-	public PlayerStaminaSystem PSS;
+
+	private DialogueManager DM;
 
 	GameObject eventSystem;
 
@@ -92,6 +94,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		PCS = GetComponent<PlayerCombatSystem>();
 		PHS = GetComponent<PlayerHealthSystem>();
 
+		DM = FindObjectOfType<DialogueManager>();
+
 		headCollider = GetComponent<BoxCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -113,7 +117,12 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!PHS.isDying)
+
+		if (DM.isTalking)
+		{
+			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
+		}
+		if (!PHS.isDying && !DM.isTalking)
 		{
 			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
 			{
@@ -212,7 +221,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				isRunning = true;
 				PSS.TakeStamina(BPC.runCost * Time.deltaTime);
 			}
-			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost *  0.5f))
+			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost * 0.5f))
 			{
 				isRunning = false;
 			}
@@ -259,7 +268,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
 		// Moves player across X-axis
-		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit)
+		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit && !DM.isTalking)
 		{
 			if (isGrounded || !isTouchingWall)
 			{
@@ -483,7 +492,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		//	moveAnimDelay = 0.517f;
 		//	Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 		//}
-		else if (PAM.currentAnimState == "Player_CrouchExit") 
+		else if (PAM.currentAnimState == "Player_CrouchExit")
 		{
 			headCollider.enabled = true;
 			isCrouching = false;
@@ -491,16 +500,16 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-	//private void OnDrawGizmosSelected()
-	//{
-	//	Gizmos.color = Color.blue;
-	//	Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);
 
-	//	Gizmos.color = Color.red;
-	//	Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
 
-	//	Gizmos.color = Color.yellow;
-	//	Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
 
-	//}
+	}
 }

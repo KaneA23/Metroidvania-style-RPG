@@ -16,6 +16,8 @@ public class PlayerCombatSystem : MonoBehaviour
 	PlayerMovementSystem PMS;
 	public PlayerStaminaSystem PSS;
 
+	private DialogueManager DM;
+
 	GameObject eventSystem;
 
 	[Header("Attack Ranges")]
@@ -50,6 +52,8 @@ public class PlayerCombatSystem : MonoBehaviour
 		PAM = GetComponent<PlayerAnimationManager>();
 		PHS = GetComponent<PlayerHealthSystem>();
 		PMS = GetComponent<PlayerMovementSystem>();
+
+		DM = FindObjectOfType<DialogueManager>();
 	}
 
 	// Start is called before the first frame update
@@ -62,7 +66,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!PHS.isDying)
+		if (!PHS.isDying && !DM.isTalking)
 		{
 			if (isAtkCooldown)
 			{

@@ -13,6 +13,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	BasePlayerClass BPC;
 	PlayerAnimationManager PAM;
 	PlayerMovementSystem PMS;
+	DialogueManager DM;
 
 	GameObject eventSystem;
 
@@ -40,6 +41,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		PAM = GetComponent<PlayerAnimationManager>();
 		PMS = GetComponent<PlayerMovementSystem>();
+
+		DM = FindObjectOfType<DialogueManager>();
 
 		rb = GetComponent<Rigidbody2D>();
 	}
@@ -99,7 +102,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_damage">Amount of health lost from attack</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
-		if (!PMS.isDashing)
+		if (!PMS.isDashing && !DM.isTalking)
 		{
 			isHit = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);

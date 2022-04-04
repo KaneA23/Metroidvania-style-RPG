@@ -19,9 +19,12 @@ public class DialogueManager : MonoBehaviour
 	public string currentAnimState;
 	public float animDelay;
 
+	public bool isTalking;
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		isTalking = false;
 		sentences = new Queue<string>();
 		dialogueBox.SetActive(false);
 	}
@@ -38,6 +41,7 @@ public class DialogueManager : MonoBehaviour
 	/// <param name="a_dialogue">the NPC talking and their speach</param>
 	public void StartDialogue(Dialogue a_dialogue)
 	{
+		isTalking = true;
 		dialogueBox.SetActive(true);
 
 		nameText.text = a_dialogue.name;
@@ -112,6 +116,7 @@ public class DialogueManager : MonoBehaviour
 	void CompleteDialogueAnim()
 	{
 		dialogueBox.SetActive(false);
+		isTalking = false;
 	}
 
 	/// <summary>
