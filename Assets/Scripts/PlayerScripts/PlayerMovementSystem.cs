@@ -159,7 +159,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		if (!isDashing)
 		{
-			if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching)
+			if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
 				isJumping = true;
@@ -167,7 +167,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
-			if (Input.GetButtonDown("Jump") && !isCrouching)
+			if (Input.GetButtonDown("Jump") && !isCrouching && BPC.currentStam >= BPC.jumpCost)
 			{
 				Jump();
 			}
@@ -207,7 +207,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				//isCrouching = false;
 			}
 
-			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && BPC.currentStam > (BPC.runCost * 0.5f))
+			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && isGrounded && BPC.currentStam > (BPC.runCost * 0.5f))
 			{
 				isRunning = true;
 				PSS.TakeStamina(BPC.runCost * Time.deltaTime);
@@ -490,4 +490,17 @@ public class PlayerMovementSystem : MonoBehaviour
 			isCrouchExit = false;
 		}
 	}
+
+	//private void OnDrawGizmosSelected()
+	//{
+	//	Gizmos.color = Color.blue;
+	//	Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);
+
+	//	Gizmos.color = Color.red;
+	//	Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+
+	//	Gizmos.color = Color.yellow;
+	//	Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
+
+	//}
 }
