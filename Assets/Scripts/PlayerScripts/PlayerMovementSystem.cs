@@ -117,14 +117,13 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
-		if (DM.isTalking)
+		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 		}
-		if (!PHS.isDying && !DM.isTalking)
+		if (!PHS.isDying /*&& !DM.isTalking*/)
 		{
-			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing)
+			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 			}
@@ -157,7 +156,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
 
 		// Checks which way the player should be facing
-		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit")
+		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit" && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 			{
@@ -168,83 +167,85 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		if (!isDashing)
 		{
-			if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost)
+			if (!DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
-				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
-				isJumping = true;
-				moveAnimDelay = 0.5f;
-				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
-			}
-
-			if (Input.GetButtonDown("Jump") && !isCrouching && BPC.currentStam >= BPC.jumpCost)
-			{
-				Jump();
-			}
-
-			// Cuts off jump height when player releases jump button
-			if (Input.GetButtonUp("Jump"))
-			{
-				if (rb.velocity.y > 0)
+				if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost)
 				{
-					rb.velocity = BPC.jumpForce * cutJumpHeight * Vector2.up;
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
+					isJumping = true;
+					moveAnimDelay = 0.5f;
+					Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 				}
-			}
 
-			// Removes head collider if player wants to crouch
-			if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
-			{
-				isCrouchEnter = true;
-
-				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
-				moveAnimDelay = 1.015f;
-				isCrouching = true;
-				Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
-			}
-			else if (!isCeiling && isCrouching)
-			{
-				if (!Input.GetKey(KeyCode.LeftControl))
+				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.currentStam >= BPC.jumpCost)
 				{
-					if (!isCrouchEnter)
+					Jump();
+				}
+
+				// Cuts off jump height when player releases jump button
+				if (Input.GetButtonUp("Jump"))
+				{
+					if (rb.velocity.y > 0)
 					{
-						isCrouchExit = true;
-						PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
-						moveAnimDelay = 1.015f;
-						Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+						rb.velocity = BPC.jumpForce * cutJumpHeight * Vector2.up;
 					}
 				}
 
-				//isCrouching = false;
-			}
+				// Removes head collider if player wants to crouch
+				if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
+				{
+					isCrouchEnter = true;
 
-			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && isGrounded && BPC.currentStam > (BPC.runCost * 0.5f))
-			{
-				isRunning = true;
-				PSS.TakeStamina(BPC.runCost * Time.deltaTime);
-			}
-			if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost * 0.5f))
-			{
-				isRunning = false;
-			}
+					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
+					moveAnimDelay = 1.015f;
+					isCrouching = true;
+					Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+				}
+				else if (!isCeiling && isCrouching)
+				{
+					if (!Input.GetKey(KeyCode.LeftControl))
+					{
+						if (!isCrouchEnter)
+						{
+							isCrouchExit = true;
+							PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
+							moveAnimDelay = 1.015f;
+							Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+						}
+					}
 
-			// Changes player speed depending on whether you are running, walking or crouching
-			if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && BPC.currentStam >= BPC.runCost)
-			{
-				moveSpeed = BPC.runSpeed;
-			}
-			else if (isCrouching)
-			{
-				moveSpeed = BPC.crouchSpeed;
-			}
-			else
-			{
-				moveSpeed = BPC.walkSpeed;
-			}
+					//isCrouching = false;
+				}
 
+				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && isGrounded && BPC.currentStam > (BPC.runCost * 0.5f))
+				{
+					isRunning = true;
+					PSS.TakeStamina(BPC.runCost * Time.deltaTime);
+				}
+				if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost * 0.5f))
+				{
+					isRunning = false;
+				}
+
+				// Changes player speed depending on whether you are running, walking or crouching
+				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && BPC.currentStam >= BPC.runCost)
+				{
+					moveSpeed = BPC.runSpeed;
+				}
+				else if (isCrouching)
+				{
+					moveSpeed = BPC.crouchSpeed;
+				}
+				else
+				{
+					moveSpeed = BPC.walkSpeed;
+				}
+			}
 			if (isManaCooldown)
 			{
 				ApplyCooldown();
 			}
-			else
+			else if (!DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				// Dashing
 				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash && BPC.currentMP >= BPC.dashCost)
@@ -268,7 +269,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
 		// Moves player across X-axis
-		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit && !DM.isTalking)
+		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit /*&& !DM.isTalking*/&& !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			if (isGrounded || !isTouchingWall)
 			{
@@ -276,7 +277,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 		}
 
-		if (isCrouching && !isCrouchEnter && !isCrouchExit)
+		if (isCrouching && !isCrouchEnter && !isCrouchExit && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			if (moveHorizontal != 0)
 			{
@@ -289,7 +290,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying && !isCrouching)
 		{
-			if (moveHorizontal != 0)
+			if (moveHorizontal != 0 && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				if (Input.GetKey(KeyCode.LeftShift))
 				{

@@ -102,7 +102,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_damage">Amount of health lost from attack</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
 	{
-		if (!PMS.isDashing && !DM.isTalking)
+		if (!PMS.isDashing /*&& !DM.isTalking*/&& !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			isHit = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);

@@ -66,13 +66,13 @@ public class PlayerCombatSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!PHS.isDying && !DM.isTalking)
+		if (!PHS.isDying /*!DM.isTalking*/)
 		{
 			if (isAtkCooldown)
 			{
 				ApplyCooldown();
 			}
-			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching)
+			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost)
 				{
