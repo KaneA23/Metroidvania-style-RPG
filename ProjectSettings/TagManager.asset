@@ -11,6 +11,10 @@ TagManager:
   - AirAttack
   - HealthbarNeck
   - Cannon
+  - TrapRight
+  - TrapLeft
+  - TrapBelow
+  - TrapAbove
   layers:
   - Default
   - TransparentFX

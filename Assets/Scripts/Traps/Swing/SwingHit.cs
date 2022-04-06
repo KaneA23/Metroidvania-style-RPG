@@ -11,7 +11,10 @@ public class SwingHit : MonoBehaviour
     private GameObject m_Player;
     public GameObject EventSystem;
 
+    private Rigidbody2D m_PlayerBody;
+
     private int m_DamageAmount;
+    private float m_SwingTrapForce;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +23,11 @@ public class SwingHit : MonoBehaviour
         EventSystem = GameObject.Find("EventSystem");
 
         m_Player = AISU.m_ActivePlayer;
+        m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();
         PHS = m_Player.GetComponent<PlayerHealthSystem>();
 
         m_DamageAmount = EventSystem.GetComponent<TrapValues>().swingTrapDamage;
+        m_SwingTrapForce = EventSystem.GetComponent<TrapValues>().swingTrapForce;
     }
 
     // Update is called once per frame
@@ -38,6 +43,15 @@ public class SwingHit : MonoBehaviour
         if(otherObject.gameObject == m_Player)
         {
             PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+
+            if (gameObject.transform.position.x > m_Player.transform.position.x)
+            {
+                m_PlayerBody.AddForce(new Vector2(-1, 0) * m_SwingTrapForce, ForceMode2D.Impulse);
+            }
+            else if (gameObject.transform.position.x < m_Player.transform.position.x)
+            {
+                m_PlayerBody.AddForce(new Vector2(1, 0) * m_SwingTrapForce, ForceMode2D.Impulse);
+            }
         }
     }
 }

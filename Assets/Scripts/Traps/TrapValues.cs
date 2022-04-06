@@ -7,5 +7,8 @@ public class TrapValues : MonoBehaviour
     public int cielingSpikeDamage;
     public int groundSpikeDamage;
     public int swingTrapDamage;
+    public int swingTrapForce;
     public int fireTrapDamage;
+    public int fireTrapForce;
+    public float fireTrapDamageFrequency;
 }
