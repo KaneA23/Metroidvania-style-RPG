@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonFire : MonoBehaviour
+public class CannonFireRotate : MonoBehaviour
 {
     private AISetUp AISU;
 
@@ -11,6 +11,8 @@ public class CannonFire : MonoBehaviour
     private GameObject m_Player;
 
     private Rigidbody2D m_BallBody;
+
+    Vector3 m_PlayerPos;
 
     private float m_DistanceToPlayer;
     public float m_FireInterval;
@@ -32,10 +34,18 @@ public class CannonFire : MonoBehaviour
     void Update()
     {
         m_DistanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
+        m_PlayerPos = m_Player.transform.position;
+
+        Vector3 cannonPos = transform.position;
+        m_PlayerPos.x = m_PlayerPos.x - cannonPos.x;
+        m_PlayerPos.y = m_PlayerPos.y - cannonPos.y;
+
+        float angle = Mathf.Atan2(m_PlayerPos.y, m_PlayerPos.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         if (m_DistanceToPlayer < m_AggroDistance)
         {
-            if(!CR_RUNNING)
+            if (!CR_RUNNING)
             {
                 StartCoroutine(Firing(m_FireInterval));
             }
@@ -54,19 +64,7 @@ public class CannonFire : MonoBehaviour
         m_CannonBall = Instantiate(m_CannonBallPrefab, gameObject.transform.position, Quaternion.identity);
         m_CannonBall.GetComponent<CannonBall>().m_Cannon = gameObject;
         m_BallBody = m_CannonBall.GetComponent<Rigidbody2D>();
-
-        switch (gameObject.name)
-        {
-            case "CannonRight":
-                m_BallBody.AddForce(new Vector2(1f, 0f) * m_FireForce);
-                break;
-            case "CannonLeft":
-                m_BallBody.AddForce(new Vector2(-1f, 0f) * m_FireForce);
-                break;
-            case "CannonAbove":
-                m_BallBody.AddForce(new Vector2(0f, -1f) * m_FireForce);
-                break;
-        }
+        m_BallBody.AddForce(m_PlayerPos.normalized * m_FireForce);
 
         yield return new WaitForSeconds(fireInterval);
 

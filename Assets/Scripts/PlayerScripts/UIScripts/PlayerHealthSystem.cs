@@ -119,7 +119,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			TakeDamage(Random.Range(1, 5), gameObject.transform.position);
+			TakeDamage(Random.Range(1, 5), gameObject.transform.position, 0f, false);
 		}
 		if (Input.GetKeyDown(KeyCode.Equals))
 		{
@@ -141,7 +141,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// Player's health decreases when attacked
 	/// </summary>
 	/// <param name="a_damage">Amount of health lost from attack</param>
-	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
+	public void TakeDamage(int a_damage, Vector2 a_enemyPos, float a_forceMult, bool a_upForce)
 	{
 		if (!PMS.isDashing)
 		{
@@ -154,14 +154,27 @@ public class PlayerHealthSystem : MonoBehaviour
 			{
 				Debug.Log("Left Hit");
 				rb.velocity = Vector2.zero;
-				rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
+				//rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
+				switch (a_upForce)
+                {
+					case true:
+						rb.AddForce(new Vector2(-1f * a_forceMult, 250f));
+						break;
+                }
+				
 			}
 			else if ((transform.position.x - a_enemyPos.x) > 0)
 			{
 				Debug.Log("Right Hit");
 				rb.velocity = Vector2.zero;
-				rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
-			}
+				//rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
+                switch (a_upForce)
+                {
+                    case true:
+						rb.AddForce(new Vector2(1f * a_forceMult, 250f));
+						break;
+                }
+            }
 
 			BPC.currentHP -= a_damage;
 			lerpTimer = 0f;

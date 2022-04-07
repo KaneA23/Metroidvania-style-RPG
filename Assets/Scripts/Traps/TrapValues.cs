@@ -11,4 +11,5 @@ public class TrapValues : MonoBehaviour
     public int fireTrapDamage;
     public int fireTrapForce;
     public float fireTrapDamageFrequency;
+    public float cannonForce;
 }

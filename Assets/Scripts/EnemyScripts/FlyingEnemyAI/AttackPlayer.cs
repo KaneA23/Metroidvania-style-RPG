@@ -60,7 +60,7 @@ public class AttackPlayer : MonoBehaviour
 
         if (otherObject.gameObject == m_Player)
         {
-            PHS.TakeDamage(m_DamageAmount, enemyPos);
+            PHS.TakeDamage(m_DamageAmount, enemyPos, m_AttackForce, true);
 
             if (gameObject.CompareTag("GroundAttack"))
             {               

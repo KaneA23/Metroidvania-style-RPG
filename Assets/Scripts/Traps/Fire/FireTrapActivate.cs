@@ -19,7 +19,7 @@ public class FireTrapActivate : MonoBehaviour
 
     public float m_endTime;
     private float m_restartTime;
-    private float m_Speed = 0.003f;
+    private float m_Speed = 0.08f;
     private bool m_activated = false;
 
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class FireTrapActivate : MonoBehaviour
         {
             DamageExtend();
             m_endTime -= Time.deltaTime;
-            m_scaleDirection = new Vector3(fireTrap.transform.position.x + 1f, 0f, 0f);
+            
         }
 
         if (m_endTime <= 0f)
@@ -67,13 +67,32 @@ public class FireTrapActivate : MonoBehaviour
     {
 
         //m_fireParticles[1].position.x
+
         if (m_DamageZone == null)
         {
             m_DamageZone = Instantiate(m_DamageZonePrefab, fireTrap.transform.position, Quaternion.identity);
             m_DamageZone.GetComponent<FireDamage>().m_FireTrap = fireTrap;
         }
 
-        m_DamageZone.transform.position -= m_scaleDirection * m_Speed / 2;
-        m_DamageZone.transform.localScale -= m_scaleDirection * m_Speed;
+        switch (fireTrap.tag)
+        {
+            case "TrapLeft":
+                m_scaleDirection = new Vector3(fireTrap.transform.localPosition.x - 1f, 0f, 0f).normalized;
+                m_DamageZone.transform.position += m_scaleDirection * m_Speed / 2;
+                m_DamageZone.transform.localScale += m_scaleDirection * m_Speed;
+                break;
+            case "TrapRight":
+                m_scaleDirection = new Vector3(fireTrap.transform.localPosition.x + 1f, 0f, 0f).normalized;
+                m_DamageZone.transform.position += m_scaleDirection * m_Speed / 2;
+                m_DamageZone.transform.localScale += m_scaleDirection * m_Speed;
+                break;
+            case "TrapAbove":
+                m_scaleDirection = new Vector3(0f, fireTrap.transform.localPosition.y - 1f, 0f).normalized;
+                m_DamageZone.transform.position -= m_scaleDirection * m_Speed / 2;
+                m_DamageZone.transform.localScale -= m_scaleDirection * m_Speed;
+                break;
+        }
+
+        
     }
 }

@@ -42,7 +42,7 @@ public class SwingHit : MonoBehaviour
 
         if(otherObject.gameObject == m_Player)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position, m_SwingTrapForce, true);
 
             if (gameObject.transform.position.x > m_Player.transform.position.x)
             {

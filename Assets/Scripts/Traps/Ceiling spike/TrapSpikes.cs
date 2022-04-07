@@ -30,7 +30,7 @@ public class TrapSpikes : MonoBehaviour
     {
         if(collision.gameObject == m_Player)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position, 0f, false);
         }
         else
         {

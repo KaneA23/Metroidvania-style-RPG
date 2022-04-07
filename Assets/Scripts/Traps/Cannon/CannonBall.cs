@@ -29,7 +29,7 @@ public class CannonBall : MonoBehaviour
 
         m_CannonCollider = gameObject.GetComponent<Collider2D>();
 
-        m_Force = m_Cannon.GetComponent<CannonFire>().m_HitForce;
+        m_Force = GameObject.Find("EventSystem").GetComponent<TrapValues>().cannonForce;
     }
 
     // Update is called once per frame
@@ -42,7 +42,9 @@ public class CannonBall : MonoBehaviour
     {
         Collider2D otherObject = collision.collider;
 
-        if(otherObject.gameObject.CompareTag("Cannon"))
+        if (otherObject.gameObject.CompareTag("CannonRight") ||
+            otherObject.gameObject.CompareTag("CannonLeft") ||
+            otherObject.gameObject.CompareTag("CannonAbove"))
         {
             Physics2D.IgnoreCollision(m_CannonCollider, otherObject);
         }
@@ -52,7 +54,7 @@ public class CannonBall : MonoBehaviour
     {
         if(collision.gameObject == m_Player)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position, m_Force, true);
             if (collision.gameObject.transform.position.x > gameObject.transform.position.x)
             {
                 m_PlayerBody.AddForce(new Vector2(1, 0));

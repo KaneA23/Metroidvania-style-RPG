@@ -41,7 +41,7 @@ public class FireDamage : MonoBehaviour
             m_endTime = m_restartTime;
         }
     }
-    //thing
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == m_Player)
@@ -50,25 +50,17 @@ public class FireDamage : MonoBehaviour
             {
                 m_Entered = true;
 
-                PHS.TakeDamage(TV.fireTrapDamage, gameObject.transform.position);
-
-                switch(m_FireTrap.tag)
-                {
-                    case "TrapRight":
-                        m_PlayerBody.AddForce(new Vector2(1, 0) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapLeft":
-                        m_PlayerBody.AddForce(new Vector2(-1, 0) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapBelow":
-                        m_PlayerBody.AddForce(new Vector2(0, 1) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapAbove":
-                        m_PlayerBody.AddForce(new Vector2(0, -1) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                }
+                PHS.TakeDamage(TV.fireTrapDamage, gameObject.transform.position, TV.fireTrapForce, false);
             }         
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject == m_Player)
+        {
+            m_Entered = false;
+        }   
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -77,23 +69,9 @@ public class FireDamage : MonoBehaviour
         {
             if (m_endTime <= 0.02f)
             {
-                PHS.TakeDamage(TV.fireTrapDamage, gameObject.transform.position);
+                Debug.Log("Here");
 
-                switch (m_FireTrap.tag)
-                {
-                    case "TrapRight":
-                        m_PlayerBody.AddForce(new Vector2(1, 0) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapLeft":
-                        m_PlayerBody.AddForce(new Vector2(-1, 0) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapBelow":
-                        m_PlayerBody.AddForce(new Vector2(0, 1) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                    case "TrapAbove":
-                        m_PlayerBody.AddForce(new Vector2(0, -1) * TV.fireTrapForce, ForceMode2D.Impulse);
-                        break;
-                }
+                PHS.TakeDamage(TV.fireTrapDamage, gameObject.transform.position, TV.fireTrapForce, false);
             }
         }
     }

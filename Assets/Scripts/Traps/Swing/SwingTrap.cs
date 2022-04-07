@@ -8,7 +8,8 @@ public class SwingTrap : MonoBehaviour
     private PlayerHealthSystem PHS;
 
     private GameObject m_Player;
-    public GameObject m_SwingObject;
+    public GameObject m_SwingObjectPrefab;
+    private GameObject m_SwingObject;
     private GameObject m_DamageObject;
 
     private bool m_Dropped = false;
@@ -20,11 +21,8 @@ public class SwingTrap : MonoBehaviour
         PHS = AISU.PHS;
 
         m_Player = AISU.m_ActivePlayer;
-
-        m_DamageObject = m_SwingObject.GetComponentInChildren<Collider2D>().gameObject;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -43,8 +41,11 @@ public class SwingTrap : MonoBehaviour
 
     private void Drop()
     {
-        m_SwingObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        m_SwingObject.GetComponent<Rigidbody2D>().mass = 5;
+        m_SwingObject = Instantiate(m_SwingObjectPrefab, new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 5f), Quaternion.identity);
+        m_SwingObject.transform.GetChild(1).gameObject.GetComponent<HingeJoint2D>().connectedBody = m_SwingObject.transform.GetChild(0).gameObject.GetComponent<Rigidbody2D>();
+        m_DamageObject = m_SwingObject.transform.GetChild(0).gameObject.transform.GetChild(1).gameObject;
+        m_SwingObject.transform.GetChild(0).GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        m_SwingObject.transform.GetChild(0).GetComponent<Rigidbody2D>().mass = 5;
         m_Dropped = true;
     }
 }

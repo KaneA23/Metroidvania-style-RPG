@@ -77,7 +77,7 @@ public class AIRanged : MonoBehaviour
 
         if (otherCollider.name == m_Player.tag)
         {
-            PHS.TakeDamage(m_DamageAmount, enemyPos);
+            PHS.TakeDamage(m_DamageAmount, enemyPos, m_HitForce, true);
             //EH.TakeDamage(m_DamageAmount, enemyPos);
 
             if ((transform.position.x - otherCollider.transform.position.x) < 0)
