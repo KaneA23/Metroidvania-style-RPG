@@ -63,7 +63,7 @@ public class AI : MonoBehaviour
 
         if(otherCollider.name == AISU.m_ActivePlayer.tag)
         {
-            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+            PHS.TakeDamage(m_DamageAmount, gameObject.transform.position, m_HitForce, true);
             //EH.TakeDamage(m_DamageAmount);
 
             if ((transform.position.x - otherCollider.transform.position.x) < 0)

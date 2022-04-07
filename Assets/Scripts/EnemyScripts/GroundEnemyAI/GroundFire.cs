@@ -51,7 +51,7 @@ public class GroundFire : MonoBehaviour
         {
             Debug.Log("Ouchie");
 
-            PHS.TakeDamage(m_DamageAmount, enemyPos);
+            PHS.TakeDamage(m_DamageAmount, enemyPos, m_AttackForce, true);
 
             float heightForce = Random.Range(0.5f, 1f);
 
