@@ -25,7 +25,7 @@ public class EnemyAnimationManager : MonoBehaviour
 
 	public string currentAnimState;
 	private string[] animations = {
-		"EarthElemental_CalmWalk", "EarthElemental_Alert", "EarthElemental_AgroWalk", "EarthElemental_Forget"
+		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget"
 	};
 
 	private void Awake()
