@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031984659095122758}
   - component: {fileID: 2031984659095122757}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SwingObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031984659306788502}
   - component: {fileID: 2031984659306788503}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 2031984660699461438}
   - component: {fileID: 2031984660699461432}
   - component: {fileID: 2031984660699461433}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Boulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

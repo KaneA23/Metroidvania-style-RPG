@@ -10,15 +10,14 @@ using UnityEngine.UI;
 public class BarrelHealthSystem : MonoBehaviour
 {
 	[Header("Health")]
-	[SerializeField] private int maxHP = 25;
+	private readonly int maxHP = 25;
 	public float currentHP;
 
 	public Slider healthbar;
 
 	[Header("Explosion")]
-	public SpriteRenderer sr;
-
-	public ParticleSystem enemyParticle;
+	private SpriteRenderer sr;
+	private ParticleSystem enemyParticle;
 	ParticleSystem.EmissionModule em;
 	private float particleDur;
 
@@ -60,7 +59,6 @@ public class BarrelHealthSystem : MonoBehaviour
 		// If enemy runs out of health, particle system activates and enemy dies
 		if (currentHP <= 0)
 		{
-			Debug.Log("<color=Purple>DEATH TO THE ENEMY!</color>");
 			em.enabled = true;
 			enemyParticle.Play();
 			Destroy(sr);

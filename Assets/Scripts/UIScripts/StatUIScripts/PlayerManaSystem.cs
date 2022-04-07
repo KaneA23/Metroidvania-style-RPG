@@ -10,10 +10,10 @@ using UnityEngine.UI;
 public class PlayerManaSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
-	/*public */PlayerMovementSystem PMS;
-	/*public */PlayerHealthSystem PHS;
-	BasePlayerClass BPC;
-
+	private BasePlayerClass BPC;
+	private PlayerHealthSystem PHS;
+	private PlayerMovementSystem PMS;
+	
 	[Space(5)]
 	GameObject eventSystem;
 	GameObject player;
@@ -25,8 +25,8 @@ public class PlayerManaSystem : MonoBehaviour
 	public Image manaBackFillBar;
 
 	[Header("Lerping Mana decresae")]
-	public float manaLerpTimer;
-	public float manaLerpSpeed;
+	private float manaLerpTimer;
+	private float manaLerpSpeed;
 
 	private void Awake()
 	{
@@ -87,7 +87,7 @@ public class PlayerManaSystem : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Increases amount of player has (by regen or potion use)
+	/// Increases amount of mana player has (by regen or potion use)
 	/// </summary>
 	/// <param name="a_manaRegen">amount of replenished mana</param>
 	public void RegenMana(float a_manaRegen)

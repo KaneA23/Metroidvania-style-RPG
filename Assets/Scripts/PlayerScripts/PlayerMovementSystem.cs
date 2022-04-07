@@ -113,10 +113,11 @@ public class PlayerMovementSystem : MonoBehaviour
 		isFacingRight = true;
 		transform.Rotate(new Vector2(0, 180));
 
-		// OP Dash ignoring collisions
+		// Dash ignoring collisions
 		Physics2D.IgnoreLayerCollision(12, 3);	//enemies
 		Physics2D.IgnoreLayerCollision(12, 14);	//cannonballs
 		Physics2D.IgnoreLayerCollision(12, 7);	//projectiles
+		Physics2D.IgnoreLayerCollision(12, 13);	//traps
 	}
 
 	// Update is called once per frame

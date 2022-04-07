@@ -5,11 +5,14 @@ using UnityEngine.EventSystems;
 using TMPro;
 using Ink.Runtime;
 
+/// <summary>
+/// Controls NPC's dialogue, what they say and how they respond to player choices
+/// Created by: Kane Adams
+/// </summary>
 public class DialogueManagerScript : MonoBehaviour
 {
 	[Header("Dialogue UI")]
 	[SerializeField] private GameObject dialogueBox;
-
 	[SerializeField] private TextMeshProUGUI nameText;
 	[SerializeField] private TextMeshProUGUI dialogueText;
 
@@ -26,16 +29,16 @@ public class DialogueManagerScript : MonoBehaviour
 
 	private static DialogueManagerScript instance;
 
-	public GameObject continueButton;
+	[SerializeField] private GameObject continueButton;
 
 	private const string SPEAKER_TAG = "speaker";
 
 	private readonly float typingSpeed = 0.03f;
 
 	[Header("Dialogue Box Animations")]
-	public Animator anim;
-	public string currentAnimState;
-	public float animDelay;
+	[SerializeField] private Animator anim;
+	private string currentAnimState;
+	private float animDelay;
 
 	private void Awake()
 	{
@@ -77,6 +80,10 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Adds dialogue box and NPC begins speaking
+	/// </summary>
+	/// <param name="a_inkJSON">NPC's dialogue</param>
 	public void StartDialogue(TextAsset a_inkJSON)
 	{
 		currentStory = new Story(a_inkJSON.text);
@@ -91,11 +98,12 @@ public class DialogueManagerScript : MonoBehaviour
 
 		ChangeAnimationState("DialogueBox_Open");
 		animDelay = 1f;
-
 		Invoke(nameof(ContinueDialogue), animDelay);
-		//ContinueDialogue();
 	}
 
+	/// <summary>
+	/// If the NPC has more dialogue, the next line is outputted
+	/// </summary>
 	public void ContinueDialogue()
 	{
 		ChangeAnimationState("DialogueBox_IdleOpen");
@@ -116,10 +124,11 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Removes dialogue box
+	/// </summary>
 	private void EndDialogue()
 	{
-		//IsDialoguePlaying = false;
-		//.SetActive(false);
 		dialogueText.text = "";
 
 		ChangeAnimationState("DialogueBox_Close");
@@ -128,6 +137,9 @@ public class DialogueManagerScript : MonoBehaviour
 		Invoke(nameof(CompleteDialogueAnim), animDelay);
 	}
 
+	/// <summary>
+	/// Hides choice buttons when not needed
+	/// </summary>
 	private void HideChoices()
 	{
 		foreach (GameObject choiceButton in choices)
@@ -136,10 +148,14 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Shows choice buttons when choice to be made
+	/// </summary>
 	private void DisplayChoices()
 	{
 		List<Choice> currentChoices = currentStory.currentChoices;
 
+		// hides continue button if choice to be made
 		if (currentChoices.Count > 0)
 		{
 			continueButton.SetActive(false);
@@ -173,12 +189,19 @@ public class DialogueManagerScript : MonoBehaviour
 		//StartCoroutine(SelectFirstChoice());
 	}
 
+	/// <summary>
+	/// Changes dialogue branch depending on choice player presses
+	/// </summary>
+	/// <param name="a_choiceIndex">button pressed</param>
 	public void MakeChoice(int a_choiceIndex)
 	{
 		currentStory.ChooseChoiceIndex(a_choiceIndex);
 		ContinueDialogue();
 	}
 
+	/// <summary>
+	/// Changes line when player clicks continue dialogue
+	/// </summary>
 	public void ContinueClicked()
 	{
 		if (!canContinueNextLine)
@@ -191,6 +214,10 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Assigns NPC names dependent on who is speaking
+	/// </summary>
+	/// <param name="a_currentTags">who is speaking</param>
 	private void HandleTags(List<string> a_currentTags)
 	{
 		foreach (string tag in a_currentTags)
@@ -215,8 +242,6 @@ public class DialogueManagerScript : MonoBehaviour
 			}
 		}
 	}
-
-
 
 	/// <summary>
 	/// Changes the animation for the dialogue box
@@ -246,6 +271,11 @@ public class DialogueManagerScript : MonoBehaviour
 		IsDialoguePlaying = false;
 	}
 
+	/// <summary>
+	/// Types out a line of speach as indivual characters
+	/// </summary>
+	/// <param name="a_line">current line to be split into letters</param>
+	/// <returns>Waits set time before typing next letter</returns>
 	private IEnumerator TypeLine(string a_line)
 	{
 		dialogueText.text = a_line;

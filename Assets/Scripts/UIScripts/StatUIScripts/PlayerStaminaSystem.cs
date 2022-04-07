@@ -10,11 +10,9 @@ using UnityEngine.UI;
 public class PlayerStaminaSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
-	/*public */
-	PlayerHealthSystem PHS;
-	/*public */
-	PlayerMovementSystem PMS;
-	BasePlayerClass BPC;
+	private BasePlayerClass BPC;
+	private PlayerHealthSystem PHS;
+	private PlayerMovementSystem PMS;
 
 	[Space(5)]
 	GameObject eventSystem;
@@ -27,8 +25,8 @@ public class PlayerStaminaSystem : MonoBehaviour
 	public Image stamBackFillBar;
 
 	[Header("Lerping Stamina decresae")]
-	public float stamLerpTimer;
-	public float stamLerpSpeed;
+	private float stamLerpTimer;
+	private float stamLerpSpeed;
 
 	private void Awake()
 	{

@@ -17,8 +17,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	GameObject eventSystem;
 
-	public float lerpTimer;
-	public float healthLerpSpeed;
+	private float healthlerpTimer;
+	private float healthLerpSpeed;
 
 	public Image healthFrontFillBar;
 	public GameObject healthBarEmpty;
@@ -53,6 +53,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		BPC.currentHP = BPC.currentMaxHP;
 		BPC.maxRegenHP = (float)BPC.currentMaxHP * 0.2f;
 		BPC.maxRegenHP = Mathf.RoundToInt(BPC.maxRegenHP);
+
 		isHit = false;
 		isDying = false;
 
@@ -62,7 +63,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxHP, 32);
+		healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxHP, 32); // Changes size of player healthbar
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
@@ -76,15 +77,16 @@ public class PlayerHealthSystem : MonoBehaviour
 		float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
 		float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
 
+		// When player isn't being attacked, start regening up to 20% of max HP overtime
 		if (!isHit && !isDying && fillB == fillF)
 		{
 			if (BPC.currentHP < BPC.maxRegenHP)
 			{
 				RegenHealth(BPC.maxRegenHP * Time.deltaTime);
 			}
-
 		}
 
+		// If player has no more health, death animation plays
 		if (BPC.currentHP <= 0 && !isHit)
 		{
 			isDying = true;
@@ -100,6 +102,9 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// Player's health decreases when attacked
 	/// </summary>
 	/// <param name="a_damage">Amount of health lost from attack</param>
+	/// <param name="a_enemyPos">player is knocked in opposite direction of enemy</param>
+	/// <param name="a_knockForce">how hard the player is hit back</param>
+	/// <param name="a_isKnockback">some attacks don't knock player back</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos, float a_knockForce, bool a_isKnockback)
 	{
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
@@ -111,7 +116,6 @@ public class PlayerHealthSystem : MonoBehaviour
 
 			if ((transform.position.x - a_enemyPos.x) < 0)
 			{
-				Debug.Log("Left Hit");
 				rb.velocity = Vector2.zero;
 				//rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
 				if (a_isKnockback)
@@ -121,7 +125,6 @@ public class PlayerHealthSystem : MonoBehaviour
 			}
 			else if ((transform.position.x - a_enemyPos.x) > 0)
 			{
-				Debug.Log("Right Hit");
 				rb.velocity = Vector2.zero;
 				//rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
 				if (a_isKnockback)
@@ -131,7 +134,8 @@ public class PlayerHealthSystem : MonoBehaviour
 			}
 
 			BPC.currentHP -= a_damage;
-			lerpTimer = 0f;
+
+			healthlerpTimer = 0f;
 		}
 	}
 
@@ -147,23 +151,28 @@ public class PlayerHealthSystem : MonoBehaviour
 			BPC.currentHP = BPC.currentMaxHP;
 		}
 
-		lerpTimer = 0f;
+		healthlerpTimer = 0f;
 	}
 
+	/// <summary>
+	/// Increases amount of health player has (by regen or potion use)
+	/// </summary>
+	/// <param name="a_healthRegen">amount of replenished health</param>
 	void RegenHealth(float a_healthRegen)
 	{
 		BPC.currentHP += a_healthRegen;
 
+		// Caps amount of health
 		if (BPC.currentHP > BPC.maxRegenHP)
 		{
 			BPC.currentHP = BPC.maxRegenHP;
 		}
 
-		lerpTimer = 0f;
+		healthlerpTimer = 0f;
 	}
 
 	/// <summary>
-	/// Decreases/Increases bar fills when health changes with chipping effect
+	/// Changes health bar UI by curring one of the fill GameObjects then lerping the other to the new fill amount
 	/// </summary>
 	public void UpdateHealthUI()
 	{
@@ -172,27 +181,30 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		float healthFraction = BPC.currentHP / (float)BPC.currentMaxHP;
 
+		// Decreases healthbar UI when player takes damage
 		if (fillB > healthFraction)
 		{
 			healthLerpSpeed = 15f;
 
 			healthFrontFillBar.fillAmount = healthFraction;
 
-			lerpTimer += Time.deltaTime;
-			float percentComplete = lerpTimer / healthLerpSpeed;
+			healthlerpTimer += Time.deltaTime;
+			float percentComplete = healthlerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
 
 			healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
 		}
 
+		// Increases health UI when player regens health
 		if (fillF < healthFraction)
 		{
 			healthLerpSpeed = 1f;
-
 			healthBackHealthBar.fillAmount = healthFraction;
-			lerpTimer += Time.deltaTime;
-			float percentComplete = lerpTimer / healthLerpSpeed;
+			healthlerpTimer += Time.deltaTime;
+
+			float percentComplete = healthlerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
+
 			healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackHealthBar.fillAmount, percentComplete);
 		}
 	}

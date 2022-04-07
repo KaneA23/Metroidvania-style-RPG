@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls when an NPC can be talked to.
+/// Created by: Kane Adams
+/// </summary>
 public class DialogueTriggerScript : MonoBehaviour
 {
 	[Header("Visual Cue")]
-	public bool isInteractable;
+	private bool isInteractable;
 	public GameObject visualCue;
 
 	[Space(5)]
 	public Transform playerCheck;
 	public LayerMask playerMask;
-	public float checkRadius = 3;
+	private readonly float checkRadius = 3;
 
 	[Header("Ink JSON")]
-	[SerializeField] private TextAsset inkJSON;
+	[SerializeField] private TextAsset inkJSON; // NPC's dialogue
 
 	// Start is called before the first frame update
 	void Start()
@@ -27,9 +31,11 @@ public class DialogueTriggerScript : MonoBehaviour
 	{
 		CheckIfInteractable();
 
+		// If player is close enough to talk to 
 		if (isInteractable && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			visualCue.SetActive(true);
+
 			if (Input.GetKeyDown(KeyCode.F) && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				DialogueManagerScript.GetInstance().StartDialogue(inkJSON);
@@ -41,6 +47,9 @@ public class DialogueTriggerScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Checks if player close enough to talk to NPC
+	/// </summary>
 	private void CheckIfInteractable()
 	{
 		isInteractable = Physics2D.OverlapCircle(playerCheck.position, checkRadius, playerMask);

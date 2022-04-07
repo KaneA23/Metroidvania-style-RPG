@@ -1966,7 +1966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7823501901514899135, guid: 47a18da6a047c5f40bbb17c59e26dc60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8218803
+      value: -2.589
       objectReference: {fileID: 0}
     - target: {fileID: 7823501901514899135, guid: 47a18da6a047c5f40bbb17c59e26dc60, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2353,13 +2353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f38a5f15851e443aa8e20f2f0377e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInteractable: 0
   visualCue: {fileID: 1562215277}
   playerCheck: {fileID: 480982768}
   playerMask:
     serializedVersion: 2
     m_Bits: 64
-  checkRadius: 3
   inkJSON: {fileID: 4900000, guid: 6fa004ba3d4182949937ea54ef87f6a9, type: 3}
 --- !u!1 &566387492
 GameObject:
@@ -3681,8 +3679,6 @@ MonoBehaviour:
   - {fileID: 1146673918}
   continueButton: {fileID: 980942415}
   anim: {fileID: 769166787}
-  currentAnimState: 
-  animDelay: 0
 --- !u!1 &1146673918
 GameObject:
   m_ObjectHideFlags: 0
@@ -11462,8 +11458,6 @@ MonoBehaviour:
   manaBarEmpty: {fileID: 3472147407764939127}
   manaFrontFillBar: {fileID: 3472147407338008103}
   manaBackFillBar: {fileID: 3472147407459683714}
-  manaLerpTimer: 0
-  manaLerpSpeed: 15
 --- !u!224 &3472147406952865261
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11621,8 +11615,6 @@ MonoBehaviour:
   stamBarEmpty: {fileID: 3472147406524219978}
   stamFrontFillBar: {fileID: 3472147408480696379}
   stamBackFillBar: {fileID: 3472147407122525626}
-  stamLerpTimer: 0
-  stamLerpSpeed: 15
 --- !u!222 &3472147407122525625
 CanvasRenderer:
   m_ObjectHideFlags: 0
