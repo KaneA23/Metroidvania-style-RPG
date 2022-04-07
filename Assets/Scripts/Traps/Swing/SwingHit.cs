@@ -36,6 +36,10 @@ public class SwingHit : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Checks to see if the swing trap has collided with the player
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Collider2D otherObject = collision.collider;
