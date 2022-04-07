@@ -12,6 +12,12 @@ public enum AIAnimationState
 	EARTHELEMENTAL_ALERT,
 	EARTHELEMENTAL_AGROWALK,
 	EARTHELEMENTAL_FORGET,
+
+	// Fire elementals
+	FIREELEMENTAL_IDLE,
+	FIREELEMENTAL_ALERT,
+	FIREELEMENTAL_ATTACK,
+	FIREELEMENTAL_FORGET,
 }
 
 
@@ -28,16 +34,13 @@ public class EnemyAnimationManager : MonoBehaviour
 		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget"
 	};
 
-	private void Awake()
-	{
+	private void Awake() {
 		anim = GetComponentInChildren<Animator>();
 	}
 
-	public void ChangeAnimationState(AIAnimationState a_newAnim)
-	{
+	public void ChangeAnimationState(AIAnimationState a_newAnim) {
 		// Stops the same animation from interrupting itself
-		if (currentAnimState == animations[(int)a_newAnim])
-		{
+		if (currentAnimState == animations[(int)a_newAnim]) {
 			return;
 		}
 
