@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 394609564002561046}
   - component: {fileID: 7729332291984789253}
   - component: {fileID: -8652745287674655563}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FireCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,3 +71,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26dc14a55ae69845b91f562410a094d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_FireTrap: {fileID: 0}

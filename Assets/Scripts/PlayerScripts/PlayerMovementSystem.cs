@@ -112,6 +112,11 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		isFacingRight = true;
 		transform.Rotate(new Vector2(0, 180));
+
+		// OP Dash ignoring collisions
+		Physics2D.IgnoreLayerCollision(12, 3);	//enemies
+		Physics2D.IgnoreLayerCollision(12, 14);	//cannonballs
+		Physics2D.IgnoreLayerCollision(12, 7);	//projectiles
 	}
 
 	// Update is called once per frame
@@ -253,6 +258,8 @@ public class PlayerMovementSystem : MonoBehaviour
 					PMS.TakeMana(BPC.dashCost);
 
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
+					gameObject.layer = 12;
+
 					isDashing = true;
 					moveAnimDelay = 0.35f;
 					Invoke(nameof(Dash), moveAnimDelay);
@@ -456,6 +463,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			isDashing = false;
 			isManaCooldown = true;
 			cooldownTimer = BPC.dashCooldown;
+			gameObject.layer = 6;
 		}
 	}
 
@@ -499,6 +507,18 @@ public class PlayerMovementSystem : MonoBehaviour
 			isCrouching = false;
 			isCrouchExit = false;
 		}
+	}
+
+	private void OnCollisionStay2D(Collision2D collision)
+	{
+		//Collider2D otherObject = collision.collider;
+		//if (otherObject.gameObject.layer == 3)
+		//{
+		//	if (isDashing)
+		//	{
+		//		Physics2D.IgnoreCollision(otherObject, gameObject.GetComponent<Collider2D>());
+		//	}
+		//}
 	}
 
 	private void OnDrawGizmosSelected()

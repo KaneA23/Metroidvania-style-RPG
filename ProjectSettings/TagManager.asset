@@ -28,8 +28,8 @@ TagManager:
   - Jumpable
   - Platforms
   - Destroyable
-  - Background
-  - Foreground
+  - Void
+  - Traps
   - CannonBall
   - Cannon
   - 

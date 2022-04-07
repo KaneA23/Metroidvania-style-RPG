@@ -9,6 +9,7 @@ public class AIRanged : MonoBehaviour
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
     public AISetUp AISU;
+    public EnemyAnimationManager EAM;
 
     public GameObject m_Player;
 
@@ -34,11 +35,22 @@ public class AIRanged : MonoBehaviour
 
     public bool attacking = false;
 
+    public bool isAlert;
+    public bool isForget;
+    public bool isAgro;
+
+    public float animDelay;
+
     Seeker seeker;
     Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    public void Start()
+	private void Awake()
+	{
+		EAM = GetComponent<EnemyAnimationManager>();
+	}
+
+	// Start is called before the first frame update
+	public void Start()
     {
         AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
         PHS = AISU.PHS;
@@ -51,6 +63,11 @@ public class AIRanged : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InvokeRepeating("UpdatePath", 0f, .5f);
+
+        isAlert = false;
+        isForget = false;
+        isAgro = false;
+        EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
     }
 
     void UpdatePath()
@@ -99,6 +116,18 @@ public class AIRanged : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        if (isAgro && !isAlert)
+        {
+            EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_AGROWALK);
+        }
+        else if (!isAgro && !isForget)
+        {
+            EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
+        }
+    }
+    
     void FixedUpdate()
     {
         Vector3 velocity = rb.velocity;
@@ -172,6 +201,23 @@ public class AIRanged : MonoBehaviour
 
         //Debug.Log(a_speed);
 
+        if (finalDistance < m_AttackDistance && !isAlert && !isAgro)
+        {
+            isAlert = true;
+            EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_ALERT);
+            animDelay = 1.117f;
+            Invoke(nameof(CompleteAnim), animDelay);
+
+        }
+        else if (finalDistance > m_AttackDistance && !isForget && isAgro)
+        {
+            isForget = true;
+            EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_FORGET);
+            animDelay = 1.117f;
+            Invoke(nameof(CompleteAnim), animDelay);
+
+        }
+
         if (finalDistance < 1.6f)
         {
             rb.velocity = Vector2.zero;
@@ -220,6 +266,20 @@ public class AIRanged : MonoBehaviour
         else if (rb.transform.position.x > target.position.x)
         {
             enemyGraphics.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+    void CompleteAnim()
+    {
+        if (isAlert)
+        {
+            isAlert = false;
+            isAgro = true;
+        }
+        else if (isForget)
+        {
+            isForget = false;
+            isAgro = false;
         }
     }
 }

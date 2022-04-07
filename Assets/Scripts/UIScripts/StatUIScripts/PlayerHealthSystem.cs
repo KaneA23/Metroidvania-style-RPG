@@ -18,7 +18,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	GameObject eventSystem;
 
 	public float lerpTimer;
-	public float healthLerpSpeed/* = 15f*/;
+	public float healthLerpSpeed;
 
 	public Image healthFrontFillBar;
 	public GameObject healthBarEmpty;
@@ -66,7 +66,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			TakeDamage(Random.Range(5, 10), gameObject.transform.position);
+			TakeDamage(Random.Range(5, 10), gameObject.transform.position, 0f, false);
 		}
 		if (Input.GetKeyDown(KeyCode.Equals))
 		{
@@ -100,9 +100,9 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// Player's health decreases when attacked
 	/// </summary>
 	/// <param name="a_damage">Amount of health lost from attack</param>
-	public void TakeDamage(int a_damage, Vector2 a_enemyPos)
+	public void TakeDamage(int a_damage, Vector2 a_enemyPos, float a_knockForce, bool a_isKnockback)
 	{
-		if (!PMS.isDashing /*&& !DM.isTalking*/&& !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			isHit = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
@@ -113,13 +113,21 @@ public class PlayerHealthSystem : MonoBehaviour
 			{
 				Debug.Log("Left Hit");
 				rb.velocity = Vector2.zero;
-				rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
+				//rb.AddForce(new Vector2(-1f * BPC.knockbackTaken, 250f));
+				if (a_isKnockback)
+				{
+					rb.AddForce(new Vector2(-1f * a_knockForce, 250f));
+				}
 			}
 			else if ((transform.position.x - a_enemyPos.x) > 0)
 			{
 				Debug.Log("Right Hit");
 				rb.velocity = Vector2.zero;
-				rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
+				//rb.AddForce(new Vector2(1f * BPC.knockbackTaken, 250f));
+				if (a_isKnockback)
+				{
+					rb.AddForce(new Vector2(1f * a_knockForce, 250f));
+				}
 			}
 
 			BPC.currentHP -= a_damage;

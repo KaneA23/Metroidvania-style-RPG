@@ -10,11 +10,15 @@ using UnityEngine.UI;
 public class PlayerStaminaSystem : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
-	public PlayerMovementSystem PMS;
+	/*public */
+	PlayerHealthSystem PHS;
+	/*public */
+	PlayerMovementSystem PMS;
 	BasePlayerClass BPC;
 
 	[Space(5)]
 	GameObject eventSystem;
+	GameObject player;
 
 	[Header("Stamina bar objects")]
 	public GameObject stamBarEmpty;
@@ -24,12 +28,16 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 	[Header("Lerping Stamina decresae")]
 	public float stamLerpTimer;
-	public float stamLerpSpeed/* = 15f*/;
+	public float stamLerpSpeed;
 
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
 		BPC = eventSystem.GetComponent<BasePlayerClass>();
+
+		player = GameObject.Find("Player");
+		PHS = player.GetComponent<PlayerHealthSystem>();
+		PMS = player.GetComponent<PlayerMovementSystem>();
 	}
 
 	// Start is called before the first frame update
@@ -46,21 +54,30 @@ public class PlayerStaminaSystem : MonoBehaviour
 		float fillF = Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
 		float fillB = Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
 
-		if (!PMS.isRunning && !PMS.isJumping && fillF == fillB)
+		// When no stamina is being used, start regening up overtime
+		if (!PHS.isDying)
 		{
-			if (BPC.currentStam < BPC.currentMaxStam)
+			if (!PMS.isRunning && !PMS.isJumping && fillF == fillB)
 			{
-				RegenStamina(BPC.regenRateStam * Time.deltaTime);
+				if (BPC.currentStam < BPC.currentMaxStam)
+				{
+					RegenStamina(BPC.regenRateStam * Time.deltaTime);
+				}
 			}
 		}
 
 		UpdateStamUI();
 	}
 
+	/// <summary>
+	/// Decreases the amount of stamina player has left
+	/// </summary>
+	/// <param name="a_stamCost">Amount of stamina a movement uses</param>
 	public void TakeStamina(float a_stamCost)
 	{
 		BPC.currentStam -= a_stamCost;
 
+		// Prevents negative stamina
 		if (BPC.currentStam < 0)
 		{
 			BPC.currentStam = 0;
@@ -69,10 +86,15 @@ public class PlayerStaminaSystem : MonoBehaviour
 		stamLerpTimer = 0f;
 	}
 
+	/// <summary>
+	/// Increases amount of player has through regen
+	/// </summary>
+	/// <param name="a_stamRegen">amount of replenished stamina</param>
 	public void RegenStamina(float a_stamRegen)
 	{
 		BPC.currentStam += a_stamRegen;
 
+		// Caps amount of stamina
 		if (BPC.currentStam > BPC.currentMaxStam)
 		{
 			BPC.currentStam = BPC.currentMaxStam;
@@ -81,6 +103,9 @@ public class PlayerStaminaSystem : MonoBehaviour
 		stamLerpTimer = 0f;
 	}
 
+	/// <summary>
+	/// Changes staminabar UI by cutting one of the fill GameObjects then lerping the other to the new fill amount
+	/// </summary>
 	public void UpdateStamUI()
 	{
 		float fillF = stamFrontFillBar.fillAmount;
@@ -88,6 +113,7 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 		float stamFraction = (float)BPC.currentStam / (float)BPC.currentMaxStam;
 
+		// Decreases stambar UI when player loses stamina
 		if (fillB > stamFraction)
 		{
 			stamLerpSpeed = 15f;
@@ -101,11 +127,10 @@ public class PlayerStaminaSystem : MonoBehaviour
 			stamBackFillBar.fillAmount = Mathf.Lerp(fillB, stamFraction, percentComplete);
 		}
 
-
+		// Incrases stambar UI when player regens stamina
 		if (fillF < stamFraction)
 		{
 			stamLerpSpeed = 0.5f;
-
 			stamBackFillBar.fillAmount = stamFraction;
 			stamLerpTimer += Time.deltaTime;
 

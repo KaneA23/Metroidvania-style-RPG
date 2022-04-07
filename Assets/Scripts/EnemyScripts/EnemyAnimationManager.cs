@@ -31,16 +31,20 @@ public class EnemyAnimationManager : MonoBehaviour
 
 	public string currentAnimState;
 	private string[] animations = {
-		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget"
+		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget",
+		"FireElemental_Idle", "FireElemental_Alert", "FireElemental_Attack", "FireElemental_Forget"
 	};
 
-	private void Awake() {
+	private void Awake()
+	{
 		anim = GetComponentInChildren<Animator>();
 	}
 
-	public void ChangeAnimationState(AIAnimationState a_newAnim) {
+	public void ChangeAnimationState(AIAnimationState a_newAnim)
+	{
 		// Stops the same animation from interrupting itself
-		if (currentAnimState == animations[(int)a_newAnim]) {
+		if (currentAnimState == animations[(int)a_newAnim])
+		{
 			return;
 		}
 
