@@ -4,116 +4,134 @@ using UnityEngine;
 
 public class EnemyPathfindingNew : MonoBehaviour
 {
-    public PlayerHealthSystem PHS;
-    public EnemyHealth EH;
-    public AISetUp AISU;
+	public PlayerHealthSystem PHS;
+	public EnemyHealth EH;
+	public AISetUp AISU;
+	public EnemyAnimationManager EAM;
 
-    public float m_Speed;
-    public float m_AttackDistance;
-    public float HitForce;
-    float minDistance = Mathf.Infinity;
+	public float m_Speed;
+	public float m_AttackDistance;
+	public float HitForce;
+	float minDistance = Mathf.Infinity;
 
-    public bool m_MovingToTarget;
+	public bool m_MovingToTarget;
 
-    private Transform m_Player;
-    
-    public GameObject[] m_Enemies;
-    public GameObject[] m_Players;
-    //private GameObject m_ActivePlayer;
-    
-    private Vector3 m_TargetPos;
-    private Vector2 m_TargetDir;  
-    private Vector3 m_MovementDirection;
-    private Vector3 m_NewDestination;
-    private Vector3 m_CurrentPos;
+	private Transform m_Player;
 
-    private float m_OrigPos;
+	public GameObject[] m_Enemies;
+	public GameObject[] m_Players;
+	//private GameObject m_ActivePlayer;
 
-    public int m_DamageAmount;
+	private Vector3 m_TargetPos;
+	private Vector2 m_TargetDir;
+	private Vector3 m_MovementDirection;
+	private Vector3 m_NewDestination;
+	private Vector3 m_CurrentPos;
 
-    private SpriteRenderer m_SpriteRenderer;
+	private float m_OrigPos;
 
-    private Rigidbody2D rb;
+	public int m_DamageAmount;
 
-    private void Start()
-    {
-        AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+	private SpriteRenderer m_SpriteRenderer;
 
-        PHS = AISU.PHS;
+	private Rigidbody2D rb;
 
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+	public bool isAlert;
+	public bool isForget;
+	public bool isAgro;
 
-        m_Player = GameObject.Find("Player").GetComponent<Transform>();    
+	public float animDelay;
 
-        m_OrigPos = transform.position.x;
+	private void Awake()
+	{
+		EAM = GetComponent<EnemyAnimationManager>();
+	}
 
-        rb = GetComponent<Rigidbody2D>();
+	private void Start()
+	{
+		AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
 
-        m_Player = AISU.m_ActivePlayer.transform;
-    }
+		PHS = AISU.PHS;
 
-    
+		m_SpriteRenderer = GetComponent<SpriteRenderer>();
 
-    Transform GetClosestEnemy(Transform[] Enemies)
-    {
-        Transform tMin = null;
+		m_Player = GameObject.Find("Player").GetComponent<Transform>();
 
-        foreach (Transform t in Enemies)
-        {
-            float distance = Vector3.Distance(t.position, transform.position);
-            if (distance < minDistance)
-            {
-                tMin = t;
-                minDistance = distance;
-            }
-        }
-        return tMin;
-    }
+		m_OrigPos = transform.position.x;
 
-    private void EnemyFacing()
-    {
-        //if (collisionCount == 0)
-        //{
+		rb = GetComponent<Rigidbody2D>();
 
-        if (m_TargetDir.x > 0)
-        {
-            m_SpriteRenderer.flipX = false;
-        }
+		m_Player = AISU.m_ActivePlayer.transform;
 
-        if (m_TargetDir.x < 0)
-        {
-            m_SpriteRenderer.flipX = true;
-        }
+		EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_IDLE);
 
-        //m_OrigPos = transform.position.x;
-        //}
-    }
+		isAlert = false;
+		isForget = false;
+		isAgro = false;
+	}
 
-    #region __CHECK_COLLISIONS__
 
-    [SerializeField] private int collisionCount = 0;
 
-    public bool NotColliding
-    {
-        get { return collisionCount == 0; }
-    }
+	Transform GetClosestEnemy(Transform[] Enemies)
+	{
+		Transform tMin = null;
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Collider2D otherCollider = collision.collider;
+		foreach (Transform t in Enemies)
+		{
+			float distance = Vector3.Distance(t.position, transform.position);
+			if (distance < minDistance)
+			{
+				tMin = t;
+				minDistance = distance;
+			}
+		}
+		return tMin;
+	}
 
-        if (otherCollider.name != "Floor" || otherCollider.tag != "Enemy")
-        {
-            //Debug.Log(collider.name);
-            collisionCount++;
-        }
+	private void EnemyFacing()
+	{
+		//if (collisionCount == 0)
+		//{
 
-        if (otherCollider.name == AISU.m_ActivePlayer.tag)
-        {
-            //PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
-            //EH.TakeDamage(m_DamageAmount);
+		if (m_TargetDir.x > 0)
+		{
+			m_SpriteRenderer.flipX = false;
+		}
 
-            Debug.Log("collision");
+		if (m_TargetDir.x < 0)
+		{
+			m_SpriteRenderer.flipX = true;
+		}
+
+		//m_OrigPos = transform.position.x;
+		//}
+	}
+
+	#region __CHECK_COLLISIONS__
+
+	[SerializeField] private int collisionCount = 0;
+
+	public bool NotColliding
+	{
+		get { return collisionCount == 0; }
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		Collider2D otherCollider = collision.collider;
+
+		if (otherCollider.name != "Floor" || otherCollider.tag != "Enemy")
+		{
+			//Debug.Log(collider.name);
+			collisionCount++;
+		}
+
+		if (otherCollider.name == AISU.m_ActivePlayer.tag)
+		{
+			//PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+			//EH.TakeDamage(m_DamageAmount);
+
+			Debug.Log("collision");
 
 			//if ((transform.position.x - otherCollider.transform.position.x) < 0)
 			//{
@@ -127,67 +145,109 @@ public class EnemyPathfindingNew : MonoBehaviour
 			//}
 		}
 
-        if(otherCollider.CompareTag("Enemy"))
-        {
-            Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
-        }
+		if (otherCollider.CompareTag("Enemy"))
+		{
+			Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
+		}
 
-        if(otherCollider.CompareTag("GroundAttack"))
-        {
-            Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
-        }
+		if (otherCollider.CompareTag("GroundAttack"))
+		{
+			Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
+		}
 
-    }
+	}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        collisionCount--;
-    }
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		collisionCount--;
+	}
 
-    #endregion __CHECK_COLLISIONS_END__
+	#endregion __CHECK_COLLISIONS_END__
 
-    
 
-    //private void GetPlayers()
-    //{
-    //    m_Players = GameObject.FindGameObjectsWithTag("Player");
 
-    //    foreach(GameObject p in m_Players)
-    //    {
-    //        if(p.activeSelf)
-    //        {
-    //            PHS = p.GetComponent<PlayerHealthSystem>();
-    //            m_ActivePlayer = p;
-    //        }
-    //    }
-    //}
+	//private void GetPlayers()
+	//{
+	//    m_Players = GameObject.FindGameObjectsWithTag("Player");
 
-    private void FixedUpdate()
-    {
-        //GetPlayers();
+	//    foreach(GameObject p in m_Players)
+	//    {
+	//        if(p.activeSelf)
+	//        {
+	//            PHS = p.GetComponent<PlayerHealthSystem>();
+	//            m_ActivePlayer = p;
+	//        }
+	//    }
+	//}
 
-        m_CurrentPos = transform.position;
+	private void Update()
+	{
+		if (isAgro && !isAlert)
+		{
+			EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ATTACK);
+		}
+		else if (!isAgro && !isForget)
+		{
+			EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);
+		}
+	}
 
-        m_TargetPos = new Vector3(m_Player.position.x, -3.48f, m_Player.position.z);
-        m_TargetDir = (m_TargetPos - transform.position).normalized;
+	private void FixedUpdate()
+	{
+		//GetPlayers();
 
-        EnemyFacing();
+		m_CurrentPos = transform.position;
 
-        if (m_MovementDirection != Vector3.zero)
-        {
-            float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
+		m_TargetPos = new Vector3(m_Player.position.x, -3.48f, m_Player.position.z);
+		m_TargetDir = (m_TargetPos - transform.position).normalized;
 
-        if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
-        {
-            rb.AddForce(m_TargetDir * m_Speed);
-            m_MovingToTarget = true;
-            //transform.position = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
-        }
-        else
-        {
-            m_MovingToTarget = false;
-        }
-    }
+		EnemyFacing();
+
+		if (m_MovementDirection != Vector3.zero)
+		{
+			float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
+
+		if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
+		{
+			rb.AddForce(m_TargetDir * m_Speed);
+			m_MovingToTarget = true;
+			//transform.position = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
+
+			if (!isAlert && !isAgro)
+			{
+				isAlert = true;
+				EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ALERT);
+				animDelay = 0.383f;
+				Invoke(nameof(CompleteAnim), animDelay);
+			}
+		}
+		else
+		{
+			m_MovingToTarget = false;
+
+			if (!isForget && isAgro)
+			{
+				isForget = true;
+				EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_FORGET);
+				animDelay = 0.383f;
+				Invoke(nameof(CompleteAnim), animDelay);
+			}
+		}
+	}
+
+	void CompleteAnim()
+	{
+		if (isAlert)
+		{
+			isAlert = false;
+			isAgro = true;
+		}
+		else if (isForget)
+		{
+			isForget = false;
+			isAgro = false;
+		}
+	}
 }

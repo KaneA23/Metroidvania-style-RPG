@@ -15,6 +15,7 @@ public enum AIAnimationState
 
 	// Fire elementals
 	FIREELEMENTAL_IDLE,
+	FIREELEMENTAL_WALK,
 	FIREELEMENTAL_ALERT,
 	FIREELEMENTAL_ATTACK,
 	FIREELEMENTAL_FORGET,
@@ -32,7 +33,7 @@ public class EnemyAnimationManager : MonoBehaviour
 	public string currentAnimState;
 	private string[] animations = {
 		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget",
-		"FireElemental_Idle", "FireElemental_Alert", "FireElemental_Attack", "FireElemental_Forget"
+		"FireElemental_Idle", "FireElemental_Walk", "FireElemental_Alert", "FireElemental_Attack", "FireElemental_Forget"
 	};
 
 	private void Awake()

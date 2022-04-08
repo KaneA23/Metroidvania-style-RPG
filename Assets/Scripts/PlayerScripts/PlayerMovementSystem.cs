@@ -483,7 +483,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else
 		{
-			manaCooldownUI.fillAmount = Mathf.Clamp((cooldownTimer / BPC.dashCooldown), 0, 1);
+			manaCooldownUI.fillAmount = Mathf.Clamp(cooldownTimer / BPC.dashCooldown, 0, 1);
 		}
 	}
 
