@@ -31,10 +31,15 @@ public class BarrelHealthSystem : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		currentHP = maxHP;
+		if (gameObject.name != "Rambleon")
+		{
+			currentHP = maxHP;
 
-		healthbar.maxValue = maxHP;
-		healthbar.value = currentHP;
+			healthbar.maxValue = maxHP;
+			healthbar.value = currentHP;
+
+			healthbar.enabled = true;
+		}
 
 		particleDur = enemyParticle.main.duration;
 		em = enemyParticle.emission;
@@ -59,12 +64,17 @@ public class BarrelHealthSystem : MonoBehaviour
 		// If enemy runs out of health, particle system activates and enemy dies
 		if (currentHP <= 0)
 		{
-			em.enabled = true;
-			enemyParticle.Play();
-			Destroy(sr);
-
-			Invoke(nameof(Die), particleDur);
+			ActivateParticle();
 		}
+	}
+
+	public void ActivateParticle()
+	{
+		em.enabled = true;
+		enemyParticle.Play();
+		Destroy(sr);
+
+		Invoke(nameof(Die), particleDur);
 	}
 
 	/// <summary>

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7393488717277228876}
   - component: {fileID: 3735206246946354413}
   - component: {fileID: 2784498478717954213}
+  - component: {fileID: 7640647281380662161}
   m_Layer: 3
   m_Name: EarthElemental 1 1
   m_TagString: Enemy
@@ -103,6 +104,7 @@ MonoBehaviour:
   PHS: {fileID: 0}
   EH: {fileID: 0}
   AISU: {fileID: 0}
+  EAM: {fileID: 0}
   m_Player: {fileID: 0}
   target: {fileID: 0}
   speed: 500
@@ -114,6 +116,10 @@ MonoBehaviour:
   m_HoverDistance: {x: 3, y: 2.51, z: 0}
   m_DamageAmount: 5
   attacking: 0
+  isAlert: 0
+  isForget: 0
+  isAgro: 0
+  animDelay: 0
 --- !u!114 &7393488717277228876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +168,19 @@ MonoBehaviour:
   m_AboveAttackForce: 20
   m_AttackInterval: 1.5
   m_Attacking: 0
+--- !u!114 &7640647281380662161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704486223252902766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012a7d1d2815021458fabc350161cd11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAnimState: 
 --- !u!1 &704486224008737802
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,16 @@ public class DialogueTriggerScript : MonoBehaviour
 		// If player is close enough to talk to 
 		if (isInteractable && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
+			if (gameObject.name == "Rambleon")
+			{
+				DialogueManagerScript.GetInstance().isRambleon = true;
+				DialogueManagerScript.GetInstance().NPC = gameObject;
+			}
+			else
+			{
+				DialogueManagerScript.GetInstance().isRambleon = false;
+			}
+
 			visualCue.SetActive(true);
 
 			if (Input.GetKeyDown(KeyCode.F) && !DialogueManagerScript.GetInstance().IsDialoguePlaying)

@@ -1,21 +1,20 @@
--> main
+-> Main
 
-=== main ===
-Hello There! You seem like a fierce warrior! #speaker:Rambleon
-    *[Who are you?]
-        I am Rambleon, I tell tales across the land!
-        -> choice1
-        
-=== choice1 ===
-Care to listen to one my story?
-    * [Yes]
-        Oh Goody!
-        Now, have a seat and I shall begin...
-        -> DONE
-        
-    * [No]
-        oh... ok...
-        Well... talk to you soon!
-        -> DONE
-        
+=== Main ===
+Oi… You there…. Boy!!!!!! Follow MEEEE!!! #speaker:Rambleon
+
+* [Huh?]
+    What…. Why…. Who Are You?   #speaker:Player
+
+    No time for that boy, Come with me if you want too…. Wait wrong Franchise #speaker:Rambleon
+    
+    -> DONE
+
+* [Old Man?] 
+    ... Old Man? #speaker:Player
+
+    OLD MAN?!?!?!? #speaker:Rambleon
+    
+    ->DONE
+
 -> END

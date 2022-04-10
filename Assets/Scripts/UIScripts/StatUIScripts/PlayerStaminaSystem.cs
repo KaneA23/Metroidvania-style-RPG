@@ -47,24 +47,28 @@ public class PlayerStaminaSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
-
-		float fillF = Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
-		float fillB = Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
-
-		// When no stamina is being used, start regening up overtime
-		if (!PHS.isDying)
+		if (BPC.hasRun)
 		{
-			if (!PMS.isRunning && !PMS.isJumping && fillF == fillB)
+			
+			stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
+
+			float fillF = Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
+			float fillB = Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
+
+			// When no stamina is being used, start regening up overtime
+			if (!PHS.isDying)
 			{
-				if (BPC.currentStam < BPC.currentMaxStam)
+				if (!PMS.isRunning && !PMS.isJumping && fillF == fillB)
 				{
-					RegenStamina(BPC.regenRateStam * Time.deltaTime);
+					if (BPC.currentStam < BPC.currentMaxStam)
+					{
+						RegenStamina(BPC.regenRateStam * Time.deltaTime);
+					}
 				}
 			}
-		}
 
-		UpdateStamUI();
+			UpdateStamUI();
+		}
 	}
 
 	/// <summary>

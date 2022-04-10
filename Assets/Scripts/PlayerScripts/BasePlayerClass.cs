@@ -13,7 +13,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int currentLvl;
 
 	[Space(2)]
-	public int maxXP;		// max XP for current level (dependent on level)
+	public int maxXP;       // max XP for current level (dependent on level)
 	public int currentXP;
 
 	[Space(2)]
@@ -24,17 +24,17 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Header("Constitution Stats")]
 	public int constitutionLvl;
-	public int maxConstitutionLvl;  
+	public int maxConstitutionLvl;
 
 	[Space(5)]
-	public int maxHP;				// maximum overall health
-	public int minHP;				// the lowest the healthbar size can go
+	public int maxHP;               // maximum overall health
+	public int minHP;               // the lowest the healthbar size can go
 	public float currentHP;
-	public float currentMaxHP = 100;	// maximum health player can reach at current levels
+	public float currentMaxHP = 100;    // maximum health player can reach at current levels
 
 	[Space(2)]
 	public float regenRateHP;
-	public float maxRegenHP;	// Max health to naturally regen
+	public float maxRegenHP;    // Max health to naturally regen
 
 	#endregion
 
@@ -43,10 +43,11 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Header("Strength Stats")]
 	public int strengthLvl;
-	public int maxStrenthLvl;  
+	public int maxStrenthLvl;
 
 	#region attacks
 	[Space(5)]
+	public bool hasLightAtk;
 	public float lightAtkDamage = 35f;
 	public float lightAtkMultiplier;
 	public float lightKnockbackDist = 200;
@@ -59,13 +60,14 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Space(5)]
 	// Post COMX
-	public float rangeAtkDamage;		//post COMX
-	public float rangeAtkMultiplier;	//post COMX
-	public float rangeKnockbackDist;	//post COMX
+	public float rangeAtkDamage;        //post COMX
+	public float rangeAtkMultiplier;    //post COMX
+	public float rangeKnockbackDist;    //post COMX
 	#endregion
 
 	#region jump power
 	[Space(5)]
+	public bool hasJump;
 	public float jumpForce = 25f;
 	public int jumpCost = 10;
 
@@ -91,18 +93,23 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxAgilityLvl;
 
 	[Space(5)]
-	public int maxStam;					// max overall stamina
-	public int minStam;					// the lowest the stamina bar can go
+	public int maxStam;                 // max overall stamina
+	public int minStam;                 // the lowest the stamina bar can go
 	public float currentStam;
 	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
 	public float regenRateStam = 60;
 
 	[Space(5)]
+	public bool hasWalk;
 	public float walkSpeed = 10f;
+
+	[Space(2)]
+	public bool hasCrouch;
 	public float crouchSpeed = 5f;
 	public float speedMultiplier;
 
 	[Space(2)]
+	public bool hasRun;
 	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
 	public float runCost = 20;
@@ -120,7 +127,7 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(5)]
 	public float lightAtkCooldown = 0.5f;
 	public float heavyAtkCooldown = 1f;
-	public float rangeAtkCooldown;	//post COMX
+	public float rangeAtkCooldown;  //post COMX
 
 	[Space(5)]
 	public float knockbackTaken = 500f;
@@ -135,12 +142,12 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxWisdomLvl;
 
 	[Space(5)]
-	public int maxMP;				// maximum overall mana
-	public int minMP;				// the lowest the Manabar can go
+	public int maxMP;               // maximum overall mana
+	public int minMP;               // the lowest the Manabar can go
 	public float currentMP;
-	public int currentMaxMP = 100;	// maximum mana player can reach at current levels
-	public float regenRateMP = 50;   
-	public float maxRegenMP/* = 30*/;	// Third of max   
+	public int currentMaxMP = 100;  // maximum mana player can reach at current levels
+	public float regenRateMP = 50;
+	public float maxRegenMP/* = 30*/;   // Third of max   
 
 	[Space(5)]
 	public bool hasDash;
@@ -151,10 +158,10 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(5)]
 	public float lightAtkRange = 1.5f;
 	public float heavyAtkRange = 2f;
-	public float rangeAtkRange;	//post COMX
+	public float rangeAtkRange; //post COMX
 
 	[Space(5)]
-	public float uiViewDist = 5f;	// distance where an enemy's UI is visible
+	public float uiViewDist = 5f;   // distance where an enemy's UI is visible
 
 	#endregion
 

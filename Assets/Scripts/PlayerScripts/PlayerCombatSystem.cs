@@ -74,7 +74,7 @@ public class PlayerCombatSystem : MonoBehaviour
 			}
 			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
-				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost)
+				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost && BPC.hasLightAtk)
 				{
 					LightAttack();
 				}

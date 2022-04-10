@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6068887514755746791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6068887514755746788}
+  - component: {fileID: 6068887514755746778}
+  - component: {fileID: 6068887514755746789}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6068887514755746788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887514755746791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6068887515315578122}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6068887514755746778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887514755746791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a26552afae7bc4193b7f2f5958659c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLvl: 0
+  currentLvl: 0
+  maxXP: 0
+  currentXP: 0
+  skillPoints: 0
+  constitutionLvl: 0
+  maxConstitutionLvl: 0
+  maxHP: 0
+  minHP: 0
+  currentHP: 0
+  currentMaxHP: 100
+  regenRateHP: 0
+  maxRegenHP: 0
+  strengthLvl: 0
+  maxStrenthLvl: 0
+  lightAtkDamage: 35
+  lightAtkMultiplier: 0
+  lightKnockbackDist: 200
+  hasHeavyAtk: 0
+  heavyAtkDamage: 60
+  heavyAtkMultiplier: 0
+  heavyKnockbackDist: 300
+  rangeAtkDamage: 0
+  rangeAtkMultiplier: 0
+  rangeKnockbackDist: 0
+  jumpForce: 25
+  jumpCost: 10
+  hasDoubleJump: 0
+  doubleJumpHeight: 0
+  hasWallJump: 0
+  wallJumpForce: 50
+  inventorySize: 0
+  agilityLvl: 0
+  maxAgilityLvl: 0
+  maxStam: 0
+  minStam: 0
+  currentStam: 0
+  currentMaxStam: 100
+  regenRateStam: 60
+  walkSpeed: 10
+  crouchSpeed: 5
+  speedMultiplier: 0
+  runSpeed: 15
+  runSpeedMultiplier: 0
+  runCost: 20
+  lightAtkSpeed: 0.35
+  heavyAtkSpeed: 0.517
+  rangeAtkSpeed: 0
+  lightAtkCost: 20
+  heavyAtkCost: 30
+  lightAtkCooldown: 0.5
+  heavyAtkCooldown: 1
+  rangeAtkCooldown: 0
+  knockbackTaken: 500
+  wisdomLvl: 0
+  maxWisdomLvl: 0
+  maxMP: 0
+  minMP: 0
+  currentMP: 0
+  currentMaxMP: 100
+  regenRateMP: 50
+  maxRegenMP: 0
+  hasDash: 0
+  dashDist: 50
+  dashCooldown: 1
+  dashCost: 30
+  lightAtkRange: 1.5
+  heavyAtkRange: 2
+  rangeAtkRange: 0
+  uiViewDist: 5
+  charismaLvl: 0
+  maxCharismaLvl: 0
+  luckLvl: 0
+  maxLuckLvl: 0
+--- !u!114 &6068887514755746789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887514755746791}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f807dfcd6ddb14440b60d5d423e8ba36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveHorizontal: 0
+--- !u!1 &6068887515315578133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6068887515315578122}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6068887515315578122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887515315578133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: -200, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6068887515381156597}
+  - {fileID: 6068887514755746788}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6068887515381156599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6068887515381156597}
+  - component: {fileID: 6068887515381156596}
+  - component: {fileID: 6068887515381156586}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6068887515381156597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887515381156599}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: 200, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6068887515315578122}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6068887515381156596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887515381156599}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040eb786d075339429f65f85ac1ce3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 0}
+  nameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  anim: {fileID: 0}
+  currentAnimState: 
+  animDelay: 0
+  isTalking: 0
+--- !u!114 &6068887515381156586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068887515381156599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f194fab059046064c91fe7d5b399b260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueBox: {fileID: 0}
+  nameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  choices:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  continueButton: {fileID: 0}
+  anim: {fileID: 0}

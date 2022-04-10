@@ -40,6 +40,9 @@ public class DialogueManagerScript : MonoBehaviour
 	private string currentAnimState;
 	private float animDelay;
 
+	public bool isRambleon;
+	public GameObject NPC;
+
 	private void Awake()
 	{
 		if (instance != null)
@@ -135,6 +138,11 @@ public class DialogueManagerScript : MonoBehaviour
 		animDelay = 1f;
 
 		Invoke(nameof(CompleteDialogueAnim), animDelay);
+
+		if (isRambleon)
+		{
+			NPC.GetComponent<BarrelHealthSystem>().ActivateParticle();
+		}
 	}
 
 	/// <summary>
