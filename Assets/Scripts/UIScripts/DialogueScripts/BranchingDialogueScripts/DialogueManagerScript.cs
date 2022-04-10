@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using Ink.Runtime;
+using Ink.UnityIntegration;
 
 /// <summary>
 /// Controls NPC's dialogue, what they say and how they respond to player choices
@@ -11,6 +12,9 @@ using Ink.Runtime;
 /// </summary>
 public class DialogueManagerScript : MonoBehaviour
 {
+	[Header("Globals Ink File")]
+	[SerializeField] private InkFile globalsInkFile;
+
 	[Header("Dialogue UI")]
 	[SerializeField] private GameObject dialogueBox;
 	[SerializeField] private TextMeshProUGUI nameText;
@@ -43,6 +47,8 @@ public class DialogueManagerScript : MonoBehaviour
 	public bool isRambleon;
 	public GameObject NPC;
 
+	private DialogueVariablesScript DVS;
+
 	private void Awake()
 	{
 		if (instance != null)
@@ -50,6 +56,8 @@ public class DialogueManagerScript : MonoBehaviour
 			Debug.LogWarning("Found more than one Dialogue Manager in the scene");
 		}
 		instance = this;
+
+		DVS = new DialogueVariablesScript(globalsInkFile.filePath);
 	}
 
 	public static DialogueManagerScript GetInstance()
@@ -93,6 +101,8 @@ public class DialogueManagerScript : MonoBehaviour
 		IsDialoguePlaying = true;
 		canContinueNextLine = true;
 		dialogueBox.SetActive(true);
+
+		DVS.StartListening(currentStory);
 
 		nameText.text = "";
 		dialogueText.text = "";
@@ -275,6 +285,8 @@ public class DialogueManagerScript : MonoBehaviour
 	/// </summary>
 	void CompleteDialogueAnim()
 	{
+		DVS.StopListening(currentStory);
+
 		dialogueBox.SetActive(false);
 		IsDialoguePlaying = false;
 	}
@@ -309,4 +321,15 @@ public class DialogueManagerScript : MonoBehaviour
 
 	//	EventSystem.current.SetSelectedGameObject(choices[0]);
 	//}
+
+	public Ink.Runtime.Object GetVariableState(string a_variableName)
+	{
+		Ink.Runtime.Object variableValue = null;
+		DVS.variables.TryGetValue(a_variableName, out variableValue);
+		if (variableValue == null)
+		{
+			Debug.LogWarning("Ink Variable was found to be null: " + a_variableName);
+		}
+		return variableValue;
+	}
 }

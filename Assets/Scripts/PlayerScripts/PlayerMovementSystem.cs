@@ -123,6 +123,11 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+
 		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
