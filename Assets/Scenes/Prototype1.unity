@@ -16084,11 +16084,11 @@ PrefabInstance:
       objectReference: {fileID: 850849008}
     - target: {fileID: 8854009661262975161, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.47
+      value: 46.1
       objectReference: {fileID: 0}
     - target: {fileID: 8854009661262975161, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.78
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8854009661262975164, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: healthBarEmpty

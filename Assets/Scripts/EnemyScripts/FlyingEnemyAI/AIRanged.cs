@@ -38,6 +38,7 @@ public class AIRanged : MonoBehaviour
     public bool isAlert;
     public bool isForget;
     public bool isAgro;
+    public bool withinRange;
 
     public float animDelay;
 
@@ -138,6 +139,11 @@ public class AIRanged : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
 
+        if(distanceToPlayer <= m_AttackDistance)
+        {
+            withinRange = true;
+        }
+
         if (enemyPos.magnitude > playerPos.magnitude + 6)
         {
             if (rb.velocity.magnitude > 1)
@@ -190,7 +196,10 @@ public class AIRanged : MonoBehaviour
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
 
-        rb.AddForce(force, ForceMode2D.Force);
+        if(withinRange)
+        {
+            rb.AddForce(force, ForceMode2D.Force);
+        }
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float finalDistance = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count - 1]);
