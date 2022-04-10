@@ -16,7 +16,7 @@ public class AIRanged : MonoBehaviour
     public Transform target;
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
-    public float m_AttackDistance = 5.5f;
+    public float m_AttackDistance;
     public float m_HitForce;
 
     public Transform enemyGraphics;
@@ -130,17 +130,19 @@ public class AIRanged : MonoBehaviour
     
     void FixedUpdate()
     {
-        Vector3 velocity = rb.velocity;
+        Vector2 velocity = rb.velocity;
         float a_speed = velocity.magnitude;
 
-        Vector3 enemyPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Vector3 playerPos = new Vector3(target.position.x, target.position.y, target.position.z);
+        Vector2 enemyPos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 playerPos = new Vector2(target.position.x, target.position.y);
+
+        float distanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
 
         if (enemyPos.magnitude > playerPos.magnitude + 6)
         {
             if (rb.velocity.magnitude > 1)
             {
-                rb.velocity = Vector3.zero;
+                rb.velocity = Vector2.zero;
             }
         }
 
@@ -188,7 +190,7 @@ public class AIRanged : MonoBehaviour
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
 
-        rb.AddForce(force);
+        rb.AddForce(force, ForceMode2D.Force);
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float finalDistance = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count - 1]);
@@ -201,7 +203,7 @@ public class AIRanged : MonoBehaviour
 
         //Debug.Log(a_speed);
 
-        if (finalDistance < m_AttackDistance && !isAlert && !isAgro)
+        if (distanceToPlayer < m_AttackDistance && !isAlert && !isAgro)
         {
             isAlert = true;
             EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_ALERT);
@@ -209,7 +211,7 @@ public class AIRanged : MonoBehaviour
             Invoke(nameof(CompleteAnim), animDelay);
 
         }
-        else if (finalDistance > m_AttackDistance && !isForget && isAgro)
+        else if (distanceToPlayer > m_AttackDistance && !isForget && isAgro)
         {
             isForget = true;
             EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_FORGET);

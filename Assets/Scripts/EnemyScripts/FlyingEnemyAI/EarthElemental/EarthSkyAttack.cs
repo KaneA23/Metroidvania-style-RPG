@@ -44,7 +44,7 @@ public class EarthSkyAttack : MonoBehaviour
         targetPos = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y + 0.5f);
         m_PlayerPos = m_Player.transform.position;
 
-        if(AIR.attacking)
+        if(AIR.attacking && AIR.isAgro)
         {
             m_Attacking = true;
 

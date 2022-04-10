@@ -321,6 +321,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: hasRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: hasWalk
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239991, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -507,6 +515,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 704486223252902751, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
+      propertyPath: speed
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 704486223252902751, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
+      propertyPath: m_AttackDistance
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 704486223252902754, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -554,6 +570,10 @@ PrefabInstance:
     - target: {fileID: 704486223252902766, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
       propertyPath: m_Name
       value: EarthElemental 1 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 704486223252902767, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8070800943334912341, guid: a6caec5d47693784f9f80f540ef201fd, type: 3}
       propertyPath: m_AnchorMax.x
@@ -16064,11 +16084,11 @@ PrefabInstance:
       objectReference: {fileID: 850849008}
     - target: {fileID: 8854009661262975161, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.5
+      value: 52.47
       objectReference: {fileID: 0}
     - target: {fileID: 8854009661262975161, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.7
+      value: 23.78
       objectReference: {fileID: 0}
     - target: {fileID: 8854009661262975164, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: healthBarEmpty

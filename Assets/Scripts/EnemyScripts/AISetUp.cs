@@ -11,6 +11,11 @@ public class AISetUp : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    private void Awake()
+    {
         m_ActivePlayer = GameObject.Find("Player");
         PHS = m_ActivePlayer.GetComponent<PlayerHealthSystem>();
     }
