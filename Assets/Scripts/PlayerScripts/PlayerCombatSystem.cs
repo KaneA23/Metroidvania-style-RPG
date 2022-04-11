@@ -129,6 +129,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		PSS.TakeStamina(BPC.lightAtkCost);
 
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
+		FindObjectOfType<AudioManager>().PlayAudio("PlayerSwing");
 		isAttacking = true;
 		Invoke(nameof(CompleteAttack), BPC.lightAtkSpeed);
 
@@ -158,6 +159,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		PSS.TakeStamina(BPC.heavyAtkCost);
 
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
+		FindObjectOfType<AudioManager>().PlayAudio("PlayerSwing");
 		isAttacking = true;
 		Invoke(nameof(CompleteAttack), BPC.heavyAtkSpeed);
 

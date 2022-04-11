@@ -182,6 +182,11 @@ public class PlayerMovementSystem : MonoBehaviour
 			{
 				if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost && BPC.hasJump)
 				{
+					if (!BPC.hasDoubleJump && !isGrounded)
+					{
+						return;
+					}
+					FindObjectOfType<AudioManager>().PlayAudio("PlayerJump");
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPLAUNCH);
 					isJumping = true;
 					moveAnimDelay = 0.5f;
@@ -265,6 +270,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DASHENTER);
 					gameObject.layer = 12;
+					FindObjectOfType<AudioManager>().PlayAudio("PlayerDash");
 
 					isDashing = true;
 					moveAnimDelay = 0.35f;
@@ -308,10 +314,16 @@ public class PlayerMovementSystem : MonoBehaviour
 				if (Input.GetKey(KeyCode.LeftShift) && BPC.hasRun)
 				{
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_RUN);
+					FindObjectOfType<AudioManager>().PlayAudio("PlayerRun");
 				}
 				else
 				{
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_WALK);
+				}
+
+				if (Input.GetKeyUp(KeyCode.LeftShift))
+				{
+					FindObjectOfType<AudioManager>().StopAudio("PlayerRun");
 				}
 			}
 			else

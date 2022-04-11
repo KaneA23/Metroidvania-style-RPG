@@ -14,7 +14,7 @@ INCLUDE TutorialGlobals.ink
         -> ActivateJump
 
 === ActivateJump ===
-    While jumping, use SPACEBAR again to Double Jump!
+    While jumping, use SPACEBAR again to Double Jump!   #speaker:UNKNOWN MAN
     ~hasDoubleJump = true
     ->DONE
 

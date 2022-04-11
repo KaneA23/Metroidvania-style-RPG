@@ -111,6 +111,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		{
 			isHit = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
+			FindObjectOfType<AudioManager>().PlayAudio("PlayerDamage");
 			animDelay = 0.517f;
 			Invoke(nameof(CompleteDaze), animDelay);
 

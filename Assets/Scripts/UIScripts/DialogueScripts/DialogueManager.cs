@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
 		isTalking = false;
 		sentences = new Queue<string>();
 		dialogueBox.SetActive(false);
+
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	// Update is called once per frame
@@ -41,6 +43,7 @@ public class DialogueManager : MonoBehaviour
 	/// <param name="a_dialogue">the NPC talking and their speach</param>
 	public void StartDialogue(Dialogue a_dialogue)
 	{
+		Cursor.lockState = CursorLockMode.None;
 		isTalking = true;
 		dialogueBox.SetActive(true);
 
@@ -87,6 +90,8 @@ public class DialogueManager : MonoBehaviour
 		dialogueText.text = "";
 		ChangeAnimationState("DialogueBox_Close");
 		animDelay = 1f;
+
+		Cursor.lockState = CursorLockMode.Locked;
 
 		Invoke(nameof(CompleteDialogueAnim), animDelay);
 	}

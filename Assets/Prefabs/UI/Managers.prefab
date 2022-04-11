@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2252268591279501909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4636616115481126100}
+  - component: {fileID: 5642821958164754680}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4636616115481126100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252268591279501909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 960, y: -200, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6068887515315578122}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5642821958164754680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252268591279501909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff78cd182e773740b7f055a094914dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6068887514755746791
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +75,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6068887515315578122}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6068887514755746778
 MonoBehaviour:
@@ -60,6 +104,7 @@ MonoBehaviour:
   maxRegenHP: 0
   strengthLvl: 0
   maxStrenthLvl: 0
+  hasLightAtk: 0
   lightAtkDamage: 35
   lightAtkMultiplier: 0
   lightKnockbackDist: 200
@@ -70,6 +115,7 @@ MonoBehaviour:
   rangeAtkDamage: 0
   rangeAtkMultiplier: 0
   rangeKnockbackDist: 0
+  hasJump: 0
   jumpForce: 25
   jumpCost: 10
   hasDoubleJump: 0
@@ -84,9 +130,12 @@ MonoBehaviour:
   currentStam: 0
   currentMaxStam: 100
   regenRateStam: 60
+  hasWalk: 0
   walkSpeed: 10
+  hasCrouch: 0
   crouchSpeed: 5
   speedMultiplier: 0
+  hasRun: 0
   runSpeed: 15
   runSpeedMultiplier: 0
   runCost: 20
@@ -160,6 +209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4636616115481126100}
   - {fileID: 6068887515381156597}
   - {fileID: 6068887514755746788}
   m_Father: {fileID: 0}
@@ -196,7 +246,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6068887515315578122}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6068887515381156596
 MonoBehaviour:
@@ -229,6 +279,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f194fab059046064c91fe7d5b399b260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalsInkFile:
+    compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: 3f9ea0ed9b2029d4db4bc77a7683577d, type: 3}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 0}
+    unhandledCompileErrors: []
+    errors: []
+    warnings: []
+    todos: []
+    parents: []
+    masterInkAssets: []
+    masterInkAsset: {fileID: 0}
+    includePaths: []
+    includes: []
   dialogueBox: {fileID: 0}
   nameText: {fileID: 0}
   dialogueText: {fileID: 0}
@@ -239,3 +303,5 @@ MonoBehaviour:
   - {fileID: 0}
   continueButton: {fileID: 0}
   anim: {fileID: 0}
+  isRambleon: 0
+  NPC: {fileID: 0}
