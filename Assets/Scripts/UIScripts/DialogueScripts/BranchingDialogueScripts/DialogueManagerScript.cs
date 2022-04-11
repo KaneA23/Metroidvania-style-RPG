@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using Ink.Runtime;
-using Ink.UnityIntegration;
+//using Ink.UnityIntegration;
 
 /// <summary>
 /// Controls NPC's dialogue, what they say and how they respond to player choices
@@ -13,7 +13,8 @@ using Ink.UnityIntegration;
 public class DialogueManagerScript : MonoBehaviour
 {
 	[Header("Globals Ink File")]
-	[SerializeField] private InkFile globalsInkFile;
+	//[SerializeField] private InkFile globalsInkFile;
+	[SerializeField] private TextAsset loadGlobalsJSON;
 
 	[Header("Dialogue UI")]
 	[SerializeField] private GameObject dialogueBox;
@@ -57,7 +58,8 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 		instance = this;
 
-		DVS = new DialogueVariablesScript(globalsInkFile.filePath);
+		//DVS = new DialogueVariablesScript(globalsInkFile.filePath);
+		DVS = new DialogueVariablesScript(loadGlobalsJSON);
 	}
 
 	public static DialogueManagerScript GetInstance()

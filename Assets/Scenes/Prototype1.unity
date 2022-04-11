@@ -599,7 +599,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 815588178}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -18540,6 +18540,10 @@ PrefabInstance:
       propertyPath: continueButton
       value: 
       objectReference: {fileID: 1821251380}
+    - target: {fileID: 6068887515381156586, guid: 525e045dbf9352044bf3fcb0249f8b9d, type: 3}
+      propertyPath: loadGlobalsJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: ab8d2e39aebc91247a992e3add9d6fed, type: 3}
     - target: {fileID: 6068887515381156586, guid: 525e045dbf9352044bf3fcb0249f8b9d, type: 3}
       propertyPath: choices.Array.data[0]
       value: 

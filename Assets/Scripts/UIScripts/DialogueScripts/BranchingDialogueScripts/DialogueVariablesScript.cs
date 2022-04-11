@@ -12,11 +12,12 @@ public class DialogueVariablesScript
 	///	Compiles the story
 	/// </summary>
 	/// <param name="a_globalsFilePath"></param>
-	public DialogueVariablesScript(string a_globalsFilePath)
+	public DialogueVariablesScript(TextAsset a_loadGlobalsJSON)
 	{
-		string inkFileContents = File.ReadAllText(a_globalsFilePath);
-		Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
-		Story globalVariablesStory = compiler.Compile();
+		//string inkFileContents = File.ReadAllText(a_globalsFilePath);
+		//Ink.Compiler compiler = new Ink.Compiler(inkFileContents);
+		//Story globalVariablesStory = compiler.Compile();
+		Story globalVariablesStory = new Story(a_loadGlobalsJSON.text);
 
 		variables = new Dictionary<string, Ink.Runtime.Object>();
 		foreach (string name in globalVariablesStory.variablesState)
