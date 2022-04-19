@@ -182,7 +182,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// Allows other animations to play
 	/// </summary>
 	void CompleteAttack()
 	{
@@ -190,7 +190,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// Adds timer that prevents player from attacking again until ended
 	/// </summary>
 	void ApplyCooldown()
 	{

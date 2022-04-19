@@ -430,6 +430,9 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Allows other animations to play
+	/// </summary>
 	void CompleteJumpAnim()
 	{
 		isJumping = false;
@@ -527,18 +530,9 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionStay2D(Collision2D collision)
-	{
-		//Collider2D otherObject = collision.collider;
-		//if (otherObject.gameObject.layer == 3)
-		//{
-		//	if (isDashing)
-		//	{
-		//		Physics2D.IgnoreCollision(otherObject, gameObject.GetComponent<Collider2D>());
-		//	}
-		//}
-	}
-
+	/// <summary>
+	/// Shows the Gizmo checks in editor
+	/// </summary>
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.blue;

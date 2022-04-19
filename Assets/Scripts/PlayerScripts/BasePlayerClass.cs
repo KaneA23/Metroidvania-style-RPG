@@ -97,7 +97,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int minStam;                 // the lowest the stamina bar can go
 	public float currentStam;
 	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
-	public float regenRateStam = 60;
+	public float regenRateStam = 100;
 
 	[Space(5)]
 	public bool hasWalk;

@@ -39,7 +39,7 @@ public class PlayerAnimationManager : MonoBehaviour
 	private Animator anim;
 
 	public string currentAnimState;
-	private string[] animations = {
+	private readonly string[] animations = {
 		"Player_Idle", "Player_Walk", "Player_Run", "Player_JumpLaunch", "Player_JumpFall", "Player_JumpLand", "Player_CrouchEnter", "Player_CrouchIdle", "Player_CrouchWalk", "Player_CrouchExit", "Player_DashEnter", "Player_Dash", "Player_DashExit", 
 		"Player_SwordAttack", "Player_HeavyAttack", "Player_Hit", "Player_Death"
 	};

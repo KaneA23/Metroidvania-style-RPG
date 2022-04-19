@@ -11,6 +11,8 @@ public class CameraFollowScript : MonoBehaviour
     private Transform playerTransform;
 
     public float yOffset;
+    [Range(0, 10)]
+    public float smoothness;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,8 @@ public class CameraFollowScript : MonoBehaviour
         temp.x = playerTransform.position.x;
         temp.y = playerTransform.position.y;
         temp.y += yOffset;
-        transform.position = temp;
+
+        Vector3 smoothedPos = Vector3.Lerp(transform.position, temp, smoothness * Time.fixedDeltaTime);
+        transform.position = smoothedPos;
 	}
 }

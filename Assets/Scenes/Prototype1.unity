@@ -869,12 +869,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: hasJump
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: hasWalk
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: hasCrouch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: hasHeavyAtk
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: hasLightAtk
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: hasWallJump
@@ -882,7 +894,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: hasDoubleJump
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3984157114227239990, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
+      propertyPath: regenRateStam
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3984157114227239991, guid: b9c598a3fbc3bc74fa336e3be94d22db, type: 3}
       propertyPath: m_RootOrder
@@ -1958,6 +1974,10 @@ PrefabInstance:
     - target: {fileID: 4975857442716219274, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: yOffset
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219274, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: smoothness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_RootOrder
