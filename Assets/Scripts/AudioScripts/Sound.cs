@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+/// <summary>
+/// Contains all available sounds that can be played
+/// Created by: Kane Adams
+/// </summary>
 [System.Serializable]
 public class Sound
 {

@@ -327,7 +327,7 @@ public class DialogueManagerScript : MonoBehaviour
 	public Ink.Runtime.Object GetVariableState(string a_variableName)
 	{
 		Ink.Runtime.Object variableValue = null;
-		DVS.variables.TryGetValue(a_variableName, out variableValue);
+		DVS.Variables.TryGetValue(a_variableName, out variableValue);
 		if (variableValue == null)
 		{
 			Debug.LogWarning("Ink Variable was found to be null: " + a_variableName);

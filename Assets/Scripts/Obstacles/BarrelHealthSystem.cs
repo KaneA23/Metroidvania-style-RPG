@@ -9,79 +9,87 @@ using UnityEngine.UI;
 /// </summary>
 public class BarrelHealthSystem : MonoBehaviour
 {
-	[Header("Health")]
-	private readonly int maxHP = 25;
-	public float currentHP;
+    [Header("Health")]
+    private readonly int maxHP = 25;
+    public float currentHP;
 
-	public Slider healthbar;
+    public Slider healthbar;
 
-	[Header("Explosion")]
-	private SpriteRenderer sr;
-	private ParticleSystem enemyParticle;
-	ParticleSystem.EmissionModule em;
-	private float particleDur;
+    [Header("Explosion")]
+    private SpriteRenderer sr;
+    private ParticleSystem enemyParticle;
+    ParticleSystem.EmissionModule em;
+    private float particleDur;
 
-	private void Awake()
-	{
-		healthbar = GetComponentInChildren<Slider>();
-		enemyParticle = GetComponentInChildren<ParticleSystem>();
-		sr = GetComponentInChildren<SpriteRenderer>();
-	}
+    public bool isExploding;
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		if (gameObject.name != "Rambleon")
-		{
-			currentHP = maxHP;
+    private void Awake()
+    {
+        healthbar = GetComponentInChildren<Slider>();
+        enemyParticle = GetComponentInChildren<ParticleSystem>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+    }
 
-			healthbar.maxValue = maxHP;
-			healthbar.value = currentHP;
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (gameObject.name != "Rambleon")
+        {
+            currentHP = maxHP;
 
-			healthbar.enabled = true;
-		}
+            healthbar.maxValue = maxHP;
+            healthbar.value = currentHP;
 
-		particleDur = enemyParticle.main.duration;
-		em = enemyParticle.emission;
-		em.enabled = false;
-	}
+            healthbar.enabled = true;
 
-	// Update is called once per frame
-	void Update()
-	{
+            isExploding = false;
+        }
 
-	}
+        particleDur = enemyParticle.main.duration;
+        em = enemyParticle.emission;
+        em.enabled = false;
+    }
 
-	/// <summary>
-	/// Enemies health decreases when attacked
-	/// </summary>
-	/// <param name="a_damage">Amount of health lost from player's attack</param>
-	public void TakeDamage(float a_damage)
-	{
-		currentHP -= a_damage;
-		healthbar.value = currentHP;
+    // Update is called once per frame
+    void Update()
+    {
 
-		// If enemy runs out of health, particle system activates and enemy dies
-		if (currentHP <= 0)
-		{
-			ActivateParticle();
-		}
-	}
+    }
 
-	public void ActivateParticle()
-	{
-		em.enabled = true;
-		enemyParticle.Play();
-		Destroy(sr);
+    /// <summary>
+    /// Enemies health decreases when attacked
+    /// </summary>
+    /// <param name="a_damage">Amount of health lost from player's attack</param>
+    public void TakeDamage(float a_damage)
+    {
+        currentHP -= a_damage;
+        healthbar.value = currentHP;
 
-		Invoke(nameof(Die), particleDur);
-	}
+        // If enemy runs out of health, particle system activates and enemy dies
+        if (currentHP <= 0)
+        {
+            ActivateParticle();
+        }
+    }
 
-	/// <summary>
-	/// Destroy the current enemy
-	/// </summary>
-	void Die()
-	{
-		Destroy(gameObject);
-	}
+    /// <summary>
+    /// Players particle explosion and hides sprite
+    /// </summary>
+    public void ActivateParticle()
+    {
+        em.enabled = true;
+        enemyParticle.Play();
+        Destroy(sr);
+        isExploding = true;
+
+        Invoke(nameof(Die), particleDur);
+    }
+
+    /// <summary>
+    /// Destroy the current enemy
+    /// </summary>
+    void Die()
+    {
+        Destroy(gameObject);
+    }
 }

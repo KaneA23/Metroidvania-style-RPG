@@ -4,14 +4,18 @@ using UnityEngine;
 using Ink.Runtime;
 using System.IO;
 
+/// <summary>
+/// Contains variables using values collected from JSON dialogue file.
+/// Created by: Kane Adams
+/// </summary>
 public class DialogueVariablesScript
 {
-	public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
+	public Dictionary<string, Ink.Runtime.Object> Variables { get; private set; }
 
 	/// <summary>
-	///	Compiles the story
+	/// Collects all the variables from the JSON files
 	/// </summary>
-	/// <param name="a_globalsFilePath"></param>
+	/// <param name="a_loadGlobalsJSON">Where all the variables can be referenced from</param>
 	public DialogueVariablesScript(TextAsset a_loadGlobalsJSON)
 	{
 		//string inkFileContents = File.ReadAllText(a_globalsFilePath);
@@ -19,38 +23,55 @@ public class DialogueVariablesScript
 		//Story globalVariablesStory = compiler.Compile();
 		Story globalVariablesStory = new Story(a_loadGlobalsJSON.text);
 
-		variables = new Dictionary<string, Ink.Runtime.Object>();
+		Variables = new Dictionary<string, Ink.Runtime.Object>();
 		foreach (string name in globalVariablesStory.variablesState)
 		{
 			Ink.Runtime.Object value = globalVariablesStory.variablesState.GetVariableWithName(name);
-			variables.Add(name, value);
+			Variables.Add(name, value);
 			//Debug.Log("Initialised global dialogue variable: " + name + "=" + value);
 		}
 	}
 
+	/// <summary>
+	/// Starts collecting variables looking for value changes
+	/// </summary>
+	/// <param name="a_story">Current conversation</param>
 	public void StartListening(Story a_story)
 	{
 		VariablesToStory(a_story);
 		a_story.variablesState.variableChangedEvent += VariableChanged;
 	}
 
+	/// <summary>
+	/// Stops altering variables when story complete
+	/// </summary>
+	/// <param name="a_story">Current conversation</param>
 	public void StopListening(Story a_story)
 	{
 		a_story.variablesState.variableChangedEvent -= VariableChanged;
 	}
 
+	/// <summary>
+	/// Changes the value of a variable from JSON file
+	/// </summary>
+	/// <param name="a_name">Variable name</param>
+	/// <param name="a_value">New value for variable</param>
 	private void VariableChanged(string a_name, Ink.Runtime.Object a_value)
 	{
-		if (variables.ContainsKey(a_name))
+		if (Variables.ContainsKey(a_name))
 		{
-			variables.Remove(a_name);
-			variables.Add(a_name, a_value);
+			Variables.Remove(a_name);
+			Variables.Add(a_name, a_value);
 		}
 	}
 
+	/// <summary>
+	/// Collects variables from JSON file
+	/// </summary>
+	/// <param name="a_story">Current conversation</param>
 	private void VariablesToStory(Story a_story)
 	{
-		foreach (KeyValuePair<string, Ink.Runtime.Object> variable in variables)
+		foreach (KeyValuePair<string, Ink.Runtime.Object> variable in Variables)
 		{
 			a_story.variablesState.SetGlobal(variable.Key, variable.Value);
 		}

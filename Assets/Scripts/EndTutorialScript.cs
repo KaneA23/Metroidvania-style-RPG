@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls when the final Rambleon appears after defeating the tutorial enemy.
+/// Created by: Kane Adams
+/// </summary>
 public class EndTutorialScript : MonoBehaviour
 {
     [SerializeField] private GameObject rambleon;

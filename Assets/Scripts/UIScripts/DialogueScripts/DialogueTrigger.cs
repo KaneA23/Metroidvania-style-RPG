@@ -33,7 +33,7 @@ public class DialogueTrigger : MonoBehaviour
 	{
 		CheckIfInteractable();
 
-		if (isInteractable && !DM.isTalking)
+		if (isInteractable && !DM.isTalking && !gameObject.GetComponent<BarrelHealthSystem>().isExploding)
 		{
 			interactText.SetActive(true);
 			if (Input.GetKeyDown(KeyCode.F))

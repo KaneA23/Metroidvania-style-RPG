@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls whether a UI bar is visible. UI only available when there is an ability that uses it.
+/// Created by: Kane Adams
+/// </summary>
 public class UIManager : MonoBehaviour
 {
     public BasePlayerClass BPC;
