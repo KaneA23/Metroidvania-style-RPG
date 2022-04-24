@@ -35,6 +35,9 @@ public class BernardAttacking : MonoBehaviour
 
     private char wallSide;
 
+    public int m_GroundAttackDamage;
+
+    public float m_GroundAttackKnockback;
     public float m_Speed;
     public float m_WallJumpForce;
     public float m_AttackDistance;
@@ -117,64 +120,7 @@ public class BernardAttacking : MonoBehaviour
         //}
     }
 
-    void CompleteAnim()
-    {
-        if (isAlert)
-        {
-            isAlert = false;
-            isAgro = true;
-        }
-        else if (isForget)
-        {
-            isForget = false;
-            isAgro = false;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Collider2D otherObject = collision.collider;
-        Collider2D floorCollider = m_Floor.GetComponent<Collider2D>();
-
-        if (!thirdPhase)
-        {
-            if (otherObject.CompareTag("BossWall"))
-            {
-                if (!Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
-                {
-                    onWall = true;
-                    gameObject.layer = 3;
-                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                }
-            }
-            else if (otherObject.gameObject.layer == 10)
-            {
-                jumpedUp = false;
-            }
-            else if (otherObject.gameObject == m_Player)
-            {
-
-            }
-            else
-            {
-                onWall = false;
-            }
-        }
-        else
-        {
-            if ((transform.position.x - otherObject.transform.position.x) < 0)
-            {
-                wallSide = 'L';
-            }
-            else if ((transform.position.x - otherObject.transform.position.x) > 0)
-            {
-                wallSide = 'R';
-            }
-        }
-
-    }
-
-    void Attacking_1()
+    private void GroundAttacking()
     {
         m_CurrentPos = transform.position;
 
@@ -217,6 +163,68 @@ public class BernardAttacking : MonoBehaviour
         }
     }
 
+    void CompleteAnim()
+    {
+        if (isAlert)
+        {
+            isAlert = false;
+            isAgro = true;
+        }
+        else if (isForget)
+        {
+            isForget = false;
+            isAgro = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Collider2D otherObject = collision.collider;
+        Collider2D floorCollider = m_Floor.GetComponent<Collider2D>();
+
+        if (!thirdPhase)
+        {
+            if (otherObject.CompareTag("BossWall"))
+            {
+                if (!Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
+                {
+                    onWall = true;
+                    gameObject.layer = 3;
+                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                }
+            }
+            else if (otherObject.gameObject.layer == 10)
+            {
+                jumpedUp = false;
+            }           
+            else
+            {
+                onWall = false;
+            }
+        }
+        else
+        {
+            if ((transform.position.x - otherObject.transform.position.x) < 0)
+            {
+                wallSide = 'L';
+            }
+            else if ((transform.position.x - otherObject.transform.position.x) > 0)
+            {
+                wallSide = 'R';
+            }    
+        }
+
+        if (otherObject.gameObject == m_Player)
+        {
+            PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
+        }
+    }
+
+    void Attacking_1()
+    {
+        GroundAttacking();
+    }
+
     void Attacking_2()
     {
         System.Random rng = new System.Random();
@@ -228,7 +236,8 @@ public class BernardAttacking : MonoBehaviour
 
             if (!dirChosen)
             {
-                dirChoice = rng.Next(1, 2);
+                dirChoice = rng.Next(2);
+                Debug.Log("Direction Choice: " + dirChoice);
                 dirChosen = true;
             }
 
@@ -287,7 +296,7 @@ public class BernardAttacking : MonoBehaviour
 
         CR_RUNNING = false;
     }
-    //thing
+
     void Attacking_3()
     {
         if (!jumpedDown)
@@ -311,6 +320,13 @@ public class BernardAttacking : MonoBehaviour
 
             jumpedDown = true;
         }
+
+        if (!CR_RUNNING)
+        {
+            StartCoroutine(AboveAttack(m_ProjectileForce));
+        }
+
+        GroundAttacking();
 
     }
 }

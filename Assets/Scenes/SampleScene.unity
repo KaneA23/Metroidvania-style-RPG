@@ -4579,8 +4579,16 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_GroundAttackDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_AboveAttackInterval
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_GroundAttackKnockback
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029539, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_AttackDistance
