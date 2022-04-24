@@ -68,7 +68,7 @@ public class AIRanged : MonoBehaviour
         isAlert = false;
         isForget = false;
         isAgro = false;
-        EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
+        //EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
     }
 
     void UpdatePath()

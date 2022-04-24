@@ -1516,6 +1516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHP: 0
   healthbar: {fileID: 0}
+  isExploding: 0
 --- !u!4 &803403885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6557690799044413947, guid: 33a5baefec4747a42b0b8e4d699c061d, type: 3}
@@ -4565,6 +4566,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_Floor
+      value: 
+      objectReference: {fileID: 1383407667}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_AttackDistance
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_ProjectileForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_AboveAttackInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042561984185029539, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
+      propertyPath: m_AttackDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029542, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_Name
       value: Bernard
@@ -4613,7 +4634,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4453201796847977181, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
 --- !u!1001 &3973865575044594898
 PrefabInstance:

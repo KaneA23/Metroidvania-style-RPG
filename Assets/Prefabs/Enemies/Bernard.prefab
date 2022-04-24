@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 2042561984185029548}
   - component: {fileID: 2042561984185029551}
   - component: {fileID: 2042561984185029550}
+  - component: {fileID: 4453201796847977181}
   m_Layer: 3
   m_Name: Bernard
   m_TagString: Untagged
@@ -513,15 +514,18 @@ MonoBehaviour:
   EH: {fileID: 0}
   AISU: {fileID: 0}
   EAM: {fileID: 0}
+  m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_Speed: 10
   m_WallJumpForce: 10
   m_AttackDistance: 10
   HitForce: 0
+  m_AboveHitForce: 0
   animDelay: 0
   m_MovingToTarget: 0
   isAlert: 0
   isForget: 0
   isAgro: 0
+  m_Attacking: 0
 --- !u!114 &2042561984185029537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,3 +603,35 @@ MonoBehaviour:
   m_CurrentHP: 0
   HitForce: 250
   m_HealthBar: {fileID: 2042561982995908461}
+--- !u!114 &4453201796847977181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042561984185029542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e530880ae6962e47a1e746dace30b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PHS: {fileID: 0}
+  EH: {fileID: 0}
+  AISU: {fileID: 0}
+  EAM: {fileID: 0}
+  m_Player: {fileID: 0}
+  target: {fileID: 0}
+  speed: 200
+  nextWaypointDistance: 3
+  m_AttackDistance: 0
+  m_HitForce: 0
+  enemyGraphics: {fileID: 0}
+  m_HoverPos: {x: 0, y: 0, z: 0}
+  m_HoverDistance: {x: 0, y: 0, z: 0}
+  m_DamageAmount: 0
+  attacking: 0
+  isAlert: 0
+  isForget: 0
+  isAgro: 0
+  withinRange: 0
+  animDelay: 0
