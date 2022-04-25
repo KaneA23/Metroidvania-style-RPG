@@ -250,7 +250,7 @@ public class BernardAttacking : MonoBehaviour
                 rb.AddForce(new Vector2(transform.position.x - 0.1f, transform.position.y).normalized * m_Speed);
             }
 
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 7f);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 25f);
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
