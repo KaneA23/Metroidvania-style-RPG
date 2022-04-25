@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 1921162982}
+  isNewSpeech: 0
   playerCheck: {fileID: 1980219211}
   playerMask:
     serializedVersion: 2
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 280476970}
+  isNewSpeech: 0
   playerCheck: {fileID: 1468618848}
   playerMask:
     serializedVersion: 2
@@ -1263,6 +1265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 1112831736}
+  isNewSpeech: 0
   playerCheck: {fileID: 1447368826}
   playerMask:
     serializedVersion: 2
@@ -1963,6 +1966,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4975857442716219252, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219252, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219252, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219252, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219255, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -1985,15 +2004,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.4
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.29
+      value: 27.9
       objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -17.78
       objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3838,6 +3857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 857181310}
+  isNewSpeech: 0
   playerCheck: {fileID: 1025584253}
   playerMask:
     serializedVersion: 2
@@ -17723,6 +17743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 645297652}
+  isNewSpeech: 0
   playerCheck: {fileID: 764036180}
   playerMask:
     serializedVersion: 2
@@ -17876,6 +17897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 59487955}
+  isNewSpeech: 0
   playerCheck: {fileID: 688479434}
   playerMask:
     serializedVersion: 2
@@ -18186,6 +18208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 1214297948}
+  isNewSpeech: 0
   playerCheck: {fileID: 433952888}
   playerMask:
     serializedVersion: 2

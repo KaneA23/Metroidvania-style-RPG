@@ -11,6 +11,7 @@ public class DialogueTriggerScript : MonoBehaviour
 	[Header("Visual Cue")]
 	private bool isInteractable;
 	public GameObject visualCue;
+	public bool isNewSpeech;
 
 	[Space(5)]
 	public Transform playerCheck;
@@ -24,6 +25,7 @@ public class DialogueTriggerScript : MonoBehaviour
 	void Start()
 	{
 		visualCue.SetActive(false);
+		isNewSpeech = true;
 	}
 
 	// Update is called once per frame
@@ -32,8 +34,9 @@ public class DialogueTriggerScript : MonoBehaviour
 		CheckIfInteractable();
 
 		// If player is close enough to talk to 
-		if (isInteractable && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		if (isInteractable && !DialogueManagerScript.GetInstance().IsDialoguePlaying && isNewSpeech)
 		{
+			Debug.Log("Can interact");
 			if (gameObject.name == "Rambleon")
 			{
 				DialogueManagerScript.GetInstance().isRambleon = true;
@@ -46,8 +49,9 @@ public class DialogueTriggerScript : MonoBehaviour
 
 			visualCue.SetActive(true);
 
-			if (Input.GetKeyDown(KeyCode.F) && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+			if (Input.GetKeyDown(KeyCode.F)/* && !DialogueManagerScript.GetInstance().IsDialoguePlaying*/)
 			{
+				visualCue.SetActive(false);
 				DialogueManagerScript.GetInstance().StartDialogue(inkJSON);
 			}
 		}

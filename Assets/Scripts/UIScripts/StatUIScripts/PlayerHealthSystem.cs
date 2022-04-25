@@ -34,6 +34,8 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	private float animDelay;
 
+	public bool isEnemyBack;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -107,6 +109,11 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_isKnockback">some attacks don't knock player back</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos, float a_knockForce, bool a_isKnockback)
 	{
+		if (isEnemyBack)
+		{
+			return;
+		}
+
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			isHit = true;

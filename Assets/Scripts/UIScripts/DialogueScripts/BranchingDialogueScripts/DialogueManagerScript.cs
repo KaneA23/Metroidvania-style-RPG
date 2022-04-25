@@ -148,13 +148,15 @@ public class DialogueManagerScript : MonoBehaviour
 
 		ChangeAnimationState("DialogueBox_Close");
 		animDelay = 1f;
-
-		Invoke(nameof(CompleteDialogueAnim), animDelay);
+		Debug.Log("ending dialogue");
 
 		if (isRambleon)
 		{
 			NPC.GetComponent<BarrelHealthSystem>().ActivateParticle();
+			NPC.GetComponent<DialogueTriggerScript>().isNewSpeech = false;
 		}
+
+		Invoke(nameof(CompleteDialogueAnim), animDelay);
 	}
 
 	/// <summary>
@@ -287,6 +289,8 @@ public class DialogueManagerScript : MonoBehaviour
 	/// </summary>
 	void CompleteDialogueAnim()
 	{
+		Debug.Log("Dialogue Completed");
+
 		DVS.StopListening(currentStory);
 
 		dialogueBox.SetActive(false);

@@ -77,6 +77,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	[Tooltip("Objects that can be jumped off")]
 	public LayerMask groundLayers;
 
+	public LayerMask enemyLayers;
+
 	[Space(5)]
 	public Transform wallCheck;
 	[Tooltip("Objects that can be wall jumped")]
@@ -386,6 +388,18 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayers);
 
+		Collider2D enemy = Physics2D.OverlapCircle(groundCheck.position, checkRadius, enemyLayers);
+
+		if (enemy != null && enemy.CompareTag("BossBack"))
+		{
+			PHS.isEnemyBack = true;
+			isGrounded = true;
+		}
+		else
+		{
+			PHS.isEnemyBack = false;
+		}
+
 		// Resets double jump if the player is touching the ground
 		if (isGrounded)
 		{
@@ -543,6 +557,5 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
-
 	}
 }

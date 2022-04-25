@@ -49,11 +49,13 @@ public class PlayerStaminaSystem : MonoBehaviour
 	{
 		if (BPC.hasRun)
 		{
-			
 			stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
 
 			float fillF = Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
 			float fillB = Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
+
+			Debug.Log("FillF: " + fillF);
+			Debug.Log("FillB: " + fillB);
 
 			// When no stamina is being used, start regening up overtime
 			if (!PHS.isDying)

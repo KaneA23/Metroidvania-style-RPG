@@ -4608,7 +4608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029542, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: BossBack
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029549, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_RootOrder
@@ -5327,5 +5327,9 @@ PrefabInstance:
       propertyPath: PSS
       value: 
       objectReference: {fileID: 829907250}
+    - target: {fileID: 8854009661262975166, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
