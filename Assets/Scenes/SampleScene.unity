@@ -4576,7 +4576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_WallJumpForce
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_AttackDistance
@@ -4588,7 +4588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_GroundAttackDamage
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_AboveAttackInterval
@@ -4664,7 +4664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029550, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_MaxHP
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4453201796847977181, guid: 31400a490bd21d34799d93254577a0a8, type: 3}

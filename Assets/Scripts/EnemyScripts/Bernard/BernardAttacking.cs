@@ -259,7 +259,7 @@ public class BernardAttacking : MonoBehaviour
                     Vector2 wallDir = (transform.position - hitColliders[i].gameObject.transform.position).normalized;
                     if (!jumpedUp)
                     {
-                        rb.AddForce(new Vector2(wallDir.x, wallDir.y + 2f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                        rb.AddForce(new Vector2(wallDir.x, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         jumpedUp = true;
                     }
                 }
