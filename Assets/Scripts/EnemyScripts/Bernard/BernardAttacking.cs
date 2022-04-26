@@ -27,6 +27,7 @@ public class BernardAttacking : MonoBehaviour
     private SpriteRenderer m_SpriteRenderer;
 
     private Rigidbody2D rb;
+    private Rigidbody2D m_PlayerBody;
 
     private Collider2D m_BossCollider;
     private Collider2D m_PlayerCollider;
@@ -79,6 +80,7 @@ public class BernardAttacking : MonoBehaviour
 
         m_PlayerTransform = AISU.m_ActivePlayer.transform;
         m_Player = AISU.m_ActivePlayer;
+        m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();
 
         m_BossCollider = GetComponent<Collider2D>();
         m_PlayerCollider = m_PlayerTransform.GetComponent<Collider2D>();
@@ -182,6 +184,9 @@ public class BernardAttacking : MonoBehaviour
         Collider2D otherObject = collision.collider;
         Collider2D floorCollider = m_Floor.GetComponent<Collider2D>();
 
+        float BernardWidth = m_BossCollider.bounds.size.x;
+        float BernardHeight = m_BossCollider.bounds.size.y;
+
         if (!thirdPhase)
         {
             if (otherObject.CompareTag("BossWall"))
@@ -217,6 +222,15 @@ public class BernardAttacking : MonoBehaviour
         if (otherObject.gameObject == m_Player)
         {
             PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
+
+            if(PHS.isEnemyBack)
+            {
+                if(Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
+                {
+                    m_PlayerBody.AddForce(new Vector2(0f, 1f).normalized * 20, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(0f, 1f).normalized * 6, ForceMode2D.Impulse);
+                }                             
+            }
         }
     }
 

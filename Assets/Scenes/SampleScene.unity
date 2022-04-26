@@ -4572,7 +4572,7 @@ PrefabInstance:
       objectReference: {fileID: 1383407667}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_Speed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2042561984185029536, guid: 31400a490bd21d34799d93254577a0a8, type: 3}
       propertyPath: m_WallJumpForce
