@@ -1998,6 +1998,18 @@ PrefabInstance:
       propertyPath: smoothness
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219274, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: threshold.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219274, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: threshold.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975857442716219274, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 4975857442716219275, guid: 73bb8793d94409542918fb3f29b7eddf, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -19103,6 +19115,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8854009659994023342, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854009660406198214, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8854009661262975155, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
       propertyPath: PSS
       value: 
@@ -19135,6 +19155,14 @@ PrefabInstance:
       propertyPath: PSS
       value: 
       objectReference: {fileID: 850849008}
+    - target: {fileID: 8854009661262975166, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854009661621778807, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
 --- !u!1 &2053898415 stripped
