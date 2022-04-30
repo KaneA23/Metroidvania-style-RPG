@@ -8,6 +8,10 @@ using UnityEngine;
 /// </summary>
 public class BasePlayerClass : MonoBehaviour
 {
+	[Header("Class details")]
+	private string characterClassName;
+	private string characterClassDes;
+
 	[Header("Leveling System")]
 	public int maxLvl;
 	public int currentLvl;
@@ -30,7 +34,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxHP;               // maximum overall health
 	public int minHP;               // the lowest the healthbar size can go
 	public float currentHP;
-	public float currentMaxHP = 100;    // maximum health player can reach at current levels
+	public int currentMaxHP = 100;    // maximum health player can reach at current levels
 
 	[Space(2)]
 	public float regenRateHP;
@@ -147,7 +151,7 @@ public class BasePlayerClass : MonoBehaviour
 	public float currentMP;
 	public int currentMaxMP = 100;  // maximum mana player can reach at current levels
 	public float regenRateMP = 50;
-	public float maxRegenMP/* = 30*/;   // Third of max   
+	public float maxRegenMP;   // Third of max   
 
 	[Space(5)]
 	public bool hasDash;
@@ -165,7 +169,7 @@ public class BasePlayerClass : MonoBehaviour
 
 	#endregion
 
-	// Shop cost, rableon talk speed
+	// Shop cost, rambleon talk speed
 	#region Charisma Stats
 
 	[Header("Charisma Stats")]
@@ -182,6 +186,289 @@ public class BasePlayerClass : MonoBehaviour
 	public int maxLuckLvl;
 
 	#endregion
+
+	#region Getter Setters
+
+	public string CharacterClassName
+	{
+		get
+		{
+			return characterClassName;
+		}
+
+		set
+		{
+			characterClassName = value;
+		}
+	}
+
+	public string CharacterClassDescription
+	{
+		get
+		{
+			return characterClassDes;
+		}
+
+		set
+		{
+			characterClassDes = value;
+		}
+	}
+
+	public int MaximumHealthPoints
+	{
+		get
+		{
+			return currentMaxHP;
+		}
+
+		set
+		{
+			currentMaxHP = value;
+		}
+	}
+
+	public int MaximumMana
+	{
+		get
+		{
+			return currentMaxMP;
+		}
+
+		set
+		{
+			currentMaxMP = value;
+		}
+	}
+
+	public float MaximumManaRegeneration
+	{
+		get
+		{
+			return maxRegenMP;
+		}
+
+		set
+		{
+			maxRegenMP = value;
+		}
+	}
+
+	public int MaximumStamina
+	{
+		get
+		{
+			return currentMaxStam;
+		}
+
+		set
+		{
+			currentMaxStam = value;
+		}
+	}
+
+	public float LightAttackDamage
+	{
+		get
+		{
+			return lightAtkDamage;
+		}
+
+		set
+		{
+			lightAtkDamage = value;
+		}
+	}
+
+	public float HeavyAttackDamage
+	{
+		get
+		{
+			return heavyAtkDamage;
+		}
+
+		set
+		{
+			heavyAtkDamage = value;
+		}
+	}
+
+	public float WalkSpeed
+	{
+		get
+		{
+			return walkSpeed;
+		}
+
+		set
+		{
+			walkSpeed = value;
+		}
+	}
+
+	public float RunSpeed
+	{
+		get
+		{
+			return runSpeed;
+		}
+
+		set
+		{
+			runSpeed = value;
+		}
+	}
+
+	public float CrouchingSpeed
+	{
+		get
+		{
+			return crouchSpeed;
+		}
+
+		set
+		{
+			crouchSpeed = value;
+		}
+	}
+
+	public float LightCooldown
+	{
+		get
+		{
+			return lightAtkCooldown;
+		}
+
+		set
+		{
+			lightAtkCooldown = value;
+		}
+	}
+
+	public float HeavyCooldown
+	{
+		get
+		{
+			return heavyAtkCooldown;
+		}
+
+		set
+		{
+			heavyAtkCooldown = value;
+		}
+	}
+
+	//public float LightAttackSpeed
+	//{
+	//	get
+	//	{
+	//		return lightAtkSpeed;
+	//	}
+
+	//	set
+	//	{
+	//		lightAtkSpeed = value;
+	//	}
+	//}
+
+	//public float HeavyAttackSpeed
+	//{
+	//	get
+	//	{
+	//		return heavyAtkSpeed;
+	//	}
+
+	//	set
+	//	{
+	//		heavyAtkSpeed = value;
+	//	}
+	//}
+
+	//public int 
+
+	//public int ConstitutionLevel
+	//{
+	//	get
+	//	{
+	//		return constitutionLvl;
+	//	}
+
+	//	set
+	//	{
+	//		constitutionLvl = value;
+	//	}
+	//}
+
+	//public int StrengthLevel
+	//{
+	//	get
+	//	{
+	//		return strengthLvl;
+	//	}
+
+	//	set
+	//	{
+	//		strengthLvl = value;
+	//	}
+	//}
+
+	//public int AgilityLevel
+	//{
+	//	get
+	//	{
+	//		return agilityLvl;
+	//	}
+
+	//	set
+	//	{
+	//		agilityLvl = value;
+	//	}
+	//}
+
+	//public int WisdomLevel
+	//{
+	//	get
+	//	{
+	//		return wisdomLvl;
+	//	}
+
+	//	set
+	//	{
+	//		wisdomLvl = value;
+	//	}
+	//}
+
+	#endregion
+
+	private void Awake()
+	{
+		characterClassName = GameInformation.PlayerClass.ToString();
+		MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		MaximumMana = GameInformation.PlayerMaxMP;
+		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		MaximumStamina = GameInformation.PlayerMaxStam;
+		LightAttackDamage = GameInformation.PlayerLightDmg;
+		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		WalkSpeed = GameInformation.PlayerWalkSpeed;
+		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		RunSpeed = GameInformation.PlayerRunSpeed;
+		LightCooldown = GameInformation.PlayerLightCooldown;
+		HeavyCooldown = GameInformation.PlayerHvyCooldown;
+
+		Debug.Log("Player Class: " + characterClassName);
+		Debug.Log("Player HP: " + MaximumHealthPoints);
+		Debug.Log("Player MP: " + MaximumMana);
+		Debug.Log("Player MP Regen: " + MaximumManaRegeneration);
+		Debug.Log("Player Stam: " + MaximumStamina);
+		Debug.Log("Player LightDmg: " + LightAttackDamage);
+		Debug.Log("Player HvyDmg: " + HeavyAttackDamage);
+		Debug.Log("Player walk: " + WalkSpeed);
+		Debug.Log("Player crouch: " + CrouchingSpeed);
+		Debug.Log("Player run: " + RunSpeed);
+		Debug.Log("Player lightCool: " + LightCooldown);
+		Debug.Log("Player hvycool: " + HeavyCooldown);
+	}
+
 
 	private void Update()
 	{

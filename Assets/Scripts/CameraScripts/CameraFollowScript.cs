@@ -59,8 +59,8 @@ public class CameraFollowScript : MonoBehaviour
 			float playerTempY = Mathf.Round(playerTransform.position.y);
 			float camTempX = Mathf.Round(transform.position.x);
 			float camTempY = Mathf.Round((transform.position.y - yOffset));
-			Debug.Log("player: " + playerTempX + ", " + playerTempY);
-			Debug.Log("Camera: " + camTempX + ", " + camTempY);
+			//Debug.Log("player: " + playerTempX + ", " + playerTempY);
+			//Debug.Log("Camera: " + camTempX + ", " + camTempY);
 
 			if (playerTempX != camTempX || playerTempY != camTempY)
 			{

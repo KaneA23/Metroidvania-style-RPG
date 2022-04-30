@@ -42,7 +42,7 @@ public class PlayerManaSystem : MonoBehaviour
 	void Start()
 	{
 		BPC.currentMP = BPC.currentMaxMP;
-		BPC.maxRegenMP = (float)BPC.currentMaxMP * 0.3f;
+		BPC.maxRegenMP = (float)BPC.currentMaxMP * BPC.maxRegenMP;
 		BPC.maxRegenMP = Mathf.RoundToInt(BPC.maxRegenMP);
 	}
 

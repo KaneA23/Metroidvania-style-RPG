@@ -36,6 +36,10 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	public bool isEnemyBack;
 
+	[Header("Hit Particles")]
+	private ParticleSystem hurtParticle;
+	ParticleSystem.EmissionModule em;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -47,6 +51,8 @@ public class PlayerHealthSystem : MonoBehaviour
 		DM = FindObjectOfType<DialogueManager>();
 
 		rb = GetComponent<Rigidbody2D>();
+
+		hurtParticle = GetComponentInChildren<ParticleSystem>();
 	}
 
 	// Start is called before the first frame update
@@ -58,6 +64,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		isHit = false;
 		isDying = false;
+
+		em = hurtParticle.emission;
+		em.enabled = false;
 
 		UpdateHealthUI();
 	}
@@ -116,6 +125,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
+			em.enabled = true;
+			hurtParticle.Play();
+
 			isHit = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HIT);
 			FindObjectOfType<AudioManager>().PlayAudio("PlayerDamage");
