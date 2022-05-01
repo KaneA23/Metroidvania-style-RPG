@@ -11,7 +11,7 @@ public class BasePaladinClass : BasePlayerClass
 
 		MaximumHealthPoints = 300;
 
-		MaximumMana = 30;
+		MaximumMana = 50;
 		MaximumManaRegeneration = 1f;
 
 		MaximumStamina = 200;

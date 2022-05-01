@@ -80,7 +80,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		{
 			TakeDamage(Random.Range(5, 10), gameObject.transform.position, 0f, false);
 		}
-		if (Input.GetKeyDown(KeyCode.Equals))
+		if (Input.GetKey(KeyCode.Equals))
 		{
 			GainHealth(1);
 		}
