@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public enum CameraState
 {
-	CAM_FOLLOWING,	// default camera
+	CAM_FOLLOWING,  // default camera
+					//CAM_BERNARDINTRO,
 	CAM_BOSSBERNARD,
 }
 
@@ -41,7 +42,7 @@ public class CameraFollowScript : MonoBehaviour
 		playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
 		cameraState = CameraState.CAM_FOLLOWING;
-		ChangeCamState();
+		CheckCameraState();
 	}
 
 	// Update is called once per frame
@@ -55,13 +56,16 @@ public class CameraFollowScript : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			cameraState = CameraState.CAM_FOLLOWING;
-			ChangeCamState();
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
 			cameraState = CameraState.CAM_BOSSBERNARD;
-			ChangeCamState();
 		}
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			cameraState = CameraState.CAM_BOSSBERNARD;
+		}
+		CheckCameraState();
 
 		//if (playerTransform.position.x != threshold.x || playerTransform.position.y != threshold.y)
 		//{
@@ -117,7 +121,7 @@ public class CameraFollowScript : MonoBehaviour
 	/// Changes what camera focuses on, 
 	/// by default will follow player
 	/// </summary>
-	void ChangeCamState()
+	void CheckCameraState()
 	{
 		switch (cameraState)
 		{
@@ -133,6 +137,7 @@ public class CameraFollowScript : MonoBehaviour
 				//gameObject.transform.position = ;
 				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(8.5f, -30f, -10f), 0.2f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
+				//transform.position = new Vector3(8.5f, -30f, -10f);
 				break;
 
 			default:

@@ -38,6 +38,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	[Header("Hit Particles")]
 	public ParticleSystem hurtParticle;
+
+
+	[SerializeField] ParticleSystem leakParticles;
 	ParticleSystem.EmissionModule em;
 
 	private void Awake()
@@ -65,7 +68,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		isHit = false;
 		isDying = false;
 
-		em = hurtParticle.emission;
+		em = leakParticles.emission;
 		em.enabled = false;
 
 		UpdateHealthUI();
@@ -198,12 +201,12 @@ public class PlayerHealthSystem : MonoBehaviour
 	{
 		float fillF = healthFrontFillBar.fillAmount;
 		float fillB = healthBackHealthBar.fillAmount;
-
 		float healthFraction = BPC.currentHP / (float)BPC.currentMaxHP;
 
 		// Decreases healthbar UI when player takes damage
 		if (fillB > healthFraction)
 		{
+			//leakParticles.Play();
 			healthLerpSpeed = 15f;
 
 			healthFrontFillBar.fillAmount = healthFraction;
@@ -213,6 +216,12 @@ public class PlayerHealthSystem : MonoBehaviour
 			percentComplete *= percentComplete;
 
 			healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
+			//em.enabled = true;
+		}
+		else
+		{
+			//em.enabled = false;
+			//leakParticles.Stop();
 		}
 
 		// Increases health UI when player regens health
