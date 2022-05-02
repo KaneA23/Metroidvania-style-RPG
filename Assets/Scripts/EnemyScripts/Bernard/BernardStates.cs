@@ -8,6 +8,7 @@ public class BernardStates : MonoBehaviour
     private AISetUp AISU;
     public BernardAttacking BA;
     public BernardIdle BI;
+    public BernardAnimationSystem BAS;
 
     private GameObject m_Player;
 
@@ -65,14 +66,17 @@ public class BernardStates : MonoBehaviour
 
                 if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
                 {
+                    BAS.currentAnimName = "LizardIdle";
                     BI.Invoke(IdleStateTypes[2], 0f);
                 }
                 else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
                 {
+                    BAS.currentAnimName = "LizardIdle";
                     BI.Invoke(IdleStateTypes[1], 0f);
                 }
                 else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
                 {
+                    BAS.currentAnimName = "LizardIdle";
                     BI.Invoke(IdleStateTypes[0], 0f);
                 }
                 
@@ -90,6 +94,7 @@ public class BernardStates : MonoBehaviour
                 }
                 else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
                 {
+                    BAS.currentAnimName = "LizardIdle";
                     BA.Invoke(AttackStateTypes[0], 0f);
                 }
 

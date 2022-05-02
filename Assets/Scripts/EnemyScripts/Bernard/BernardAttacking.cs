@@ -10,6 +10,7 @@ public class BernardAttacking : MonoBehaviour
     public EnemyHealth EH;
     public AISetUp AISU;
     public EnemyAnimationManager EAM;
+    public BernardAnimationSystem BAS;
 
     private Vector3 m_TargetPos;
     private Vector3 m_PlayerPos;
@@ -108,12 +109,12 @@ public class BernardAttacking : MonoBehaviour
         //if (collisionCount == 0)
         //{
 
-        if (m_TargetDir.x > 0)
+        if (m_TargetDir.x < 0)
         {
             m_SpriteRenderer.flipX = false;
         }
 
-        if (m_TargetDir.x < 0)
+        if (m_TargetDir.x > 0)
         {
             m_SpriteRenderer.flipX = true;
         }
@@ -242,7 +243,7 @@ public class BernardAttacking : MonoBehaviour
     void Attacking_2()
     {
         System.Random rng = new System.Random();
-        m_TargetPos = m_Player.transform.position;
+        m_TargetPos = m_Player.transform.position;       
 
         if (!onWall)
         {
@@ -273,6 +274,7 @@ public class BernardAttacking : MonoBehaviour
                     Vector2 wallDir = (transform.position - hitColliders[i].gameObject.transform.position).normalized;
                     if (!jumpedUp)
                     {
+                        BAS.currentAnimName = "LizardJump";
                         rb.AddForce(new Vector2(wallDir.x, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         jumpedUp = true;
                     }

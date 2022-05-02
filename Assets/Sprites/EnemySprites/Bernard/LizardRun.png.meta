@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d29d3f6642d1034b8d5df963dd13b91
+guid: 2750ca3004fdbbc428fca23759dd722e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,85 +104,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bernard_HP_Bar_0
+      name: LizardRun_0
       rect:
         serializedVersion: 2
-        x: 223
-        y: 116
-        width: 309
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62f001c6f23aab1458a745fed44d05d2
-      internalID: 1903202661
+      spriteID: 46a8aea800fdb4b4d8540df4927146dd
+      internalID: -1434257572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_1
+      name: LizardRun_1
       rect:
         serializedVersion: 2
-        x: 988
-        y: 116
-        width: 309
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a31faf2138814bb4c816fc4fd2f54c9d
-      internalID: 506730832
+      spriteID: 589cec168aaaf3845a1b5cc9a8bdd6d1
+      internalID: 1209937082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_2
+      name: LizardRun_2
       rect:
         serializedVersion: 2
-        x: 11
-        y: 11
-        width: 750
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 384
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c037b5376f889f840a3e088ee47a49f1
-      internalID: -985247340
+      spriteID: 8920ef5439cb1a44e8fb7b7295ad40ae
+      internalID: 1198797172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_3
+      name: LizardRun_3
       rect:
         serializedVersion: 2
-        x: 776
-        y: 11
-        width: 750
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcc7b3a7682aa7c468263b6fd69eba7a
-      internalID: 1613330938
+      spriteID: 7508d8eeea2464249b1eb93c42b5c1bb
+      internalID: -1863247748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LizardRun_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fea7ffdeae59647880aba55a39e688
+      internalID: -128230438
       vertices: []
       indices: 
       edges: []
@@ -198,10 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bernard_HP_Bar_2: -985247340
-      Bernard_HP_Bar_0: 1903202661
-      Bernard_HP_Bar_3: 1613330938
-      Bernard_HP_Bar_1: 506730832
+      LizardRun_1: 1209937082
+      LizardRun_2: 1198797172
+      LizardRun_0: -1434257572
+      LizardRun_4: -128230438
+      LizardRun_3: -1863247748
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d29d3f6642d1034b8d5df963dd13b91
+guid: ed6a85d5661966e4e8d62ac74e0edbb9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,85 +104,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bernard_HP_Bar_0
+      name: LizardDamagedRun_0
       rect:
         serializedVersion: 2
-        x: 223
-        y: 116
-        width: 309
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62f001c6f23aab1458a745fed44d05d2
-      internalID: 1903202661
+      spriteID: decdfff6329004240845cabbf8a32825
+      internalID: -920670411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_1
+      name: LizardDamagedRun_1
       rect:
         serializedVersion: 2
-        x: 988
-        y: 116
-        width: 309
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 192
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a31faf2138814bb4c816fc4fd2f54c9d
-      internalID: 506730832
+      spriteID: 210edffbad31a94499d94d9971f65c97
+      internalID: -1113930942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_2
+      name: LizardDamagedRun_2
       rect:
         serializedVersion: 2
-        x: 11
-        y: 11
-        width: 750
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 384
+        y: 67
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c037b5376f889f840a3e088ee47a49f1
-      internalID: -985247340
+      spriteID: c54b72f86f79a084d9603ec034b94500
+      internalID: -1342152192
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bernard_HP_Bar_3
+      name: LizardDamagedRun_3
       rect:
         serializedVersion: 2
-        x: 776
-        y: 11
-        width: 750
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bcc7b3a7682aa7c468263b6fd69eba7a
-      internalID: 1613330938
+      spriteID: 15b939e83cf23ba489862742f95301c5
+      internalID: 1343464537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LizardDamagedRun_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 192
+        height: 67
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee2c900ba19c2a4e93d2b988b5f6de4
+      internalID: 626866071
       vertices: []
       indices: 
       edges: []
@@ -198,10 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bernard_HP_Bar_2: -985247340
-      Bernard_HP_Bar_0: 1903202661
-      Bernard_HP_Bar_3: 1613330938
-      Bernard_HP_Bar_1: 506730832
+      LizardDamagedRun_2: -1342152192
+      LizardDamagedRun_3: 1343464537
+      LizardDamagedRun_1: -1113930942
+      LizardDamagedRun_4: 626866071
+      LizardDamagedRun_0: -920670411
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
