@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stats for Rogue character class.
+/// Created by: Kane Adams
+/// </summary>
 public class BaseRogueClass : BasePlayerClass
 {
     public BaseRogueClass()

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// On new games, player can choose their character class.
+/// Created by: Kane Adams
+/// </summary>
 public class CreateNewCharacter : MonoBehaviour
 {
 	private BasePlayer newPlayer;

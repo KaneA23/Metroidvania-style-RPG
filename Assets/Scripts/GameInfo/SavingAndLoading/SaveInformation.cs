@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Saves character in Player Prefs.
+/// Created by: Kane Adams
+/// </summary>
 public class SaveInformation
 {
 	public static void SaveAllInformation()

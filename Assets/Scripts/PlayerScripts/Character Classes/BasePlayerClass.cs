@@ -442,18 +442,20 @@ public class BasePlayerClass : MonoBehaviour
 
 	private void Awake()
 	{
-		characterClassName = GameInformation.PlayerClass.ToString();
-		MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		MaximumMana = GameInformation.PlayerMaxMP;
-		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		MaximumStamina = GameInformation.PlayerMaxStam;
-		LightAttackDamage = GameInformation.PlayerLightDmg;
-		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		WalkSpeed = GameInformation.PlayerWalkSpeed;
-		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		RunSpeed = GameInformation.PlayerRunSpeed;
-		LightCooldown = GameInformation.PlayerLightCooldown;
-		HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		// Comment out if want to test mechanics without class (uses default values)
+
+		//characterClassName = GameInformation.PlayerClass.ToString();
+		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		//MaximumMana = GameInformation.PlayerMaxMP;
+		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		//MaximumStamina = GameInformation.PlayerMaxStam;
+		//LightAttackDamage = GameInformation.PlayerLightDmg;
+		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		//WalkSpeed = GameInformation.PlayerWalkSpeed;
+		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		//RunSpeed = GameInformation.PlayerRunSpeed;
+		//LightCooldown = GameInformation.PlayerLightCooldown;
+		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 		Debug.Log("Player Class: " + characterClassName);
 		Debug.Log("Player HP: " + MaximumHealthPoints);

@@ -87,6 +87,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	BoxCollider2D headCollider;
 	Rigidbody2D rb;
 
+	public ParticleSystem dust;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -237,6 +239,10 @@ public class PlayerMovementSystem : MonoBehaviour
 
 				if (Input.GetKey(KeyCode.LeftShift) && !isCrouching && moveHorizontal != 0 && isGrounded && BPC.currentStam > (BPC.runCost * 0.5f) && BPC.hasRun)
 				{
+					if (!isRunning)
+					{
+						CreateDustParticles();
+					}
 					isRunning = true;
 					PSS.TakeStamina(BPC.runCost * Time.deltaTime);
 				}
@@ -352,6 +358,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (isGrounded)
 		{
+			CreateDustParticles();
 			PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
@@ -557,5 +564,10 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
+	}
+
+	void CreateDustParticles()
+	{
+		dust.Play();
 	}
 }

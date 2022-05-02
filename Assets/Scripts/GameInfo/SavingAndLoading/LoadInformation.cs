@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Loads a previous character class from Player Prefs.
+/// Created by: Kane Adams
+/// </summary>
 public class LoadInformation
 {
 	public static void LoadAllInformation()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Controls player's stamina UI
+/// Controls player's stamina UI.
 /// Created by: Kane Adams
 /// </summary>
 public class PlayerStaminaSystem : MonoBehaviour

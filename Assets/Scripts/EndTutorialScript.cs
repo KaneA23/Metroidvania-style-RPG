@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Controls when the final Rambleon appears after defeating the tutorial enemy.
-/// Created by: Kane Adams
+/// Created by: Jacob Howlett
 /// </summary>
 public class EndTutorialScript : MonoBehaviour
 {

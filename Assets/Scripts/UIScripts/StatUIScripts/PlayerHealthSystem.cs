@@ -37,7 +37,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	public bool isEnemyBack;
 
 	[Header("Hit Particles")]
-	private ParticleSystem hurtParticle;
+	public ParticleSystem hurtParticle;
 	ParticleSystem.EmissionModule em;
 
 	private void Awake()
@@ -52,7 +52,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		rb = GetComponent<Rigidbody2D>();
 
-		hurtParticle = GetComponentInChildren<ParticleSystem>();
+		//hurtParticle = GetComponentInChildren<ParticleSystem>();
 	}
 
 	// Start is called before the first frame update

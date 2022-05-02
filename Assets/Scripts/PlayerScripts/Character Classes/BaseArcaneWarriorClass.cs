@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Stats for Arcane Warrior character class.
+/// Created by: Kane Adams
+/// </summary>
 public class BaseArcaneWarriorClass : BasePlayerClass
 {
     public BaseArcaneWarriorClass()
