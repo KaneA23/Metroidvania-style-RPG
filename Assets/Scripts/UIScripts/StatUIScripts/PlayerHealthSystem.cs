@@ -68,8 +68,8 @@ public class PlayerHealthSystem : MonoBehaviour
 		isHit = false;
 		isDying = false;
 
-		em = leakParticles.emission;
-		em.enabled = false;
+		//em = leakParticles.emission;
+		//em.enabled = false;
 
 		UpdateHealthUI();
 	}
@@ -128,7 +128,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
-			em.enabled = true;
+			//em.enabled = true;
 			hurtParticle.Play();
 
 			isHit = true;

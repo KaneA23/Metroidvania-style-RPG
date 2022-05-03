@@ -173,12 +173,12 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Checks which way the player should be facing
 		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit" && !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
 		{
-			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
-			{
-				transform.Rotate(new Vector2(0, 180));
-				isFacingRight = !isFacingRight;
-			}
-		}
+            if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
+            {
+                transform.Rotate(new Vector2(0, 180));
+                isFacingRight = !isFacingRight;
+            }
+        }
 
 		if (!isDashing)
 		{
@@ -397,7 +397,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		Collider2D enemy = Physics2D.OverlapCircle(groundCheck.position, checkRadius, enemyLayers);
 
-		if (enemy != null && enemy.CompareTag("BossBack"))
+		if (enemy != null && (enemy.CompareTag("BossBack") || enemy.CompareTag("BernardLimb")))
 		{
 			PHS.isEnemyBack = true;
 			isGrounded = true;

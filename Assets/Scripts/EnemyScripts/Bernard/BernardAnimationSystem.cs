@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class BernardAnimationSystem : MonoBehaviour
 {
-    private PolygonCollider2D[] colliders;
-    private EdgeCollider2D headCollider;
+    public BernardAttacking BA;
+
     private Animator animator;
-    private AnimatorClipInfo[] clipInfo;
 
     private SpriteRenderer spriteRenderer;
 
-    private Vector2[] headColliderPoints;
+    public GameObject bernardHead;
+    public GameObject bernardWallBody;
+
+    private PolygonCollider2D bernardTailCollider;
+    private BoxCollider2D bernardBodyCollider;
 
     private int currentAnimFrame;
     private int collNum = 0;
@@ -19,260 +22,96 @@ public class BernardAnimationSystem : MonoBehaviour
     public string currentAnimName;
     public string currentAnimNameNew;
 
+    public string[] bernardAnimations = { "Bernard_Idle", "Bernard_Damaged_Run", "Bernard_Run", "Bernard_Wall_Idle", "Bernard_Jump", "Bernard_Walk" };
+    [SerializeField] private string currentAnimation = null;
+
+    public enum bernardAnimationStates
+    {
+        BERNARD_IDLE,       // 0
+        BERNARD_DAMAGED_RUN,    // 1
+        BERNARD_RUN,    // 2
+        BERNARD_WALL_IDLE,
+        BERNARD_JUMP,
+        BERNARD_WALK
+    }
+
     private void Awake()
     {
-        colliders = GetComponents<PolygonCollider2D>();
-        headCollider = GetComponent<EdgeCollider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        //clipInfo = animator.GetCurrentAnimatorClipInfo(0);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        headColliderPoints = headCollider.points;
+        bernardBodyCollider = GetComponent<BoxCollider2D>();
+        bernardTailCollider = GetComponent<PolygonCollider2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        //currentAnimFrame = (int)(clipInfo[0].weight * (clipInfo[0].clip.length * clipInfo[0].clip.frameRate));
-
-        currentAnimNameNew = spriteRenderer.sprite.name;
-
-        if (collNum > colliders.Length - 1)
+        switch (currentAnimName)
         {
-            collNum = 0;
+            case "LizardIdle":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_IDLE);
+
+                break;
+            
+
+            case "LizardDamagedRun":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_DAMAGED_RUN);
+
+                bernardHead.SetActive(true);
+                bernardBodyCollider.enabled = true;
+                bernardTailCollider.enabled = true;
+
+                bernardWallBody.SetActive(false);              
+
+                break;
+            case "LizardRun":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_RUN);              
+
+                break;
+
+            case "LizardWallIdle":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_WALL_IDLE);
+
+                break;
+
+            case "LizardJump":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_JUMP);
+
+                bernardHead.SetActive(false);
+                bernardBodyCollider.enabled = false;
+                bernardTailCollider.enabled = false;
+
+                bernardWallBody.SetActive(true);
+
+                break;
+
+            case "LizardWalk":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_WALK);
+
+                break;
         }
 
-        if (currentAnimNameNew == currentAnimName + "_0")
-        {
-            headColliderPoints[0] = new Vector2(-0.9252879f, 0.27f);
-            headColliderPoints[1] = new Vector2(-0.4612837f, 0.4746238f);
+    }
 
-            headCollider.points = headColliderPoints;
-        }
-        else if (currentAnimNameNew == currentAnimName + "_1")
+    void ChangeAnimation(bernardAnimationStates animState)
+    {
+        if (currentAnimation == bernardAnimations[(int)animState])
         {
-            headColliderPoints[0] = new Vector2(-0.9252879f, 0.36f);
-            headColliderPoints[1] = new Vector2(-0.4612837f, 0.4746238f);
-
-            headCollider.points = headColliderPoints;
-        }
-        else if (currentAnimNameNew == currentAnimName + "_2")
-        {
-            headColliderPoints[0] = new Vector2(-0.9252879f, 0.45f);
-            headColliderPoints[1] = new Vector2(-0.4612837f, 0.4746238f);
-
-            headCollider.points = headColliderPoints;
-        }
-        else
-        {
-            headColliderPoints[0] = new Vector2(-0.9252879f, 0.45f);
-            headColliderPoints[1] = new Vector2(-0.4612837f, 0.4746238f);
-
-            headCollider.points = headColliderPoints;
+            return;
         }
 
-        collNum++;
+        animator.Play(bernardAnimations[(int)animState]);
 
-        //for (int i = 0; i < colliders.Length; i++)
-        //{
-
-        //}
-
-        //switch (currentAnimName)
-        //{
-        //    case "LizardIdle":
-        //        if (currentAnimNameNew == currentAnimName + "_0")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 0)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_1")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 1)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_2")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 2)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_3")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 3)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_4")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 4)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_5")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 5)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_6")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 6)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_7")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 7)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_8")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 8)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_9")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 9)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_10")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 10)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_11")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 11)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        else if (currentAnimNameNew == currentAnimName + "_12")
-        //        {
-        //            for (int i = 0; i < colliders.Length; i++)
-        //            {
-        //                if (i == 12)
-        //                {
-        //                    colliders[i].enabled = true;
-        //                }
-        //                else
-        //                {
-        //                    colliders[i].enabled = false;
-        //                }
-        //            }
-        //        }
-        //        break;
-        //    case "LizardRun":
-
-        //        break;
-        //}
-
-
+        currentAnimation = bernardAnimations[(int)animState];
     }
 }
