@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed6a85d5661966e4e8d62ac74e0edbb9
+guid: 3b70464fbd31ab34d8587c301af8e74f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: LizardDamagedRun_0
+      name: LizardDamagedBounce_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: decdfff6329004240845cabbf8a32825
-      internalID: -920670411
+      spriteID: 64899d71cbebcc5429bc8a92ebe1ff7f
+      internalID: 1150809990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LizardDamagedRun_1
+      name: LizardDamagedBounce_1
       rect:
         serializedVersion: 2
         x: 192
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 210edffbad31a94499d94d9971f65c97
-      internalID: -1113930942
+      spriteID: 24c00d94737555a45b0228b5e6a2eec3
+      internalID: -1612537886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LizardDamagedRun_2
+      name: LizardDamagedBounce_2
       rect:
         serializedVersion: 2
         x: 384
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c54b72f86f79a084d9603ec034b94500
-      internalID: -1342152192
+      spriteID: 31d255828aa0ea649a4c747604790469
+      internalID: 874581362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LizardDamagedRun_3
+      name: LizardDamagedBounce_3
       rect:
         serializedVersion: 2
         x: 0
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15b939e83cf23ba489862742f95301c5
-      internalID: 1343464537
+      spriteID: 686e0e39f9d0a834e94dfd418adc8631
+      internalID: -688856049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LizardDamagedRun_4
+      name: LizardDamagedBounce_4
       rect:
         serializedVersion: 2
         x: 192
@@ -202,29 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aee2c900ba19c2a4e93d2b988b5f6de4
-      internalID: 626866071
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LizardDamagedRun_5
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 192
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cd7c75575021644aaed4c167ca5c551
-      internalID: 1749436089
+      spriteID: 1cde4dfb8272ef54ab654c6c3ec5cbe6
+      internalID: 1293415996
       vertices: []
       indices: 
       edges: []
@@ -240,12 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      LizardDamagedRun_2: -1342152192
-      LizardDamagedRun_3: 1343464537
-      LizardDamagedRun_1: -1113930942
-      LizardDamagedRun_4: 626866071
-      LizardDamagedRun_0: -920670411
-      LizardDamagedRun_5: 1749436089
+      LizardDamagedBounce_4: 1293415996
+      LizardDamagedBounce_0: 1150809990
+      LizardDamagedBounce_1: -1612537886
+      LizardDamagedBounce_3: -688856049
+      LizardDamagedBounce_2: 874581362
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

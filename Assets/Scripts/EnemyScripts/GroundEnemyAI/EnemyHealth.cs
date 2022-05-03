@@ -12,13 +12,13 @@ public class EnemyHealth : MonoBehaviour
 
 	Rigidbody2D rb;
 
-	public Slider m_HealthBar;
+	//public Slider m_HealthBar;
 
 	private SpriteRenderer m_SpriteRenderer;
 
 	private void Awake()
 	{
-		m_HealthBar = GetComponentInChildren<Slider>();
+		//m_HealthBar = GetComponentInChildren<Slider>();
 		m_SpriteRenderer = GetComponent<SpriteRenderer>();
 
 		rb = GetComponent<Rigidbody2D>();
@@ -29,14 +29,14 @@ public class EnemyHealth : MonoBehaviour
 	{
 		m_CurrentHP = m_MaxHP;
 
-		m_HealthBar.maxValue = m_MaxHP;
-		m_HealthBar.value = m_CurrentHP;
+		//m_HealthBar.maxValue = m_MaxHP;
+		//m_HealthBar.value = m_CurrentHP;
 	}
 
 	public void TakeDamage(float a_Damage, Vector2 a_PlayerPos)
 	{
 		m_CurrentHP -= a_Damage;
-		m_HealthBar.value = m_CurrentHP;
+		//m_HealthBar.value = m_CurrentHP;
 
 		if (m_CurrentHP <= 0)
 		{

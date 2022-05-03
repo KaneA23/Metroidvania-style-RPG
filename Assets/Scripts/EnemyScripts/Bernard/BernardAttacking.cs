@@ -172,11 +172,29 @@ public class BernardAttacking : MonoBehaviour
 
         if (secondPhase)
         {
-            if ((wallDir.x > 0 && !isFacingRight) || (wallDir.x < 0 && isFacingRight))
+            if(playerDirection == 'R')
             {
-                transform.Rotate(new Vector2(0, 180));
-                isFacingRight = !isFacingRight;
+                if (wallDir.x < 0)
+                {
+                    m_SpriteRenderer.flipX = true;
+                }
+                else if (wallDir.x > 0)
+                {
+                    m_SpriteRenderer.flipX = false;
+                }
             }
+            else if(playerDirection == 'L')
+            {
+                if (wallDir.x < 0)
+                {
+                    m_SpriteRenderer.flipX = false;
+                }
+                else if (wallDir.x > 0)
+                {
+                    m_SpriteRenderer.flipX = true;
+                }
+            }
+            
         }
 
         //m_OrigPos = transform.position.x;
@@ -384,11 +402,11 @@ public class BernardAttacking : MonoBehaviour
 
                         if (directionChoice == 'L')
                         {
-                            rb.AddForce(new Vector2(-1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         }
                         else if (directionChoice == 'R')
                         {
-                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                            rb.AddForce(new Vector2(-1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         }
                         jumpedUp = true;
                     }
@@ -451,10 +469,10 @@ public class BernardAttacking : MonoBehaviour
             switch (wallSide)
             {
                 case 'L':
-                    rb.AddForce(new Vector2(-1, 0).normalized * 20, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(1, 0).normalized * 0.5f, ForceMode2D.Impulse);
                     break;
                 case 'R':
-                    rb.AddForce(new Vector2(1, 0).normalized * 20, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(-1, 0).normalized * 0.5f, ForceMode2D.Impulse);
                     break;
             }
         }
