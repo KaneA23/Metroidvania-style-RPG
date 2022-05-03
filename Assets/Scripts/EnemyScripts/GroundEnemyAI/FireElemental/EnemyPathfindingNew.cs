@@ -90,21 +90,21 @@ public class EnemyPathfindingNew : MonoBehaviour
 
 	private void EnemyFacing()
 	{
-		//if (collisionCount == 0)
-		//{
 
-		if (m_TargetDir.x > 0)
-		{
-			m_SpriteRenderer.flipX = false;
+
+		if(gameObject != null)
+        {
+			if (m_TargetDir.x > 0)
+			{
+				m_SpriteRenderer.flipX = false;
+			}
+
+			if (m_TargetDir.x < 0)
+			{
+				m_SpriteRenderer.flipX = true;
+			}
 		}
 
-		if (m_TargetDir.x < 0)
-		{
-			m_SpriteRenderer.flipX = true;
-		}
-
-		//m_OrigPos = transform.position.x;
-		//}
 	}
 
 	#region __CHECK_COLLISIONS__
@@ -198,7 +198,7 @@ public class EnemyPathfindingNew : MonoBehaviour
 
 		m_CurrentPos = transform.position;
 
-		m_TargetPos = new Vector3(m_Player.position.x, -3.48f, m_Player.position.z);
+		m_TargetPos = new Vector3(m_Player.position.x, gameObject.transform.position.y, m_Player.position.z);
 		m_TargetDir = (m_TargetPos - transform.position).normalized;
 
 		EnemyFacing();

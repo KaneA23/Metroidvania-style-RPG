@@ -5416,7 +5416,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8631005081678416054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a680e2638592c44dbe605d06430fd98, type: 3}
   m_Name: 
@@ -5586,4 +5586,3 @@ MonoBehaviour:
   healthFrontFillBar: {fileID: 513984042}
   healthBarEmpty: {fileID: 1296105212}
   healthBackHealthBar: {fileID: 2040070524}
-  enemyCanvas: {fileID: 1477927060}

@@ -119,6 +119,7 @@ public class BernardAttacking : MonoBehaviour
         //}                                                                      ]
 
         Physics2D.IgnoreLayerCollision(6, 12);
+        Physics2D.IgnoreLayerCollision(10, 12);
         Physics2D.IgnoreLayerCollision(9, 12);
         Physics2D.IgnoreLayerCollision(7, 12);
         Physics2D.IgnoreLayerCollision(3, 17);
@@ -333,6 +334,8 @@ public class BernardAttacking : MonoBehaviour
 
         if (!onWall)
         {
+            transform.Find("WallCollider").gameObject.layer = 12;
+
             if (!dirChosen)
             {
                 dirChoice = UnityEngine.Random.Range(0, 2);
@@ -343,7 +346,7 @@ public class BernardAttacking : MonoBehaviour
             {
                 gameObject.layer = 12;
                 gameObject.transform.Find("Head").gameObject.layer = 12;
-                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 12;
+                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 12;               
             }
 
             if (dirChoice >= 0 && dirChoice < 1)
@@ -356,8 +359,8 @@ public class BernardAttacking : MonoBehaviour
                     {
                         wallHit = true;
                         Debug.Log("wall hit");
-                        m_TargetWall = hit.collider.gameObject;
-                        wallDir = (transform.position - m_TargetWall.transform.position).normalized;
+                        //m_TargetWall = hit.collider.gameObject;
+                        //wallDir = (transform.position - m_TargetWall.transform.position).normalized;
                         isFacingRight = true;
                     }
                 }
@@ -374,8 +377,8 @@ public class BernardAttacking : MonoBehaviour
                     {
                         wallHit = true;
                         Debug.Log("wall hit");
-                        m_TargetWall = hit.collider.gameObject;
-                        wallDir = (transform.position - m_TargetWall.transform.position).normalized;
+                        //m_TargetWall = hit.collider.gameObject;
+                        //wallDir = (transform.position - m_TargetWall.transform.position).normalized;
                         isFacingRight = false;
                     }
                 }
@@ -391,19 +394,22 @@ public class BernardAttacking : MonoBehaviour
                 if (wallColliders[i].CompareTag("BossWall"))
                 {
 
+                    m_TargetWall = wallColliders[i].gameObject;
+                    wallDir = (transform.position - m_TargetWall.transform.position).normalized;
+
                     Debug.Log("jumped up: " + jumpedUp);
 
                     if (!jumpedUp)
                     {
                         BAS.currentAnimName = "LizardJump";
 
-                        if (directionChoice == 'L')
-                        {
-                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
-                        }
-                        else if (directionChoice == 'R')
+                        if (wallDir.x > 0)
                         {
                             rb.AddForce(new Vector2(-1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                        }
+                        else if (wallDir.x < 0)
+                        {
+                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         }
                         jumpedUp = true;
                     }
@@ -412,6 +418,8 @@ public class BernardAttacking : MonoBehaviour
         }
         else
         {
+            transform.Find("WallCollider").gameObject.layer = 3;
+
             if (!CR_RUNNING)
             {
                 StartCoroutine(AboveAttack(m_ProjectileForce));
