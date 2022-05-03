@@ -18,6 +18,10 @@ TagManager:
   - BossWall
   - Ground
   - BossBack
+  - Trapdoor1
+  - Trapdoor2
+  - Trapdoor3
+  - Trapdoor4
   layers:
   - Default
   - TransparentFX

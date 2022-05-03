@@ -77,7 +77,7 @@ public class BarrelHealthSystem : MonoBehaviour
 	/// </summary>
 	public void ActivateParticle()
 	{
-		Debug.Log("Begins Particles");
+		//Debug.Log("Begins Particles");
 		em.enabled = true;
 		enemyParticle.Play();
 		Destroy(sr);
@@ -91,7 +91,7 @@ public class BarrelHealthSystem : MonoBehaviour
 	/// </summary>
 	void Die()
 	{
-		Debug.Log("Removes NPC");
+		//Debug.Log("Removes NPC");
 		Destroy(gameObject);
 	}
 }

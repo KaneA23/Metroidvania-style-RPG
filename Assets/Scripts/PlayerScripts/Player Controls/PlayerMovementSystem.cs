@@ -422,6 +422,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			canWallJump = true;
 			canDash = true;
 			jumpCount = 0;
+			rb.gravityScale = 3f;
 		}
 	}
 
@@ -554,7 +555,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// <summary>
 	/// Shows the Gizmo checks in editor
 	/// </summary>
-	private void OnDrawGizmosSelected()
+	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);

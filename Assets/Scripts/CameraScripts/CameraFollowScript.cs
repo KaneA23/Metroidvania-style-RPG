@@ -34,7 +34,15 @@ public class CameraFollowScript : MonoBehaviour
 
 	public CameraState cameraState;
 
+	//gameObject.GetComponent<Camera>().orthographicSize
+	Camera cam;
+
 	[SerializeField] private bool isFollowingPlayer;
+
+	private void Awake()
+	{
+		cam = GetComponent<Camera>();
+	}
 
 	// Start is called before the first frame update
 	void Start()
@@ -123,16 +131,22 @@ public class CameraFollowScript : MonoBehaviour
 	/// </summary>
 	void CheckCameraState()
 	{
+		float smoothZoom;
+
 		switch (cameraState)
 		{
 			case CameraState.CAM_FOLLOWING:
 				isFollowingPlayer = true;
-				gameObject.GetComponent<Camera>().orthographicSize = followCamSize;
+				//cam.orthographicSize = followCamSize;
+				smoothZoom = Mathf.Lerp(cam.orthographicSize, followCamSize, 1f * Time.deltaTime);
+				cam.orthographicSize = smoothZoom;
 				break;
 
 			case CameraState.CAM_BOSSBERNARD:
 				isFollowingPlayer = false;
-				gameObject.GetComponent<Camera>().orthographicSize = 11.3f;
+				//gameObject.GetComponent<Camera>().orthographicSize = 11.3f;
+				smoothZoom = Mathf.Lerp(cam.orthographicSize, 11.3f, 1f * Time.deltaTime);
+				cam.orthographicSize = smoothZoom;
 
 				//gameObject.transform.position = ;
 				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(8.5f, -30f, -10f), 0.2f * Time.fixedDeltaTime);
@@ -142,7 +156,7 @@ public class CameraFollowScript : MonoBehaviour
 
 			default:
 				isFollowingPlayer = true;
-				gameObject.GetComponent<Camera>().orthographicSize = followCamSize;
+				cam.orthographicSize = followCamSize;
 				break;
 		}
 	}

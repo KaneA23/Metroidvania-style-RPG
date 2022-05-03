@@ -47,6 +47,8 @@ public class BernardIntroCutscene : MonoBehaviour
 	{
 		if (a_other.CompareTag("Player"))
 		{
+			a_other.GetComponent<Rigidbody2D>().gravityScale = 4f;
+
 			isCutscene = true;
 
 			uiCanvas.enabled = false;
@@ -64,7 +66,7 @@ public class BernardIntroCutscene : MonoBehaviour
 		bernardAnim.Play("Bernard_Cutscene");
 		uiAnim.Play("Bernard_introUI");
 
-		animTime = 5f;
+		animTime = 4f;
 		Invoke(nameof(EndCutscene), animTime);
 	}
 
