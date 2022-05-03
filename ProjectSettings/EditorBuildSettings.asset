@@ -9,6 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Main Menu Scene.unity
     guid: e8dc99c0f7bda814e9ee21e6f2471427
   - enabled: 1
-    path: Assets/Scenes/Prototype1.unity
-    guid: e6f68a8da70869349ab23ecd4925851d
+    path: Assets/Scenes/Jacob Cant be fucked with this shit/Level 1 - Temp - Play
+      Test.unity
+    guid: 4287ab64f540eb94a944debd0209a3da
   m_configObjects: {}

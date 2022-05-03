@@ -13,12 +13,12 @@ public class BasePeasantClass : BasePlayerClass
 		CharacterClassName = "Peasant";
 		CharacterClassDescription = "Just a normal bloke... not sure what you expected!";
 
-		MaximumHealthPoints = 50;
+		MaximumHealthPoints = 100;
 
-		MaximumMana = 50;
+		MaximumMana = 100;
 		MaximumManaRegeneration = 1f;
 
-		MaximumStamina = 50;
+		MaximumStamina = 100;
 
 		LightAttackDamage = 10f;
 		HeavyAttackDamage = 15f;

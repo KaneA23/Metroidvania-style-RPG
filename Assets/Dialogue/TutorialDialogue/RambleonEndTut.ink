@@ -3,15 +3,20 @@ INCLUDE TutorialGlobals.ink
 -> Main
 
 === Main ===
-    Good boy PoB!   #speaker:UNKNOWN MAN
+    Good boy!   #speaker:UNKNOWN MAN
     My name is Rambleon!
 
     * [Well...]
-        Well... I'm Paul! #speaker:Paul O'Brien
+        Well... I'm... lost! #speaker:Lost
     
-    I ALREADY KNOW THAT PoB! #speaker:Rambleon
-    Team Tash hopes you have enjoyed playing this short demo!
-    Press the ESC key to close the game
-    And Enjoy France!
+    I ALREADY KNOW THAT! #speaker:Rambleon
+    Looks like you got the hang of this.
+    Continue forward, I guess?
+    
+    oh yeah, there's a giant beast...
+    ...
+    I think!
+    
+    RAAMMBLEOOOOOONNNN.... AWWAAAAY!
 
 -> END

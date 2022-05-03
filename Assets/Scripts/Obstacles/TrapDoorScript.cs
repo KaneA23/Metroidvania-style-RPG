@@ -11,6 +11,8 @@ public class TrapDoorScript : MonoBehaviour
 
 	public GameObject visualCue;
 
+	public GameObject monolith;
+
 	[SerializeField] private ParticleSystem[] trapDoorParticles;
 	[SerializeField] private ParticleSystem.EmissionModule[] emissionMod = new ParticleSystem.EmissionModule[4];
 
@@ -28,8 +30,8 @@ public class TrapDoorScript : MonoBehaviour
 		//{
 		//	em[] = particle.emission;
 		//}
-
-		for(int i = 0; i < trapDoorParticles.Length; i++)
+		monolith.SetActive(false);
+		for (int i = 0; i < trapDoorParticles.Length; i++)
 		{
 			emissionMod[i] = trapDoorParticles[i].emission;
 		}
@@ -55,10 +57,13 @@ public class TrapDoorScript : MonoBehaviour
 			//{
 			//	em.enabled = true;
 			//}
+
+			monolith.SetActive(true);
 			for (int i = 0; i < emissionMod.Length; i++)
 			{
 				emissionMod[i].enabled = true;
 			}
+
 			//emissionMod.enabled = true;
 			if (Physics2D.OverlapCircle(gameObject.transform.position, checkRadius, playerMask))
 			{
@@ -70,7 +75,15 @@ public class TrapDoorScript : MonoBehaviour
 					{
 						trapExplosions[i].Play();
 					}
+
+					for (int i = 0; i < emissionMod.Length; i++)
+					{
+						emissionMod[i].enabled = false;
+					}
+
+					monolith.SetActive(false);
 					visualCue.SetActive(false);
+					
 					Invoke(nameof(RemoveTrapDoor), 1f);
 				}
 			}
@@ -94,6 +107,7 @@ public class TrapDoorScript : MonoBehaviour
 
 	void RemoveTrapDoor()
 	{
+		monolith.SetActive(false);
 		visualCue.SetActive(false);
 		trapdoor.SetActive(false);
 	}

@@ -15,7 +15,7 @@ public class BaseRogueClass : BasePlayerClass
 
 		MaximumHealthPoints = 200;
 
-		MaximumMana = 100;
+		MaximumMana = 150;
 		MaximumManaRegeneration = 0.3f;
 
 		MaximumStamina = 300;

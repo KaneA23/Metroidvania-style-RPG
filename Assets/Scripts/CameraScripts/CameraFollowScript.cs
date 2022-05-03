@@ -30,7 +30,7 @@ public class CameraFollowScript : MonoBehaviour
 
 	public bool isSeen;
 
-	float followCamSize = 5f;
+	float followCamSize = 7.5f;
 
 	public CameraState cameraState;
 
@@ -149,7 +149,7 @@ public class CameraFollowScript : MonoBehaviour
 				cam.orthographicSize = smoothZoom;
 
 				//gameObject.transform.position = ;
-				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(8.5f, -30f, -10f), 0.2f * Time.fixedDeltaTime);
+				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.2f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
 				//transform.position = new Vector3(8.5f, -30f, -10f);
 				break;

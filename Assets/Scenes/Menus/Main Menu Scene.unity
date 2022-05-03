@@ -2138,7 +2138,7 @@ RectTransform:
   - {fileID: 1110256253}
   - {fileID: 1418594685}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3191,7 +3191,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1206277999
 MonoBehaviour:
@@ -3846,6 +3846,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446076326}
   m_CullTransparentMesh: 1
+--- !u!1001 &1462813146
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4463221301483550376, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_Name
+      value: LevelLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.8812604
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 62.24327
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.015121538
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463221301483550377, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+--- !u!95 &1462813147 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4463221300202352004, guid: ba42f5fdf420bf948a0239d8899a0ec1, type: 3}
+  m_PrefabInstance: {fileID: 1462813146}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1529236630
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,7 +4208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785592010
 GameObject:
@@ -4357,7 +4419,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1901133404
 MonoBehaviour:
@@ -4382,6 +4444,8 @@ MonoBehaviour:
   load_Game_Canvas: {fileID: 180541259}
   settings_Canvas: {fileID: 1537724389}
   exit_Canvas: {fileID: 22143939}
+  transition: {fileID: 1462813147}
+  transitionTime: 1
 --- !u!82 &1901133405
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4394,7 +4458,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2c8e07f747f774f40928b60673e50a73, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.196
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -173,12 +173,12 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Checks which way the player should be facing
 		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit" && !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
 		{
-            if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
-            {
-                transform.Rotate(new Vector2(0, 180));
-                isFacingRight = !isFacingRight;
-            }
-        }
+			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
+			{
+				transform.Rotate(new Vector2(0, 180));
+				isFacingRight = !isFacingRight;
+			}
+		}
 
 		if (!isDashing)
 		{
@@ -197,7 +197,7 @@ public class PlayerMovementSystem : MonoBehaviour
 					Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 				}
 
-				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.currentStam >= BPC.jumpCost && BPC.hasJump)
+				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.hasJump)
 				{
 					Jump();
 				}
@@ -359,14 +359,14 @@ public class PlayerMovementSystem : MonoBehaviour
 		if (isGrounded)
 		{
 			CreateDustParticles();
-			PSS.TakeStamina(BPC.jumpCost);
+			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
 			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (BPC.hasWallJump && isTouchingWall && canWallJump)
+		else if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
 		{
 			PSS.TakeStamina(BPC.jumpCost);
 
@@ -377,7 +377,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (canDoubleJump && BPC.hasDoubleJump)
+		else if (canDoubleJump && BPC.hasDoubleJump && BPC.currentStam >= BPC.jumpCost)
 		{
 			PSS.TakeStamina(BPC.jumpCost);
 
