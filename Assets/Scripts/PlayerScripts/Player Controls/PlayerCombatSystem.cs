@@ -142,7 +142,17 @@ public class PlayerCombatSystem : MonoBehaviour
 			}
 			else
 			{
-				enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
+				Debug.Log(enemy.name);
+
+				if(enemy.gameObject.CompareTag("BernardLimb"))
+                {
+					enemy.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
+                }
+                else
+                {
+					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
+				}
+				
 			}
 		}
 

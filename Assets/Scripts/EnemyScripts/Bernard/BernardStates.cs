@@ -14,6 +14,7 @@ public class BernardStates : MonoBehaviour
 
     private float m_DistanceToPlayer;
     public float m_AttackDistance;
+    public float m_StartFightDistance;
     public float m_Health;
     private float m_MaxHealth;
     private float m_HealthPercentage;
@@ -22,6 +23,7 @@ public class BernardStates : MonoBehaviour
     private int state;
 
     [SerializeField] private bool m_Attacking;
+    private bool startFight = false;
 
     public enum states
     {
@@ -42,18 +44,14 @@ public class BernardStates : MonoBehaviour
         m_Health = m_MaxHealth;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         m_DistanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
         m_Health = GetComponent<EnemyHealth>().m_CurrentHP;
 
-        if (m_DistanceToPlayer < m_AttackDistance)
+        if (m_DistanceToPlayer < m_StartFightDistance)
         {
             state = (int)states.Attacking;
-        }
-        else
-        {
-            state = (int)states.Idle;
         }
 
         m_HealthPercentage = (m_MaxHealth * 33.33f) / 100;
@@ -64,37 +62,45 @@ public class BernardStates : MonoBehaviour
             case 0:
                 m_Attacking = false;
 
-                if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
+                if(BA.onWall)
                 {
-                    BAS.currentAnimName = "LizardIdle";
-                    BI.Invoke(IdleStateTypes[2], 0f);
+                    BAS.currentAnimName = "LizardWallIdle";
                 }
-                else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
+                else
                 {
                     BAS.currentAnimName = "LizardIdle";
-                    BI.Invoke(IdleStateTypes[1], 0f);
-                }
-                else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
-                {
-                    BAS.currentAnimName = "LizardIdle";
-                    BI.Invoke(IdleStateTypes[0], 0f);
                 }
                 
+                BI.Invoke(IdleStateTypes[0], 0f);
+
                 break;
             case 1:
                 m_Attacking = true;
 
                 if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
                 {
+                    BAS.currentAnimName = "LizardDamagedRun";
                     BA.Invoke(AttackStateTypes[2], 0f);
                 }
                 else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
                 {
+                    if(BA.jumpedUp)
+                    {
+                        if(!BA.onWall)
+                        {
+                            BAS.currentAnimName = "LizardJump";
+                        }
+                        else
+                        {
+                            BAS.currentAnimName = "LizardWallIdle";
+                        }
+                        
+                    }
                     BA.Invoke(AttackStateTypes[1], 0f);
                 }
                 else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
                 {
-                    BAS.currentAnimName = "LizardIdle";
+                    BAS.currentAnimName = "LizardRun";
                     BA.Invoke(AttackStateTypes[0], 0f);
                 }
 
