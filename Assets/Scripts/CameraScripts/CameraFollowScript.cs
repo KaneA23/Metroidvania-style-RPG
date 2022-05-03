@@ -145,12 +145,12 @@ public class CameraFollowScript : MonoBehaviour
 			case CameraState.CAM_BOSSBERNARD:
 				isFollowingPlayer = false;
 				//gameObject.GetComponent<Camera>().orthographicSize = 11.3f;
-				smoothZoom = Mathf.Lerp(cam.orthographicSize, 11.3f, 1f * Time.deltaTime);
+				smoothZoom = Mathf.Lerp(cam.orthographicSize, 11.3f, 2f * Time.deltaTime);
 				cam.orthographicSize = smoothZoom;
 
 				//gameObject.transform.position = ;
 				//Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.2f * Time.fixedDeltaTime);
-				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.1f * Time.fixedDeltaTime);
+				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.2f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
 				//transform.position = new Vector3(8.5f, -30f, -10f);
 				break;

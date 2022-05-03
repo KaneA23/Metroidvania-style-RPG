@@ -16,7 +16,7 @@ public class EnemyPathfindingNew : MonoBehaviour
 
 	public bool m_MovingToTarget;
 
-	private Transform m_Player;
+	[SerializeField] private Transform m_Player;
 
 	public GameObject[] m_Enemies;
 	public GameObject[] m_Players;
@@ -27,10 +27,13 @@ public class EnemyPathfindingNew : MonoBehaviour
 	private Vector3 m_MovementDirection;
 	private Vector3 m_NewDestination;
 	private Vector3 m_CurrentPos;
+	private Vector3 m_Velocity;
 
 	private float m_OrigPos;
 
 	public int m_DamageAmount;
+
+	private char m_TravelDirection;
 
 	private SpriteRenderer m_SpriteRenderer;
 
@@ -39,6 +42,7 @@ public class EnemyPathfindingNew : MonoBehaviour
 	public bool isAlert;
 	public bool isForget;
 	public bool isAgro;
+	private bool isFacingRight;
 
 	public float animDelay;
 
@@ -70,28 +74,24 @@ public class EnemyPathfindingNew : MonoBehaviour
 		isAgro = false;
 	}
 
+	//Transform GetClosestEnemy(Transform[] Enemies)
+	//{
+	//	Transform tMin = null;
 
-
-	Transform GetClosestEnemy(Transform[] Enemies)
-	{
-		Transform tMin = null;
-
-		foreach (Transform t in Enemies)
-		{
-			float distance = Vector3.Distance(t.position, transform.position);
-			if (distance < minDistance)
-			{
-				tMin = t;
-				minDistance = distance;
-			}
-		}
-		return tMin;
-	}
+	//	foreach (Transform t in Enemies)
+	//	{
+	//		float distance = Vector3.Distance(t.position, transform.position);
+	//		if (distance < minDistance)
+	//		{
+	//			tMin = t;
+	//			minDistance = distance;
+	//		}
+	//	}
+	//	return tMin;
+	//}
 
 	private void EnemyFacing()
 	{
-
-
 		if(gameObject != null)
         {
 			if (m_TargetDir.x > 0)
@@ -104,31 +104,30 @@ public class EnemyPathfindingNew : MonoBehaviour
 				m_SpriteRenderer.flipX = true;
 			}
 		}
-
 	}
 
 	#region __CHECK_COLLISIONS__
 
-	[SerializeField] private int collisionCount = 0;
+	//[SerializeField] private int collisionCount = 0;
 
-	public bool NotColliding
-	{
-		get { return collisionCount == 0; }
-	}
+	//public bool NotColliding
+	//{
+	//	get { return collisionCount == 0; }
+	//}
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		Collider2D otherCollider = collision.collider;
 
-		if (otherCollider.name != "Floor" || otherCollider.tag != "Enemy")
-		{
-			//Debug.Log(collider.name);
-			collisionCount++;
-		}
+		//if (otherCollider.name != "Floor" || otherCollider.tag != "Enemy")
+		//{
+		//	//Debug.Log(collider.name);
+		//	collisionCount++;
+		//}
 
 		if (otherCollider.name == AISU.m_ActivePlayer.tag)
 		{
-			//PHS.TakeDamage(m_DamageAmount, gameObject.transform.position);
+			PHS.TakeDamage(m_DamageAmount, gameObject.transform.position, HitForce, true);
 			//EH.TakeDamage(m_DamageAmount);
 
 			Debug.Log("collision");
@@ -157,10 +156,10 @@ public class EnemyPathfindingNew : MonoBehaviour
 
 	}
 
-	private void OnCollisionExit2D(Collision2D collision)
-	{
-		collisionCount--;
-	}
+	//private void OnCollisionExit2D(Collision2D collision)
+	//{
+	//	collisionCount--;
+	//}
 
 	#endregion __CHECK_COLLISIONS_END__
 
@@ -182,6 +181,19 @@ public class EnemyPathfindingNew : MonoBehaviour
 
 	private void Update()
 	{
+		//GetPlayers();
+
+		m_Velocity = rb.velocity.normalized;
+
+		if(m_SpriteRenderer.flipX == true)
+		{
+			isFacingRight = false;
+		}
+		else if (m_SpriteRenderer.flipX == false)
+		{
+			isFacingRight = true;
+		}
+
 		if (isAgro && !isAlert)
 		{
 			EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ATTACK);
@@ -190,24 +202,19 @@ public class EnemyPathfindingNew : MonoBehaviour
 		{
 			EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);
 		}
-	}
-
-	private void FixedUpdate()
-	{
-		//GetPlayers();
 
 		m_CurrentPos = transform.position;
 
-		m_TargetPos = new Vector3(m_Player.position.x, gameObject.transform.position.y, m_Player.position.z);
+		m_TargetPos = new Vector2(m_Player.position.x, gameObject.transform.position.y);
 		m_TargetDir = (m_TargetPos - transform.position).normalized;
 
 		EnemyFacing();
 
-		if (m_MovementDirection != Vector3.zero)
-		{
-			float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-		}
+		//if (m_MovementDirection != Vector3.zero)
+		//{
+		//	float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
+		//	transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		//}
 
 		if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
 		{
