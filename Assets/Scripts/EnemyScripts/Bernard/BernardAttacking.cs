@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class BernardAttacking : MonoBehaviour
@@ -26,9 +24,9 @@ public class BernardAttacking : MonoBehaviour
     private GameObject m_Player;
     public GameObject m_Floor;
     private GameObject m_ChosenWall;
-    private GameObject m_TargetWall;
+    [SerializeField] private GameObject m_TargetWall;
 
-    private SpriteRenderer m_SpriteRenderer;
+    public SpriteRenderer m_SpriteRenderer;
 
     private Rigidbody2D rb;
     private Rigidbody2D m_PlayerBody;
@@ -39,7 +37,8 @@ public class BernardAttacking : MonoBehaviour
 
     public GameObject m_EarthChunkPrefab;
 
-    public LayerMask m_PlayerLayer;
+    public LayerMask[] m_IgnoreMasks;
+    public LayerMask m_PlayerMask;
 
     private char wallSide;
     [SerializeField] private char directionChoice;
@@ -73,6 +72,7 @@ public class BernardAttacking : MonoBehaviour
     [SerializeField] private bool thirdPhase = false;
     private bool CR_RUNNING = false;
     [SerializeField] private bool isFacingRight;
+    [SerializeField] private bool isFacingLeft = true;
 
     private int dirChoice = 0;
 
@@ -85,8 +85,6 @@ public class BernardAttacking : MonoBehaviour
         floorCollider = m_Floor.GetComponent<Collider2D>();
 
         PHS = AISU.PHS;
-
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
 
         m_PlayerTransform = GameObject.Find("Player").GetComponent<Transform>();
 
@@ -109,6 +107,8 @@ public class BernardAttacking : MonoBehaviour
     {
         m_MovementDirection = rb.velocity.normalized;
 
+        float h = Input.GetAxisRaw("Horizontal");
+
         //if (isAgro && !isAlert)                                                ]
         //{                                                                      ]
         //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ATTACK);   ]
@@ -130,6 +130,15 @@ public class BernardAttacking : MonoBehaviour
         else if (transform.position.x > m_Player.transform.position.x)
         {
             playerDirection = 'L';
+        }
+
+        if(onWall)
+        {
+            transform.Find("WallCollider").GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+        else
+        {
+            transform.Find("WallCollider").GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
         EnemyFacing();
@@ -170,32 +179,20 @@ public class BernardAttacking : MonoBehaviour
             }
         }
 
-        if (secondPhase)
-        {
-            if(playerDirection == 'R')
-            {
-                if (wallDir.x < 0)
-                {
-                    m_SpriteRenderer.flipX = true;
-                }
-                else if (wallDir.x > 0)
-                {
-                    m_SpriteRenderer.flipX = false;
-                }
-            }
-            else if(playerDirection == 'L')
-            {
-                if (wallDir.x < 0)
-                {
-                    m_SpriteRenderer.flipX = false;
-                }
-                else if (wallDir.x > 0)
-                {
-                    m_SpriteRenderer.flipX = true;
-                }
-            }
+        //if (secondPhase)
+        //{
+        //    Vector2 wallDir = (transform.position - m_TargetWall.transform.position).normalized;
+
+        //    if(wallDir.x < 0)
+        //    {
+        //        m_SpriteRenderer.flipX = false;
+        //    }
+        //    else if(wallDir.x > 0)
+        //    {
+        //        m_SpriteRenderer.flipX = true;
+        //    }
             
-        }
+        //}
 
         //m_OrigPos = transform.position.x;
         //}
@@ -306,7 +303,7 @@ public class BernardAttacking : MonoBehaviour
                 PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
             }
 
-            if (PHS.isEnemyBack)
+            if (PHS.isEnemyBack && !secondPhase)
             {
                 if (Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
                 {
@@ -353,7 +350,7 @@ public class BernardAttacking : MonoBehaviour
             {
                 if (!wallHit)
                 {
-                    hit = Physics2D.Raycast(transform.position, Vector2.right, m_PlayerLayer);
+                    hit = Physics2D.Raycast(transform.position, Vector2.right, m_PlayerMask);
 
                     if (hit.collider != null)
                     {
@@ -372,7 +369,7 @@ public class BernardAttacking : MonoBehaviour
             {
                 if (!wallHit)
                 {
-                    hit = Physics2D.Raycast(transform.position, Vector2.left, m_PlayerLayer);
+                    hit = Physics2D.Raycast(transform.position, Vector2.left, m_PlayerMask);
                     if (hit.collider != null)
                     {
                         wallHit = true;
@@ -469,10 +466,10 @@ public class BernardAttacking : MonoBehaviour
             switch (wallSide)
             {
                 case 'L':
-                    rb.AddForce(new Vector2(1, 0).normalized * 0.5f, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(1, 0).normalized * 0.1f, ForceMode2D.Impulse);
                     break;
                 case 'R':
-                    rb.AddForce(new Vector2(-1, 0).normalized * 0.5f, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(-1, 0).normalized * 0.1f, ForceMode2D.Impulse);
                     break;
             }
         }

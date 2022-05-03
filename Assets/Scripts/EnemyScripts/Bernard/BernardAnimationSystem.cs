@@ -6,7 +6,7 @@ public class BernardAnimationSystem : MonoBehaviour
 {
     public BernardAttacking BA;
 
-    private Animator animator;
+    public Animator animator;
 
     private SpriteRenderer spriteRenderer;
 
