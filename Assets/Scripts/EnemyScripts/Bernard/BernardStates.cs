@@ -5,106 +5,110 @@ using UnityEngine;
 
 public class BernardStates : MonoBehaviour
 {
-    private AISetUp AISU;
-    public BernardAttacking BA;
-    public BernardIdle BI;
-    public BernardAnimationSystem BAS;
+	private AISetUp AISU;
+	public BernardAttacking BA;
+	public BernardIdle BI;
+	public BernardAnimationSystem BAS;
 
-    private GameObject m_Player;
+	private GameObject m_Player;
 
-    private float m_DistanceToPlayer;
-    public float m_AttackDistance;
-    public float m_StartFightDistance;
-    public float m_Health;
-    private float m_MaxHealth;
-    private float m_HealthPercentage;
-    [SerializeField] private int m_HealthPercentageRounded;
+	private float m_DistanceToPlayer;
+	public float m_AttackDistance;
+	public float m_StartFightDistance;
+	public float m_Health;
+	private float m_MaxHealth;
+	private float m_HealthPercentage;
+	[SerializeField] private int m_HealthPercentageRounded;
 
-    private int state;
+	private int state;
 
-    [SerializeField] private bool m_Attacking;
-    private bool startFight = false;
+	[SerializeField] private bool m_Attacking;
+	private bool startFight = false;
 
-    public enum states
-    {
-        Idle,
-        Attacking,
-    }
+	public enum states
+	{
+		Idle,
+		Attacking,
+	}
 
-    public string[] IdleStateTypes = { "Idle_1", "Idle_2", "Idle_3" };
-    public string[] AttackStateTypes = { "Attacking_1", "Attacking_2", "Attacking_3" };
+	public string[] IdleStateTypes = { "Idle_1", "Idle_2", "Idle_3" };
+	public string[] AttackStateTypes = { "Attacking_1", "Attacking_2", "Attacking_3" };
 
-    private void Start()
-    {
-        AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+	private void Start()
+	{
+		AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
 
-        m_Player = AISU.m_ActivePlayer;
+		m_Player = AISU.m_ActivePlayer;
 
-        m_MaxHealth = GetComponent<EnemyHealth>().m_MaxHP;
-        m_Health = m_MaxHealth;
-    }
+		m_MaxHealth = GetComponent<EnemyHealth>().m_MaxHP;
+		m_Health = m_MaxHealth;
+	}
 
-    private void FixedUpdate()
-    {
-        m_DistanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
-        m_Health = GetComponent<EnemyHealth>().m_CurrentHP;
+	private void FixedUpdate()
+	{
+		if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		{
+			return;
+		}
+		m_DistanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
+		m_Health = GetComponent<EnemyHealth>().m_CurrentHP;
 
-        if (m_DistanceToPlayer < m_StartFightDistance)
-        {
-            state = (int)states.Attacking;
-        }
+		if (m_DistanceToPlayer < m_StartFightDistance)
+		{
+			state = (int)states.Attacking;
+		}
 
-        m_HealthPercentage = (m_MaxHealth * 33.33f) / 100;
-        m_HealthPercentageRounded = (int)Math.Round(m_HealthPercentage, 0);
+		m_HealthPercentage = (m_MaxHealth * 33.33f) / 100;
+		m_HealthPercentageRounded = (int)Math.Round(m_HealthPercentage, 0);
 
-        switch (state)
-        {
-            case 0:
-                m_Attacking = false;
+		switch (state)
+		{
+			case 0:
+				m_Attacking = false;
 
-                if(BA.onWall)
-                {
-                    BAS.currentAnimName = "LizardWallIdle";
-                }
-                else
-                {
-                    BAS.currentAnimName = "LizardIdle";
-                }
-                
-                BI.Invoke(IdleStateTypes[0], 0f);
+				if (BA.onWall)
+				{
+					BAS.currentAnimName = "LizardWallIdle";
+				}
+				else
+				{
+					BAS.currentAnimName = "LizardIdle";
+				}
 
-                break;
-            case 1:
-                m_Attacking = true;
+				BI.Invoke(IdleStateTypes[0], 0f);
 
-                if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
-                {
-                    BAS.currentAnimName = "LizardDamagedRun";
-                    BA.Invoke(AttackStateTypes[2], 0f);
-                }
-                else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
-                {
-                    if(BA.jumpedUp)
-                    {
-                        if(!BA.onWall)
-                        {
-                            BAS.currentAnimName = "LizardJump";
-                        }
-                        else
-                        {
-                            BAS.currentAnimName = "LizardWallIdle";
-                        }
-                        
-                    }
-                    BA.Invoke(AttackStateTypes[1], 0f);
-                }
-                else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
-                {
-                    BAS.currentAnimName = "LizardRun";
-                    BA.Invoke(AttackStateTypes[0], 0f);
-                }
+				break;
+			case 1:
+				m_Attacking = true;
 
-                break;
-        }
-    }
+				if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
+				{
+					BAS.currentAnimName = "LizardDamagedRun";
+					BA.Invoke(AttackStateTypes[2], 0f);
+				}
+				else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
+				{
+					if (BA.jumpedUp)
+					{
+						if (!BA.onWall)
+						{
+							BAS.currentAnimName = "LizardJump";
+						}
+						else
+						{
+							BAS.currentAnimName = "LizardWallIdle";
+						}
+
+					}
+					BA.Invoke(AttackStateTypes[1], 0f);
+				}
+				else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
+				{
+					BAS.currentAnimName = "LizardRun";
+					BA.Invoke(AttackStateTypes[0], 0f);
+				}
+
+				break;
+		}
+	}
 }

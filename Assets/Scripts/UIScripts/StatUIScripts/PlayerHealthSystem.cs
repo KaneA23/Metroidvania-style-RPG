@@ -126,7 +126,7 @@ public class PlayerHealthSystem : MonoBehaviour
 			return;
 		}
 
-		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
 			//em.enabled = true;
 			hurtParticle.Play();

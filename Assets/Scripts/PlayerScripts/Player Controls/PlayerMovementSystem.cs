@@ -147,7 +147,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			CheckIfCeiling();
 			CheckIfWall();
 
-			if (!PHS.isHit)
+			if (!PHS.isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 			{
 				PlayerInput();
 			}
@@ -156,7 +156,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!isDashing && !PHS.isHit && !PHS.isDying)
+		if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
 			PlayerMovement();
 		}

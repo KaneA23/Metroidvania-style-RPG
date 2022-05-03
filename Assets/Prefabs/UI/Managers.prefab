@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &805388324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 805388325}
+  - component: {fileID: 805388326}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &805388325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805388324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6068887515315578122}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &805388326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805388324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff0cf3d86a3cce42be6c973171b0b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BPC: {fileID: 0}
+  healthBar: {fileID: 0}
+  staminaBar: {fileID: 0}
+  manaBar: {fileID: 0}
 --- !u!1 &2252268591279501909
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,6 +92,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff78cd182e773740b7f055a094914dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds:
+  - name: SkyTheme
+    clip: {fileID: 8300000, guid: c62e0a239f79ace4a925ac36a5f1b2c7, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: PlayerRun
+    clip: {fileID: 8300000, guid: c934a3a6d9e8a7e4b84bab2f21005a09, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerSwing
+    clip: {fileID: 8300000, guid: ea8f2272e0e2242428897e2028e448bf, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerJump
+    clip: {fileID: 8300000, guid: 150ddc7f2ced2a346956f3d77989ffa9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerDamage
+    clip: {fileID: 8300000, guid: aa2524b968021b747919272ba2ba3091, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BernardIntro
+    clip: {fileID: 8300000, guid: f5d95b33518cf0c4d98ad63ee8969f1f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &6068887514755746791
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +297,7 @@ Transform:
   - {fileID: 4636616115481126100}
   - {fileID: 6068887515381156597}
   - {fileID: 6068887514755746788}
+  - {fileID: 805388325}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -279,20 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f194fab059046064c91fe7d5b399b260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalsInkFile:
-    compileAutomatically: 0
-    inkAsset: {fileID: 102900000, guid: 3f9ea0ed9b2029d4db4bc77a7683577d, type: 3}
-    jsonAssetDirectory: {fileID: 0}
-    jsonAsset: {fileID: 0}
-    unhandledCompileErrors: []
-    errors: []
-    warnings: []
-    todos: []
-    parents: []
-    masterInkAssets: []
-    masterInkAsset: {fileID: 0}
-    includePaths: []
-    includes: []
+  loadGlobalsJSON: {fileID: 4900000, guid: ab8d2e39aebc91247a992e3add9d6fed, type: 3}
   dialogueBox: {fileID: 0}
   nameText: {fileID: 0}
   dialogueText: {fileID: 0}

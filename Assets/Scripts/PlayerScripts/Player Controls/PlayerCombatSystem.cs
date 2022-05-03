@@ -72,7 +72,7 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				ApplyCooldown();
 			}
-			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 			{
 				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost && BPC.hasLightAtk)
 				{
@@ -144,15 +144,15 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				Debug.Log(enemy.name);
 
-				if(enemy.gameObject.CompareTag("BernardLimb"))
-                {
+				if (enemy.gameObject.CompareTag("BernardLimb"))
+				{
 					enemy.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
-                }
-                else
-                {
+				}
+				else
+				{
 					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
 				}
-				
+
 			}
 		}
 
@@ -182,7 +182,14 @@ public class PlayerCombatSystem : MonoBehaviour
 			}
 			else
 			{
-				enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
+				if (enemy.CompareTag("BernardLimb"))
+				{
+					enemy.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
+				}
+				else
+				{
+					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
+				}
 			}
 		}
 

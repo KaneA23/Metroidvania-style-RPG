@@ -13,6 +13,8 @@ public class BernardIntroCutscene : MonoBehaviour
 	[SerializeField] private GameObject mainCam;
 	[SerializeField] private GameObject cutsceneCam;
 
+	[SerializeField] private GameObject bernardUI;
+
 	[SerializeField] Animator bernardAnim;
 	[SerializeField] Animator uiAnim;
 	[SerializeField] Animator bgAnim;
@@ -24,6 +26,7 @@ public class BernardIntroCutscene : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		bernardUI.SetActive(false);
 		gameObject.GetComponent<Collider2D>().enabled = true;
 		isCutscene = false;
 
@@ -53,13 +56,15 @@ public class BernardIntroCutscene : MonoBehaviour
 
 			//introCanvas.enabled = true;
 			isCutscene = true;
-			Invoke(nameof(PlayCutscene), 1f);
-			//PlayCutscene();
+			//Invoke(nameof(PlayCutscene), 1f);
+			PlayCutscene();
 		}
 	}
 
 	void PlayCutscene()
 	{
+		FindObjectOfType<AudioManager>().StopAudio("SkyTheme");
+		FindObjectOfType<AudioManager>().PlayAudio("BernardIntro");
 		uiCanvas.enabled = false;
 		cutsceneCam.SetActive(true);
 		mainCam.SetActive(false);
@@ -84,7 +89,10 @@ public class BernardIntroCutscene : MonoBehaviour
 
 		//introCanvas.enabled = false;
 
+		FindObjectOfType<AudioManager>().PlayAudio("SkyTheme");
 		isCutscene = false;
+
+		bernardUI.SetActive(true);
 
 		gameObject.GetComponent<Collider2D>().enabled = false;
 	}

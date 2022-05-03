@@ -118,10 +118,10 @@ public class BernardAttacking : MonoBehaviour
         //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);     ]
         //}                                                                      ]
 
-        Physics2D.IgnoreLayerCollision(6, 12);
-        Physics2D.IgnoreLayerCollision(10, 12);
-        Physics2D.IgnoreLayerCollision(9, 12);
-        Physics2D.IgnoreLayerCollision(7, 12);
+        Physics2D.IgnoreLayerCollision(6, 17);
+        Physics2D.IgnoreLayerCollision(10, 17);
+        Physics2D.IgnoreLayerCollision(9, 17);
+        Physics2D.IgnoreLayerCollision(7, 17);
         Physics2D.IgnoreLayerCollision(3, 17);
 
         if (transform.position.x < m_Player.transform.position.x)
@@ -334,7 +334,7 @@ public class BernardAttacking : MonoBehaviour
 
         if (!onWall)
         {
-            transform.Find("WallCollider").gameObject.layer = 12;
+            transform.Find("WallCollider").gameObject.layer = 17;
 
             if (!dirChosen)
             {
@@ -344,9 +344,9 @@ public class BernardAttacking : MonoBehaviour
             }
             else
             {
-                gameObject.layer = 12;
-                gameObject.transform.Find("Head").gameObject.layer = 12;
-                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 12;               
+                gameObject.layer = 17;
+                gameObject.transform.Find("Head").gameObject.layer = 17;
+                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 17;               
             }
 
             if (dirChoice >= 0 && dirChoice < 1)
@@ -464,9 +464,9 @@ public class BernardAttacking : MonoBehaviour
 
         if (!jumpedDown)
         {
-            gameObject.layer = 12;
-            gameObject.transform.Find("Head").gameObject.layer = 12;
-            gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 12;
+            gameObject.layer = 17;
+            gameObject.transform.Find("Head").gameObject.layer = 17;
+            gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 17;
 
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
