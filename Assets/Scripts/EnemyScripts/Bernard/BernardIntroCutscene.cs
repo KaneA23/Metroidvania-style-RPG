@@ -15,6 +15,7 @@ public class BernardIntroCutscene : MonoBehaviour
 
 	[SerializeField] Animator bernardAnim;
 	[SerializeField] Animator uiAnim;
+	[SerializeField] Animator bgAnim;
 
 	float animTime;
 
@@ -23,6 +24,7 @@ public class BernardIntroCutscene : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		gameObject.GetComponent<Collider2D>().enabled = true;
 		isCutscene = false;
 
 		CFS.cameraState = CameraState.CAM_FOLLOWING;
@@ -47,24 +49,25 @@ public class BernardIntroCutscene : MonoBehaviour
 	{
 		if (a_other.CompareTag("Player"))
 		{
-			a_other.GetComponent<Rigidbody2D>().gravityScale = 4f;
+			a_other.GetComponent<Rigidbody2D>().gravityScale = 1f;
 
-			isCutscene = true;
-
-			uiCanvas.enabled = false;
-			cutsceneCam.SetActive(true);
-			mainCam.SetActive(false);
 			//introCanvas.enabled = true;
-			intro.SetActive(true);
-			//Invoke(nameof(PlayCutscene), 1f);
-			PlayCutscene();
+			isCutscene = true;
+			Invoke(nameof(PlayCutscene), 1f);
+			//PlayCutscene();
 		}
 	}
 
 	void PlayCutscene()
 	{
+		uiCanvas.enabled = false;
+		cutsceneCam.SetActive(true);
+		mainCam.SetActive(false);
+
+		intro.SetActive(true);
 		bernardAnim.Play("Bernard_Cutscene");
 		uiAnim.Play("Bernard_introUI");
+		bgAnim.Play("Cutscene_BG");
 
 		animTime = 4f;
 		Invoke(nameof(EndCutscene), animTime);
@@ -75,12 +78,14 @@ public class BernardIntroCutscene : MonoBehaviour
 		intro.SetActive(false);
 
 		mainCam.SetActive(true);
-		CFS.cameraState = CameraState.CAM_BOSSBERNARD;
+		//CFS.cameraState = CameraState.CAM_BOSSBERNARD;
 		cutsceneCam.SetActive(false);
 		uiCanvas.enabled = true;
 
 		//introCanvas.enabled = false;
 
 		isCutscene = false;
+
+		gameObject.GetComponent<Collider2D>().enabled = false;
 	}
 }
