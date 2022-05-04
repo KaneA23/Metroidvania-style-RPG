@@ -24,6 +24,7 @@ TagManager:
   - Trapdoor4
   - BernardLimb
   - EnemyFloor
+  - RambleonTut
   layers:
   - Default
   - TransparentFX

@@ -92,6 +92,10 @@ public class BarrelHealthSystem : MonoBehaviour
 	void Die()
 	{
 		//Debug.Log("Removes NPC");
+		if (gameObject.CompareTag("RambleonTut"))
+		{
+			FindObjectOfType<RambleonSpawnController>().rambleonCounter++;
+		}
 		Destroy(gameObject);
 	}
 }
