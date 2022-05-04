@@ -184,41 +184,27 @@ public class BernardAttacking : MonoBehaviour
         {
             //Debug.Log("player direction x: " + playerDir.x);
 
-            if (directionChoice == 'L')
+            if (directionChoice == 'R' && playerDirection == 'L')
             {
-                if (m_Player.transform.position.x < transform.position.x)
+                if (!flipReached)
                 {
-                    playerDirNew = 'L';
-
-                }
-                else if (m_Player.transform.position.x > transform.position.x)
-                {
-                    playerDirNew = 'R';
-                    if (!flipReached)
-                    {
-                        Debug.Log("FLIP");
-                        transform.Rotate(new Vector2(0, 180));
-                        flipReached = true;
-                    }
+                    Debug.Log("FLIP");
+                    transform.Rotate(new Vector2(0, 180));
+                    flipReached = true;
                 }
             }
-            else if (directionChoice == 'R')
+            else if (directionChoice == 'L' && playerDirection == 'R')
             {
-                if (m_Player.transform.position.x < transform.position.x)
+                if (!flipReached)
                 {
-                    playerDirNew = 'L';
-                    if (!flipReached)
-                    {
-                        Debug.Log("FLIP");
-                        transform.Rotate(new Vector2(0, 180));
-                        flipReached = true;
-                    }
+                    Debug.Log("FLIP");
+                    transform.Rotate(new Vector2(0, 180));
+                    flipReached = true;
                 }
-                else if (m_Player.transform.position.x > transform.position.x)
-                {
-                    playerDirNew = 'R';
-
-                }
+            }
+            else
+            {
+                Debug.Log("Narp");
             }
         }
     }
@@ -344,12 +330,7 @@ public class BernardAttacking : MonoBehaviour
     }
 
     void Attacking_2()
-    {
-        if(!oneTime)
-        {
-            EnemyFacingSecondPhase();
-            oneTime = true;
-        }
+    {       
 
         RaycastHit2D hit;
 
@@ -412,9 +393,15 @@ public class BernardAttacking : MonoBehaviour
                         isFacingRight = false;
                     }
                 }
-                
+
                 rb.AddForce(new Vector2(-1f, 0f).normalized * m_Speed);
                 //isFacingRight = false;
+            }
+
+            if (!oneTime)
+            {
+                EnemyFacingSecondPhase();
+                oneTime = true;
             }
 
             Collider2D[] wallColliders = Physics2D.OverlapCircleAll(transform.position, wallDetectionRadius);
