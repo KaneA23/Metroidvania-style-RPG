@@ -16,12 +16,12 @@ public class BaseArcaneWarriorClass : BasePlayerClass
 		MaximumHealthPoints = 100;
 
 		MaximumMana = 200;
-		MaximumManaRegeneration = 0.3f;
+		MaximumManaRegeneration = 0.5f;
 
 		MaximumStamina = 100;
 
-		LightAttackDamage = 35f;
-		HeavyAttackDamage = 60f;
+		LightAttackDamage = 30f;
+		HeavyAttackDamage = 50f;
 
 		WalkSpeed = 10f;
 		CrouchingSpeed = 5f;

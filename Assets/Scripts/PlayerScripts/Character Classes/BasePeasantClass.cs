@@ -16,7 +16,7 @@ public class BasePeasantClass : BasePlayerClass
 		MaximumHealthPoints = 100;
 
 		MaximumMana = 100;
-		MaximumManaRegeneration = 1f;
+		MaximumManaRegeneration = 0.3f;
 
 		MaximumStamina = 100;
 

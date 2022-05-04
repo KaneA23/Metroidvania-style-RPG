@@ -101,7 +101,7 @@ public class PlayerHealthSystem : MonoBehaviour
 		}
 
 		// If player has no more health, death animation plays
-		if (BPC.currentHP <= 0 && !isHit)
+		if (BPC.currentHP <= 0 && !isDying)
 		{
 			isDying = true;
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
@@ -126,7 +126,7 @@ public class PlayerHealthSystem : MonoBehaviour
 			return;
 		}
 
-		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
 			//em.enabled = true;
 			hurtParticle.Play();

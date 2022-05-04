@@ -16,12 +16,12 @@ public class BasePaladinClass : BasePlayerClass
 		MaximumHealthPoints = 300;
 
 		MaximumMana = 100;
-		MaximumManaRegeneration = 1f;
+		MaximumManaRegeneration = 0.4f;
 
 		MaximumStamina = 200;
 
 		LightAttackDamage = 50f;
-		HeavyAttackDamage = 100f;
+		HeavyAttackDamage = 75f;
 
 		WalkSpeed = 7.5f;
 		CrouchingSpeed = 2.5f;
