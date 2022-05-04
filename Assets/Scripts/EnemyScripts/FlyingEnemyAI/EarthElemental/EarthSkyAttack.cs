@@ -21,6 +21,7 @@ public class EarthSkyAttack : MonoBehaviour
 
     public float m_AboveAttackForce;
     public float m_AttackInterval;
+    public float m_HeightAbovePlayer;
 
     private bool CR_RUNNING;
     public bool m_Attacking;
@@ -66,7 +67,7 @@ public IEnumerator AboveAttack(float force)
 
         float x = Random.Range(m_PlayerPos.x - 5f, m_PlayerPos.x + 5f); ;
 
-        m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 8f);
+        m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + m_HeightAbovePlayer);
 
         m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
 
