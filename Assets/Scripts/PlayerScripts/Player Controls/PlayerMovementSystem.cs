@@ -122,6 +122,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		Physics2D.IgnoreLayerCollision(12, 14); //cannonballs
 		Physics2D.IgnoreLayerCollision(12, 7);  //projectiles
 		Physics2D.IgnoreLayerCollision(12, 13); //traps
+		Physics2D.IgnoreLayerCollision(12, 18);
+		Physics2D.IgnoreLayerCollision(6, 18);
 	}
 
 	// Update is called once per frame

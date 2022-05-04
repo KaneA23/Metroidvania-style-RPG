@@ -105,6 +105,7 @@ public class BernardStates : MonoBehaviour
 				else if (m_Health >= m_HealthPercentageRounded * 2 && m_Health <= m_MaxHealth)
 				{
 					BAS.currentAnimName = "LizardRun";
+					
 					BA.Invoke(AttackStateTypes[0], 0f);
 				}
 

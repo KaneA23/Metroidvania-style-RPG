@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+	public BernardHealthUI BHUI;
+
 	public float m_MaxHP = 100;
 	public float m_CurrentHP;
 
 	public float HitForce = 250;
+
+	[SerializeField] private int startTime;
+	private bool timerStart = false;
 
 	Rigidbody2D rb;
 
@@ -24,7 +29,6 @@ public class EnemyHealth : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 	}
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		m_CurrentHP = m_MaxHP;
@@ -41,8 +45,20 @@ public class EnemyHealth : MonoBehaviour
 		if (m_CurrentHP <= 0)
 		{
 			Debug.Log("<color=Purple>Get Rekt Son</color>");
-			Destroy(m_SpriteRenderer);
-			Invoke(nameof(KillEnemy), 0.5f);
+
+			if(gameObject.name == "Bernard")
+            {
+				Destroy(m_SpriteRenderer);
+
+				GetComponent<BoxCollider2D>().enabled = false;
+				GetComponent<PolygonCollider2D>().enabled = false;
+
+				InvokeRepeating("Timer", 0, 1);
+            }
+            else
+            {
+				Invoke(nameof(KillEnemy), 0.5f);
+			}			
 		}
 
 		if ((transform.position.x - a_PlayerPos.x) < 0)
@@ -55,13 +71,27 @@ public class EnemyHealth : MonoBehaviour
 			Debug.Log("Right Hit");
 			rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
 		}
+
+		BHUI.healthlerpTimer = 0;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
+		
 	}
+
+	void Timer()
+    {
+        if (startTime > 0)
+        {
+            startTime--;
+        }
+        else
+        {
+			KillEnemy();
+        }
+    }
 
 	void KillEnemy()
 	{

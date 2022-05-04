@@ -9,6 +9,8 @@ public class TrapDoorScript : MonoBehaviour
 
 	public GameObject trapdoor;
 
+	public GameObject enemyFloor;
+
 	public GameObject visualCue;
 
 	public GameObject monolith;
@@ -58,6 +60,8 @@ public class TrapDoorScript : MonoBehaviour
 			//	em.enabled = true;
 			//}
 
+			Destroy(enemyFloor);
+
 			monolith.SetActive(true);
 			for (int i = 0; i < emissionMod.Length; i++)
 			{
@@ -70,6 +74,7 @@ public class TrapDoorScript : MonoBehaviour
 				visualCue.SetActive(true);
 				if (Input.GetKeyDown(KeyCode.F))
 				{
+
 					//trapExplosion.Play();
 					for (int i = 0; i < trapExplosions.Length; i++)
 					{

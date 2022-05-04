@@ -23,6 +23,7 @@ TagManager:
   - Trapdoor3
   - Trapdoor4
   - BernardLimb
+  - EnemyFloor
   layers:
   - Default
   - TransparentFX
@@ -42,7 +43,7 @@ TagManager:
   - Cannon
   - BossWall
   - BernardVoid
-  - 
+  - EnemyFloor
   - 
   - 
   - 

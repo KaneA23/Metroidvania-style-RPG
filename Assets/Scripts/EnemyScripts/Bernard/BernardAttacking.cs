@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using System;
 public class BernardAttacking : MonoBehaviour
 {
     private BernardStates BS;
@@ -18,6 +18,7 @@ public class BernardAttacking : MonoBehaviour
     private Vector3 m_CurrentPos;
     private Vector3 m_OrigPos;
     private Vector2 wallDir;
+    [SerializeField] private Vector2 playerDir;
 
     private Transform m_PlayerTransform;
 
@@ -43,6 +44,7 @@ public class BernardAttacking : MonoBehaviour
     private char wallSide;
     [SerializeField] private char directionChoice;
     public char playerDirection;
+    public char playerDirNew;
 
     public int m_GroundAttackDamage;
 
@@ -62,6 +64,9 @@ public class BernardAttacking : MonoBehaviour
     public bool isAlert;
     public bool isForget;
     public bool isAgro;
+    private bool flipReached = false;
+    private bool oneTime = false;
+ 
     [SerializeField] private bool m_Attacking;
     [SerializeField] private bool dirChosen = false;
     [SerializeField] public bool onWall = false;
@@ -71,7 +76,7 @@ public class BernardAttacking : MonoBehaviour
     [SerializeField] private bool secondPhase = false;
     [SerializeField] private bool thirdPhase = false;
     private bool CR_RUNNING = false;
-    [SerializeField] private bool isFacingRight;
+    [SerializeField] private bool isFacingRight = false;
     [SerializeField] private bool isFacingLeft = true;
 
     private int dirChoice = 0;
@@ -146,23 +151,8 @@ public class BernardAttacking : MonoBehaviour
     }
 
     private void EnemyFacing()
-    {
-        //if (collisionCount == 0)
-        //{
-
-        //if (m_TargetDir.x < 0)
-        //{
-        //    m_SpriteRenderer.flipX = false;
-        //}
-
-        //if (m_TargetDir.x > 0)
-        //{
-        //    m_SpriteRenderer.flipX = true;
-        //}
-
-
-
-        if (firstPhase)
+    {        
+        if (firstPhase && !secondPhase)
         {
             if ((m_TargetDir.x > 0 && !isFacingRight) || (m_TargetDir.x < 0 && isFacingRight))
             {
@@ -171,7 +161,7 @@ public class BernardAttacking : MonoBehaviour
             }
         }
 
-        if (thirdPhase)
+        if (thirdPhase && !secondPhase)
         {
             if ((playerDirection == 'R' && !isFacingRight) || (playerDirection == 'L' && isFacingRight))
             {
@@ -180,23 +170,57 @@ public class BernardAttacking : MonoBehaviour
             }
         }
 
-        //if (secondPhase)
-        //{
-        //    Vector2 wallDir = (transform.position - m_TargetWall.transform.position).normalized;
 
-        //    if(wallDir.x < 0)
-        //    {
-        //        m_SpriteRenderer.flipX = false;
-        //    }
-        //    else if(wallDir.x > 0)
-        //    {
-        //        m_SpriteRenderer.flipX = true;
-        //    }
-            
-        //}
 
         //m_OrigPos = transform.position.x;
         //}
+    }
+
+    void EnemyFacingSecondPhase()
+    {
+        Debug.Log("RAN");
+
+        if (secondPhase)
+        {
+            //Debug.Log("player direction x: " + playerDir.x);
+
+            if (directionChoice == 'L')
+            {
+                if (m_Player.transform.position.x < transform.position.x)
+                {
+                    playerDirNew = 'L';
+
+                }
+                else if (m_Player.transform.position.x > transform.position.x)
+                {
+                    playerDirNew = 'R';
+                    if (!flipReached)
+                    {
+                        Debug.Log("FLIP");
+                        transform.Rotate(new Vector2(0, 180));
+                        flipReached = true;
+                    }
+                }
+            }
+            else if (directionChoice == 'R')
+            {
+                if (m_Player.transform.position.x < transform.position.x)
+                {
+                    playerDirNew = 'L';
+                    if (!flipReached)
+                    {
+                        Debug.Log("FLIP");
+                        transform.Rotate(new Vector2(0, 180));
+                        flipReached = true;
+                    }
+                }
+                else if (m_Player.transform.position.x > transform.position.x)
+                {
+                    playerDirNew = 'R';
+
+                }
+            }
+        }
     }
 
     private void GroundAttacking()
@@ -273,8 +297,6 @@ public class BernardAttacking : MonoBehaviour
 
                     onWall = true;
                     gameObject.layer = 3;
-                    gameObject.transform.Find("Head").gameObject.layer = 3;
-                    gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 3;
                     rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 }
             }
@@ -323,6 +345,12 @@ public class BernardAttacking : MonoBehaviour
 
     void Attacking_2()
     {
+        if(!oneTime)
+        {
+            EnemyFacingSecondPhase();
+            oneTime = true;
+        }
+
         RaycastHit2D hit;
 
         firstPhase = false;
@@ -344,13 +372,13 @@ public class BernardAttacking : MonoBehaviour
             }
             else
             {
-                gameObject.layer = 17;
-                gameObject.transform.Find("Head").gameObject.layer = 17;
-                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 17;               
+                gameObject.layer = 17;           
             }
 
             if (dirChoice >= 0 && dirChoice < 1)
             {
+                directionChoice = 'R';
+
                 if (!wallHit)
                 {
                     hit = Physics2D.Raycast(transform.position, Vector2.right, m_PlayerMask);
@@ -364,12 +392,14 @@ public class BernardAttacking : MonoBehaviour
                         isFacingRight = true;
                     }
                 }
-                directionChoice = 'R';
+                
                 rb.AddForce(new Vector2(1f, 0f).normalized * m_Speed);
                 //isFacingRight = true;
             }
             else
             {
+                directionChoice = 'L';
+
                 if (!wallHit)
                 {
                     hit = Physics2D.Raycast(transform.position, Vector2.left, m_PlayerMask);
@@ -382,7 +412,7 @@ public class BernardAttacking : MonoBehaviour
                         isFacingRight = false;
                     }
                 }
-                directionChoice = 'L';
+                
                 rb.AddForce(new Vector2(-1f, 0f).normalized * m_Speed);
                 //isFacingRight = false;
             }
@@ -396,8 +426,6 @@ public class BernardAttacking : MonoBehaviour
 
                     m_TargetWall = wallColliders[i].gameObject;
                     wallDir = (transform.position - m_TargetWall.transform.position).normalized;
-
-                    Debug.Log("jumped up: " + jumpedUp);
 
                     if (!jumpedUp)
                     {
@@ -465,8 +493,6 @@ public class BernardAttacking : MonoBehaviour
         if (!jumpedDown)
         {
             gameObject.layer = 17;
-            gameObject.transform.Find("Head").gameObject.layer = 17;
-            gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 17;
 
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -484,8 +510,6 @@ public class BernardAttacking : MonoBehaviour
         else
         {
             gameObject.layer = 3;
-            gameObject.transform.Find("Head").gameObject.layer = 3;
-            gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 3;
         }
 
         if (Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
@@ -493,8 +517,6 @@ public class BernardAttacking : MonoBehaviour
             if (!Physics2D.IsTouching(GetComponent<Collider2D>(), m_ChosenWall.GetComponent<Collider2D>()))
             {
                 gameObject.layer = 3;
-                gameObject.transform.Find("Head").gameObject.layer = 3;
-                gameObject.transform.Find("Head").gameObject.transform.Find("HeadCollider").gameObject.layer = 3;
 
                 jumpedDown = true;
             }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class BernardAnimationSystem : MonoBehaviour
 {
     public BernardAttacking BA;
+    public EnemyHealth EH;
 
     public Animator animator;
 
     private SpriteRenderer spriteRenderer;
 
-    public GameObject bernardHead;
     public GameObject bernardWallBody;
 
     private PolygonCollider2D bernardTailCollider;
@@ -27,9 +27,9 @@ public class BernardAnimationSystem : MonoBehaviour
 
     public enum bernardAnimationStates
     {
-        BERNARD_IDLE,       // 0
-        BERNARD_DAMAGED_RUN,    // 1
-        BERNARD_RUN,    // 2
+        BERNARD_IDLE,       
+        BERNARD_DAMAGED_RUN,   
+        BERNARD_RUN,  
         BERNARD_WALL_IDLE,
         BERNARD_JUMP,
         BERNARD_WALK
@@ -63,10 +63,12 @@ public class BernardAnimationSystem : MonoBehaviour
 
                 ChangeAnimation(bernardAnimationStates.BERNARD_DAMAGED_RUN);
 
-                bernardHead.SetActive(true);
-                bernardBodyCollider.enabled = true;
-                bernardTailCollider.enabled = true;
-
+                if(!(EH.m_CurrentHP <= 0))
+                {
+                    bernardBodyCollider.enabled = true;
+                    bernardTailCollider.enabled = true;
+                }
+                
                 bernardWallBody.SetActive(false);              
 
                 break;
@@ -86,7 +88,6 @@ public class BernardAnimationSystem : MonoBehaviour
 
                 ChangeAnimation(bernardAnimationStates.BERNARD_JUMP);
 
-                bernardHead.SetActive(false);
                 bernardBodyCollider.enabled = false;
                 bernardTailCollider.enabled = false;
 
@@ -103,7 +104,7 @@ public class BernardAnimationSystem : MonoBehaviour
 
     }
 
-    void ChangeAnimation(bernardAnimationStates animState)
+    public void ChangeAnimation(bernardAnimationStates animState)
     {
         if (currentAnimation == bernardAnimations[(int)animState])
         {

@@ -12,7 +12,7 @@ public class BernardHealthUI : MonoBehaviour
     public GameObject healthBarEmpty;
     public Image healthBackHealthBar;
 
-    private float healthlerpTimer;
+    public float healthlerpTimer;
     private float healthLerpSpeed;
 
     [Header("Second Health Bar")]
@@ -53,6 +53,7 @@ public class BernardHealthUI : MonoBehaviour
         float fillBSecond = healthBackHealthBarSecondary.fillAmount;
 
         float healthFraction = EH.m_CurrentHP/ (float)EH.m_MaxHP;
+
 
         // Decreases healthbar UI when player takes damage
         if (fillB > healthFraction)
