@@ -381,12 +381,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BHUI: {fileID: 0}
-  m_MaxHP: 150
+  m_MaxHP: 500
   m_CurrentHP: 0
   HitForce: 250
-  bodyCollider: {fileID: 0}
-  tailCollider: {fileID: 0}
-  headCollider: {fileID: 0}
+  startTime: 0
 --- !u!60 &551591509
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -485,8 +483,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BA: {fileID: 2042561984185029536}
+  EH: {fileID: 0}
   animator: {fileID: 0}
-  bernardHead: {fileID: 0}
   bernardWallBody: {fileID: 1391011384}
   currentAnimName: 
   currentAnimNameNew: 

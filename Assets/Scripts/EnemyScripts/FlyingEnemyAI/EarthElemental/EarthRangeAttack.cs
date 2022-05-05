@@ -27,6 +27,9 @@ public class EarthRangeAttack : MonoBehaviour
 
     public ParticleSystem m_SpikeRumble;
 
+    public Animator earthChunkAnimator;
+    private AnimationClip[] earthChunkAnimations;
+
     public float m_GroundAttackSpeed;
     public float m_AboveAttackForce;
     public float m_AttackInterval;
@@ -34,6 +37,8 @@ public class EarthRangeAttack : MonoBehaviour
     public float m_SpikeHeight;
     public float m_RaycastDistance;
     private float m_DistanceFromGround;
+    public float m_HeightAbovePlayer;
+    public float m_WaitTime;
 
     int m_spikeCount = 0;
 
@@ -100,6 +105,19 @@ public class EarthRangeAttack : MonoBehaviour
         {
             CR_RUNNING = false;
             m_Attacking = false;
+        }
+    }
+
+    void GetAnimClip()
+    {
+        foreach (AnimationClip clip in earthChunkAnimations)
+        {
+            switch (clip.name)
+            {
+                case "Earth_Chunk_Instantiate":
+                    m_WaitTime = clip.length;
+                    break;
+            }
         }
     }
 

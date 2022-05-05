@@ -20,6 +20,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	private DialogueManager DM;
 
 	GameObject eventSystem;
+	GameObject Bernard;
 
 	[Header("Movement")]
 	public bool isFacingRight;
@@ -85,9 +86,13 @@ public class PlayerMovementSystem : MonoBehaviour
 	public LayerMask wallLayers;
 
 	BoxCollider2D headCollider;
+	CapsuleCollider2D bodyCollider;
 	Rigidbody2D rb;
 
 	public ParticleSystem dust;
+
+	public BoxCollider2D bossBodyCollider;
+	public PolygonCollider2D bossTailCollider;
 
 	private void Awake()
 	{
@@ -101,7 +106,11 @@ public class PlayerMovementSystem : MonoBehaviour
 		DM = FindObjectOfType<DialogueManager>();
 
 		headCollider = GetComponent<BoxCollider2D>();
+		//bodyCollider = GetComponent<CapsuleCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
+
+		//bossBodyCollider = Bernard.GetComponent<BoxCollider2D>();
+		//bossTailCollider = Bernard.GetComponent<PolygonCollider2D>();
 	}
 
 	// Start is called before the first frame update
@@ -132,9 +141,9 @@ public class PlayerMovementSystem : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
-		}
+		}           
 
-		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
+        if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 		}
@@ -158,7 +167,18 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+        //if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
+        //        !bodyCollider.bounds.Intersects(bossTailCollider.bounds) ||
+        //        !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
+        //        !bodyCollider.bounds.Intersects(bossBodyCollider.bounds))
+        //{
+        //    if (gameObject.layer != 6)
+        //    {
+        //        gameObject.layer = 6;
+        //    }
+        //}
+
+        if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
 			PlayerMovement();
 		}
@@ -508,7 +528,19 @@ public class PlayerMovementSystem : MonoBehaviour
 			isDashing = false;
 			isManaCooldown = true;
 			cooldownTimer = BPC.dashCooldown;
+
 			gameObject.layer = 6;
+
+			//if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
+			//    !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
+			//    !bodyCollider.bounds.Intersects(bossBodyCollider.bounds) ||
+			//    !bodyCollider.bounds.Intersects(bossTailCollider.bounds))
+			//{
+			//    if (gameObject.layer != 6)
+			//    {
+			//        gameObject.layer = 6;
+			//    }
+			//}
 		}
 	}
 

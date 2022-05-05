@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
 		//m_HealthBar.value = m_CurrentHP;
 	}
 
-	public void TakeDamage(float a_Damage, Vector2 a_PlayerPos)
+	public void TakeDamage(float a_Damage, Vector2 a_PlayerPos, float a_KnockbackAmount)
 	{
 		m_CurrentHP -= a_Damage;
 		//m_HealthBar.value = m_CurrentHP;
@@ -64,12 +64,12 @@ public class EnemyHealth : MonoBehaviour
 		if ((transform.position.x - a_PlayerPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
-			rb.AddForce(new Vector2(-1f, 0.5f) * HitForce);
+			rb.AddForce(new Vector2(-1f, 0.5f) * a_KnockbackAmount);
 		}
 		else if ((transform.position.x - a_PlayerPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
-			rb.AddForce(new Vector2(1f, 0.5f) * HitForce);
+			rb.AddForce(new Vector2(1f, 0.5f) * a_KnockbackAmount);
 		}
 
 		BHUI.healthlerpTimer = 0;

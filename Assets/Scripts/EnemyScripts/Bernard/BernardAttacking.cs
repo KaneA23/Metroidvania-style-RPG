@@ -18,14 +18,21 @@ public class BernardAttacking : MonoBehaviour
     private Vector3 m_CurrentPos;
     private Vector3 m_OrigPos;
     private Vector2 wallDir;
+    Vector2 m_ChunkHitDir;
     [SerializeField] private Vector2 playerDir;
+
+    private AnimationClip[] earthChunkAnimations;
+    public Animator earthChunkAnimator;
 
     private Transform m_PlayerTransform;
 
     private GameObject m_Player;
+    GameObject m_EarthChunk;
     public GameObject m_Floor;
     private GameObject m_ChosenWall;
     [SerializeField] private GameObject m_TargetWall;
+    public GameObject m_SpawnCheckPrefab;
+    private GameObject m_SpawnCheck;
 
     public SpriteRenderer m_SpriteRenderer;
 
@@ -58,6 +65,9 @@ public class BernardAttacking : MonoBehaviour
     float minDistance = Mathf.Infinity;
     public float animDelay;
     public float wallDetectionRadius;
+    public float m_WaitTime;
+    public float m_HeightAbovePlayer;
+    public float m_SpawnCheckRadius;
 
     private bool wallHit;
     public bool m_MovingToTarget;
@@ -110,8 +120,14 @@ public class BernardAttacking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         m_MovementDirection = rb.velocity.normalized;
 
+        if(m_EarthChunk != null)
+        {
+            m_ChunkHitDir = (m_TargetPos - m_EarthChunk.transform.position).normalized;
+        }
+        
         float h = Input.GetAxisRaw("Horizontal");
 
         //if (isAgro && !isAlert)                                                ]
@@ -169,8 +185,6 @@ public class BernardAttacking : MonoBehaviour
                 isFacingRight = !isFacingRight;
             }
         }
-
-
 
         //m_OrigPos = transform.position.x;
         //}
@@ -306,7 +320,8 @@ public class BernardAttacking : MonoBehaviour
         }
 
         if (otherObject.gameObject == m_Player)
-        {
+        {           
+
             if (!secondPhase)
             {
                 PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
@@ -435,7 +450,7 @@ public class BernardAttacking : MonoBehaviour
         {
             transform.Find("WallCollider").gameObject.layer = 3;
 
-            if (!CR_RUNNING)
+            if (!CR_RUNNING && m_EarthChunk == null)
             {
                 StartCoroutine(AboveAttack(m_ProjectileForce));
             }
@@ -455,19 +470,39 @@ public class BernardAttacking : MonoBehaviour
 
         float x = UnityEngine.Random.Range(m_TargetPos.x - 5f, m_TargetPos.x + 5f); ;
 
-        Vector2 m_ChunkSpawnPos = new Vector2(x, m_TargetPos.y + 8f);
+        Vector2 m_ChunkSpawnPos = new Vector2(x, m_TargetPos.y + m_HeightAbovePlayer);
 
-        GameObject m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
+        m_SpawnCheck = Instantiate(m_SpawnCheckPrefab, m_ChunkSpawnPos, Quaternion.identity);
+
+        Collider2D wallCollider = Physics2D.OverlapCircle(m_SpawnCheck.transform.position, 0.6f);
+
+        if (wallCollider != null)
+        {
+            Destroy(m_SpawnCheck);
+            CR_RUNNING = false;
+            yield break;
+        }
+
+        m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
+
+        m_EarthChunk.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+        earthChunkAnimator = m_EarthChunk.GetComponent<Animator>();
+
+        earthChunkAnimations = earthChunkAnimator.runtimeAnimatorController.animationClips;
+
+        GetAnimClip();
 
         m_EarthChunk.GetComponent<AttackPlayer>().m_Enemy = gameObject;
 
         Rigidbody2D m_ChunkBody = m_EarthChunk.GetComponent<Rigidbody2D>();
 
-        Vector2 m_ChunkHitDir = (m_TargetPos - m_EarthChunk.transform.position).normalized;
+        yield return new WaitForSeconds(m_WaitTime);
+
+        m_EarthChunk.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        m_EarthChunk.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         m_ChunkBody.AddForce(m_ChunkHitDir * force, ForceMode2D.Impulse);
-
-        yield return new WaitForSeconds(m_AboveAttackInterval);
 
         CR_RUNNING = false;
     }
@@ -509,11 +544,24 @@ public class BernardAttacking : MonoBehaviour
             }
         }
 
-        if (!CR_RUNNING)
+        if (!CR_RUNNING && m_EarthChunk == null)
         {
             StartCoroutine(AboveAttack(m_ProjectileForce));
         }
 
         GroundAttacking();
+    }
+
+    void GetAnimClip()
+    {
+        foreach (AnimationClip clip in earthChunkAnimations)
+        {
+            switch (clip.name)
+            {
+                case "Earth_Chunk_Instantiate":
+                    m_WaitTime = clip.length;
+                    break;
+            }
+        }
     }
 }
