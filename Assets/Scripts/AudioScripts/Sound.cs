@@ -22,6 +22,9 @@ public class Sound
 
 	public bool loop;
 
+	public bool isFadeIn;
+	public float fadeInTime;
+
 	[HideInInspector]
 	public AudioSource source;
 }

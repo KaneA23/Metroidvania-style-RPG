@@ -146,11 +146,11 @@ public class PlayerCombatSystem : MonoBehaviour
 
 				if (enemy.gameObject.CompareTag("BernardLimb"))
 				{
-					enemy.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
+					enemy.gameObject.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 				}
 				else
 				{
-					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position);
+					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.lightAtkDamage, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 				}
 
 			}
@@ -184,11 +184,11 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				if (enemy.CompareTag("BernardLimb"))
 				{
-					enemy.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
+					enemy.GetComponentInParent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position/*, BPC.heavyKnockbackDist*/);
 				}
 				else
 				{
-					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position);
+					enemy.GetComponent<EnemyHealth>().TakeDamage(BPC.heavyAtkDamage, gameObject.transform.position/*, BPC.heavyKnockbackDist*/);
 				}
 			}
 		}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class EnemyHealth : MonoBehaviour
 	private bool timerStart = false;
 
 	Rigidbody2D rb;
+
+	public Animator transition;
+	public float transitionTime = 1f;
 
 	//public Slider m_HealthBar;
 
@@ -37,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
 		//m_HealthBar.value = m_CurrentHP;
 	}
 
-	public void TakeDamage(float a_Damage, Vector2 a_PlayerPos, float a_KnockbackAmount)
+	public void TakeDamage(float a_Damage, Vector2 a_PlayerPos/*, float a_KnockbackAmount*/)
 	{
 		m_CurrentHP -= a_Damage;
 		//m_HealthBar.value = m_CurrentHP;
@@ -64,12 +68,12 @@ public class EnemyHealth : MonoBehaviour
 		if ((transform.position.x - a_PlayerPos.x) < 0)
 		{
 			Debug.Log("Left Hit");
-			rb.AddForce(new Vector2(-1f, 0.5f) * a_KnockbackAmount);
+			rb.AddForce(new Vector2(-1f, 0.5f) */* a_KnockbackAmount*/ HitForce);
 		}
 		else if ((transform.position.x - a_PlayerPos.x) > 0)
 		{
 			Debug.Log("Right Hit");
-			rb.AddForce(new Vector2(1f, 0.5f) * a_KnockbackAmount);
+			rb.AddForce(new Vector2(1f, 0.5f) * /*a_KnockbackAmount*/HitForce);
 		}
 
 		BHUI.healthlerpTimer = 0;
@@ -89,12 +93,20 @@ public class EnemyHealth : MonoBehaviour
         }
         else
         {
-			KillEnemy();
-        }
+			//KillEnemy();
+			StartCoroutine(LoadLevel("Main Menu Scene"));
+		}
     }
 
 	void KillEnemy()
 	{
 		Destroy(gameObject);
+	}
+
+	IEnumerator LoadLevel(string a_sceneName)
+	{
+		transition.SetTrigger("Start");
+		yield return new WaitForSeconds(transitionTime);
+		SceneManager.LoadScene(a_sceneName);
 	}
 }

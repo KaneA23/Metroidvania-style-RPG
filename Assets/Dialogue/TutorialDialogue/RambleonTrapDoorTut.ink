@@ -2,8 +2,9 @@
 
 === Main ===
     Sometimes when you kill enemies, MONOLITHS will appear! #speaker:UNKNOWN MAN
-    
-    *[Why?] #speaker:Player
+    ...
+    *[Why?] 
+        ...#speaker:Player
         Why should I touch that?!?  
         That thing looks EVIL?!?
         
