@@ -369,6 +369,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1243309311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243309312}
+  m_Layer: 3
+  m_Name: Tag
+  m_TagString: Trapdoor1
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1243309312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243309311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 704486223252902754}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1386062317
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +570,7 @@ GameObject:
   - component: {fileID: 2784498478717954213}
   - component: {fileID: 7640647281380662161}
   - component: {fileID: 439009687}
+  - component: {fileID: 599571182}
   m_Layer: 3
   m_Name: EarthElemental 1 1
   m_TagString: Enemy
@@ -555,11 +587,12 @@ Transform:
   m_GameObject: {fileID: 704486223252902766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.1308227, y: -0.37262392, z: 0.042915367}
-  m_LocalScale: {x: 2.0609026, y: 2.0609026, z: 2.0609026}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 704486224008737803}
   - {fileID: 626988361}
+  - {fileID: 1243309312}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -632,7 +665,7 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 500
   nextWaypointDistance: 10
-  m_AttackDistance: 4.5
+  m_AttackDistance: 6
   m_HitForce: 25
   enemyGraphics: {fileID: 704486224008737803}
   m_HoverPos: {x: 0, y: 0, z: 0}
@@ -656,9 +689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2022af2d4e1e4624db65a8f6a52a2e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BHUI: {fileID: 0}
   m_MaxHP: 100
   m_CurrentHP: 0
   HitForce: 250
+  startTime: 0
 --- !u!70 &3735206246946354413
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -690,6 +725,7 @@ MonoBehaviour:
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_AboveAttackForce: 20
   m_AttackInterval: 1.5
+  m_HeightAbovePlayer: 8
   m_Attacking: 0
 --- !u!114 &7640647281380662161
 MonoBehaviour:
@@ -720,7 +756,19 @@ MonoBehaviour:
   healthFrontFillBar: {fileID: 1131643532}
   healthBarEmpty: {fileID: 228922625}
   healthBackHealthBar: {fileID: 945945742}
-  enemyCanvas: {fileID: 626988360}
+--- !u!114 &599571182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704486223252902766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ddb00821f870444b58ed7552b3166e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rambleon: {fileID: 0}
 --- !u!1 &704486224008737802
 GameObject:
   m_ObjectHideFlags: 0
