@@ -457,18 +457,18 @@ public class BasePlayerClass : MonoBehaviour
 		LightCooldown = GameInformation.PlayerLightCooldown;
 		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
-		Debug.Log("Player Class: " + characterClassName);
-		Debug.Log("Player HP: " + MaximumHealthPoints);
-		Debug.Log("Player MP: " + MaximumMana);
-		Debug.Log("Player MP Regen: " + MaximumManaRegeneration);
-		Debug.Log("Player Stam: " + MaximumStamina);
-		Debug.Log("Player LightDmg: " + LightAttackDamage);
-		Debug.Log("Player HvyDmg: " + HeavyAttackDamage);
-		Debug.Log("Player walk: " + WalkSpeed);
-		Debug.Log("Player crouch: " + CrouchingSpeed);
-		Debug.Log("Player run: " + RunSpeed);
-		Debug.Log("Player lightCool: " + LightCooldown);
-		Debug.Log("Player hvycool: " + HeavyCooldown);
+		//Debug.Log("Player Class: " + characterClassName);
+		//Debug.Log("Player HP: " + MaximumHealthPoints);
+		//Debug.Log("Player MP: " + MaximumMana);
+		//Debug.Log("Player MP Regen: " + MaximumManaRegeneration);
+		//Debug.Log("Player Stam: " + MaximumStamina);
+		//Debug.Log("Player LightDmg: " + LightAttackDamage);
+		//Debug.Log("Player HvyDmg: " + HeavyAttackDamage);
+		//Debug.Log("Player walk: " + WalkSpeed);
+		//Debug.Log("Player crouch: " + CrouchingSpeed);
+		//Debug.Log("Player run: " + RunSpeed);
+		//Debug.Log("Player lightCool: " + LightCooldown);
+		//Debug.Log("Player hvycool: " + HeavyCooldown);
 	}
 
 

@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3984157114227239986}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   maxRegenHP: 20
   strengthLvl: 0
   maxStrenthLvl: 0
+  hasLightAtk: 1
   lightAtkDamage: 35
   lightAtkMultiplier: 0
   lightKnockbackDist: 200
@@ -106,6 +107,7 @@ MonoBehaviour:
   rangeAtkDamage: 0
   rangeAtkMultiplier: 0
   rangeKnockbackDist: 0
+  hasJump: 1
   jumpForce: 25
   jumpCost: 10
   hasDoubleJump: 1
@@ -120,9 +122,12 @@ MonoBehaviour:
   currentStam: 0
   currentMaxStam: 100
   regenRateStam: 60
+  hasWalk: 1
   walkSpeed: 10
+  hasCrouch: 1
   crouchSpeed: 5
   speedMultiplier: 0
+  hasRun: 1
   runSpeed: 15
   runSpeedMultiplier: 0
   runCost: 20

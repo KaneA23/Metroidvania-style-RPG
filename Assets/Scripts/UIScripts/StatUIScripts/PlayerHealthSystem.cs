@@ -23,7 +23,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	public Image healthFrontFillBar;
 	public GameObject healthBarEmpty;
 
-	public Image healthBackHealthBar;
+	public Image healthBackFillBar;
 
 	[Header("Knockback")]
 	public Rigidbody2D rb;
@@ -88,8 +88,14 @@ public class PlayerHealthSystem : MonoBehaviour
 			GainHealth(1);
 		}
 
-		float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
-		float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
+		//float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
+		//float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
+		double fillF = System.Math.Round(healthFrontFillBar.fillAmount, 2);
+		double fillB = System.Math.Round(healthBackFillBar.fillAmount, 2);
+
+
+		Debug.Log("HP FillF: " + fillF);
+		Debug.Log("HP FillB: " + fillB);
 
 		// When player isn't being attacked, start regening up to 20% of max HP overtime
 		if (!isHit && !isDying && fillB == fillF)
@@ -200,7 +206,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	public void UpdateHealthUI()
 	{
 		float fillF = healthFrontFillBar.fillAmount;
-		float fillB = healthBackHealthBar.fillAmount;
+		float fillB = healthBackFillBar.fillAmount;
 		float healthFraction = BPC.currentHP / (float)BPC.currentMaxHP;
 
 		// Decreases healthbar UI when player takes damage
@@ -215,7 +221,7 @@ public class PlayerHealthSystem : MonoBehaviour
 			float percentComplete = healthlerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
 
-			healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
+			healthBackFillBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
 			//em.enabled = true;
 		}
 		else
@@ -228,13 +234,13 @@ public class PlayerHealthSystem : MonoBehaviour
 		if (fillF < healthFraction)
 		{
 			healthLerpSpeed = 1f;
-			healthBackHealthBar.fillAmount = healthFraction;
+			healthBackFillBar.fillAmount = healthFraction;
 			healthlerpTimer += Time.deltaTime;
 
 			float percentComplete = healthlerpTimer / healthLerpSpeed;
 			percentComplete *= percentComplete;
 
-			healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackHealthBar.fillAmount, percentComplete);
+			healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackFillBar.fillAmount, percentComplete);
 		}
 	}
 

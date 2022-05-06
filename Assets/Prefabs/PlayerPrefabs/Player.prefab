@@ -10153,7 +10153,7 @@ MonoBehaviour:
   groundCheck: {fileID: 8854009660406198215}
   groundLayers:
     serializedVersion: 2
-    m_Bits: 3584
+    m_Bits: 265728
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -10162,6 +10162,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   dust: {fileID: 99843295}
+  bossBodyCollider: {fileID: 0}
+  bossTailCollider: {fileID: 0}
 --- !u!114 &8854009661262975164
 MonoBehaviour:
   m_ObjectHideFlags: 0
