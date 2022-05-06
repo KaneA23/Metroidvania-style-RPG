@@ -94,8 +94,8 @@ public class PlayerHealthSystem : MonoBehaviour
 		double fillB = System.Math.Round(healthBackFillBar.fillAmount, 2);
 
 
-		Debug.Log("HP FillF: " + fillF);
-		Debug.Log("HP FillB: " + fillB);
+		//Debug.Log("HP FillF: " + fillF);
+		//Debug.Log("HP FillB: " + fillB);
 
 		// When player isn't being attacked, start regening up to 20% of max HP overtime
 		if (!isHit && !isDying && fillB == fillF)
@@ -134,6 +134,9 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
+			PMS.isCrouching = false;	// Look at later point
+			PMS.isRunning = false;
+
 			//em.enabled = true;
 			hurtParticle.Play();
 

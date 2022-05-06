@@ -58,8 +58,8 @@ public class PlayerManaSystem : MonoBehaviour
 		double fillB = System.Math.Round(manaBackFillBar.fillAmount, 2);
 
 
-		Debug.Log("MP FillF: " + fillF);
-		Debug.Log("MP FillB: " + fillB);
+		//Debug.Log("MP FillF: " + fillF);
+		//Debug.Log("MP FillB: " + fillB);
 
 		// When no mana is being used, start regening up to 30% of max MP overtime
 		if (!PHS.isDying)

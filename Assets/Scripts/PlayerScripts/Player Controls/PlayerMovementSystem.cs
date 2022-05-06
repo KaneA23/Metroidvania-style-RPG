@@ -268,7 +268,12 @@ public class PlayerMovementSystem : MonoBehaviour
 					isRunning = true;
 					PSS.TakeStamina(BPC.runCost * Time.deltaTime);
 				}
-				if (Input.GetKeyUp(KeyCode.LeftShift) || BPC.currentStam < (BPC.runCost * 0.5f) && BPC.hasRun)
+				else
+				{
+					isRunning = false;
+				}
+
+				if (BPC.currentStam < (BPC.runCost * 0.5f))
 				{
 					isRunning = false;
 				}

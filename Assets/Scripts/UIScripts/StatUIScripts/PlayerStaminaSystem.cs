@@ -53,16 +53,16 @@ public class PlayerStaminaSystem : MonoBehaviour
 
 			double fillF = System.Math.Round(stamFrontFillBar.fillAmount, 2);//Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
 			double fillB = System.Math.Round(stamBackFillBar.fillAmount, 2);//Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
-			Debug.Log("stam FillF: " + fillF);
-			Debug.Log("stam FillB: " + fillB);
+			//Debug.Log("stam FillF: " + fillF);
+			//Debug.Log("stam FillB: " + fillB);
 
 			Debug.Log("is Dying:" + PHS.isDying);
 
 			// When no stamina is being used, start regening up overtime
 			if (!PHS.isDying)
 			{
-				//Debug.Log("is running: " + PMS.isRunning);
-				//Debug.Log("is jumping: " + PMS.isJumping);
+				Debug.Log("is running: " + PMS.isRunning);
+				Debug.Log("is jumping: " + PMS.isJumping);
 				if (!PMS.isRunning && fillF == fillB)
 				{
 					if (BPC.currentStam < BPC.currentMaxStam)
