@@ -13,7 +13,7 @@ public class PlayerManaSystem : MonoBehaviour
 	private BasePlayerClass BPC;
 	private PlayerHealthSystem PHS;
 	private PlayerMovementSystem PMS;
-	
+
 	[Space(5)]
 	GameObject eventSystem;
 	GameObject player;
@@ -49,6 +49,15 @@ public class PlayerManaSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Alpha9))
+		{
+			TakeMana(10);
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha0))
+		{
+			RegenMana(10);
+		}
+
 		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP, 32);   // Changes size of player stamina bar
 
 		//float fillF = Mathf.Round(manaFrontFillBar.fillAmount * 100) * 0.01f;

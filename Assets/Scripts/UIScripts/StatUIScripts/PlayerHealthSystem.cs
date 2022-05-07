@@ -81,11 +81,11 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
-			TakeDamage(Random.Range(5, 10), gameObject.transform.position, 0f, false);
+			TakeDamage(10, gameObject.transform.position, 0f, false);
 		}
-		if (Input.GetKey(KeyCode.Equals))
+		if (Input.GetKeyDown(KeyCode.Equals))
 		{
-			GainHealth(1);
+			GainHealth(10);
 		}
 
 		//float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;

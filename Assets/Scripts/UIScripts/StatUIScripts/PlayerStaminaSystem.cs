@@ -47,14 +47,23 @@ public class PlayerStaminaSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Alpha7))
+		{
+			TakeStamina(10);
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha8))
+		{
+			RegenStamina(10);
+		}
+
 		if (BPC.hasRun)
 		{
 			stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
 
 			double fillF = System.Math.Round(stamFrontFillBar.fillAmount, 2);//Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
 			double fillB = System.Math.Round(stamBackFillBar.fillAmount, 2);//Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
-			//Debug.Log("stam FillF: " + fillF);
-			//Debug.Log("stam FillB: " + fillB);
+																			//Debug.Log("stam FillF: " + fillF);
+																			//Debug.Log("stam FillB: " + fillB);
 
 			Debug.Log("is Dying:" + PHS.isDying);
 

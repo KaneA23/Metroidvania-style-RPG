@@ -43,6 +43,12 @@ public class PlayerMovementSystem : MonoBehaviour
 	public bool isJumping;
 	private float moveAnimDelay;
 
+	float jumpPressTimer = 0f;
+	float jumpPressTime = 0.2f;
+
+	public float groundedTimer = 0f;
+	public float groundedTime = 0.2f;
+
 	[Tooltip("Gap between highest and lowest jump decreases as value increases")]
 	[Range(0f, 1f)]
 	public float cutJumpHeight;
@@ -141,9 +147,17 @@ public class PlayerMovementSystem : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
-		}           
+		}
 
-        if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		//groundedTimer -= Time.deltaTime;
+		//if (isGrounded)
+		//{
+		//	groundedTimer = groundedTime;
+
+		//}
+		//Debug.Log("Time grounded: " + groundedTimer);
+
+		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 		}
@@ -167,18 +181,24 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-        //if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
-        //        !bodyCollider.bounds.Intersects(bossTailCollider.bounds) ||
-        //        !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
-        //        !bodyCollider.bounds.Intersects(bossBodyCollider.bounds))
-        //{
-        //    if (gameObject.layer != 6)
-        //    {
-        //        gameObject.layer = 6;
-        //    }
-        //}
+		//if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
+		//        !bodyCollider.bounds.Intersects(bossTailCollider.bounds) ||
+		//        !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
+		//        !bodyCollider.bounds.Intersects(bossBodyCollider.bounds))
+		//{
+		//    if (gameObject.layer != 6)
+		//    {
+		//        gameObject.layer = 6;
+		//    }
+		//}
+		groundedTimer -= Time.fixedDeltaTime;
+		if (isGrounded)
+		{
+			groundedTimer = groundedTime;
 
-        if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		}
+
+		if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
 			PlayerMovement();
 		}
@@ -206,6 +226,12 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if (!DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
+				//jumpPressTimer -= Time.deltaTime;
+				//if (Input.GetButtonDown("Jump"))
+				//{
+				//	jumpPressTimer = jumpPressTime;
+				//}
+
 				if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost && BPC.hasJump)
 				{
 					if (!BPC.hasDoubleJump && !isGrounded)
@@ -383,18 +409,22 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	void Jump()
 	{
-		if (isGrounded)
+		if (/*isGrounded*/groundedTimer > 0 && jumpCount == 0)
 		{
+			Debug.Log("jump");
+			++jumpCount;
+
 			CreateDustParticles();
 			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
-			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
 		else if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
 		{
+			Debug.Log("Wall Jump");
+
 			PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
@@ -404,12 +434,13 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			StartCoroutine(JumpCooldown());
 		}
-		else if (canDoubleJump && BPC.hasDoubleJump && BPC.currentStam >= BPC.jumpCost)
+		else if (canDoubleJump && BPC.hasDoubleJump && BPC.currentStam >= BPC.jumpCost && jumpCount < 2)
 		{
+			jumpCount++;
 			PSS.TakeStamina(BPC.jumpCost);
+			Debug.Log("DoubleJump");
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
-			jumpCount++;
 
 			StartCoroutine(JumpCooldown());
 		}
@@ -435,6 +466,11 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 
 		// Resets double jump if the player is touching the ground
+		if (groundedTimer > 0)
+		{
+			canDoubleJump = true;
+		}
+
 		if (isGrounded)
 		{
 			if (PAM.currentAnimState == "Player_Fall")
@@ -445,7 +481,6 @@ public class PlayerMovementSystem : MonoBehaviour
 				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
-			canDoubleJump = true;
 			canWallJump = true;
 			canDash = true;
 			jumpCount = 0;
