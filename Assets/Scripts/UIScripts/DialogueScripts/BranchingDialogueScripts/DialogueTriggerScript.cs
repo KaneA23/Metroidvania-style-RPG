@@ -36,7 +36,7 @@ public class DialogueTriggerScript : MonoBehaviour
 		// If player is close enough to talk to 
 		if (isInteractable && !DialogueManagerScript.GetInstance().IsDialoguePlaying && isNewSpeech)
 		{
-			Debug.Log("Can interact");
+			//.Log("Can interact");
 			if (gameObject.name == "Rambleon")
 			{
 				DialogueManagerScript.GetInstance().isRambleon = true;

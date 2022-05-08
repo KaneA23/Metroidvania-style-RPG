@@ -65,13 +65,13 @@ public class PlayerStaminaSystem : MonoBehaviour
 																			//Debug.Log("stam FillF: " + fillF);
 																			//Debug.Log("stam FillB: " + fillB);
 
-			Debug.Log("is Dying:" + PHS.isDying);
+			//Debug.Log("is Dying:" + PHS.isDying);
 
 			// When no stamina is being used, start regening up overtime
 			if (!PHS.isDying)
 			{
-				Debug.Log("is running: " + PMS.isRunning);
-				Debug.Log("is jumping: " + PMS.isJumping);
+				//Debug.Log("is running: " + PMS.isRunning);
+				//Debug.Log("is jumping: " + PMS.isJumping);
 				if (!PMS.isRunning && fillF == fillB)
 				{
 					if (BPC.currentStam < BPC.currentMaxStam)
