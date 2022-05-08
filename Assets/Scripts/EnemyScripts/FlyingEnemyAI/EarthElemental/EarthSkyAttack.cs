@@ -49,7 +49,7 @@ public class EarthSkyAttack : MonoBehaviour
 
         m_Player = AISU.m_ActivePlayer;
 
-        Debug.Log(m_Player);
+        //Debug.Log(m_Player);
 
         m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();    
     }

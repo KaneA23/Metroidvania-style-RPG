@@ -42,9 +42,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public bool isGrounded;
 	public bool isJumping;
 	private float moveAnimDelay;
-
-	float jumpPressTimer = 0f;
-	float jumpPressTime = 0.2f;
+	public bool canJump;
 
 	public float groundedTimer = 0f;
 	public float groundedTime = 0.2f;
@@ -195,7 +193,18 @@ public class PlayerMovementSystem : MonoBehaviour
 		if (isGrounded)
 		{
 			groundedTimer = groundedTime;
+			canJump = true;
+		}
 
+		if (groundedTimer <= 0 || isJumping)
+		{
+			canJump = false;
+		}
+
+		// Resets double jump if the player is touching the ground
+		if (isGrounded)
+		{
+			canDoubleJump = true;
 		}
 
 		if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
@@ -247,6 +256,8 @@ public class PlayerMovementSystem : MonoBehaviour
 
 				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.hasJump)
 				{
+					Debug.Log("Jump Pressed");
+					jumpCount++;
 					Jump();
 				}
 
@@ -409,19 +420,12 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	void Jump()
 	{
-		if (/*isGrounded*/groundedTimer > 0 && jumpCount == 0)
-		{
-			Debug.Log("jump");
-			++jumpCount;
+		Debug.Log("canDoubleJump: " + canDoubleJump);
+		Debug.Log("hasDoubleJump: " + BPC.hasDoubleJump);
+		Debug.Log("current Stam: " + BPC.currentStam);
+		Debug.Log("jump count: " + jumpCount);
 
-			CreateDustParticles();
-			//PSS.TakeStamina(BPC.jumpCost);
-
-			rb.velocity = BPC.jumpForce * Vector2.up;
-
-			StartCoroutine(JumpCooldown());
-		}
-		else if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
+		if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
 		{
 			Debug.Log("Wall Jump");
 
@@ -432,18 +436,54 @@ public class PlayerMovementSystem : MonoBehaviour
 			jumpCount = 0;
 			canWallJump = false;
 
-			StartCoroutine(JumpCooldown());
+			//StartCoroutine(JumpCooldown());
 		}
-		else if (canDoubleJump && BPC.hasDoubleJump && BPC.currentStam >= BPC.jumpCost && jumpCount < 2)
+
+		if (isGrounded && canJump)
 		{
-			jumpCount++;
-			PSS.TakeStamina(BPC.jumpCost);
-			Debug.Log("DoubleJump");
+
+			canJump = false;
+
+			Debug.Log("jump");
+
+			CreateDustParticles();
+			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
-
-			StartCoroutine(JumpCooldown());
 		}
+		else if (/*isGrounded*/groundedTimer > 0 && canJump)
+		{
+			canJump = false;
+
+			Debug.Log("jump");
+
+			CreateDustParticles();
+			//PSS.TakeStamina(BPC.jumpCost);
+
+			rb.velocity = BPC.jumpForce * Vector2.up;
+			//return;
+
+			//StartCoroutine(JumpCooldown());
+		}
+		else if (canDoubleJump && BPC.hasDoubleJump)
+		{
+			Debug.Log("first if");
+			if (BPC.currentStam >= BPC.jumpCost /*&& jumpCount == 2*/)
+			{
+				canDoubleJump = false;
+				//jumpCount++;
+				// jumpCount++;
+				PSS.TakeStamina(BPC.jumpCost);
+				Debug.Log("DoubleJump");
+
+				rb.velocity = new Vector2(0f, 0f);
+				rb.velocity = BPC.jumpForce * Vector2.up;
+			}
+
+			//StartCoroutine(JumpCooldown());
+		}
+
+
 	}
 
 	/// <summary>
@@ -451,6 +491,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	private void CheckIfGrounded()
 	{
+
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayers);
 
 		Collider2D enemy = Physics2D.OverlapCircle(groundCheck.position, checkRadius, enemyLayers);
@@ -465,11 +506,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			PHS.isEnemyBack = false;
 		}
 
-		// Resets double jump if the player is touching the ground
-		if (groundedTimer > 0)
-		{
-			canDoubleJump = true;
-		}
+
 
 		if (isGrounded)
 		{
@@ -481,6 +518,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 			}
 
+			canJump = true;
 			canWallJump = true;
 			canDash = true;
 			jumpCount = 0;
@@ -504,7 +542,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 
-		if (jumpCount < 1)
+		if (jumpCount < 2)
 		{
 			canDoubleJump = true;
 		}
