@@ -524,7 +524,7 @@ TextureImporter:
         height: 57
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 6, y: 6, z: 6, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -817,7 +817,7 @@ TextureImporter:
         width: 55
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -838,7 +838,7 @@ TextureImporter:
         width: 55
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -890,10 +890,10 @@ TextureImporter:
       menu_assets_v2_14: 1342090994
       menu_assets_v2_13: 458824861
       menu_assets_v2_1: 1810693715
-      menu_assets_v2_7: -1415459805
       menu_assets_v2_8: 1389206891
-      menu_assets_v2_10: 1019658473
       menu_assets_v2_11: 402433976
+      menu_assets_v2_10: 1019658473
+      menu_assets_v2_7: -1415459805
       menu_assets_v2_2: 811363239
       menu_assets_v2_29: 228653192
   spritePackingTag: 
