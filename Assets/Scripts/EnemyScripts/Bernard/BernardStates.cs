@@ -9,10 +9,15 @@ public class BernardStates : MonoBehaviour
 	public BernardAttacking BA;
 	public BernardIdle BI;
 	public BernardAnimationSystem BAS;
+	public EnemyHealth EH;
 
 	private GameObject m_Player;
+	public GameObject bernardWallBody;
 
-	private float m_DistanceToPlayer;
+	private PolygonCollider2D bernardTailCollider;
+    private BoxCollider2D bernardBodyCollider;
+
+    private float m_DistanceToPlayer;
 	public float m_AttackDistance;
 	public float m_StartFightDistance;
 	public float m_Health;
@@ -42,7 +47,10 @@ public class BernardStates : MonoBehaviour
 
 		m_MaxHealth = GetComponent<EnemyHealth>().m_MaxHP;
 		m_Health = m_MaxHealth;
-	}
+
+        bernardBodyCollider = GetComponent<BoxCollider2D>();
+        bernardTailCollider = GetComponent<PolygonCollider2D>();
+    }
 
 	private void FixedUpdate()
 	{
@@ -84,7 +92,16 @@ public class BernardStates : MonoBehaviour
 				if (m_Health > 0 && m_Health < m_HealthPercentageRounded)
 				{
 					BAS.currentAnimName = "LizardDamagedRun";
-					BA.Invoke(AttackStateTypes[2], 0f);
+
+                    if (!(EH.m_CurrentHP <= 0))
+                    {
+                        bernardBodyCollider.enabled = true;
+                        bernardTailCollider.enabled = true;
+                    }
+
+                    bernardWallBody.SetActive(false);
+
+                    BA.Invoke(AttackStateTypes[2], 0f);
 				}
 				else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
 				{
@@ -93,7 +110,12 @@ public class BernardStates : MonoBehaviour
 						if (!BA.onWall)
 						{
 							BAS.currentAnimName = "LizardJump";
-						}
+
+                            bernardBodyCollider.enabled = false;
+                            bernardTailCollider.enabled = false;
+
+                            bernardWallBody.SetActive(true);
+                        }
 						else
 						{
 							BAS.currentAnimName = "LizardWallIdle";

@@ -11,11 +11,6 @@ public class BernardAnimationSystem : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public GameObject bernardWallBody;
-
-    private PolygonCollider2D bernardTailCollider;
-    private BoxCollider2D bernardBodyCollider;
-
     private int currentAnimFrame;
     private int collNum = 0;
 
@@ -44,8 +39,7 @@ public class BernardAnimationSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bernardBodyCollider = GetComponent<BoxCollider2D>();
-        bernardTailCollider = GetComponent<PolygonCollider2D>();
+
     }
 
     void Update()
@@ -61,15 +55,7 @@ public class BernardAnimationSystem : MonoBehaviour
 
             case "LizardDamagedRun":
 
-                ChangeAnimation(bernardAnimationStates.BERNARD_DAMAGED_RUN);
-
-                if(!(EH.m_CurrentHP <= 0))
-                {
-                    bernardBodyCollider.enabled = true;
-                    bernardTailCollider.enabled = true;
-                }
-                
-                bernardWallBody.SetActive(false);              
+                ChangeAnimation(bernardAnimationStates.BERNARD_DAMAGED_RUN);           
 
                 break;
             case "LizardRun":
@@ -87,11 +73,6 @@ public class BernardAnimationSystem : MonoBehaviour
             case "LizardJump":
 
                 ChangeAnimation(bernardAnimationStates.BERNARD_JUMP);
-
-                bernardBodyCollider.enabled = false;
-                bernardTailCollider.enabled = false;
-
-                bernardWallBody.SetActive(true);
 
                 break;
 

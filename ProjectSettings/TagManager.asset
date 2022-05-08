@@ -25,6 +25,8 @@ TagManager:
   - BernardLimb
   - EnemyFloor
   - RambleonTut
+  - LeftWall
+  - RightWall
   layers:
   - Default
   - TransparentFX
