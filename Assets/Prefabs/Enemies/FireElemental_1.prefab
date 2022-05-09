@@ -390,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8631005081678416055}
   - component: {fileID: 6198733538472129799}
+  - component: {fileID: -3638750854868873320}
   - component: {fileID: 6879326429694611311}
   - component: {fileID: 8314509678508982093}
   - component: {fileID: 1875570718460384535}
@@ -439,8 +440,31 @@ MonoBehaviour:
   m_MovingToTarget: 0
   m_Enemies: []
   m_Players: []
+<<<<<<< Updated upstream
   m_DamageAmount: 0
   collisionCount: 0
+=======
+  m_DamageAmount: 1
+  isAlert: 0
+  isForget: 0
+  isAgro: 0
+  animDelay: 0
+--- !u!114 &-3638750854868873320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631005081678416054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933071cb035bffe4a9a3d9abbaf780b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AISU: {fileID: 0}
+  m_PushBackRadius: 5
+  m_PushBackForce: 40
+>>>>>>> Stashed changes
 --- !u!114 &6879326429694611311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,4 +593,59 @@ MonoBehaviour:
   m_MaxHP: 100
   m_CurrentHP: 0
   HitForce: 250
+<<<<<<< Updated upstream
   m_HealthBar: {fileID: 5226902040209309647}
+=======
+  startTime: 0
+  transition: {fileID: 0}
+  transitionTime: 1
+--- !u!95 &1343797700
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631005081678416054}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d2375444bf0f43649b8795f9188f24c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8049767020701127147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631005081678416054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012a7d1d2815021458fabc350161cd11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAnimState: 
+--- !u!114 &1370446772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631005081678416054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac8ca9e1d5a0e4a813a2f40afe4e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EH: {fileID: 4543108778547291762}
+  healthFrontFillBar: {fileID: 513984042}
+  healthBarEmpty: {fileID: 1296105212}
+  healthBackHealthBar: {fileID: 2040070524}
+>>>>>>> Stashed changes

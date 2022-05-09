@@ -68,6 +68,8 @@ public IEnumerator AboveAttack(float force)
 
         m_ChunkSpawnPos = new Vector3(x, m_PlayerPos.y + 8f);
 
+        Destroy(m_SpawnCheck);
+
         m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
 
         m_EarthChunk.GetComponent<AttackPlayer>().m_Enemy = gameObject;
