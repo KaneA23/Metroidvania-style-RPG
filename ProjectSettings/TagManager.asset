@@ -27,6 +27,7 @@ TagManager:
   - RambleonTut
   - LeftWall
   - RightWall
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -159,6 +159,8 @@ public class BasePlayerClass : MonoBehaviour
 	public float dashCooldown = 1f;
 	public int dashCost = 30;
 
+	public int fireballCost = 15;
+
 	[Space(5)]
 	public float lightAtkRange = 1.5f;
 	public float heavyAtkRange = 2f;
@@ -444,18 +446,18 @@ public class BasePlayerClass : MonoBehaviour
 	{
 		// Comment out if want to test mechanics without class (uses default values)
 
-		characterClassName = GameInformation.PlayerClass.ToString();
-		MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		MaximumMana = GameInformation.PlayerMaxMP;
-		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		MaximumStamina = GameInformation.PlayerMaxStam;
-		LightAttackDamage = GameInformation.PlayerLightDmg;
-		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		WalkSpeed = GameInformation.PlayerWalkSpeed;
-		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		RunSpeed = GameInformation.PlayerRunSpeed;
-		LightCooldown = GameInformation.PlayerLightCooldown;
-		HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		//characterClassName = GameInformation.PlayerClass.ToString();
+		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		//MaximumMana = GameInformation.PlayerMaxMP;
+		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		//MaximumStamina = GameInformation.PlayerMaxStam;
+		//LightAttackDamage = GameInformation.PlayerLightDmg;
+		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		//WalkSpeed = GameInformation.PlayerWalkSpeed;
+		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		//RunSpeed = GameInformation.PlayerRunSpeed;
+		//LightCooldown = GameInformation.PlayerLightCooldown;
+		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 		//Debug.Log("Player Class: " + characterClassName);
 		//Debug.Log("Player HP: " + MaximumHealthPoints);
@@ -476,12 +478,12 @@ public class BasePlayerClass : MonoBehaviour
 	{
 		// Comment out if want to test mechanics without dialogue
 
-		hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
-		hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
-		hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
-		hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
-		hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
-		hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
-		hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
+		//hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
+		//hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
+		//hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
+		//hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
+		//hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
+		//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
+		//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
 	}
 }

@@ -16,6 +16,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	PlayerAnimationManager PAM;
 	PlayerCombatSystem PCS;
 	PlayerHealthSystem PHS;
+	RangedAttackSystem RAS;
 
 	private DialogueManager DM;
 
@@ -106,6 +107,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		PAM = GetComponent<PlayerAnimationManager>();
 		PCS = GetComponent<PlayerCombatSystem>();
 		PHS = GetComponent<PlayerHealthSystem>();
+		RAS = GetComponent<RangedAttackSystem>();
 
 		DM = FindObjectOfType<DialogueManager>();
 
@@ -161,7 +163,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		if (!PHS.isDying /*&& !DM.isTalking*/)
 		{
-			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+			if (!isGrounded && !isJumping && !PCS.isAttacking && !PHS.isHit && !isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !RAS.isFireball)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_JUMPFALL);
 			}
@@ -226,7 +228,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
 			{
-				transform.Rotate(new Vector2(0, 180));
+				transform.Rotate(new Vector2(0, 180f));
 				isFacingRight = !isFacingRight;
 			}
 		}
@@ -256,7 +258,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.hasJump)
 				{
-					Debug.Log("Jump Pressed");
+					//Debug.Log("Jump Pressed");
 					jumpCount++;
 					Jump();
 				}
@@ -379,7 +381,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHIDLE);
 			}
 		}
-		else if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying && !isCrouching)
+		else if (isGrounded && !PCS.isAttacking && !isJumping && !PHS.isDying && !isCrouching && !RAS.isFireball)
 		{
 			if (moveHorizontal != 0 && !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
 			{
@@ -420,10 +422,10 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	void Jump()
 	{
-		Debug.Log("canDoubleJump: " + canDoubleJump);
-		Debug.Log("hasDoubleJump: " + BPC.hasDoubleJump);
-		Debug.Log("current Stam: " + BPC.currentStam);
-		Debug.Log("jump count: " + jumpCount);
+		//Debug.Log("canDoubleJump: " + canDoubleJump);
+		//Debug.Log("hasDoubleJump: " + BPC.hasDoubleJump);
+		//Debug.Log("current Stam: " + BPC.currentStam);
+		//Debug.Log("jump count: " + jumpCount);
 
 		if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
 		{
@@ -444,7 +446,7 @@ public class PlayerMovementSystem : MonoBehaviour
 
 			canJump = false;
 
-			Debug.Log("jump");
+			//Debug.Log("jump");
 
 			CreateDustParticles();
 			//PSS.TakeStamina(BPC.jumpCost);
@@ -455,7 +457,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			canJump = false;
 
-			Debug.Log("jump");
+			//Debug.Log("jump");
 
 			CreateDustParticles();
 			//PSS.TakeStamina(BPC.jumpCost);
@@ -474,7 +476,7 @@ public class PlayerMovementSystem : MonoBehaviour
 				//jumpCount++;
 				// jumpCount++;
 				PSS.TakeStamina(BPC.jumpCost);
-				Debug.Log("DoubleJump");
+				//Debug.Log("DoubleJump");
 
 				rb.velocity = new Vector2(0f, 0f);
 				rb.velocity = BPC.jumpForce * Vector2.up;

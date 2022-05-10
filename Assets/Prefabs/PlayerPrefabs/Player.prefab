@@ -9682,6 +9682,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1954877051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1954877052}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1954877052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954877051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8854009661262975161}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8854009659912794300
 GameObject:
   m_ObjectHideFlags: 0
@@ -9756,7 +9787,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 423413320, guid: ba4f8f69b10423b4bb18b080929f00fd, type: 3}
+  m_Sprite: {fileID: -87062019, guid: 7a4baa0a5bbe0854f8145fea956ca608, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -10017,6 +10048,7 @@ GameObject:
   - component: {fileID: 8854009661262975164}
   - component: {fileID: 8854009661262975155}
   - component: {fileID: 4780527826078378472}
+  - component: {fileID: 1781806827}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10044,6 +10076,7 @@ Transform:
   - {fileID: 8854009661294790703}
   - {fileID: 681963917}
   - {fileID: 99843293}
+  - {fileID: 1954877052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10135,6 +10168,9 @@ MonoBehaviour:
   isCrouchExit: 0
   isGrounded: 0
   isJumping: 0
+  canJump: 0
+  groundedTimer: 0
+  groundedTime: 0.1
   cutJumpHeight: 0.2
   canDoubleJump: 0
   jumpCount: 0
@@ -10178,7 +10214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthFrontFillBar: {fileID: 0}
   healthBarEmpty: {fileID: 0}
-  healthBackHealthBar: {fileID: 0}
+  healthBackFillBar: {fileID: 0}
   rb: {fileID: 8854009661262975162}
   isHit: 0
   isDying: 0
@@ -10223,6 +10259,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAnimState: 
+--- !u!114 &1781806827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8854009661262975141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ad6c71326ca354ea250da6bbbd1caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 1954877052}
+  fireballPrefab: {fileID: 3412479866651013298, guid: 83cce3a4df19ff045858d253b8b65e21, type: 3}
+  PMS: {fileID: 0}
+  isFireball: 0
 --- !u!1 &8854009661294790702
 GameObject:
   m_ObjectHideFlags: 0

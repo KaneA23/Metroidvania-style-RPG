@@ -14,6 +14,7 @@ public class PlayerCombatSystem : MonoBehaviour
 	PlayerHealthSystem PHS;
 	PlayerAnimationManager PAM;
 	PlayerMovementSystem PMS;
+	RangedAttackSystem RAS;
 	public PlayerStaminaSystem PSS;
 
 	private DialogueManager DM;
@@ -52,6 +53,7 @@ public class PlayerCombatSystem : MonoBehaviour
 		PAM = GetComponent<PlayerAnimationManager>();
 		PHS = GetComponent<PlayerHealthSystem>();
 		PMS = GetComponent<PlayerMovementSystem>();
+		RAS = GetComponent<RangedAttackSystem>();
 
 		DM = FindObjectOfType<DialogueManager>();
 	}
@@ -72,7 +74,7 @@ public class PlayerCombatSystem : MonoBehaviour
 			{
 				ApplyCooldown();
 			}
-			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+			else if (!PHS.isHit && !PMS.isDashing && !PMS.isCrouching && !RAS.isFireball && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
 			{
 				if (Input.GetButtonDown("Fire1") && BPC.currentStam > BPC.lightAtkCost && BPC.hasLightAtk)
 				{
