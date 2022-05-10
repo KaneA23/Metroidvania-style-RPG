@@ -73,6 +73,9 @@ public class PlayerMovementSystem : MonoBehaviour
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
 
+	public float ceilingCheckWidth;
+	public float ceilingCheckHeight;
+
 	[Space(5)]
 	public Transform ceilingCheck;
 	[Tooltip("Objects player needs to crouch under")]
@@ -278,8 +281,9 @@ public class PlayerMovementSystem : MonoBehaviour
 					isCrouchEnter = true;
 
 					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
-					moveAnimDelay = 1.015f;
+					moveAnimDelay = 0.35f;
 					isCrouching = true;
+					headCollider.enabled = false;
 					Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 				}
 				else if (!isCeiling && isCrouching)
@@ -290,7 +294,7 @@ public class PlayerMovementSystem : MonoBehaviour
 						{
 							isCrouchExit = true;
 							PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHEXIT);
-							moveAnimDelay = 1.015f;
+							moveAnimDelay = 0.35f;
 							Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 						}
 					}
@@ -412,7 +416,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	private void CheckIfCeiling()
 	{
-		isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, checkRadius, ceilingLayers);
+		//isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, checkRadius * 2.5f, ceilingLayers);
+		isCeiling = Physics2D.OverlapBox(ceilingCheck.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, ceilingLayers);
 	}
 
 	#region Jump Mechanics
@@ -649,7 +654,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	{
 		if (PAM.currentAnimState == "Player_CrouchEnter")
 		{
-			headCollider.enabled = false;
+			//headCollider.enabled = false;
 			isCrouchEnter = false;
 		}
 		//else if (PAM.currentAnimState == "Player_CrouchIdle" || PAM.currentAnimState == "Player_CrouchWalk")
@@ -672,7 +677,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius);
+		Gizmos.DrawWireCube(ceilingCheck.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight));
+		Gizmos.DrawWireSphere(ceilingCheck.position, checkRadius * 2.5f);
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(groundCheck.position, checkRadius);

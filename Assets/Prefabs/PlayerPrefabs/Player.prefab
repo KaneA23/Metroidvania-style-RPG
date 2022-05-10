@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 99843293}
   - component: {fileID: 99843295}
   - component: {fileID: 99843294}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Dust Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9787,7 +9787,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -87062019, guid: 7a4baa0a5bbe0854f8145fea956ca608, type: 3}
+  m_Sprite: {fileID: 423413320, guid: ba4f8f69b10423b4bb18b080929f00fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -9830,7 +9830,7 @@ GameObject:
   m_Layer: 0
   m_Name: Wall Check
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -9937,7 +9937,7 @@ GameObject:
   m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10182,6 +10182,8 @@ MonoBehaviour:
   isManaCooldown: 0
   cooldownTimer: 0
   checkRadius: 0.1
+  ceilingCheckWidth: 0.5
+  ceilingCheckHeight: 0.5
   ceilingCheck: {fileID: 8854009661621778804}
   ceilingLayers:
     serializedVersion: 2
@@ -10389,7 +10391,7 @@ GameObject:
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10420,7 +10422,7 @@ GameObject:
   m_Layer: 0
   m_Name: Ceiling Check
   m_TagString: Untagged
-  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10432,7 +10434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8854009661621778807}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.258, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
