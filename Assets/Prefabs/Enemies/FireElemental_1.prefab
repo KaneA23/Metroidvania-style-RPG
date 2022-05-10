@@ -446,6 +446,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &1613837638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613837639}
+  m_Layer: 3
+  m_Name: Tag
+  m_TagString: Trapdoor4
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613837639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613837638}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8631005081678416055}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688048330
 GameObject:
   m_ObjectHideFlags: 0
@@ -5350,7 +5381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8631005081678416055}
   - component: {fileID: 6198733538472129799}
-  - component: {fileID: 6879326429694611311}
+  - component: {fileID: -3632268207967955351}
   - component: {fileID: 8314509678508982093}
   - component: {fileID: 1875570718460384535}
   - component: {fileID: -4864868141156705695}
@@ -5358,6 +5389,7 @@ GameObject:
   - component: {fileID: 1343797700}
   - component: {fileID: 8049767020701127147}
   - component: {fileID: 1370446772}
+  - component: {fileID: 295943334}
   m_Layer: 3
   m_Name: FireElemental_1
   m_TagString: Enemy
@@ -5378,6 +5410,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1477927061}
+  - {fileID: 1613837639}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5397,7 +5430,10 @@ MonoBehaviour:
   EH: {fileID: 4543108778547291762}
   AISU: {fileID: 0}
   EAM: {fileID: 0}
-  m_Speed: 5
+  m_EnemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 462599
+  m_Speed: 3
   m_AttackDistance: 0.001
   m_sightDistance: 55
   HitForce: 250
@@ -5406,24 +5442,28 @@ MonoBehaviour:
   m_Enemies: []
   m_Players: []
   m_DamageAmount: 1
+  colliderName: 
   isAlert: 0
   isForget: 0
   isAgro: 0
+  rightColliderHit: 0
+  leftColliderHit: 0
   animDelay: 0
---- !u!114 &6879326429694611311
+--- !u!114 &-3632268207967955351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8631005081678416054}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a680e2638592c44dbe605d06430fd98, type: 3}
+  m_Script: {fileID: 11500000, guid: 71aab5d930c55684a8d36aaa540ab1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EPN: {fileID: 6198733538472129799}
-  m_Fire: {fileID: 6040809681163713149, guid: 219dd923e18a9c243a4fc237617bc854, type: 3}
+  AISU: {fileID: 0}
+  m_PushBackRadius: 5
+  m_PushBackForce: 30
 --- !u!212 &8314509678508982093
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5504,7 +5544,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8631005081678416054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -5540,6 +5580,8 @@ MonoBehaviour:
   m_CurrentHP: 0
   HitForce: 250
   startTime: 0
+  transition: {fileID: 0}
+  transitionTime: 1
 --- !u!95 &1343797700
 Animator:
   serializedVersion: 4
@@ -5589,3 +5631,19 @@ MonoBehaviour:
   healthFrontFillBar: {fileID: 513984042}
   healthBarEmpty: {fileID: 1296105212}
   healthBackHealthBar: {fileID: 2040070524}
+--- !u!70 &295943334
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631005081678416054}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.023785627, y: -0.06242476}
+  m_Size: {x: 0.361102, y: 0.21247505}
+  m_Direction: 1

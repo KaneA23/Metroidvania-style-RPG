@@ -36,7 +36,7 @@ public class AttackPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Physics2D.IgnoreLayerCollision(3, 7);
+        //Physics2D.IgnoreLayerCollision(3, 7);
         Physics2D.IgnoreLayerCollision(7, 7);
 
         if (m_Enemy == null)

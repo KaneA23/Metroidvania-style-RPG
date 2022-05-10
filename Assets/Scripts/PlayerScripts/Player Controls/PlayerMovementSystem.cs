@@ -102,6 +102,11 @@ public class PlayerMovementSystem : MonoBehaviour
 	public BoxCollider2D bossBodyCollider;
 	public PolygonCollider2D bossTailCollider;
 
+	public Collider2D bossColliderTop;
+    public Collider2D bossColliderBottom;
+
+	private bool exited = true;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -115,11 +120,8 @@ public class PlayerMovementSystem : MonoBehaviour
 		DM = FindObjectOfType<DialogueManager>();
 
 		headCollider = GetComponent<BoxCollider2D>();
-		//bodyCollider = GetComponent<CapsuleCollider2D>();
+		bodyCollider = GetComponent<CapsuleCollider2D>();
 		rb = GetComponent<Rigidbody2D>();
-
-		//bossBodyCollider = Bernard.GetComponent<BoxCollider2D>();
-		//bossTailCollider = Bernard.GetComponent<PolygonCollider2D>();
 	}
 
 	// Start is called before the first frame update
@@ -152,15 +154,15 @@ public class PlayerMovementSystem : MonoBehaviour
 			Application.Quit();
 		}
 
-		//groundedTimer -= Time.deltaTime;
-		//if (isGrounded)
-		//{
-		//	groundedTimer = groundedTime;
+        //groundedTimer -= Time.deltaTime;
+        //if (isGrounded)
+        //{
+        //	groundedTimer = groundedTime;
 
-		//}
-		//Debug.Log("Time grounded: " + groundedTimer);
+        //}
+        //Debug.Log("Time grounded: " + groundedTimer);
 
-		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
+        if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 		}
@@ -183,17 +185,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	}
 
 	private void FixedUpdate()
-	{
-		//if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
-		//        !bodyCollider.bounds.Intersects(bossTailCollider.bounds) ||
-		//        !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
-		//        !bodyCollider.bounds.Intersects(bossBodyCollider.bounds))
-		//{
-		//    if (gameObject.layer != 6)
-		//    {
-		//        gameObject.layer = 6;
-		//    }
-		//}
+	{		
+
 		groundedTimer -= Time.fixedDeltaTime;
 		if (isGrounded)
 		{
@@ -218,10 +211,39 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Checks player's input to move character
-	/// </summary>
-	void PlayerInput()
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		if (collision.collider.gameObject.layer == 6)
+        {
+            if (bossColliderTop.bounds.Intersects(headCollider.bounds) || 
+				bossColliderTop.bounds.Intersects(bodyCollider.bounds) ||
+				bossColliderBottom.bounds.Intersects(headCollider.bounds) ||
+				bossColliderBottom.bounds.Intersects(bodyCollider.bounds))
+            {
+                gameObject.layer = 12;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+		if (collision.collider.gameObject.layer == 6)
+        {
+            if (!bossColliderTop.bounds.Intersects(headCollider.bounds) ||
+                !bossColliderTop.bounds.Intersects(bodyCollider.bounds) ||
+                !bossColliderBottom.bounds.Intersects(headCollider.bounds) ||
+                !bossColliderBottom.bounds.Intersects(bodyCollider.bounds))
+            {
+				exited = true;
+                gameObject.layer = 6;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks player's input to move character
+    /// </summary>
+    void PlayerInput()
 	{
 		// Checks what direction the player is wanting to move
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -614,18 +636,10 @@ public class PlayerMovementSystem : MonoBehaviour
 			isManaCooldown = true;
 			cooldownTimer = BPC.dashCooldown;
 
-			gameObject.layer = 6;
-
-			//if (!headCollider.bounds.Intersects(bossBodyCollider.bounds) ||
-			//    !headCollider.bounds.Intersects(bossTailCollider.bounds) ||
-			//    !bodyCollider.bounds.Intersects(bossBodyCollider.bounds) ||
-			//    !bodyCollider.bounds.Intersects(bossTailCollider.bounds))
-			//{
-			//    if (gameObject.layer != 6)
-			//    {
-			//        gameObject.layer = 6;
-			//    }
-			//}
+			if(exited)
+			{
+				gameObject.layer = 6;
+			}
 		}
 	}
 

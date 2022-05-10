@@ -175,8 +175,10 @@ GameObject:
   - component: {fileID: 2042561984185029550}
   - component: {fileID: 551591509}
   - component: {fileID: 551591510}
+  - component: {fileID: 279307000}
   - component: {fileID: 551591501}
   - component: {fileID: 551591507}
+  - component: {fileID: 279306980}
   m_Layer: 3
   m_Name: Bernard
   m_TagString: BossBack
@@ -193,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 2042561984185029542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20.505802, y: -3.73, z: 0}
-  m_LocalScale: {x: 4.139325, y: 3.6794, z: 1.8397}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2042561983962786826}
@@ -239,9 +241,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1862176833
+  m_SortingLayer: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1810964859, guid: 538d198ad65c278439939066081fd984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -268,6 +270,8 @@ MonoBehaviour:
   BA: {fileID: 2042561984185029536}
   BI: {fileID: 2042561984185029537}
   BAS: {fileID: 551591507}
+  EH: {fileID: 2042561984185029550}
+  bernardWallBody: {fileID: 1391011384}
   m_AttackDistance: 50
   m_StartFightDistance: 10
   m_Health: 0
@@ -299,27 +303,37 @@ MonoBehaviour:
   EAM: {fileID: 0}
   BAS: {fileID: 551591507}
   playerDir: {x: 0, y: 0}
+  earthChunkAnimator: {fileID: 0}
   m_Floor: {fileID: 0}
   m_TargetWall: {fileID: 0}
-  m_SpriteRenderer: {fileID: 0}
+  m_SpawnCheckPrefab: {fileID: 5079449562315481383, guid: 892d193d048e14b4db22e9c7552e5cc6, type: 3}
+  m_SpriteRenderer: {fileID: 2042561984185029538}
+  m_BodyCollider: {fileID: 279307000}
+  m_TailCollider: {fileID: 551591509}
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_IgnoreMasks: []
   m_PlayerMask:
     serializedVersion: 2
     m_Bits: 0
+  m_FloorMask:
+    serializedVersion: 2
+    m_Bits: 1537
   directionChoice: 0
   playerDirection: 0
   playerDirNew: 0
   m_GroundAttackDamage: 1
   m_GroundAttackKnockback: 500
-  m_Speed: 2
-  m_WallJumpForce: 15
+  m_Speed: 10
+  m_WallJumpForce: 30
   m_AttackDistance: 12
   HitForce: 0
   m_ProjectileForce: 20
   m_AboveAttackInterval: 1
   animDelay: 0
-  wallDetectionRadius: 10
+  wallDetectionRadius: 15
+  m_WaitTime: 0
+  m_HeightAbovePlayer: 10
+  m_SpawnCheckRadius: 0
   m_MovingToTarget: 0
   isAlert: 0
   isForget: 0
@@ -380,11 +394,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2022af2d4e1e4624db65a8f6a52a2e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BHUI: {fileID: 0}
+  BHUI: {fileID: 279306980}
   m_MaxHP: 500
   m_CurrentHP: 0
   HitForce: 250
-  startTime: 0
+  startTime: 3
+  transition: {fileID: 0}
+  transitionTime: 1
 --- !u!60 &551591509
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -410,8 +426,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.15, y: 0.07}
-      - {x: 0.14999999, y: 0.07}
+    - - {x: 0.02946778, y: 0.4109635}
+      - {x: 0.029487811, y: 0.08113759}
+      - {x: 0.12808093, y: 0.088787764}
       - {x: 0.17999999, y: 0.07}
       - {x: 0.58, y: 0}
       - {x: 0.90999997, y: 0}
@@ -423,9 +440,35 @@ PolygonCollider2D:
       - {x: 0.52, y: 0.14}
       - {x: 0.35, y: 0.22}
       - {x: 0.29, y: 0.28}
-      - {x: 0.02790153, y: 0.4138811}
+      - {x: 0.029467653, y: 0.41449067}
 --- !u!61 &551591510
 BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042561984185029542}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.45336214, y: 0.20725024}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.92, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.96571594, y: 0.41450047}
+  m_EdgeRadius: 0
+--- !u!70 &279307000
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -437,19 +480,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21931651, y: 0.20725024}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.92, y: 0.64}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4976247, y: 0.41450047}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.4160141, y: 0.22809136}
+  m_Size: {x: 1.0686376, y: 0.45618853}
+  m_Direction: 1
 --- !u!95 &551591501
 Animator:
   serializedVersion: 4
@@ -483,9 +516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BA: {fileID: 2042561984185029536}
-  EH: {fileID: 0}
+  EH: {fileID: 2042561984185029550}
   animator: {fileID: 0}
-  bernardWallBody: {fileID: 1391011384}
   currentAnimName: 
   currentAnimNameNew: 
   bernardAnimations:
@@ -496,3 +528,23 @@ MonoBehaviour:
   - Bernard_Jump
   - Bernard_Walk
   currentAnimation: 
+--- !u!114 &279306980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042561984185029542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877a94ede2f8cb6439be2c2a9dc73e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EH: {fileID: 2042561984185029550}
+  healthFrontFillBar: {fileID: 0}
+  healthBarEmpty: {fileID: 0}
+  healthBackHealthBar: {fileID: 0}
+  healthlerpTimer: 0
+  healthFrontFillBarSecondary: {fileID: 0}
+  healthBarEmptySecondary: {fileID: 0}
+  healthBackHealthBarSecondary: {fileID: 0}

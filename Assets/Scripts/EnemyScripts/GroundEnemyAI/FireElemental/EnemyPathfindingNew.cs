@@ -9,6 +9,8 @@ public class EnemyPathfindingNew : MonoBehaviour
     public AISetUp AISU;
     public EnemyAnimationManager EAM;
 
+    public LayerMask m_EnemyLayerMask;
+
     public float m_Speed;
     public float m_AttackDistance;
     public float m_sightDistance;
@@ -36,6 +38,8 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     private char m_TravelDirection;
 
+    [SerializeField] private string colliderName;
+
     private SpriteRenderer m_SpriteRenderer;
 
     private Rigidbody2D rb;
@@ -44,6 +48,8 @@ public class EnemyPathfindingNew : MonoBehaviour
     public bool isForget;
     public bool isAgro;
     private bool isFacingRight;
+    [SerializeField] private bool rightColliderHit;
+    [SerializeField] private bool leftColliderHit;
 
     public float animDelay;
 
@@ -70,7 +76,8 @@ public class EnemyPathfindingNew : MonoBehaviour
 
         EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_IDLE);
 
-        m_Speed = UnityEngine.Random.Range(4, 7);
+        m_Speed = UnityEngine.Random.Range(1.5f, 3);
+        //m_Speed = 3;
 
         isAlert = false;
         isForget = false;
@@ -157,6 +164,7 @@ public class EnemyPathfindingNew : MonoBehaviour
             Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
         }
 
+        
     }
 
     //private void OnCollisionExit2D(Collision2D collision)
@@ -195,16 +203,33 @@ public class EnemyPathfindingNew : MonoBehaviour
 
         EnemyFacing();
 
-        //if (m_MovementDirection != Vector3.zero)
-        //{
-        //	float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
-        //	transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //}
-
         if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
         {
-            rb.AddForce(m_TargetDir * m_Speed);
-            m_MovingToTarget = true;
+            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, (transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
+            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, (-transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
+            Debug.DrawRay(transform.position, (transform.right - transform.up).normalized * 2);
+            Debug.DrawRay(transform.position, (-transform.right - transform.up).normalized * 2);
+
+            if (rightHit.collider == null)
+            {
+                rightColliderHit = false;
+                rb.velocity = Vector2.zero;
+                rb.AddForce(new Vector2(-1f, 0).normalized * 5, ForceMode2D.Impulse);
+            }
+            else if (leftHit.collider == null)
+            {
+                leftColliderHit = false;
+                rb.velocity = Vector2.zero;
+                rb.AddForce(new Vector2(1f, 0).normalized * 5, ForceMode2D.Impulse);
+            }
+            else
+            {          
+                rb.AddForce(m_TargetDir * m_Speed);
+                m_MovingToTarget = true;
+                colliderName = rightHit.collider.name;
+                rightColliderHit = true;
+            }
+
             //transform.position = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
 
             if (!isAlert && !isAgro)

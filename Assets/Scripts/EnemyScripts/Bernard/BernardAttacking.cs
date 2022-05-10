@@ -11,13 +11,7 @@ public class BernardAttacking : MonoBehaviour
     public BernardAnimationSystem BAS;
 
     private Vector3 m_TargetPos;
-    private Vector3 m_PlayerPos;
     private Vector2 m_TargetDir;
-    private Vector3 m_MovementDirection;
-    private Vector3 m_NewDestination;
-    private Vector3 m_CurrentPos;
-    private Vector3 m_OrigPos;
-    private Vector2 wallDir;
     Vector2 m_ChunkHitDir;
     [SerializeField] private Vector2 playerDir;
 
@@ -30,7 +24,6 @@ public class BernardAttacking : MonoBehaviour
     GameObject m_EarthChunk;
     public GameObject m_Floor;
     private GameObject m_ChosenWall;
-    [SerializeField] private GameObject m_TargetWall;
     public GameObject m_SpawnCheckPrefab;
     private GameObject m_SpawnCheck;
 
@@ -39,9 +32,9 @@ public class BernardAttacking : MonoBehaviour
     private Rigidbody2D rb;
     private Rigidbody2D m_PlayerBody;
 
-    private Collider2D m_BossCollider;
-    public BoxCollider2D m_BodyCollider;
+    public CapsuleCollider2D m_BodyCollider;
     public PolygonCollider2D m_TailCollider;
+    private BoxCollider2D m_BernardWallCollider;
     private Collider2D m_PlayerCollider;
     private Collider2D floorCollider;
 
@@ -49,8 +42,9 @@ public class BernardAttacking : MonoBehaviour
 
     public LayerMask[] m_IgnoreMasks;
     public LayerMask m_PlayerMask;
+    public LayerMask m_FloorMask;
 
-    private char wallSide;
+
     [SerializeField] private char directionChoice;
     public char playerDirection;
     public char playerDirNew;
@@ -106,16 +100,14 @@ public class BernardAttacking : MonoBehaviour
 
         m_PlayerTransform = GameObject.Find("Player").GetComponent<Transform>();
 
-        m_OrigPos = transform.position;
-
         rb = GetComponent<Rigidbody2D>();
 
         m_PlayerTransform = AISU.m_ActivePlayer.transform;
         m_Player = AISU.m_ActivePlayer;
         m_PlayerBody = m_Player.GetComponent<Rigidbody2D>();
 
-        m_BossCollider = GetComponent<Collider2D>();
         m_PlayerCollider = m_PlayerTransform.GetComponent<Collider2D>();
+        m_BernardWallCollider = BS.bernardWallBody.GetComponent<BoxCollider2D>();
 
         thirdPhase = false;
 
@@ -130,7 +122,6 @@ public class BernardAttacking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        m_MovementDirection = rb.velocity.normalized;
 
         if (m_EarthChunk != null)
         {
@@ -146,12 +137,7 @@ public class BernardAttacking : MonoBehaviour
         //else if (!isAgro && !isForget)                                         ]
         //{                                                                      ]
         //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);     ]
-        //}                                                                      ]
-
-        if(m_BodyCollider.bounds.Intersects(m_PlayerCollider.bounds) || m_TailCollider.bounds.Intersects(m_PlayerCollider.bounds))
-        {
-            m_Player.layer = 12;
-        }
+        //}                                                                      ]     
 
         if (transform.position.x < m_Player.transform.position.x)
         {
@@ -178,7 +164,7 @@ public class BernardAttacking : MonoBehaviour
     {
         if (thirdPhase && !secondPhase)
         {
-            if(!flipped)
+            if (!flipped)
             {
                 if (directionChoice == 'L')
                 {
@@ -204,7 +190,7 @@ public class BernardAttacking : MonoBehaviour
                 transform.Rotate(new Vector2(0, 180));
                 isFacingRight = !isFacingRight;
             }
-        }       
+        }
 
         if (firstPhase && !secondPhase)
         {
@@ -251,42 +237,19 @@ public class BernardAttacking : MonoBehaviour
 
     private void GroundAttacking()
     {
-        m_CurrentPos = transform.position;
 
         m_TargetPos = new Vector3(m_PlayerTransform.position.x, transform.position.y, m_PlayerTransform.position.z);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
-
-        //if (m_MovementDirection != Vector3.zero)
-        //{
-        //    float angle = Mathf.Atan2(m_MovementDirection.y, m_MovementDirection.x) * Mathf.Rad2Deg;
-        //    transform.rotation = Quaternion.AngleAxis(angle, Vector3.down);
-        //}
 
         if (Vector2.Distance(transform.position, m_TargetPos) < BS.m_AttackDistance)
         {
             rb.AddForce(m_TargetDir * m_Speed);
 
             m_MovingToTarget = true;
-
-            //if (!isAlert && !isAgro)                                              ]
-            //{                                                                     ]
-            //    isAlert = true;                                                   ]
-            //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ALERT);   ]--- Kane Animation stuff. Uncomment and change as needed.
-            //    animDelay = 0.383f;                                               ]
-            //    Invoke(nameof(CompleteAnim), animDelay);                          ]
-            //}                                                                     ]
         }
         else
         {
             m_MovingToTarget = false;
-
-            //if (!isForget && isAgro)                                               ]
-            //{                                                                      ]
-            //    isForget = true;                                                   ]
-            //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_FORGET);   ]--- Kane Animation stuff. Uncomment and change as needed.
-            //    animDelay = 0.383f;                                                ]
-            //    Invoke(nameof(CompleteAnim), animDelay);                           ]
-            //}                                                                      ]
         }
     }
 
@@ -312,14 +275,11 @@ public class BernardAttacking : MonoBehaviour
         {
             if (secondPhase)
             {
-                if (!Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
-                {
-                    m_ChosenWall = otherObject.gameObject;
+                m_ChosenWall = otherObject.gameObject;
 
-                    onWall = true;
-                    gameObject.layer = 3;
-                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                }
+                onWall = true;
+                gameObject.layer = 3;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
         else if (otherObject.gameObject.layer == 10)
@@ -331,17 +291,13 @@ public class BernardAttacking : MonoBehaviour
             onWall = false;
         }
 
-        if ((transform.position.x - otherObject.transform.position.x) < 0)
-        {
-            wallSide = 'L';
-        }
-        else if ((transform.position.x - otherObject.transform.position.x) > 0)
-        {
-            wallSide = 'R';
-        }
-
         if (otherObject.gameObject == m_Player)
         {
+
+            if (m_BodyCollider.bounds.Intersects(m_PlayerCollider.bounds) || m_TailCollider.bounds.Intersects(m_PlayerCollider.bounds))
+            {
+                m_Player.layer = 12;
+            }
 
             if (!secondPhase)
             {
@@ -350,7 +306,7 @@ public class BernardAttacking : MonoBehaviour
 
             if (PHS.isEnemyBack && !secondPhase)
             {
-                if (Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
+                if (Physics2D.IsTouching(m_BodyCollider, floorCollider) || Physics2D.IsTouching(m_TailCollider, floorCollider))
                 {
                     m_PlayerBody.AddForce(new Vector2(0f, 1f).normalized * 20, ForceMode2D.Impulse);
                     rb.AddForce(new Vector2(0f, 1f).normalized * 6, ForceMode2D.Impulse);
@@ -374,8 +330,6 @@ public class BernardAttacking : MonoBehaviour
 
         if (!onWall)
         {
-            transform.Find("WallCollider").gameObject.layer = 17;
-
             if (!dirChosen)
             {
                 dirChoice = UnityEngine.Random.Range(0, 2);
@@ -385,6 +339,7 @@ public class BernardAttacking : MonoBehaviour
             else
             {
                 gameObject.layer = 17;
+                transform.Find("WallCollider").gameObject.layer = 17;
             }
 
             if (dirChoice >= 0 && dirChoice < 1)
@@ -413,20 +368,17 @@ public class BernardAttacking : MonoBehaviour
                 if (wallColliders[i].CompareTag("BossWall"))
                 {
 
-                    m_TargetWall = wallColliders[i].gameObject;
-                    wallDir = (transform.position - m_TargetWall.transform.position).normalized;
-
                     if (!jumpedUp)
                     {
-                        if (/*wallDir.x > 0*/ directionChoice == 'L' && m_TargetWall.transform.Find("SideCheck").CompareTag("LeftWall"))
+                        if (/*wallDir.x > 0*/ directionChoice == 'L' && wallColliders[i].transform.Find("SideCheck").CompareTag("LeftWall"))
                         {
                             BAS.currentAnimName = "LizardJump";
-                            rb.AddForce(new Vector2(-1f, 2f).normalized * m_WallJumpForce, ForceMode2D.Impulse);                            
+                            rb.AddForce(new Vector2(-1f, 1.5f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         }
-                        else if (/*wallDir.x < 0*/ directionChoice == 'R' && m_TargetWall.transform.Find("SideCheck").CompareTag("RightWall"))
+                        else if (/*wallDir.x < 0*/ directionChoice == 'R' && wallColliders[i].transform.Find("SideCheck").CompareTag("RightWall"))
                         {
                             BAS.currentAnimName = "LizardJump";
-                            rb.AddForce(new Vector2(1f, 2f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
                         }
                         jumpedUp = true;
                     }
@@ -509,50 +461,57 @@ public class BernardAttacking : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-            switch (wallSide)
+            switch (directionChoice)
             {
                 case 'L':
-                    rb.AddForce(new Vector2(1, 0).normalized * 0.1f, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(1, 0).normalized * 0.05f, ForceMode2D.Impulse);
                     break;
                 case 'R':
-                    rb.AddForce(new Vector2(-1, 0).normalized * 0.1f, ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(-1, 0).normalized * 0.05f, ForceMode2D.Impulse);
                     break;
             }
-        }
 
-        if (!jumpedDown)
-        {
-            if (Physics2D.IsTouching(GetComponent<Collider2D>(), floorCollider))
+
+
+            if (!m_BodyCollider.bounds.Intersects(m_ChosenWall.GetComponent<Collider2D>().bounds) ||
+                !m_TailCollider.bounds.Intersects(m_ChosenWall.GetComponent<Collider2D>().bounds))
             {
-                if (!m_BossCollider.bounds.Intersects(m_ChosenWall.GetComponent<Collider2D>().bounds))
+                if (!Physics2D.IsTouching(m_TailCollider, m_ChosenWall.GetComponent<Collider2D>()) ||
+                    !Physics2D.IsTouching(m_BodyCollider, m_ChosenWall.GetComponent<Collider2D>()))
                 {
-                    if (!Physics2D.IsTouching(GetComponent<Collider2D>(), m_ChosenWall.GetComponent<Collider2D>()))
+                    if ((!m_BodyCollider.IsTouchingLayers(m_FloorMask) ||
+                         !m_TailCollider.IsTouchingLayers(m_FloorMask) ||
+                         !m_BernardWallCollider.IsTouchingLayers(m_FloorMask)))
                     {
-                        gameObject.layer = 3;
-
-                        jumpedDown = true;
-                    }
-                    else
-                    {
-                        jumpedDown = false;
-                    }
+                        if (Physics2D.IsTouching(m_TailCollider, floorCollider) ||
+                            Physics2D.IsTouching(m_BodyCollider, floorCollider))
+                        {
+                            gameObject.layer = 3;
+                            jumpedDown = true;
+                        }
+                    }                              
+                }
+                else
+                {
+                    jumpedDown = false;
                 }
             }
         }
 
-        Collider2D m_WallCollider = m_ChosenWall.GetComponent<Collider2D>();
+            Collider2D m_WallCollider = m_ChosenWall.GetComponent<Collider2D>();
 
-        if (m_BodyCollider.bounds.Intersects(m_WallCollider.bounds) || m_TailCollider.bounds.Intersects(m_WallCollider.bounds))
-        {
-            gameObject.layer = 17;
-        }
+            if ((m_BodyCollider.bounds.Intersects(m_WallCollider.bounds) || m_TailCollider.bounds.Intersects(m_WallCollider.bounds)))
+            {
+                gameObject.layer = 17;
+            }
 
-        if (!CR_RUNNING && m_EarthChunk == null)
-        {
-            StartCoroutine(AboveAttack(m_ProjectileForce));
-        }
+            if (!CR_RUNNING && m_EarthChunk == null)
+            {
+                StartCoroutine(AboveAttack(m_ProjectileForce));
+            }
 
-        GroundAttacking();
+            GroundAttacking();
+        
     }
 
     void GetAnimClip()

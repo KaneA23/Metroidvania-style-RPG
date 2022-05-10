@@ -15,7 +15,7 @@ public class BernardStates : MonoBehaviour
 	public GameObject bernardWallBody;
 
 	private PolygonCollider2D bernardTailCollider;
-    private BoxCollider2D bernardBodyCollider;
+    private CapsuleCollider2D bernardBodyCollider;
 
     private float m_DistanceToPlayer;
 	public float m_AttackDistance;
@@ -48,11 +48,11 @@ public class BernardStates : MonoBehaviour
 		m_MaxHealth = GetComponent<EnemyHealth>().m_MaxHP;
 		m_Health = m_MaxHealth;
 
-        bernardBodyCollider = GetComponent<BoxCollider2D>();
+        bernardBodyCollider = GetComponent<CapsuleCollider2D>();
         bernardTailCollider = GetComponent<PolygonCollider2D>();
     }
 
-	private void FixedUpdate()
+	private void Update()
 	{
 		if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		{
@@ -105,11 +105,11 @@ public class BernardStates : MonoBehaviour
 				}
 				else if (m_Health >= m_HealthPercentageRounded && m_Health < m_HealthPercentageRounded * 2)
 				{
-					if (BA.jumpedUp)
+					if (BA.jumpedUp == true)
 					{
 						if (!BA.onWall)
 						{
-							BAS.currentAnimName = "LizardJump";
+							//BAS.currentAnimName = "LizardJump";
 
                             bernardBodyCollider.enabled = false;
                             bernardTailCollider.enabled = false;

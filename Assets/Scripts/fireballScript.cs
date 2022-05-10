@@ -59,6 +59,7 @@ public class fireballScript : MonoBehaviour
 			hitEnemy.gameObject.GetComponent<EnemyHealth>().TakeDamage(/*BPC.rangeAtkDamage*/25, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 
 			Destroy(gameObject);
+			Debug.Log("fire ball destroyed");
 		}
 	}
 
@@ -72,7 +73,7 @@ public class fireballScript : MonoBehaviour
 
 		Debug.Log(a_collision.tag);
 
-		if (a_collision.gameObject.CompareTag("Enemy"))
+		if (/*a_collision.gameObject.CompareTag("Enemy")*/ a_collision.gameObject.layer == 3)
 		{
 			Debug.Log("HitEnemy");
 			a_collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(/*BPC.rangeAtkDamage*/25, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
