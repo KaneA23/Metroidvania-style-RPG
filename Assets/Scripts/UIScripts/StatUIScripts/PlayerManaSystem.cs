@@ -28,6 +28,8 @@ public class PlayerManaSystem : MonoBehaviour
 	private float manaLerpTimer;
 	private float manaLerpSpeed;
 
+	//public bool isManaCooldown;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
@@ -44,6 +46,8 @@ public class PlayerManaSystem : MonoBehaviour
 		BPC.currentMP = BPC.currentMaxMP;
 		BPC.maxRegenMP = (float)BPC.currentMaxMP * BPC.maxRegenMP;
 		BPC.maxRegenMP = Mathf.RoundToInt(BPC.maxRegenMP);
+
+		//isManaCooldown = false;
 	}
 
 	// Update is called once per frame

@@ -128,6 +128,10 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void LightAttack()
 	{
+		isAtkCooldown = true;
+		cooldownTimer = BPC.lightAtkCooldown;
+		cooldownTime = BPC.lightAtkCooldown;
+
 		PSS.TakeStamina(BPC.lightAtkCost);
 
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_SWORDATTACK);
@@ -157,10 +161,6 @@ public class PlayerCombatSystem : MonoBehaviour
 
 			}
 		}
-
-		isAtkCooldown = true;
-		cooldownTimer = BPC.lightAtkCooldown;
-		cooldownTime = BPC.lightAtkCooldown;
 	}
 
 	/// <summary>
@@ -168,6 +168,10 @@ public class PlayerCombatSystem : MonoBehaviour
 	/// </summary>
 	void HeavyAttack()
 	{
+		isAtkCooldown = true;
+		cooldownTimer = BPC.heavyAtkCooldown;
+		cooldownTime = BPC.heavyAtkCooldown;
+
 		PSS.TakeStamina(BPC.heavyAtkCost);
 
 		PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_HEAVYATTACK);
@@ -194,10 +198,6 @@ public class PlayerCombatSystem : MonoBehaviour
 				}
 			}
 		}
-
-		isAtkCooldown = true;
-		cooldownTimer = BPC.heavyAtkCooldown;
-		cooldownTime = BPC.heavyAtkCooldown;
 	}
 
 	/// <summary>

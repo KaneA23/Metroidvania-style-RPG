@@ -54,10 +54,10 @@ public class EnemyHealth : MonoBehaviour
             {
 				Destroy(m_SpriteRenderer);
 
-				GetComponent<BoxCollider2D>().enabled = false;
+				GetComponent<CapsuleCollider2D>().enabled = false;
 				GetComponent<PolygonCollider2D>().enabled = false;
 
-				InvokeRepeating("Timer", 0, 1);
+				//InvokeRepeating("Timer", 0, 1);
             }
             else
             {

@@ -73,8 +73,8 @@ public class PlayerMovementSystem : MonoBehaviour
 	[Header("Checks")]
 	public float checkRadius = 0.1f;
 
-	public float ceilingCheckWidth;
-	public float ceilingCheckHeight;
+	public float ceilingCheckWidth = 0.75f;
+	public float ceilingCheckHeight = 0.6f;
 
 	[Space(5)]
 	public Transform ceilingCheck;
@@ -161,6 +161,16 @@ public class PlayerMovementSystem : MonoBehaviour
 
         //}
         //Debug.Log("Time grounded: " + groundedTimer);
+
+		if (PHS.isHit)
+		{
+			isRunning = false;
+			isJumping = false;
+			if (!isCeiling)
+			{
+				isCrouching = false;
+			}
+		}
 
         if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
@@ -357,11 +367,12 @@ public class PlayerMovementSystem : MonoBehaviour
 					moveSpeed = BPC.walkSpeed;
 				}
 			}
+
 			if (isManaCooldown)
 			{
 				ApplyCooldown();
 			}
-			else if (!DialogueManagerScript.GetInstance().IsDialoguePlaying)
+			else if (!DialogueManagerScript.GetInstance().IsDialoguePlaying && !RAS.isManaCooldown)
 			{
 				// Dashing
 				if (Input.GetButtonDown("Dash") && !isCrouching && !isDashing && canDash && BPC.hasDash && BPC.currentMP >= BPC.dashCost)
@@ -396,7 +407,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 		}
 
-		if (isCrouching && !isCrouchEnter && !isCrouchExit && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		if (isCrouching && !isCrouchEnter && !isCrouchExit && !DialogueManagerScript.GetInstance().IsDialoguePlaying && isGrounded)
 		{
 			if (moveHorizontal != 0 && BPC.hasCrouch)
 			{
@@ -458,7 +469,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			Debug.Log("Wall Jump");
 
-			PSS.TakeStamina(BPC.jumpCost);
+			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 			rb.AddForce(new Vector2(BPC.wallJumpForce * -moveHorizontal, BPC.jumpForce), ForceMode2D.Impulse);

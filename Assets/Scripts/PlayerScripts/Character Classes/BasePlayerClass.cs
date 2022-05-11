@@ -73,7 +73,7 @@ public class BasePlayerClass : MonoBehaviour
 	[Space(5)]
 	public bool hasJump;
 	public float jumpForce = 25f;
-	public int jumpCost = 10;
+	public int jumpCost = 5;
 
 	[Space(2)]
 	public bool hasDoubleJump;
@@ -101,7 +101,7 @@ public class BasePlayerClass : MonoBehaviour
 	public int minStam;                 // the lowest the stamina bar can go
 	public float currentStam;
 	public int currentMaxStam = 100;    // maximum stamina player can reach at current levels
-	public float regenRateStam = 100;
+	public float regenRateStam = 150;
 
 	[Space(5)]
 	public bool hasWalk;
@@ -116,7 +116,7 @@ public class BasePlayerClass : MonoBehaviour
 	public bool hasRun;
 	public float runSpeed = 15f;
 	public float runSpeedMultiplier;
-	public float runCost = 20;
+	public float runCost = 1;
 
 	[Space(5)]
 	// Speeds determined by animation?
@@ -125,13 +125,13 @@ public class BasePlayerClass : MonoBehaviour
 	public float rangeAtkSpeed; //post COMX
 
 	[Space(2)]
-	public int lightAtkCost = 20;
-	public int heavyAtkCost = 30;
+	public int lightAtkCost = 10;
+	public int heavyAtkCost = 15;
 
 	[Space(5)]
 	public float lightAtkCooldown = 0.5f;
 	public float heavyAtkCooldown = 1f;
-	public float rangeAtkCooldown;  //post COMX
+	public float rangeAtkCooldown = 0.5f;  //post COMX
 
 	[Space(5)]
 	public float knockbackTaken = 500f;
@@ -167,7 +167,7 @@ public class BasePlayerClass : MonoBehaviour
 	public float rangeAtkRange; //post COMX
 
 	[Space(5)]
-	public float uiViewDist = 5f;   // distance where an enemy's UI is visible
+	public float uiViewDist = 10f;   // distance where an enemy's UI is visible
 
 	#endregion
 
@@ -446,18 +446,18 @@ public class BasePlayerClass : MonoBehaviour
 	{
 		// Comment out if want to test mechanics without class (uses default values)
 
-		//characterClassName = GameInformation.PlayerClass.ToString();
-		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		//MaximumMana = GameInformation.PlayerMaxMP;
-		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		//MaximumStamina = GameInformation.PlayerMaxStam;
-		//LightAttackDamage = GameInformation.PlayerLightDmg;
-		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		//WalkSpeed = GameInformation.PlayerWalkSpeed;
-		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		//RunSpeed = GameInformation.PlayerRunSpeed;
-		//LightCooldown = GameInformation.PlayerLightCooldown;
-		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		characterClassName = GameInformation.PlayerClass.ToString();
+		MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		MaximumMana = GameInformation.PlayerMaxMP;
+		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		MaximumStamina = GameInformation.PlayerMaxStam;
+		LightAttackDamage = GameInformation.PlayerLightDmg;
+		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		WalkSpeed = GameInformation.PlayerWalkSpeed;
+		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		RunSpeed = GameInformation.PlayerRunSpeed;
+		LightCooldown = GameInformation.PlayerLightCooldown;
+		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 		//Debug.Log("Player Class: " + characterClassName);
 		//Debug.Log("Player HP: " + MaximumHealthPoints);
