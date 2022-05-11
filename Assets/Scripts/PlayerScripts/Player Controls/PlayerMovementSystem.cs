@@ -103,7 +103,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	public PolygonCollider2D bossTailCollider;
 
 	public Collider2D bossColliderTop;
-    public Collider2D bossColliderBottom;
+	public Collider2D bossColliderBottom;
 
 	private bool exited = true;
 
@@ -154,13 +154,13 @@ public class PlayerMovementSystem : MonoBehaviour
 			Application.Quit();
 		}
 
-        //groundedTimer -= Time.deltaTime;
-        //if (isGrounded)
-        //{
-        //	groundedTimer = groundedTime;
+		//groundedTimer -= Time.deltaTime;
+		//if (isGrounded)
+		//{
+		//	groundedTimer = groundedTime;
 
-        //}
-        //Debug.Log("Time grounded: " + groundedTimer);
+		//}
+		//Debug.Log("Time grounded: " + groundedTimer);
 
 		if (PHS.isHit)
 		{
@@ -172,7 +172,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			}
 		}
 
-        if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		if (/*DM.isTalking*/DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_IDLE);
 		}
@@ -195,7 +195,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	}
 
 	private void FixedUpdate()
-	{		
+	{
 
 		groundedTimer -= Time.fixedDeltaTime;
 		if (isGrounded)
@@ -221,39 +221,39 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
 		if (collision.collider.gameObject.layer == 6)
-        {
-            if (bossColliderTop.bounds.Intersects(headCollider.bounds) || 
+		{
+			if (bossColliderTop.bounds.Intersects(headCollider.bounds) ||
 				bossColliderTop.bounds.Intersects(bodyCollider.bounds) ||
 				bossColliderBottom.bounds.Intersects(headCollider.bounds) ||
 				bossColliderBottom.bounds.Intersects(bodyCollider.bounds))
-            {
-                gameObject.layer = 12;
-            }
-        }
-    }
+			{
+				gameObject.layer = 12;
+			}
+		}
+	}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
+	private void OnCollisionExit2D(Collision2D collision)
+	{
 		if (collision.collider.gameObject.layer == 6)
-        {
-            if (!bossColliderTop.bounds.Intersects(headCollider.bounds) ||
-                !bossColliderTop.bounds.Intersects(bodyCollider.bounds) ||
-                !bossColliderBottom.bounds.Intersects(headCollider.bounds) ||
-                !bossColliderBottom.bounds.Intersects(bodyCollider.bounds))
-            {
+		{
+			if (!bossColliderTop.bounds.Intersects(headCollider.bounds) ||
+				!bossColliderTop.bounds.Intersects(bodyCollider.bounds) ||
+				!bossColliderBottom.bounds.Intersects(headCollider.bounds) ||
+				!bossColliderBottom.bounds.Intersects(bodyCollider.bounds))
+			{
 				exited = true;
-                gameObject.layer = 6;
-            }
-        }
-    }
+				gameObject.layer = 6;
+			}
+		}
+	}
 
-    /// <summary>
-    /// Checks player's input to move character
-    /// </summary>
-    void PlayerInput()
+	/// <summary>
+	/// Checks player's input to move character
+	/// </summary>
+	void PlayerInput()
 	{
 		// Checks what direction the player is wanting to move
 		moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -308,15 +308,20 @@ public class PlayerMovementSystem : MonoBehaviour
 				}
 
 				// Removes head collider if player wants to crouch
-				if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded && BPC.hasCrouch)
+				if (Input.GetKeyDown(KeyCode.LeftControl) /*&& isGrounded */&& BPC.hasCrouch)
 				{
-					isCrouchEnter = true;
-
-					PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
-					moveAnimDelay = 0.35f;
 					isCrouching = true;
 					headCollider.enabled = false;
-					Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+
+					if (isGrounded)
+					{
+						isCrouchEnter = true;
+
+						PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHENTER);
+						moveAnimDelay = 0.35f;
+
+						Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
+					}
 				}
 				else if (!isCeiling && isCrouching)
 				{
@@ -647,7 +652,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			isManaCooldown = true;
 			cooldownTimer = BPC.dashCooldown;
 
-			if(exited)
+			if (exited)
 			{
 				gameObject.layer = 6;
 			}
