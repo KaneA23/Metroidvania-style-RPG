@@ -36,7 +36,7 @@ public class CreateNewCharacter : MonoBehaviour
 	public void TogglePaladin(bool a_isActive)
 	{
 		isPaladinClass = a_isActive;
-		Debug.Log("Paladin: " + isPaladinClass);
+		//Debug.Log("Paladin: " + isPaladinClass);
 
 		if (isPaladinClass)
 		{
@@ -49,7 +49,7 @@ public class CreateNewCharacter : MonoBehaviour
 	public void ToggleArcaneWarrior(bool a_isActive)
 	{
 		isArcaneWarriorClass = a_isActive;
-		Debug.Log("Arcane Warrior: " + isArcaneWarriorClass);
+		//Debug.Log("Arcane Warrior: " + isArcaneWarriorClass);
 
 		if (isArcaneWarriorClass)
 		{
@@ -62,7 +62,7 @@ public class CreateNewCharacter : MonoBehaviour
 	public void ToggleRogue(bool a_isActive)
 	{
 		isRogueClass = a_isActive;
-		Debug.Log("Rogue: " + isRogueClass);
+		//Debug.Log("Rogue: " + isRogueClass);
 
 		if (isRogueClass)
 		{
@@ -75,7 +75,7 @@ public class CreateNewCharacter : MonoBehaviour
 	public void TogglePeasant(bool a_isActive)
 	{
 		isPeasantClass = a_isActive;
-		Debug.Log("Peasant:" + isPeasantClass);
+		//Debug.Log("Peasant:" + isPeasantClass);
 
 		if (isPeasantClass)
 		{
@@ -102,20 +102,22 @@ public class CreateNewCharacter : MonoBehaviour
 		newPlayer.HeavyAttackCooldown = newPlayer.PlayerClass.HeavyCooldown;
 
 		Debug.Log("Player Class: " + newPlayer.PlayerClass.CharacterClassName);
-		Debug.Log("Player HP: " + newPlayer.PlayerClass.MaximumHealthPoints);
-		Debug.Log("Player MP: " + newPlayer.PlayerClass.MaximumMana);
-		Debug.Log("Player MP Regen: " + newPlayer.PlayerClass.MaximumManaRegeneration);
-		Debug.Log("Player Stam: " + newPlayer.PlayerClass.MaximumStamina);
-		Debug.Log("Player LightDmg: " + newPlayer.PlayerClass.LightAttackDamage);
-		Debug.Log("Player HvyDmg: " + newPlayer.PlayerClass.HeavyAttackDamage);
-		Debug.Log("Player walk: " + newPlayer.PlayerClass.WalkSpeed);
-		Debug.Log("Player crouch: " + newPlayer.PlayerClass.CrouchingSpeed);
-		Debug.Log("Player run: " + newPlayer.PlayerClass.RunSpeed);
-		Debug.Log("Player lightCool: " + newPlayer.PlayerClass.LightCooldown);
-		Debug.Log("Player hvycool: " + newPlayer.PlayerClass.HeavyCooldown);
+		Debug.Log("Player Level: " + newPlayer.PlayerLvl);
+		//Debug.Log("Player HP: " + newPlayer.PlayerClass.MaximumHealthPoints);
+		//Debug.Log("Player MP: " + newPlayer.PlayerClass.MaximumMana);
+		//Debug.Log("Player MP Regen: " + newPlayer.PlayerClass.MaximumManaRegeneration);
+		//Debug.Log("Player Stam: " + newPlayer.PlayerClass.MaximumStamina);
+		//Debug.Log("Player LightDmg: " + newPlayer.PlayerClass.LightAttackDamage);
+		//Debug.Log("Player HvyDmg: " + newPlayer.PlayerClass.HeavyAttackDamage);
+		//Debug.Log("Player walk: " + newPlayer.PlayerClass.WalkSpeed);
+		//Debug.Log("Player crouch: " + newPlayer.PlayerClass.CrouchingSpeed);
+		//Debug.Log("Player run: " + newPlayer.PlayerClass.RunSpeed);
+		//Debug.Log("Player lightCool: " + newPlayer.PlayerClass.LightCooldown);
+		//Debug.Log("Player hvycool: " + newPlayer.PlayerClass.HeavyCooldown);
 
 
 		StoreNewPlayerInfo();
+
 		//SaveInformation.SaveAllInformation();
 
 		//GetComponent<Main_Menu_Script>().Play_Game();	// Plays next scene
@@ -125,6 +127,7 @@ public class CreateNewCharacter : MonoBehaviour
 	{
 		GameInformation.PlayerLvl = newPlayer.PlayerLvl;
 		GameInformation.PlayerClass = newPlayer.PlayerClass;
+		GameInformation.ClassName = newPlayer.PlayerClass.CharacterClassName;
 		GameInformation.PlayerMaxHP = newPlayer.MaxHP;
 		GameInformation.PlayerMaxMP = newPlayer.MaxMP;
 		GameInformation.PlayerMPRegen = newPlayer.MaxMPRegen;
@@ -137,5 +140,7 @@ public class CreateNewCharacter : MonoBehaviour
 		GameInformation.PlayerLightCooldown = newPlayer.LightAttackCooldown;
 		GameInformation.PlayerHvyCooldown = newPlayer.HeavyAttackCooldown;
 
+		Debug.Log("Stored Class Name: " + GameInformation.ClassName);
+		Debug.Log("Stored Level: " + GameInformation.PlayerLvl);
 	}
 }

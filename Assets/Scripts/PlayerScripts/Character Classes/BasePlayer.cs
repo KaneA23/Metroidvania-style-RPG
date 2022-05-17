@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class BasePlayer
 {
 	private string playerName;
 	private int playerLvl;
 	private BasePlayerClass playerClass;
+	private string className;
 
 	private int maxHP;
 	private int maxMP;
@@ -35,7 +37,11 @@ public class BasePlayer
 		get { return playerClass; }
 		set { playerClass = value; }
 	}
-
+	public string ClassName
+	{
+		get { return className; }
+		set { className = value; }
+	}
 	public int MaxHP
 	{
 		get { return maxHP; }

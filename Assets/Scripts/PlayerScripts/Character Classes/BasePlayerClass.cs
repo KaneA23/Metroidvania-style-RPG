@@ -6,7 +6,8 @@ using UnityEngine;
 /// Contains all the stats needed for player.
 /// Created by: Kane Adams
 /// </summary>
-public class BasePlayerClass : MonoBehaviour
+[System.Serializable]
+public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 {
 	[Header("Class details")]
 	private string characterClassName;
@@ -14,7 +15,7 @@ public class BasePlayerClass : MonoBehaviour
 
 	[Header("Leveling System")]
 	public int maxLvl;
-	public int currentLvl;
+	private int currentLvl;
 
 	[Space(2)]
 	public int maxXP;       // max XP for current level (dependent on level)
@@ -190,6 +191,19 @@ public class BasePlayerClass : MonoBehaviour
 	#endregion
 
 	#region Getter Setters
+
+	public int Level
+	{
+		get
+		{
+			return currentLvl;
+		}
+
+		set
+		{
+			currentLvl = value;
+		}
+	}
 
 	public string CharacterClassName
 	{
@@ -447,6 +461,8 @@ public class BasePlayerClass : MonoBehaviour
 		// Comment out if want to test mechanics without class (uses default values)
 
 		characterClassName = GameInformation.PlayerClass.ToString();
+		characterClassName = GameInformation.ClassName;
+		Level = GameInformation.PlayerLvl;
 		MaximumHealthPoints = GameInformation.PlayerMaxHP;
 		MaximumMana = GameInformation.PlayerMaxMP;
 		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
@@ -459,7 +475,10 @@ public class BasePlayerClass : MonoBehaviour
 		LightCooldown = GameInformation.PlayerLightCooldown;
 		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
+
+
 		//Debug.Log("Player Class: " + characterClassName);
+		//Debug.Log("Player Level: " + Level);
 		//Debug.Log("Player HP: " + MaximumHealthPoints);
 		//Debug.Log("Player MP: " + MaximumMana);
 		//Debug.Log("Player MP Regen: " + MaximumManaRegeneration);
@@ -485,5 +504,15 @@ public class BasePlayerClass : MonoBehaviour
 		//hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
 		//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
 		//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
+
+		if (Input.GetKeyDown(KeyCode.Y))
+		{
+			Debug.Log("Level: " + Level);
+		}
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			Level++;
+		}
 	}
+
 }

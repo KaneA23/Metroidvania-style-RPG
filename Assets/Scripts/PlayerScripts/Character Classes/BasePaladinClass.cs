@@ -6,6 +6,7 @@ using UnityEngine;
 /// Stats for Paladin character class.
 /// Created by: Kane Adams
 /// </summary>
+[System.Serializable]
 public class BasePaladinClass : BasePlayerClass
 {
     public BasePaladinClass()

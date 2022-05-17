@@ -310,11 +310,29 @@ public class DialogueManagerScript : MonoBehaviour
 		continueButton.SetActive(false);
 		HideChoices();
 
+		bool isAddingRichTextTag = false;
+
 		for (int i = 0; i < a_line.ToCharArray().Length; i++)
 		{
-			dialogueText.maxVisibleCharacters++;
-			yield return new WaitForSeconds(typingSpeed);
+
+			if (a_line[i] == '<' || isAddingRichTextTag)
+			{
+				isAddingRichTextTag = true;
+				if (a_line[i] == '>')
+				{
+					isAddingRichTextTag = false;
+				}
+
+			}
+			else
+			{
+				dialogueText.maxVisibleCharacters++;
+				yield return new WaitForSeconds(typingSpeed);
+			}
+
 		}
+
+
 
 		canContinueNextLine = true;
 		DisplayChoices();

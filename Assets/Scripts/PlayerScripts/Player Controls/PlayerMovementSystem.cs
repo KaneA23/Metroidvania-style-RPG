@@ -512,7 +512,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (canDoubleJump && BPC.hasDoubleJump)
 		{
-			Debug.Log("first if");
+			//Debug.Log("first if");
 			if (BPC.currentStam >= BPC.jumpCost /*&& jumpCount == 2*/)
 			{
 				canDoubleJump = false;

@@ -6,6 +6,7 @@ using UnityEngine;
 /// Stats for Rogue character class.
 /// Created by: Kane Adams
 /// </summary>
+[System.Serializable]
 public class BaseRogueClass : BasePlayerClass
 {
     public BaseRogueClass()

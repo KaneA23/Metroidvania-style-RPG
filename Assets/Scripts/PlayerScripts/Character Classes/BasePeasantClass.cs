@@ -6,6 +6,7 @@ using UnityEngine;
 /// Stats for Peasant character class.
 /// Created by: Kane Adams
 /// </summary>
+[System.Serializable]
 public class BasePeasantClass : BasePlayerClass
 {
 	public BasePeasantClass()

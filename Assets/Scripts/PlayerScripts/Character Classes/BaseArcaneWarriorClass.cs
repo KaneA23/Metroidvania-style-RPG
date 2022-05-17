@@ -6,9 +6,10 @@ using UnityEngine;
 /// Stats for Arcane Warrior character class.
 /// Created by: Kane Adams
 /// </summary>
+[System.Serializable]
 public class BaseArcaneWarriorClass : BasePlayerClass
 {
-    public BaseArcaneWarriorClass()
+	public BaseArcaneWarriorClass()
 	{
 		CharacterClassName = "Arcane Warrior";
 		CharacterClassDescription = "Magic infused warrior";
