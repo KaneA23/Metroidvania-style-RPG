@@ -14,7 +14,7 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	private string characterClassDes;
 
 	[Header("Leveling System")]
-	public int maxLvl;
+	public int maxLvl = 10;
 	private int currentLvl;
 
 	[Space(2)]
@@ -460,20 +460,20 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	{
 		// Comment out if want to test mechanics without class (uses default values)
 
-		characterClassName = GameInformation.PlayerClass.ToString();
-		characterClassName = GameInformation.ClassName;
-		Level = GameInformation.PlayerLvl;
-		MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		MaximumMana = GameInformation.PlayerMaxMP;
-		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		MaximumStamina = GameInformation.PlayerMaxStam;
-		LightAttackDamage = GameInformation.PlayerLightDmg;
-		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		WalkSpeed = GameInformation.PlayerWalkSpeed;
-		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		RunSpeed = GameInformation.PlayerRunSpeed;
-		LightCooldown = GameInformation.PlayerLightCooldown;
-		HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		//characterClassName = GameInformation.PlayerClass.ToString();
+		//characterClassName = GameInformation.ClassName;
+		//Level = GameInformation.PlayerLvl;
+		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		//MaximumMana = GameInformation.PlayerMaxMP;
+		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		//MaximumStamina = GameInformation.PlayerMaxStam;
+		//LightAttackDamage = GameInformation.PlayerLightDmg;
+		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		//WalkSpeed = GameInformation.PlayerWalkSpeed;
+		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		//RunSpeed = GameInformation.PlayerRunSpeed;
+		//LightCooldown = GameInformation.PlayerLightCooldown;
+		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 
 
@@ -505,14 +505,14 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
 		//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
 
-		if (Input.GetKeyDown(KeyCode.Y))
-		{
-			Debug.Log("Level: " + Level);
-		}
-		if (Input.GetKeyDown(KeyCode.H))
-		{
-			Level++;
-		}
+		//if (Input.GetKeyDown(KeyCode.Y))
+		//{
+		//	Debug.Log("Level: " + Level);
+		//}
+		//if (Input.GetKeyDown(KeyCode.H))
+		//{
+		//	Level++;
+		//}
 	}
 
 }

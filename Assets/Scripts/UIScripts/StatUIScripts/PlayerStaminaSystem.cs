@@ -24,7 +24,7 @@ public class PlayerStaminaSystem : MonoBehaviour
 	public Image stamFrontFillBar;
 	public Image stamBackFillBar;
 
-	[Header("Lerping Stamina decresae")]
+	[Header("Lerping Stamina decrease")]
 	private float stamLerpTimer;
 	private float stamLerpSpeed;
 
