@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 /// <summary>
 /// Contains all the stats needed for player.
@@ -23,6 +24,10 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 
 	[Space(2)]
 	public int skillPoints;
+
+	[Header("Save Stuff")]
+	
+
 
 	// Health and regen speed
 	#region Constitution Stats
@@ -514,5 +519,22 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 			Level++;
 		}
 	}
+
+	// Made by JACOB
+
+	public void Create_Save()
+    {
+
+
+    }
+	public void Override_Save_Game()
+    {
+
+    }
+
+	//public void Load_Save()
+    //{
+	//
+    //}
 
 }
