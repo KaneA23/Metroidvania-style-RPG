@@ -30,10 +30,12 @@ public class LevelSystem : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		BPC.Level = 1;      //temp
+		BPC.currentXP = 0;  //temp
+
 		xpBackFillBar.fillAmount = 0;
 		xpFrontFillBar.fillAmount = 0;
-		BPC.Level = 1;
-		BPC.currentXP = 0;
+
 		BPC.maxXP = BPC.Level * 100;
 
 		experienceToNextLevel = BPC.maxXP - BPC.currentXP;
@@ -55,7 +57,7 @@ public class LevelSystem : MonoBehaviour
 		{
 			if (Input.GetKeyDown(KeyCode.L))
 			{
-				AddExperience(/*Random.Range(10, 150)*/150);
+				AddExperience(Random.Range(10, 150));
 			}
 
 
@@ -70,10 +72,17 @@ public class LevelSystem : MonoBehaviour
 			{
 				xpFrontFillBar.fillAmount = 1;
 				xpBackFillBar.fillAmount = 1;
+
+				if (BPC.currentXP == BPC.maxXP && BPC.Level < BPC.maxLvl)
+				{
+					//Debug.Log("LEVEL UP!");
+					BPC.currentXP = 0;
+					BPC.Level++;
+					BPC.maxXP = BPC.Level * 100;
+					BPC.UpdateStats();
+				}
 			}
 		}
-
-
 
 		UpdateExperienceUI();
 	}
@@ -102,13 +111,7 @@ public class LevelSystem : MonoBehaviour
 		double fillF = System.Math.Round(xpFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(xpBackFillBar.fillAmount, 2);
 
-		if (BPC.currentXP == BPC.maxXP && BPC.Level < BPC.maxLvl && fillF == fillB)
-		{
-			//Debug.Log("LEVEL UP!");
-			BPC.currentXP = 0;
-			BPC.Level++;
-			BPC.maxXP = BPC.Level * 100;
-		}
+
 		experienceToNextLevel = BPC.maxXP - BPC.currentXP;
 		xpLerpTimer = 0f;
 

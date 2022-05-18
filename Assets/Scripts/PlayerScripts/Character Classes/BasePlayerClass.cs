@@ -32,8 +32,8 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	public int maxConstitutionLvl;
 
 	[Space(5)]
-	public int maxHP;               // maximum overall health
-	public int minHP;               // the lowest the healthbar size can go
+	public int maxHP = 1000;               // maximum overall health
+	public int minHP = 100;               // the lowest the healthbar size can go
 	public float currentHP;
 	public int currentMaxHP = 100;    // maximum health player can reach at current levels
 
@@ -65,7 +65,7 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 
 	[Space(5)]
 	// Post COMX
-	public float rangeAtkDamage;        //post COMX
+	public float rangeAtkDamage = 25f;        //post COMX
 	public float rangeAtkMultiplier;    //post COMX
 	public float rangeKnockbackDist;    //post COMX
 	#endregion
@@ -460,20 +460,20 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	{
 		// Comment out if want to test mechanics without class (uses default values)
 
-		//characterClassName = GameInformation.PlayerClass.ToString();
-		//characterClassName = GameInformation.ClassName;
-		//Level = GameInformation.PlayerLvl;
-		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		//MaximumMana = GameInformation.PlayerMaxMP;
-		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		//MaximumStamina = GameInformation.PlayerMaxStam;
-		//LightAttackDamage = GameInformation.PlayerLightDmg;
-		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		//WalkSpeed = GameInformation.PlayerWalkSpeed;
-		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		//RunSpeed = GameInformation.PlayerRunSpeed;
-		//LightCooldown = GameInformation.PlayerLightCooldown;
-		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		characterClassName = GameInformation.PlayerClass.ToString();
+		characterClassName = GameInformation.ClassName;
+		Level = GameInformation.PlayerLvl;
+		MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		MaximumMana = GameInformation.PlayerMaxMP;
+		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		MaximumStamina = GameInformation.PlayerMaxStam;
+		LightAttackDamage = GameInformation.PlayerLightDmg;
+		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		WalkSpeed = GameInformation.PlayerWalkSpeed;
+		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		RunSpeed = GameInformation.PlayerRunSpeed;
+		LightCooldown = GameInformation.PlayerLightCooldown;
+		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 
 
@@ -515,4 +515,54 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		//}
 	}
 
+	/// <summary>
+	/// Updates stats so player levels up.
+	/// Future plan is to use skill points to level up. Will need to create skill tree UI
+	/// </summary>
+	public void UpdateStats()
+	{
+		// Constitution
+		MaximumHealthPoints += 10;
+		if (MaximumHealthPoints > maxHP)
+		{
+			MaximumHealthPoints = maxHP;
+		}
+		currentHP = MaximumHealthPoints;
+		maxRegenHP += 10;
+
+
+		// Strength
+		LightAttackDamage++;
+		lightKnockbackDist += 10;
+
+		HeavyAttackDamage++;
+		heavyKnockbackDist += 10;
+
+		rangeAtkDamage++;
+
+		jumpForce++;
+
+
+		// Agility
+		MaximumStamina += 10;
+		currentStam = MaximumStamina;
+
+		LightCooldown -= 0.01f;
+		HeavyCooldown -= 0.01f;
+		rangeAtkCooldown -= 0.01f;
+
+
+		// Wisdom
+		MaximumMana += 10;
+		currentMP = MaximumMana;
+		MaximumManaRegeneration += 10;
+
+		dashDist++;
+		dashCooldown -= 0.01f;
+
+		lightAtkRange += 0.01f;
+		heavyAtkRange += 0.01f;
+
+		uiViewDist++;
+	}
 }
