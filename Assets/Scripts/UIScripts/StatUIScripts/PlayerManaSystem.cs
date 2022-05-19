@@ -79,6 +79,12 @@ public class PlayerManaSystem : MonoBehaviour
 		{
 			if (!PMS.isDashing && fillF == fillB)
 			{
+				if (fillB == 1 && fillF == 1)
+				{
+					manaFrontFillBar.fillAmount = 1;
+					manaBackFillBar.fillAmount = 1;
+				}
+
 				if (BPC.currentMP < BPC.maxRegenMP)
 				{
 					RegenMana(BPC.regenRateMP * Time.deltaTime);

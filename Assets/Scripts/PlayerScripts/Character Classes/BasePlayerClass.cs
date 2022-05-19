@@ -541,10 +541,18 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		rangeAtkDamage++;
 
 		jumpForce++;
+		if (jumpForce > 50)
+		{
+			jumpForce = 50;
+		}
 
 
 		// Agility
 		MaximumStamina += 10;
+		if (MaximumStamina > maxHP)
+		{
+			MaximumStamina = maxHP;
+		}
 		currentStam = MaximumStamina;
 
 		LightCooldown -= 0.01f;
@@ -554,10 +562,18 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 
 		// Wisdom
 		MaximumMana += 10;
+		if (MaximumMana > maxHP)
+		{
+			MaximumMana = maxHP;
+		}
 		currentMP = MaximumMana;
 		MaximumManaRegeneration += 10;
 
 		dashDist++;
+		if (dashDist > 100)
+		{
+			dashDist = 100;
+		}
 		dashCooldown -= 0.01f;
 
 		lightAtkRange += 0.01f;

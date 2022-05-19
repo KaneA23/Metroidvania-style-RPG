@@ -2,29 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSystem : MonoBehaviour
 {
 	BasePlayerClass BPC;
 	GameObject eventSystem;
 
-	private int experienceLeft; // XP after player levelled up
-	private int experienceToNextLevel;
+	[SerializeField] private int experienceLeft; // XP after player levelled up
+	[SerializeField] private int experienceToNextLevel;
 
 	public Image xpFrontFillBar;
 	public Image xpBackFillBar;
 
 	[Header("Experience bar objects")]
 	public GameObject xpBarEmpty;
+	public GameObject xpBar;
 
 	[Header("Lerping Experience decrease")]
 	private float xpLerpTimer;
 	private float xpLerpSpeed;
 
+	public TextMeshProUGUI xpText;
+
+	Animator anim;
+	public string currentAnimState;
+	public float animDelay;
+
+	[SerializeField] private int xpAmount;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
 		BPC = eventSystem.GetComponent<BasePlayerClass>();
+
+		anim = GetComponent<Animator>();
 	}
 
 	// Start is called before the first frame update
@@ -39,47 +51,51 @@ public class LevelSystem : MonoBehaviour
 		BPC.maxXP = BPC.Level * 100;
 
 		experienceToNextLevel = BPC.maxXP - BPC.currentXP;
-		//Debug.Log("CurrentXP: " + BPC.currentXP);
-		//Debug.Log("Level: " + BPC.Level);
-		//Debug.Log("maxXP: " + BPC.maxXP);
-		//Debug.Log("Next level in: " + experienceToNextLevel);
+
+		ChangeAnimationState("XP_Inactive");
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		xpBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.maxXP, 32);
-
 		double fillF = System.Math.Round(xpFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(xpBackFillBar.fillAmount, 2);
 
+		if (Input.GetKeyDown(KeyCode.L))
+		{
+			GainExperience(Random.Range(10, 250));
+		}
+
 		if (fillF == fillB)
 		{
-			if (Input.GetKeyDown(KeyCode.L))
+			if (experienceLeft > 0 && fillF == 0)
 			{
-				AddExperience(Random.Range(10, 150));
+				ChangeAnimationState("XP_Active");
+				GainExperience(experienceLeft);
 			}
-
-
-			if (experienceLeft > 0)
-			{
-				AddExperience(experienceLeft);
-			}
-
-
 
 			if (fillB == 1 && fillF == 1)
 			{
 				xpFrontFillBar.fillAmount = 1;
 				xpBackFillBar.fillAmount = 1;
 
-				if (BPC.currentXP == BPC.maxXP && BPC.Level < BPC.maxLvl)
+				// Levels up player once reached max XP (if not max level)
+				if (BPC.currentXP == BPC.maxXP)
 				{
-					//Debug.Log("LEVEL UP!");
-					BPC.currentXP = 0;
-					BPC.Level++;
-					BPC.maxXP = BPC.Level * 100;
 					BPC.UpdateStats();
+
+					if (BPC.Level < BPC.maxLvl)
+					{
+						if (experienceLeft > 0)
+						{
+							ChangeAnimationState("XP_Active");
+							Invoke(nameof(CompleteAnim), animDelay);
+						}
+
+						BPC.currentXP = 0;
+						BPC.Level++;
+						BPC.maxXP = BPC.Level * 100;
+					}
 				}
 			}
 		}
@@ -87,38 +103,61 @@ public class LevelSystem : MonoBehaviour
 		UpdateExperienceUI();
 	}
 
-	public void AddExperience(int a_amount)
+	/// <summary>
+	/// Called when enemy dies, Begins adding XP to player
+	/// </summary>
+	/// <param name="a_amount">XP earned from enemy</param>
+	public void GainExperience(int a_amount)
 	{
-		//Debug.Log("CurrentXP: " + BPC.currentXP);
-		//Debug.Log("Level: " + BPC.Level);
-		//Debug.Log("Next level in: " + experienceToNextLevel);
+		xpAmount = a_amount;
 
-		experienceLeft = a_amount - experienceToNextLevel;
+		if (currentAnimState == "XP_Inactive")
+		{
+			ChangeAnimationState("XP_FadeIn");
+			animDelay = 1f;
+			Invoke(nameof(CompleteAnim), animDelay);
+		}
+		else
+		{
+			ChangeAnimationState("XP_Active");
+			AddExperience();
+		}
+	}
+
+	/// <summary>
+	/// Increases player XP
+	/// </summary>
+	void AddExperience()
+	{
+		experienceLeft = xpAmount - experienceToNextLevel;
+
 		if (experienceLeft <= 0)
 		{
 			experienceLeft = 0;
 		}
 
-		if (a_amount >= experienceToNextLevel)
+		if (xpAmount >= experienceToNextLevel)
 		{
 			BPC.currentXP += experienceToNextLevel;
 		}
 		else
 		{
-			BPC.currentXP += a_amount;
+			BPC.currentXP += xpAmount;
 		}
 
-		double fillF = System.Math.Round(xpFrontFillBar.fillAmount, 2);
-		double fillB = System.Math.Round(xpBackFillBar.fillAmount, 2);
-
-
+		xpAmount = 0;
 		experienceToNextLevel = BPC.maxXP - BPC.currentXP;
 		xpLerpTimer = 0f;
+		animDelay = 2f;
 
-		//Debug.Log("XP left: " + experienceLeft);
-		//Debug.Log("CurrentXP: " + BPC.currentXP);
-		//Debug.Log("Level: " + BPC.Level);
-		//Debug.Log("Next level in: " + experienceToNextLevel);
+		// If there is more XP to add, wait before removing
+		if (xpAmount <= 0)
+		{
+			if (experienceLeft <= 0 && currentAnimState == "XP_Active")
+			{
+				Invoke(nameof(CompleteAnim), animDelay);
+			}
+		}
 	}
 
 	public void UpdateExperienceUI()
@@ -154,5 +193,42 @@ public class LevelSystem : MonoBehaviour
 
 			xpFrontFillBar.fillAmount = Mathf.Lerp(fillF, xpBackFillBar.fillAmount, percentComplete);
 		}
+
+		xpText.text = BPC.currentXP + " / " + BPC.maxXP;
+
+	}
+
+	void CompleteAnim()
+	{
+		if (currentAnimState == "XP_FadeIn")
+		{
+			ChangeAnimationState("XP_Active");
+			AddExperience();
+		}
+		else if (currentAnimState == "XP_Active")
+		{
+			ChangeAnimationState("XP_FadeOut");
+			animDelay = 1f;
+			Invoke(nameof(CompleteAnim), animDelay);
+		}
+		else if (currentAnimState == "XP_FadeOut")
+		{
+			ChangeAnimationState("XP_Inactive");
+		}
+	}
+
+	public void ChangeAnimationState(string a_newAnim)
+	{
+		// Stops the same animation from interrupting itself
+		if (currentAnimState == a_newAnim)
+		{
+			return;
+		}
+
+		// Play the animation
+		anim.Play(a_newAnim);
+
+		// reassign current state
+		currentAnimState = a_newAnim;
 	}
 }
