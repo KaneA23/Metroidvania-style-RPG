@@ -46,7 +46,9 @@ public class DialogueManagerScript : MonoBehaviour
 	private float animDelay;
 
 	public bool isRambleon;
+	public bool isArenaRambleon;
 	public GameObject NPC;
+	public bool isReady;
 
 	private DialogueVariablesScript DVS;
 
@@ -154,6 +156,18 @@ public class DialogueManagerScript : MonoBehaviour
 		{
 			NPC.GetComponent<BarrelHealthSystem>().ActivateParticle();
 			NPC.GetComponent<DialogueTriggerScript>().isNewSpeech = false;
+		}
+
+		if (isArenaRambleon)
+		{
+			FindObjectOfType<ArenaWaveManager>().EndDialogue();
+			//isReady = (BoolValue)GetInstance().GetVariableState("startRound").value;
+			//if (isReady)
+			//{
+			//	//NPC.GetComponent<BarrelHealthSystem>().ActivateParticle();
+			//	//NPC.GetComponent<DialogueTriggerScript>().isNewSpeech = false;
+			//	FindObjectOfType<ArenaWaveManager>().EndDialogue();
+			//}
 		}
 
 		Invoke(nameof(CompleteDialogueAnim), animDelay);

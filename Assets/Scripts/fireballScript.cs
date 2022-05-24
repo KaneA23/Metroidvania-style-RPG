@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fireballScript : MonoBehaviour
+public class FireballScript : MonoBehaviour
 {
 	BasePlayerClass BPC;
 
@@ -31,7 +31,7 @@ public class fireballScript : MonoBehaviour
 
 		PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_SHOT);
 		isMidair = false;
-		Debug.Log("Feur Frei!");
+		//Debug.Log("Feur Frei!");
 		Invoke(nameof(CompleteAnim), 0.18f);
 		//isMidair = true;
 	}
@@ -43,7 +43,7 @@ public class fireballScript : MonoBehaviour
 		//Fireball();
 		if (isMidair)
 		{
-			Debug.Log("Free Flying");
+			//Debug.Log("Free Flying");
 			PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_MIDAIR);
 		}
 	}
@@ -55,11 +55,11 @@ public class fireballScript : MonoBehaviour
 
 		if (hitEnemy != null)
 		{
-			Debug.Log("Enemy Hit");
+			//Debug.Log("Enemy Hit");
 			hitEnemy.gameObject.GetComponent<EnemyHealth>().TakeDamage(/*BPC.rangeAtkDamage*/25, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 
 			Destroy(gameObject);
-			Debug.Log("fire ball destroyed");
+			//Debug.Log("fire ball destroyed");
 		}
 	}
 
@@ -75,7 +75,7 @@ public class fireballScript : MonoBehaviour
 
 		if (/*a_collision.gameObject.CompareTag("Enemy")*/ a_collision.gameObject.layer == 3)
 		{
-			Debug.Log("HitEnemy");
+			//Debug.Log("HitEnemy");
 			a_collision.gameObject.GetComponent<EnemyHealth>().TakeDamage(/*BPC.rangeAtkDamage*/25, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 
 		}
@@ -87,7 +87,7 @@ public class fireballScript : MonoBehaviour
 		PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_HIT);
 		isMidair = false;
 		Invoke(nameof(CompleteAnim), 0.35f);
-		Debug.Log("is fireball destroyed?");
+		//Debug.Log("is fireball destroyed?");
 	}
 
 	private void OnDrawGizmosSelected()
@@ -105,7 +105,7 @@ public class fireballScript : MonoBehaviour
 		}
 		else if (PAS.currentAnimState == "Fireball_Hit")
 		{
-			Debug.Log("no witnesses!");
+			//Debug.Log("no witnesses!");
 			Destroy(gameObject);
 		}
 	}

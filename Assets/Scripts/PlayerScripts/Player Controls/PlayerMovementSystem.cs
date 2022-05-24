@@ -187,7 +187,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			CheckIfCeiling();
 			CheckIfWall();
 
-			if (!PHS.isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+			if (!PHS.isHit /*&& !FindObjectOfType<BernardIntroCutscene>().isCutscene*/)
 			{
 				PlayerInput();
 			}
@@ -215,7 +215,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			canDoubleJump = true;
 		}
 
-		if (!isDashing && !PHS.isHit && !PHS.isDying && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		if (!isDashing && !PHS.isHit && !PHS.isDying /*&& !FindObjectOfType<BernardIntroCutscene>().isCutscene*/)
 		{
 			PlayerMovement();
 		}

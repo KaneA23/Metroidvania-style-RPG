@@ -47,6 +47,16 @@ public class DialogueTriggerScript : MonoBehaviour
 				DialogueManagerScript.GetInstance().isRambleon = false;
 			}
 
+			if (gameObject.name == "ArenaRambleon")
+			{
+				DialogueManagerScript.GetInstance().isArenaRambleon = true;
+				DialogueManagerScript.GetInstance().NPC = gameObject;
+			}
+			else
+			{
+				DialogueManagerScript.GetInstance().isArenaRambleon = false;
+			}
+
 			visualCue.SetActive(true);
 
 			if (Input.GetKeyDown(KeyCode.F)/* && !DialogueManagerScript.GetInstance().IsDialoguePlaying*/)

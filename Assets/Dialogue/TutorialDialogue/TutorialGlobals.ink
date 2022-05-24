@@ -5,3 +5,5 @@ VAR hasJump = false
 VAR hasDoubleJump = false
 VAR hasLightAtk = false
 VAR hasHeavyAtk = false
+
+VAR startRound = false

@@ -138,7 +138,7 @@ public class PlayerHealthSystem : MonoBehaviour
 			return;
 		}
 
-		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying && !isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying /*&& !isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene*/)
 		{
 			PMS.isCrouching = false;	// Look at later point
 			PMS.isRunning = false;
