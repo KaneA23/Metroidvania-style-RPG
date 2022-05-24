@@ -100,6 +100,12 @@ public class PlayerHealthSystem : MonoBehaviour
 		// When player isn't being attacked, start regening up to 20% of max HP overtime
 		if (!isHit && !isDying && fillB == fillF)
 		{
+			if (fillB == 1 && fillF == 1)
+			{
+				healthFrontFillBar.fillAmount = 1;
+				healthBackFillBar.fillAmount = 1;
+			}
+
 			if (BPC.currentHP < BPC.maxRegenHP)
 			{
 				RegenHealth(BPC.maxRegenHP * Time.deltaTime);

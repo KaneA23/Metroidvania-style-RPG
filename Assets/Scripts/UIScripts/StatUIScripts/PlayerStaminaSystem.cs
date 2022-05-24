@@ -24,7 +24,7 @@ public class PlayerStaminaSystem : MonoBehaviour
 	public Image stamFrontFillBar;
 	public Image stamBackFillBar;
 
-	[Header("Lerping Stamina decresae")]
+	[Header("Lerping Stamina decrease")]
 	private float stamLerpTimer;
 	private float stamLerpSpeed;
 
@@ -74,6 +74,12 @@ public class PlayerStaminaSystem : MonoBehaviour
 				//Debug.Log("is jumping: " + PMS.isJumping);
 				if (!PMS.isRunning && fillF == fillB)
 				{
+					if (fillB == 1 && fillF == 1)
+					{
+						stamFrontFillBar.fillAmount = 1;
+						stamBackFillBar.fillAmount = 1;
+					}
+
 					if (BPC.currentStam < BPC.currentMaxStam)
 					{
 						RegenStamina(BPC.regenRateStam * Time.deltaTime);
