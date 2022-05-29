@@ -54,10 +54,11 @@ public class BernardStates : MonoBehaviour
 
 	private void Update()
 	{
-		if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
-		{
-			return;
-		}
+		//if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		//{
+		//	return;
+		//}
+
 		m_DistanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
 		m_Health = GetComponent<EnemyHealth>().m_CurrentHP;
 
@@ -111,10 +112,10 @@ public class BernardStates : MonoBehaviour
 						{
 							//BAS.currentAnimName = "LizardJump";
 
-                            bernardBodyCollider.enabled = false;
-                            bernardTailCollider.enabled = false;
+                            //bernardBodyCollider.enabled = false;
+                            //bernardTailCollider.enabled = false;
 
-                            bernardWallBody.SetActive(true);
+                            //bernardWallBody.SetActive(true);
                         }
 						else
 						{
@@ -130,6 +131,12 @@ public class BernardStates : MonoBehaviour
 					
 					BA.Invoke(AttackStateTypes[0], 0f);
 				}
+				else if (m_Health <= 0)
+                {
+					BAS.currentAnimName = "LizardDying";
+
+					BA.Invoke("Die", 0);
+                }
 
 				break;
 		}

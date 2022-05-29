@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class EnemyHealth : MonoBehaviour
 {
 	public BernardHealthUI BHUI;
+	public BernardAttacking BA;
 
 	public float m_MaxHP = 100;
 	public float m_CurrentHP;
@@ -15,6 +16,9 @@ public class EnemyHealth : MonoBehaviour
 
 	[SerializeField] private int startTime;
 	private bool timerStart = false;
+	public bool isDead = false;
+	public bool isDeadOnce = false;
+	public bool animFinished = false;
 
 	Rigidbody2D rb;
 
@@ -35,6 +39,7 @@ public class EnemyHealth : MonoBehaviour
 
 	void Start()
 	{
+
 		m_CurrentHP = m_MaxHP;
 
 		//m_HealthBar.maxValue = m_MaxHP;
@@ -46,35 +51,44 @@ public class EnemyHealth : MonoBehaviour
 		m_CurrentHP -= a_Damage;
 		//m_HealthBar.value = m_CurrentHP;
 
-		if (m_CurrentHP <= 0)
-		{
-			Debug.Log("<color=Purple>Get Rekt Son</color>");
+		//if (m_CurrentHP <= 0)
+		//{
+		//	Debug.Log("<color=Purple>Get Rekt Son</color>");
+		//	isDead = true;
 
-			if(gameObject.name == "Bernard")
+  //          if (gameObject.name == "Bernard")
+  //          {
+		//		//Destroy(m_SpriteRenderer);
+
+		//		//InvokeRepeating("Timer", 0, 1);
+
+		//		if(BA.deathAnimFinished)
+  //              {
+		//			Invoke(nameof(KillEnemy), 0.5f);
+  //              }
+  //          }
+  //          else
+  //          {
+  //              if (animFinished)
+  //              {
+		//			Invoke(nameof(KillEnemy), 0.5f);
+		//		}           							
+		//	}			
+		//}
+
+		if(!isDead)
+        {
+            if ((transform.position.x - a_PlayerPos.x) < 0)
             {
-				Destroy(m_SpriteRenderer);
-
-				GetComponent<CapsuleCollider2D>().enabled = false;
-				GetComponent<PolygonCollider2D>().enabled = false;
-
-				//InvokeRepeating("Timer", 0, 1);
+                Debug.Log("Left Hit");
+                rb.AddForce(new Vector2(-1f, 0.5f) */* a_KnockbackAmount*/ HitForce);
             }
-            else
+            else if ((transform.position.x - a_PlayerPos.x) > 0)
             {
-				Invoke(nameof(KillEnemy), 0.5f);
-			}			
-		}
-
-		if ((transform.position.x - a_PlayerPos.x) < 0)
-		{
-			Debug.Log("Left Hit");
-			rb.AddForce(new Vector2(-1f, 0.5f) */* a_KnockbackAmount*/ HitForce);
-		}
-		else if ((transform.position.x - a_PlayerPos.x) > 0)
-		{
-			Debug.Log("Right Hit");
-			rb.AddForce(new Vector2(1f, 0.5f) * /*a_KnockbackAmount*/HitForce);
-		}
+                Debug.Log("Right Hit");
+                rb.AddForce(new Vector2(1f, 0.5f) * /*a_KnockbackAmount*/HitForce);
+            }
+        }	
 
 		BHUI.healthlerpTimer = 0;
 	}
@@ -82,8 +96,27 @@ public class EnemyHealth : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		
-	}
+        if (m_CurrentHP <= 0 && !isDeadOnce)
+        {
+            Debug.Log("<color=Purple>Get Rekt Son</color>");
+            isDead = true;
+			isDeadOnce = true;
+
+            if (gameObject.name == "Bernard")
+            {
+                //Destroy(m_SpriteRenderer);
+
+                //InvokeRepeating("Timer", 0, 1);
+            }
+            else
+            {
+                //if (animFinished)
+                //{
+                //    Invoke(nameof(KillEnemy), 0.5f);
+                //}
+            }
+        }
+    }
 
 	void Timer()
     {

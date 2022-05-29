@@ -28,6 +28,8 @@ TagManager:
   - LeftWall
   - RightWall
   - Projectile
+  - GroundEnemy
+  - AirEnemy
   layers:
   - Default
   - TransparentFX
@@ -48,7 +50,7 @@ TagManager:
   - BossWall
   - BernardVoid
   - EnemyFloor
-  - 
+  - DeadParts
   - 
   - 
   - 

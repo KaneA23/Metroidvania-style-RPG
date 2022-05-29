@@ -12,6 +12,11 @@ public class AIRanged : MonoBehaviour
     public EnemyAnimationManager EAM;
 
     public GameObject m_Player;
+    public GameObject m_DeadEarthElementalPrefab;
+    private GameObject m_DeadEarthElemental;
+    private Transform[] m_EarthElementalSpikes;
+
+    public LayerMask m_GroundMask;
 
     public Transform target;
     public float speed = 200f;
@@ -39,19 +44,25 @@ public class AIRanged : MonoBehaviour
     public bool isForget;
     public bool isAgro;
     public bool withinRange;
+    private bool died = false;
 
     public float animDelay;
 
     Seeker seeker;
-    Rigidbody2D rb;
 
-	private void Awake()
-	{
-		EAM = GetComponent<EnemyAnimationManager>();
-	}
+    private Rigidbody2D rb;
+    private Rigidbody2D deadRb;
 
-	// Start is called before the first frame update
-	public void Start()
+    private Collider2D coll;
+    private Collider2D deadColl;
+
+    private void Awake()
+    {
+        EAM = GetComponent<EnemyAnimationManager>();
+    }
+
+    // Start is called before the first frame update
+    public void Start()
     {
         AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
         PHS = AISU.PHS;
@@ -63,12 +74,16 @@ public class AIRanged : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
+        coll = GetComponent<Collider2D>();
+
         InvokeRepeating("UpdatePath", 0f, .5f);
 
         isAlert = false;
         isForget = false;
         isAgro = false;
         //EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
+
+        Physics2D.IgnoreLayerCollision(6, 19);
     }
 
     void UpdatePath()
@@ -119,16 +134,60 @@ public class AIRanged : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAgro && !isAlert)
+        if (isAgro && !isAlert && !EH.isDead)
         {
             EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_AGROWALK);
         }
-        else if (!isAgro && !isForget)
+        else if (!isAgro && !isForget && !EH.isDead)
         {
             EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_CALMWALK);
         }
+
+        if (EH.isDead && !died)
+        {
+            EAM.ChangeAnimationState(AIAnimationState.EARTHELEMENTAL_DYING);
+
+            if (EH.animFinished)
+            {
+                coll.enabled = false;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                transform.Find("GFX").GetComponent<SpriteRenderer>().enabled = false;
+
+                m_DeadEarthElemental = Instantiate(m_DeadEarthElementalPrefab, transform.position, Quaternion.identity);
+                deadColl = m_DeadEarthElemental.GetComponent<Collider2D>();
+                deadRb = m_DeadEarthElemental.GetComponent<Rigidbody2D>();
+
+                m_EarthElementalSpikes = m_DeadEarthElemental.GetComponentsInChildren<Transform>();
+
+                m_DeadEarthElemental.transform.DetachChildren();
+
+                died = true;
+            }
+        }
+
+        if (m_DeadEarthElemental != null)
+        {
+            if (Physics2D.IsTouchingLayers(deadColl, m_GroundMask))
+            {
+                deadRb.constraints = RigidbodyConstraints2D.FreezeAll;
+                deadColl.enabled = false;
+            }
+
+            foreach (Transform spike in m_EarthElementalSpikes)
+            {
+                Collider2D spikeColl = spike.GetComponent<Collider2D>();
+                Rigidbody2D spikeBody = spike.GetComponent<Rigidbody2D>();
+
+                if (Physics2D.IsTouchingLayers(spikeColl, m_GroundMask))
+                {
+                    spikeBody.constraints = RigidbodyConstraints2D.FreezeAll;
+                    spikeColl.enabled = false;
+                }
+            }
+        }
+
     }
-    
+
     void FixedUpdate()
     {
         Vector2 velocity = rb.velocity;
@@ -139,7 +198,7 @@ public class AIRanged : MonoBehaviour
 
         float distanceToPlayer = Vector2.Distance(gameObject.transform.position, m_Player.transform.position);
 
-        if(distanceToPlayer <= m_AttackDistance)
+        if (distanceToPlayer <= m_AttackDistance)
         {
             withinRange = true;
         }
@@ -196,7 +255,7 @@ public class AIRanged : MonoBehaviour
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
         Vector2 force = direction * speed * Time.deltaTime;
 
-        if(withinRange)
+        if (withinRange && !EH.isDead)
         {
             rb.AddForce(force, ForceMode2D.Force);
         }

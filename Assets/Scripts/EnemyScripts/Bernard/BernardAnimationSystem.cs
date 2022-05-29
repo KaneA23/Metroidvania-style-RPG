@@ -17,7 +17,7 @@ public class BernardAnimationSystem : MonoBehaviour
     public string currentAnimName;
     public string currentAnimNameNew;
 
-    public string[] bernardAnimations = { "Bernard_Idle", "Bernard_Damaged_Run", "Bernard_Run", "Bernard_Wall_Idle", "Bernard_Jump", "Bernard_Walk" };
+    public string[] bernardAnimations = { "Bernard_Idle", "Bernard_Damaged_Run", "Bernard_Run", "Bernard_Wall_Idle", "Bernard_Jump", "Bernard_Walk", "Bernard_Dying" };
     [SerializeField] private string currentAnimation = null;
 
     public enum bernardAnimationStates
@@ -27,7 +27,8 @@ public class BernardAnimationSystem : MonoBehaviour
         BERNARD_RUN,  
         BERNARD_WALL_IDLE,
         BERNARD_JUMP,
-        BERNARD_WALK
+        BERNARD_WALK,
+        BERNARD_DYING
     }
 
     private void Awake()
@@ -79,6 +80,11 @@ public class BernardAnimationSystem : MonoBehaviour
             case "LizardWalk":
 
                 ChangeAnimation(bernardAnimationStates.BERNARD_WALK);
+
+                break;
+            case "LizardDying":
+
+                ChangeAnimation(bernardAnimationStates.BERNARD_DYING);
 
                 break;
         }

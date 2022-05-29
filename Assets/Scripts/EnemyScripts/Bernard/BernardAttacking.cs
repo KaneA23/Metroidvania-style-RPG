@@ -73,6 +73,7 @@ public class BernardAttacking : MonoBehaviour
     private bool flipReached = false;
     private bool oneTime = false;
     private bool flipped = false;
+    public bool deathAnimFinished = false;
 
     [SerializeField] private bool m_Attacking;
     [SerializeField] private bool dirChosen = false;
@@ -157,7 +158,7 @@ public class BernardAttacking : MonoBehaviour
             transform.Find("WallCollider").GetComponent<BoxCollider2D>().isTrigger = false;
         }
 
-        EnemyFacing();
+        //EnemyFacing();
     }
 
     private void EnemyFacing()
@@ -318,6 +319,7 @@ public class BernardAttacking : MonoBehaviour
     void Attacking_1()
     {
         firstPhase = true;
+        EnemyFacing();
         GroundAttacking();
     }
 
@@ -367,20 +369,34 @@ public class BernardAttacking : MonoBehaviour
             {
                 if (wallColliders[i].CompareTag("BossWall"))
                 {
-
                     if (!jumpedUp)
                     {
                         if (/*wallDir.x > 0*/ directionChoice == 'L' && wallColliders[i].transform.Find("SideCheck").CompareTag("LeftWall"))
                         {
                             BAS.currentAnimName = "LizardJump";
+
+                            m_BodyCollider.enabled = false;
+                            m_TailCollider.enabled = false;
+
+                            BS.bernardWallBody.SetActive(true);
+
                             rb.AddForce(new Vector2(-1f, 1.5f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                            jumpedUp = true;
+                            Debug.Log("Jumped Left");
                         }
                         else if (/*wallDir.x < 0*/ directionChoice == 'R' && wallColliders[i].transform.Find("SideCheck").CompareTag("RightWall"))
                         {
                             BAS.currentAnimName = "LizardJump";
-                            rb.AddForce(new Vector2(1f, 1f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
-                        }
-                        jumpedUp = true;
+
+                            m_BodyCollider.enabled = false;
+                            m_TailCollider.enabled = false;
+
+                            BS.bernardWallBody.SetActive(true);
+
+                            rb.AddForce(new Vector2(1f, 0.8f).normalized * m_WallJumpForce, ForceMode2D.Impulse);
+                            jumpedUp = true;
+                            Debug.Log("Jumped Right");
+                        }    
                     }
                 }
             }
@@ -453,6 +469,8 @@ public class BernardAttacking : MonoBehaviour
         secondPhase = false;
         thirdPhase = true;
 
+        EnemyFacing();
+
         if (!jumpedDown)
         {
             m_ChosenWall.layer = 16;
@@ -512,6 +530,27 @@ public class BernardAttacking : MonoBehaviour
 
             GroundAttacking();
         
+    }
+
+    void Die()
+    {
+        if (Physics2D.IsTouching(m_TailCollider, floorCollider) ||
+            Physics2D.IsTouching(m_BodyCollider, floorCollider))
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            m_TailCollider.enabled = false;
+            m_BodyCollider.enabled = false;    
+        }
+
+        if(BAS.animator.GetCurrentAnimatorStateInfo(0).length > BAS.animator.GetCurrentAnimatorStateInfo(0).normalizedTime)
+        {
+            EH.animFinished = true;
+        }
+        else
+        {
+            EH.animFinished = false;
+        }
     }
 
     void GetAnimClip()

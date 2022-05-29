@@ -5,8 +5,9 @@ using UnityEngine;
 public class DamagePush : MonoBehaviour
 {
     public AISetUp AISU;
+    private EnemyHealth EH;
 
-    private GameObject m_Player;
+    public GameObject m_Player;
     private Collider2D[] m_Enemies;
 
     public float m_PushBackRadius;
@@ -15,6 +16,7 @@ public class DamagePush : MonoBehaviour
     void Start()
     {
         AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+        EH = GetComponent<EnemyHealth>();
 
         m_Player = AISU.m_ActivePlayer;
     }
@@ -28,27 +30,28 @@ public class DamagePush : MonoBehaviour
     {
         Collider2D otherObject = collision.collider;
 
-        if(otherObject.gameObject == m_Player)
+        if (otherObject.gameObject == m_Player)
         {
             m_Enemies = Physics2D.OverlapCircleAll(m_Player.transform.position, m_PushBackRadius);
+
             PushBack();
         }
     }
 
     void PushBack()
     {
-        foreach(Collider2D collider in m_Enemies)
+        foreach (Collider2D collider in m_Enemies)
         {
-            if(collider.gameObject.layer == 3)
+            if (collider.gameObject.layer == 3)
             {
-                if(collider.gameObject.transform.position.x < m_Player.transform.position.x)
+                if (collider.gameObject.transform.position.x < m_Player.transform.position.x)
                 {
                     collider.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-0.1f, 0f) * m_PushBackForce, ForceMode2D.Impulse);
                 }
-                else if(collider.gameObject.transform.position.x > m_Player.transform.position.x)
+                else if (collider.gameObject.transform.position.x > m_Player.transform.position.x)
                 {
                     collider.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0.1f, 0f) * m_PushBackForce, ForceMode2D.Impulse);
-                }               
+                }
             }
         }
     }

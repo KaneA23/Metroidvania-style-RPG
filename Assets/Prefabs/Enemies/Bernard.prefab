@@ -298,14 +298,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
-  EH: {fileID: 0}
+  EH: {fileID: 2042561984185029550}
   AISU: {fileID: 0}
   EAM: {fileID: 0}
   BAS: {fileID: 551591507}
   playerDir: {x: 0, y: 0}
   earthChunkAnimator: {fileID: 0}
   m_Floor: {fileID: 0}
-  m_TargetWall: {fileID: 0}
   m_SpawnCheckPrefab: {fileID: 5079449562315481383, guid: 892d193d048e14b4db22e9c7552e5cc6, type: 3}
   m_SpriteRenderer: {fileID: 2042561984185029538}
   m_BodyCollider: {fileID: 279307000}
@@ -338,6 +337,7 @@ MonoBehaviour:
   isAlert: 0
   isForget: 0
   isAgro: 0
+  deathAnimFinished: 0
   m_Attacking: 0
   dirChosen: 0
   onWall: 0
@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BHUI: {fileID: 279306980}
+  BA: {fileID: 2042561984185029536}
   m_MaxHP: 500
   m_CurrentHP: 0
   HitForce: 250
@@ -527,6 +528,7 @@ MonoBehaviour:
   - Bernard_Wall_Idle
   - Bernard_Jump
   - Bernard_Walk
+  - Bernard_Dying
   currentAnimation: 
 --- !u!114 &279306980
 MonoBehaviour:

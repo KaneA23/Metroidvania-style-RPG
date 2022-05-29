@@ -7,6 +7,7 @@ public class EarthSkyAttack : MonoBehaviour
     private AIRanged AIR;
     private AISetUp AISU;
     public AttackPlayer AP;
+    public EnemyHealth EH;
 
     public Animator earthChunkAnimator;
     private AnimationClip[] earthChunkAnimations;
@@ -46,6 +47,7 @@ public class EarthSkyAttack : MonoBehaviour
     {
         AIR = GetComponent<AIRanged>();
         AISU = GameObject.Find("AI_Setup").GetComponent<AISetUp>();
+        EH = GetComponent<EnemyHealth>();
 
         m_Player = AISU.m_ActivePlayer;
 
@@ -73,7 +75,7 @@ public class EarthSkyAttack : MonoBehaviour
         targetPos = new Vector3(m_Player.transform.position.x, m_Player.transform.position.y + 0.5f);
         m_PlayerPos = m_Player.transform.position;
 
-        if (AIR.attacking && AIR.isAgro)
+        if (AIR.attacking && AIR.isAgro && !EH.isDead)
         {
             m_Attacking = true;
 
@@ -148,6 +150,8 @@ public class EarthSkyAttack : MonoBehaviour
             CR_RUNNING = false;
             yield break;
         }
+
+        Destroy(m_SpawnCheck);
 
         m_EarthChunk = Instantiate(m_EarthChunkPrefab, m_ChunkSpawnPos, Quaternion.identity);
 

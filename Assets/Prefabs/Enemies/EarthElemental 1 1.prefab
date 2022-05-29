@@ -690,10 +690,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PHS: {fileID: 0}
-  EH: {fileID: 0}
+  EH: {fileID: 7393488717277228876}
   AISU: {fileID: 0}
   EAM: {fileID: 0}
   m_Player: {fileID: 0}
+  m_DeadEarthElementalPrefab: {fileID: 5424839204103089088, guid: 6f05bc7b259d71f49aa23f3cb8a30c51, type: 3}
+  m_GroundMask:
+    serializedVersion: 2
+    m_Bits: 263168
   target: {fileID: 0}
   speed: 500
   nextWaypointDistance: 10
@@ -722,10 +726,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BHUI: {fileID: 0}
+  BA: {fileID: 0}
   m_MaxHP: 200
   m_CurrentHP: 0
   HitForce: 250
   startTime: 0
+  isDead: 0
+  isDeadOnce: 0
+  animFinished: 0
   transition: {fileID: 0}
   transitionTime: 1
 --- !u!114 &-1602572818474940219
@@ -741,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AISU: {fileID: 0}
+  m_Player: {fileID: 8854009661262975141, guid: 9fe5fb89367d49449880eb96f9be295a, type: 3}
   m_PushBackRadius: 5
   m_PushBackForce: 30
 --- !u!70 &3735206246946354413
@@ -756,8 +765,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06296096, y: 0.016921235}
-  m_Size: {x: 0.43592197, y: 0.82635957}
+  m_Offset: {x: 0.014969897, y: -0.013157296}
+  m_Size: {x: 0.28006026, y: 0.5146364}
   m_Direction: 0
 --- !u!114 &2784498478717954213
 MonoBehaviour:
@@ -772,6 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AP: {fileID: 0}
+  EH: {fileID: 0}
   earthChunkAnimator: {fileID: 0}
   m_EarthSpikesPrefab: {fileID: 8651266294975768818, guid: 198f7d7e970399a48a281a91c5822134, type: 3}
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
@@ -798,6 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012a7d1d2815021458fabc350161cd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   currentAnimState: 
 --- !u!114 &439009687
 MonoBehaviour:
@@ -826,6 +837,7 @@ GameObject:
   - component: {fileID: 704486224008737803}
   - component: {fileID: 704486224008737804}
   - component: {fileID: 2677878377032713038}
+  - component: {fileID: 4139701669766420371}
   m_Layer: 3
   m_Name: GFX
   m_TagString: Untagged
@@ -920,3 +932,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4139701669766420371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704486224008737802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34ec8a11ce4d614baf7501c104d39e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

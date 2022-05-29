@@ -10,6 +10,7 @@ public class EnemyPathfindingNew : MonoBehaviour
     public EnemyAnimationManager EAM;
 
     public LayerMask m_EnemyLayerMask;
+    public LayerMask m_GroundMask;
 
     public float m_Speed;
     public float m_AttackDistance;
@@ -44,12 +45,15 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    [SerializeField] private Collider2D coll;
+
     public bool isAlert;
     public bool isForget;
     public bool isAgro;
     private bool isFacingRight;
     [SerializeField] private bool rightColliderHit;
     [SerializeField] private bool leftColliderHit;
+    [SerializeField] private bool touchingGround;
 
     public float animDelay;
 
@@ -71,6 +75,8 @@ public class EnemyPathfindingNew : MonoBehaviour
         m_OrigPos = transform.position.x;
 
         rb = GetComponent<Rigidbody2D>();
+
+        coll = GetComponent<Collider2D>();
 
         m_Player = AISU.m_ActivePlayer.transform;
 
@@ -164,13 +170,19 @@ public class EnemyPathfindingNew : MonoBehaviour
             Physics2D.IgnoreCollision(otherCollider, GetComponent<Collider2D>());
         }
 
-        
+        if (otherCollider.CompareTag("Ground"))
+        {
+            touchingGround = true;
+        }
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //	collisionCount--;
-    //}
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            touchingGround = false;
+        }
+    }
 
     #endregion __CHECK_COLLISIONS_END__
 
@@ -187,13 +199,32 @@ public class EnemyPathfindingNew : MonoBehaviour
             isFacingRight = true;
         }
 
-        if (isAgro && !isAlert)
+        if (isAgro && !isAlert && !EH.isDead)
         {
             EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ATTACK);
         }
-        else if (!isAgro && !isForget)
+        else if (!isAgro && !isForget && !EH.isDead)
         {
             EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);
+        }
+
+        if(EH.isDead)
+        {
+            if(!Physics2D.IsTouchingLayers(coll, m_GroundMask) || Physics2D.IsTouchingLayers(coll, m_GroundMask))
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                coll.enabled = false;
+
+                EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_DYING);
+
+                if (!EH.animFinished)
+                {
+                    if (EAM.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && !EAM.anim.IsInTransition(0))
+                    {
+                        EH.animFinished = true;
+                    }
+                }
+            }
         }
 
         m_CurrentPos = transform.position;
@@ -201,56 +232,60 @@ public class EnemyPathfindingNew : MonoBehaviour
         m_TargetPos = new Vector2(m_Player.position.x, gameObject.transform.position.y);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
 
-        EnemyFacing();
-
-        if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
+        if (Vector2.Distance(transform.position, m_TargetPos) > m_AttackDistance && !EH.isDead /*|| Vector2.Distance(transform.position, m_ClosestEnemyPos) > m_AttackDistance*/)
         {
-            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, (transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
-            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, (-transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
-            Debug.DrawRay(transform.position, (transform.right - transform.up).normalized * 2);
-            Debug.DrawRay(transform.position, (-transform.right - transform.up).normalized * 2);
-
-            if (rightHit.collider == null)
-            {
-                rightColliderHit = false;
-                rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(-1f, 0).normalized * 5, ForceMode2D.Impulse);
-            }
-            else if (leftHit.collider == null)
-            {
-                leftColliderHit = false;
-                rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(1f, 0).normalized * 5, ForceMode2D.Impulse);
-            }
-            else
-            {          
-                rb.AddForce(m_TargetDir * m_Speed);
-                m_MovingToTarget = true;
-                colliderName = rightHit.collider.name;
-                rightColliderHit = true;
-            }
-
-            //transform.position = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
-
-            if (!isAlert && !isAgro)
-            {
-                isAlert = true;
-                EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ALERT);
-                animDelay = 0.383f;
-                Invoke(nameof(CompleteAnim), animDelay);
-            }
+            EnemyFacing();
+            Attack();    
         }
         else
         {
             m_MovingToTarget = false;
 
-            if (!isForget && isAgro)
+            if (!isForget && isAgro && !EH.isDead)
             {
                 isForget = true;
                 EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_FORGET);
                 animDelay = 0.383f;
                 Invoke(nameof(CompleteAnim), animDelay);
             }
+        }
+    }
+
+    void Attack()
+    {
+        RaycastHit2D rightHit = Physics2D.Raycast(transform.position, (transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
+        RaycastHit2D leftHit = Physics2D.Raycast(transform.position, (-transform.right - transform.up).normalized, 2, m_EnemyLayerMask);
+        Debug.DrawRay(transform.position, (transform.right - transform.up).normalized * 2);
+        Debug.DrawRay(transform.position, (-transform.right - transform.up).normalized * 2);
+
+        if (rightHit.collider == null)
+        {
+            rightColliderHit = false;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(-1f, 0).normalized * 5, ForceMode2D.Impulse);
+        }
+        else if (leftHit.collider == null)
+        {
+            leftColliderHit = false;
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(1f, 0).normalized * 5, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(m_TargetDir * m_Speed);
+            m_MovingToTarget = true;
+            colliderName = rightHit.collider.name;
+            rightColliderHit = true;
+        }
+
+        //transform.position = Vector2.MoveTowards(transform.position, m_TargetPos, m_Speed * Time.deltaTime);
+
+        if (!isAlert && !isAgro)
+        {
+            isAlert = true;
+            EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ALERT);
+            animDelay = 0.383f;
+            Invoke(nameof(CompleteAnim), animDelay);
         }
     }
 

@@ -19,6 +19,10 @@ public enum AIAnimationState
 	FIREELEMENTAL_ALERT,
 	FIREELEMENTAL_ATTACK,
 	FIREELEMENTAL_FORGET,
+
+	//Dying animations
+	FIREELEMENTAL_DYING,
+	EARTHELEMENTAL_DYING
 }
 
 
@@ -28,12 +32,13 @@ public enum AIAnimationState
 /// </summary>
 public class EnemyAnimationManager : MonoBehaviour
 {
-	private Animator anim;
+	public Animator anim;
 
 	public string currentAnimState;
 	private string[] animations = {
 		"EarthElemental_CalmMove", "EarthElemental_Alert", "EarthElemental_AgroMove", "EarthElemental_Forget",
-		"FireElemental_Idle", "FireElemental_Walk", "FireElemental_Alert", "FireElemental_Attack", "FireElemental_Forget"
+		"FireElemental_Idle", "FireElemental_Walk", "FireElemental_Alert", "FireElemental_Attack", "FireElemental_Forget", 
+		"FireElemental_Dying", "EarthElemental_Dying"
 	};
 
 	private void Awake()
@@ -41,7 +46,7 @@ public class EnemyAnimationManager : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 	}
 
-	public void ChangeAnimationState(AIAnimationState a_newAnim)
+    public void ChangeAnimationState(AIAnimationState a_newAnim)
 	{
 		// Stops the same animation from interrupting itself
 		if (currentAnimState == animations[(int)a_newAnim])
