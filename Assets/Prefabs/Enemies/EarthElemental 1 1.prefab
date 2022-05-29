@@ -826,6 +826,7 @@ MonoBehaviour:
   healthFrontFillBar: {fileID: 1131643532}
   healthBarEmpty: {fileID: 228922625}
   healthBackHealthBar: {fileID: 945945742}
+  healthBar: {fileID: 317525509}
 --- !u!1 &704486224008737802
 GameObject:
   m_ObjectHideFlags: 0

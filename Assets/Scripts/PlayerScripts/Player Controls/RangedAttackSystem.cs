@@ -23,12 +23,17 @@ public class RangedAttackSystem : MonoBehaviour
 	public bool isManaCooldown;
 	[SerializeField] private float cooldownTimer;
 
+	private float knockbackAmount = 500f;
+
+	Rigidbody2D rb;
+
 	private void Awake()
 	{
 		eventSystem = GameObject.Find("EventSystem");
 		BPC = eventSystem.GetComponent<BasePlayerClass>();
 
 		PAM = GetComponent<PlayerAnimationManager>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	// Start is called before the first frame update
@@ -49,14 +54,17 @@ public class RangedAttackSystem : MonoBehaviour
 		}
 		else if (Input.GetKeyDown(KeyCode.Q) && BPC.currentMP >= BPC.fireballCost)
 		{
-			isFireball = true;
-			//Debug.Log("manacooldown: " + isManaCooldown);
-			cooldownTimer = BPC.dashCooldown;
+			if (!GetComponent<PlayerHealthSystem>().isHit && !GetComponent<PlayerHealthSystem>().isDying && !GetComponent<PlayerMovementSystem>().isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
+			{
+				isFireball = true;
+				//Debug.Log("manacooldown: " + isManaCooldown);
+				cooldownTimer = BPC.dashCooldown;
 
-			Shoot();
-			PMS.TakeMana(BPC.fireballCost);
-			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_FIREBALLLAUNCH);
-			Invoke(nameof(CompleteAnim), 0.35f);
+				Shoot();
+				PMS.TakeMana(BPC.fireballCost);
+				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_FIREBALLLAUNCH);
+				Invoke(nameof(CompleteAnim), 0.35f);
+			}
 		}
 	}
 
@@ -64,9 +72,31 @@ public class RangedAttackSystem : MonoBehaviour
 	{
 		//GetComponent<PlayerMovementSystem>().isFacingRight
 		Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
+		TakeKnockback();
+
 		isManaCooldown = true;
 		cooldownTimer = BPC.rangeAtkCooldown;
 		ApplyCooldown();
+	}
+
+	void TakeKnockback()
+	{
+		if (GetComponent<PlayerMovementSystem>().isFacingRight)
+		{
+			Debug.Log("knockbackAmount: -" + knockbackAmount);
+			rb.velocity = Vector2.zero;
+			//rb.AddForce(new Vector2(0, 500f), ForceMode2D.Force);
+			//rb.AddForce(new Vector2(-knockbackAmount, 0), ForceMode2D.Force);
+			rb.AddForce(new Vector2(-knockbackAmount * 10, knockbackAmount), ForceMode2D.Force);
+		}
+		else
+		{
+			//Debug.Log("knockbackAmount: " + knockbackAmount);
+			rb.velocity = Vector2.zero;
+			//rb.AddForce(new Vector2(0, 500f), ForceMode2D.Force);
+			//rb.AddForce(new Vector2(knockbackAmount, 0), ForceMode2D.Force);
+			rb.AddForce(new Vector2(knockbackAmount * 10, knockbackAmount), ForceMode2D.Force);
+		}
 	}
 
 	void CompleteAnim()

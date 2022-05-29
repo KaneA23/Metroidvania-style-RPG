@@ -5467,7 +5467,7 @@ MonoBehaviour:
   m_GroundMask:
     serializedVersion: 2
     m_Bits: 263168
-  m_Speed: 10
+  m_Speed: 10.01
   m_AttackDistance: 0.001
   m_sightDistance: 55
   HitForce: 250
@@ -5588,14 +5588,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BHUI: {fileID: 0}
   BA: {fileID: 0}
-  m_MaxHP: 200
+  m_MaxHP: 210
   m_CurrentHP: 0
   HitForce: 250
   startTime: 0
   isDead: 0
+  isDeadOnce: 0
   animFinished: 0
   transition: {fileID: 0}
   transitionTime: 1
+  xp: 25
 --- !u!95 &1343797700
 Animator:
   serializedVersion: 4
@@ -5646,6 +5648,7 @@ MonoBehaviour:
   healthFrontFillBar: {fileID: 513984042}
   healthBarEmpty: {fileID: 1296105212}
   healthBackHealthBar: {fileID: 2040070524}
+  healthBar: {fileID: 1306010441}
 --- !u!70 &295943334
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

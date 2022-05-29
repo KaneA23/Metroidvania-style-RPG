@@ -10,6 +10,7 @@ public enum CameraState
 	CAM_FOLLOWING,  // default camera
 					//CAM_BERNARDINTRO,
 	CAM_BOSSBERNARD,
+	CAM_ARENA,
 }
 
 /// <summary>
@@ -71,7 +72,7 @@ public class CameraFollowScript : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 		{
-			cameraState = CameraState.CAM_BOSSBERNARD;
+			cameraState = CameraState.CAM_ARENA;
 		}
 		CheckCameraState();
 
@@ -132,6 +133,7 @@ public class CameraFollowScript : MonoBehaviour
 	void CheckCameraState()
 	{
 		float smoothZoom;
+		Vector3 smoothedPos;
 
 		switch (cameraState)
 		{
@@ -150,9 +152,18 @@ public class CameraFollowScript : MonoBehaviour
 
 				//gameObject.transform.position = ;
 				//Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.2f * Time.fixedDeltaTime);
-				Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.3f * Time.fixedDeltaTime);
+				smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.3f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
 				//transform.position = new Vector3(8.5f, -30f, -10f);
+				break;
+
+			case CameraState.CAM_ARENA:
+				isFollowingPlayer = false;
+				smoothZoom = Mathf.Lerp(cam.orthographicSize, 14.5f, 2f * Time.deltaTime);
+				cam.orthographicSize = smoothZoom;
+
+				smoothedPos = Vector3.Lerp(transform.position, new Vector3(3f, -2.5f, -10f), 0.3f * Time.fixedDeltaTime);
+				transform.position = smoothedPos;
 				break;
 
 			default:

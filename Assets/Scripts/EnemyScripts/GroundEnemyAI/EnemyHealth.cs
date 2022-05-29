@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
 
 	private SpriteRenderer m_SpriteRenderer;
 
+	public int xp = 25;
+
 	private void Awake()
 	{
 		//m_HealthBar = GetComponentInChildren<Slider>();
@@ -56,39 +58,39 @@ public class EnemyHealth : MonoBehaviour
 		//	Debug.Log("<color=Purple>Get Rekt Son</color>");
 		//	isDead = true;
 
-  //          if (gameObject.name == "Bernard")
-  //          {
+		//          if (gameObject.name == "Bernard")
+		//          {
 		//		//Destroy(m_SpriteRenderer);
 
 		//		//InvokeRepeating("Timer", 0, 1);
 
 		//		if(BA.deathAnimFinished)
-  //              {
+		//              {
 		//			Invoke(nameof(KillEnemy), 0.5f);
-  //              }
-  //          }
-  //          else
-  //          {
-  //              if (animFinished)
-  //              {
+		//              }
+		//          }
+		//          else
+		//          {
+		//              if (animFinished)
+		//              {
 		//			Invoke(nameof(KillEnemy), 0.5f);
 		//		}           							
 		//	}			
 		//}
 
-		if(!isDead)
-        {
-            if ((transform.position.x - a_PlayerPos.x) < 0)
-            {
-                Debug.Log("Left Hit");
-                rb.AddForce(new Vector2(-1f, 0.5f) */* a_KnockbackAmount*/ HitForce);
-            }
-            else if ((transform.position.x - a_PlayerPos.x) > 0)
-            {
-                Debug.Log("Right Hit");
-                rb.AddForce(new Vector2(1f, 0.5f) * /*a_KnockbackAmount*/HitForce);
-            }
-        }	
+		if (!isDead)
+		{
+			if ((transform.position.x - a_PlayerPos.x) < 0)
+			{
+				Debug.Log("Left Hit");
+				rb.AddForce(new Vector2(-1f, 0.5f) */* a_KnockbackAmount*/ HitForce);
+			}
+			else if ((transform.position.x - a_PlayerPos.x) > 0)
+			{
+				Debug.Log("Right Hit");
+				rb.AddForce(new Vector2(1f, 0.5f) * /*a_KnockbackAmount*/HitForce);
+			}
+		}
 
 		BHUI.healthlerpTimer = 0;
 	}
@@ -96,40 +98,44 @@ public class EnemyHealth : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-        if (m_CurrentHP <= 0 && !isDeadOnce)
-        {
-            Debug.Log("<color=Purple>Get Rekt Son</color>");
-            isDead = true;
+		if (m_CurrentHP <= 0 && !isDeadOnce)
+		{
+			Debug.Log("<color=Purple>Get Rekt Son</color>");
+			isDead = true;
 			isDeadOnce = true;
 
-            if (gameObject.name == "Bernard")
-            {
-                //Destroy(m_SpriteRenderer);
+			gameObject.tag = "EnemyCorpse";
 
-                //InvokeRepeating("Timer", 0, 1);
-            }
-            else
-            {
-                //if (animFinished)
-                //{
-                //    Invoke(nameof(KillEnemy), 0.5f);
-                //}
-            }
-        }
-    }
+			GameObject.Find("ExperienceBar").GetComponent<LevelSystem>().GainExperience(xp);
+
+			if (gameObject.name == "Bernard")
+			{
+				//Destroy(m_SpriteRenderer);
+
+				//InvokeRepeating("Timer", 0, 1);
+			}
+			else
+			{
+				//if (animFinished)
+				//{
+				//    Invoke(nameof(KillEnemy), 0.5f);
+				//}
+			}
+		}
+	}
 
 	void Timer()
-    {
-        if (startTime > 0)
-        {
-            startTime--;
-        }
-        else
-        {
+	{
+		if (startTime > 0)
+		{
+			startTime--;
+		}
+		else
+		{
 			//KillEnemy();
 			StartCoroutine(LoadLevel("Main Menu Scene"));
 		}
-    }
+	}
 
 	void KillEnemy()
 	{

@@ -95,6 +95,7 @@ public class ArenaEnemySpawner : MonoBehaviour
 		round = a_waveNum;
 		if (round > 10)
 		{
+			IncreaseEnemyStats();
 			CheckWave(round - 10);
 		}
 		else
@@ -145,6 +146,22 @@ public class ArenaEnemySpawner : MonoBehaviour
 					spawnNumber += round;
 					break;
 			}
+		}
+	}
+
+	void IncreaseEnemyStats()
+	{
+		enemyPrefab.GetComponent<EnemyHealth>().m_MaxHP += 10;
+
+		if (enemyPrefab.GetComponent<AIRanged>() != null)
+		{
+			enemyPrefab.GetComponent<AIRanged>().m_DamageAmount++;
+		}
+
+		if (enemyPrefab.GetComponent<EnemyPathfindingNew>() != null)
+		{
+			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_DamageAmount++;
+			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_Speed += 0.01f;
 		}
 	}
 }

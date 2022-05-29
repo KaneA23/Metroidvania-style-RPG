@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ArenaWaveManager : MonoBehaviour
@@ -16,8 +17,8 @@ public class ArenaWaveManager : MonoBehaviour
 
 	public int wave;
 
-	[SerializeField] private TextMeshProUGUI waveText;
-	[SerializeField] private TextMeshProUGUI countdownText;
+	//[SerializeField] private TextMeshProUGUI waveText;
+	//[SerializeField] private TextMeshProUGUI countdownText;
 	int countdownTimer;
 
 	bool isSpawning;
@@ -26,6 +27,16 @@ public class ArenaWaveManager : MonoBehaviour
 	public bool isReady;
 
 	[SerializeField] private GameObject rambleon;
+
+	[SerializeField] private Image countdownImage;
+
+	[SerializeField] private Image leftNumber;
+	[SerializeField] private Image rightNumber;
+
+	int roundDigit1;
+	int roundDigit2;
+
+	[SerializeField] private Sprite[] numberSprites;
 
 	private void Awake()
 	{
@@ -38,10 +49,17 @@ public class ArenaWaveManager : MonoBehaviour
 		CFS.cameraState = CameraState.CAM_FOLLOWING;
 
 		wave = 0;
-		waveText.text = "Wave: " + wave;
-		countdownText.text = string.Empty;
-		isSpawning = false;
+		//waveText.text = "Wave: " + wave;
+		roundDigit1 = wave / 10;
+		ChangeWaveImage(leftNumber, roundDigit1);
+		roundDigit2 = wave % 10;
+		ChangeWaveImage(rightNumber, roundDigit2);
 
+		//countdownText.text = string.Empty;
+		countdownImage.enabled = false;
+
+		isSpawning = false;
+		PlayerPrefs.SetInt("WAVENUMBER", wave);
 		//isWave = false;
 
 		rambleon.SetActive(true);
@@ -75,13 +93,20 @@ public class ArenaWaveManager : MonoBehaviour
 
 		if (isReady)
 		{
-			CFS.cameraState = CameraState.CAM_BOSSBERNARD;
+			CFS.cameraState = CameraState.CAM_ARENA;
 			rambleon.SetActive(false);
 			wave++;
-			waveText.text = "Wave: " + wave;
+			//waveText.text = "Wave: " + wave;
+			roundDigit1 = wave / 10;
+			ChangeWaveImage(leftNumber, roundDigit1);
+			roundDigit2 = wave % 10;
+			ChangeWaveImage(rightNumber, roundDigit2);
+
 			isSpawning = true;
 			countdownTimer = 3;
 			Invoke(nameof(Countdown), 1f);
+
+			PlayerPrefs.SetInt("WAVENUMBER", wave);
 		}
 	}
 
@@ -89,13 +114,16 @@ public class ArenaWaveManager : MonoBehaviour
 	{
 		if (countdownTimer >= 0)
 		{
-			countdownText.text = countdownTimer.ToString();
+			countdownImage.enabled = true;
+			ChangeWaveImage(countdownImage, countdownTimer);
+			//countdownText.text = countdownTimer.ToString();
 			countdownTimer--;
 			Invoke(nameof(Countdown), 1f);
 		}
 		else
 		{
-			countdownText.text = string.Empty;
+			//countdownText.text = string.Empty;
+			countdownImage.enabled = false;
 			BeginSpawn();
 		}
 	}
@@ -121,5 +149,10 @@ public class ArenaWaveManager : MonoBehaviour
 		}
 
 		isSpawning = false;
+	}
+
+	void ChangeWaveImage(Image a_number, int a_round)
+	{
+		a_number.sprite = numberSprites[a_round];
 	}
 }

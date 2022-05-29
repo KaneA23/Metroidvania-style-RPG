@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Controls the player's health and required UI.
@@ -42,6 +43,10 @@ public class PlayerHealthSystem : MonoBehaviour
 
 	[SerializeField] ParticleSystem leakParticles;
 	ParticleSystem.EmissionModule em;
+
+	[Header("Death animations")]
+	public Animator transition;
+	public float transitionTime = 1f;
 
 	private void Awake()
 	{
@@ -259,7 +264,15 @@ public class PlayerHealthSystem : MonoBehaviour
 	void KillPlayer()
 	{
 		//Destroy(gameObject);
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
+		if (SceneManager.GetActiveScene().name == "Level 1 - Temp - Play Test")
+		{
+			StartCoroutine(LoadLevel("StoryDeathScene"));
+		}
+		else
+		{
+			StartCoroutine(LoadLevel("ArenaDeathScene"));
+		}
 	}
 
 	/// <summary>
@@ -268,5 +281,12 @@ public class PlayerHealthSystem : MonoBehaviour
 	void CompleteDaze()
 	{
 		isHit = false;
+	}
+
+	IEnumerator LoadLevel(string a_sceneName)
+	{
+		transition.SetTrigger("Start");
+		yield return new WaitForSeconds(transitionTime);
+		SceneManager.LoadScene(a_sceneName);
 	}
 }

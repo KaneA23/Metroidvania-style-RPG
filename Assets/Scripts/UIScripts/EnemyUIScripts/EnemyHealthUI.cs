@@ -5,67 +5,74 @@ using UnityEngine.UI;
 
 public class EnemyHealthUI : MonoBehaviour
 {
-    public EnemyHealth EH;
+	public EnemyHealth EH;
 
-    [Header("First Health Bar")]
-    public Image healthFrontFillBar;
-    public GameObject healthBarEmpty;
-    public Image healthBackHealthBar;
+	[Header("First Health Bar")]
+	public Image healthFrontFillBar;
+	public GameObject healthBarEmpty;
+	public Image healthBackHealthBar;
 
-    private float healthlerpTimer;
-    private float healthLerpSpeed;
+	[SerializeField] private GameObject healthBar;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	private float healthlerpTimer;
+	private float healthLerpSpeed;
 
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
 
-    // Update is called once per frame
-    void Update()
-    {
+	}
 
-        //healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(EH.m_MaxHP, 32);
+	// Update is called once per frame
+	void Update()
+	{
 
-        float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
-        float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
+		//healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(EH.m_MaxHP, 32);
 
-        UpdateHealthUI();
-    }
+		float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
+		float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
 
-    public void UpdateHealthUI()
-    {
-        float fillF = healthFrontFillBar.fillAmount;
-        float fillB = healthBackHealthBar.fillAmount;
+		if (fillF == fillB && fillF == 0 && healthBar.activeInHierarchy)
+		{
+			healthBar.SetActive(false);
+		}
 
-        float healthFraction = EH.m_CurrentHP/ (float)EH.m_MaxHP;
+		UpdateHealthUI();
+	}
 
-        // Decreases healthbar UI when player takes damage
-        if (fillB > healthFraction)
-        {
-            healthLerpSpeed = 15f;
+	public void UpdateHealthUI()
+	{
+		float fillF = healthFrontFillBar.fillAmount;
+		float fillB = healthBackHealthBar.fillAmount;
 
-            healthFrontFillBar.fillAmount = healthFraction;
+		float healthFraction = EH.m_CurrentHP / (float)EH.m_MaxHP;
 
-            healthlerpTimer += Time.deltaTime;
-            float percentComplete = healthlerpTimer / healthLerpSpeed;
-            percentComplete *= percentComplete;
+		// Decreases healthbar UI when player takes damage
+		if (fillB > healthFraction)
+		{
+			healthLerpSpeed = 15f;
 
-            healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
+			healthFrontFillBar.fillAmount = healthFraction;
 
-        }
+			healthlerpTimer += Time.deltaTime;
+			float percentComplete = healthlerpTimer / healthLerpSpeed;
+			percentComplete *= percentComplete;
 
-        // Increases health UI when boss regens health
-        if (fillF < healthFraction)
-        {
-            healthLerpSpeed = 1f;
-            healthBackHealthBar.fillAmount = healthFraction;
-            healthlerpTimer += Time.deltaTime;
+			healthBackHealthBar.fillAmount = Mathf.Lerp(fillB, healthFraction, percentComplete);
 
-            float percentComplete = healthlerpTimer / healthLerpSpeed;
-            percentComplete *= percentComplete;
+		}
 
-            healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackHealthBar.fillAmount, percentComplete);
-        }
-    }
+		// Increases health UI when boss regens health
+		if (fillF < healthFraction)
+		{
+			healthLerpSpeed = 1f;
+			healthBackHealthBar.fillAmount = healthFraction;
+			healthlerpTimer += Time.deltaTime;
+
+			float percentComplete = healthlerpTimer / healthLerpSpeed;
+			percentComplete *= percentComplete;
+
+			healthFrontFillBar.fillAmount = Mathf.Lerp(fillF, healthBackHealthBar.fillAmount, percentComplete);
+		}
+	}
 }
