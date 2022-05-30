@@ -71,7 +71,7 @@ public class FireballScript : MonoBehaviour
 			return;
 		}
 
-		Debug.Log(a_collision.tag);
+		//Debug.Log(a_collision.tag);
 
 		if (/*a_collision.gameObject.CompareTag("Enemy")*/ a_collision.gameObject.layer == 3)
 		{
