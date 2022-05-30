@@ -3,8 +3,8 @@ INCLUDE TutorialGlobals.ink
 -> Main
 
 === Main ===
-    BOY! use the left mouse button to use your light attack!  #speaker:UNKNOWN MAN
-    Use your right mouse button to perform a heavy attack! 
+    BOY! use the <color=\#007400><b>left mouse button</b></color> to use your <color=\#FF0000>light attack</color>!  #speaker:UNKNOWN MAN
+    Use your <color=\#007400><b>right mouse button</b></color> to perform a <color=\#FF0000>heavy attack</color>! 
 
     Attacking uses stamina up, so be careful!
 

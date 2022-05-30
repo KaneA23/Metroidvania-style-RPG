@@ -241,8 +241,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1862176833
-  m_SortingLayer: 2
+  m_SortingLayerID: -746399817
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_Sprite: {fileID: 1810964859, guid: 538d198ad65c278439939066081fd984, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -400,8 +400,12 @@ MonoBehaviour:
   m_CurrentHP: 0
   HitForce: 250
   startTime: 3
+  isDead: 0
+  isDeadOnce: 0
+  animFinished: 0
   transition: {fileID: 0}
   transitionTime: 1
+  xp: 25
 --- !u!60 &551591509
 PolygonCollider2D:
   m_ObjectHideFlags: 0

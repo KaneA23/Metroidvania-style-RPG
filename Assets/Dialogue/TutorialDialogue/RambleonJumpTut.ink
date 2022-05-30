@@ -16,10 +16,10 @@ INCLUDE TutorialGlobals.ink
 
 === ActivateJump ===
     Oh, that doesn't matter! #speaker:UNKNOWN MAN
-    Just use the SPACEBAR to jump
+    Just use the <color=\#007400><b>SPACEBAR</b></color> to <color=\#FF0000>jump</color>.
     ~hasJump = true
     
-    While jumping, use SPACEBAR again to Double Jump! 
+    While jumping, use <color=\#007400><b>SPACEBAR</b></color> again to <color=\#FF0000>Double Jump!</color>
     ~hasDoubleJump = true
     ->DONE
 

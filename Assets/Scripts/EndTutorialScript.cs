@@ -19,7 +19,7 @@ public class EndTutorialScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<EnemyHealth>().m_CurrentHP <= 0)
+        if (gameObject.GetComponent<EnemyHealth>().m_CurrentHP <= 0 && rambleon != null)
 		{
             rambleon.SetActive(true);
 		}

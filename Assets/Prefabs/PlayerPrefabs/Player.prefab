@@ -9784,8 +9784,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 758937437
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 423413320, guid: ba4f8f69b10423b4bb18b080929f00fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10202,6 +10202,8 @@ MonoBehaviour:
   dust: {fileID: 99843295}
   bossBodyCollider: {fileID: 0}
   bossTailCollider: {fileID: 0}
+  bossColliderTop: {fileID: 0}
+  bossColliderBottom: {fileID: 0}
 --- !u!114 &8854009661262975164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10223,6 +10225,8 @@ MonoBehaviour:
   isEnemyBack: 0
   hurtParticle: {fileID: 681963919}
   leakParticles: {fileID: 0}
+  transition: {fileID: 0}
+  transitionTime: 1
 --- !u!114 &8854009661262975155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10277,6 +10281,9 @@ MonoBehaviour:
   fireballPrefab: {fileID: 3412479866651013298, guid: 83cce3a4df19ff045858d253b8b65e21, type: 3}
   PMS: {fileID: 0}
   isFireball: 0
+  manaCooldownUI: {fileID: 0}
+  isManaCooldown: 0
+  cooldownTimer: 0
 --- !u!1 &8854009661294790702
 GameObject:
   m_ObjectHideFlags: 0

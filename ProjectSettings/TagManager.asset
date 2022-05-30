@@ -74,6 +74,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: NPCs
+    uniqueID: 3548567479
+    locked: 0
+  - name: Player
+    uniqueID: 758937437
+    locked: 0
   - name: Ground
     uniqueID: 681808259
     locked: 0

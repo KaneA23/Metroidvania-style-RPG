@@ -40,14 +40,6 @@ public class RambleonSpawnController : MonoBehaviour
 				rambleons[3].SetActive(true);
 				break;
 
-			case 4:
-				rambleons[4].SetActive(true);
-				break;
-
-			case 5:
-				rambleons[5].SetActive(true);
-				break;
-
 			default:
 				break;
 		}
