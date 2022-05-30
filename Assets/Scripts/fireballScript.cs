@@ -106,6 +106,7 @@ public class FireballScript : MonoBehaviour
 		else if (PAS.currentAnimState == "Fireball_Hit")
 		{
 			//Debug.Log("no witnesses!");
+			//FindObjectOfType<AudioManager>().PlayAudio("FireballLand");
 			Destroy(gameObject);
 		}
 	}

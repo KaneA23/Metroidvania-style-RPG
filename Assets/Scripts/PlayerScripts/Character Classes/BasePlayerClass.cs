@@ -462,6 +462,7 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		// Comment out if want to test mechanics without class (uses default values)
 
 		//characterClassName = GameInformation.PlayerClass.ToString();
+
 		characterClassName = GameInformation.ClassName;
 		Level = GameInformation.PlayerLvl;
 		MaximumHealthPoints = GameInformation.PlayerMaxHP;
@@ -500,13 +501,13 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 
 		if (SceneManager.GetActiveScene().buildIndex == 2)
 		{
-			//hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
-			//hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
-			//hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
-			//hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
-			//hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
-			//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
-			//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
+			hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
+			hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
+			hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
+			hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
+			hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
+			hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
+			hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
 		}
 		else
 		{

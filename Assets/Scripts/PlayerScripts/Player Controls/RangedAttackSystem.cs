@@ -71,6 +71,7 @@ public class RangedAttackSystem : MonoBehaviour
 	void Shoot()
 	{
 		//GetComponent<PlayerMovementSystem>().isFacingRight
+		FindObjectOfType<AudioManager>().PlayAudio("PlayerFireball");
 		Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
 		TakeKnockback();
 

@@ -417,6 +417,7 @@ public class PlayerMovementSystem : MonoBehaviour
 			if (moveHorizontal != 0 && BPC.hasCrouch)
 			{
 				PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_CROUCHWALK);
+				FindObjectOfType<AudioManager>().PlayAudio("PlayerCrouch");
 			}
 			else
 			{

@@ -124,6 +124,8 @@ public class PlayerHealthSystem : MonoBehaviour
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
 			animDelay = 4f;
 			Invoke(nameof(KillPlayer), animDelay);
+			
+			FindObjectOfType<AudioManager>().PlayAudio("PlayerDeath");
 		}
 
 		UpdateHealthUI();
@@ -145,7 +147,7 @@ public class PlayerHealthSystem : MonoBehaviour
 
 		if (!PMS.isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying /*&& !isHit && !FindObjectOfType<BernardIntroCutscene>().isCutscene*/)
 		{
-			PMS.isCrouching = false;	// Look at later point
+			PMS.isCrouching = false;    // Look at later point
 			PMS.isRunning = false;
 
 			//em.enabled = true;

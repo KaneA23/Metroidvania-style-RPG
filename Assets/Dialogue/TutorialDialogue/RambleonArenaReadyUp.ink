@@ -5,7 +5,7 @@ INCLUDE TutorialGlobals.ink
 === Main ===
     ~startRound = false
 
-    Are you ready for another round?    #speaker:Rambleon
+    Are you ready for combat?    #speaker:Rambleon
     
     * [Yes]
         ->AnswerYes

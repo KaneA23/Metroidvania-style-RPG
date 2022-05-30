@@ -95,7 +95,7 @@ public class GameOverScript : MonoBehaviour
 		}
 		else
 		{
-			StartCoroutine(LoadLevel("Level 1 - Temp - Play Test 1"));
+			StartCoroutine(LoadLevel("Arena"));
 		}
 	}
 

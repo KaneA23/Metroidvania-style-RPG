@@ -95,39 +95,83 @@ MonoBehaviour:
   sounds:
   - name: SkyTheme
     clip: {fileID: 8300000, guid: c62e0a239f79ace4a925ac36a5f1b2c7, type: 3}
-    volume: 0.2
+    volume: 0.05
     pitch: 1
     loop: 1
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: PlayerDash
+    clip: {fileID: 8300000, guid: 1590d699a2240dc4d8c949b874c0b057, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: PlayerSwing
+    clip: {fileID: 8300000, guid: 1eb8b031fc494c941bc03ef767072fb7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
     source: {fileID: 0}
   - name: PlayerRun
     clip: {fileID: 8300000, guid: c934a3a6d9e8a7e4b84bab2f21005a09, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
-    source: {fileID: 0}
-  - name: PlayerSwing
-    clip: {fileID: 8300000, guid: ea8f2272e0e2242428897e2028e448bf, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: PlayerJump
-    clip: {fileID: 8300000, guid: 150ddc7f2ced2a346956f3d77989ffa9, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
     source: {fileID: 0}
   - name: PlayerDamage
     clip: {fileID: 8300000, guid: aa2524b968021b747919272ba2ba3091, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
     source: {fileID: 0}
-  - name: BernardIntro
-    clip: {fileID: 8300000, guid: f5d95b33518cf0c4d98ad63ee8969f1f, type: 3}
-    volume: 1
+  - name: PlayerJump
+    clip: {fileID: 8300000, guid: 150ddc7f2ced2a346956f3d77989ffa9, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: PlayerDeath
+    clip: {fileID: 8300000, guid: ba67e54465e4dcd43923d9ca30bc9b00, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: PlayerFireball
+    clip: {fileID: 8300000, guid: 13c646bf2b4bbc04794874c717999c08, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: PlayerCrouch
+    clip: {fileID: 8300000, guid: 776ff0fe4ab78cd4fbc5d29c703a278a, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
+    source: {fileID: 0}
+  - name: FireballLand
+    clip: {fileID: 8300000, guid: a4604ebe848b03b41a3144905e341c65, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    isFadeIn: 0
+    fadeInTime: 0
     source: {fileID: 0}
 --- !u!1 &6068887514755746791
 GameObject:
@@ -174,15 +218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a26552afae7bc4193b7f2f5958659c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLvl: 0
-  currentLvl: 0
+  maxLvl: 10
   maxXP: 0
   currentXP: 0
   skillPoints: 0
   constitutionLvl: 0
   maxConstitutionLvl: 0
-  maxHP: 0
-  minHP: 0
+  maxHP: 1000
+  minHP: 100
   currentHP: 0
   currentMaxHP: 100
   regenRateHP: 0
@@ -192,17 +235,17 @@ MonoBehaviour:
   hasLightAtk: 0
   lightAtkDamage: 35
   lightAtkMultiplier: 0
-  lightKnockbackDist: 200
+  lightKnockbackDist: 500
   hasHeavyAtk: 0
   heavyAtkDamage: 60
   heavyAtkMultiplier: 0
-  heavyKnockbackDist: 300
-  rangeAtkDamage: 0
+  heavyKnockbackDist: 1000
+  rangeAtkDamage: 25
   rangeAtkMultiplier: 0
   rangeKnockbackDist: 0
   hasJump: 0
   jumpForce: 25
-  jumpCost: 10
+  jumpCost: 5
   hasDoubleJump: 0
   doubleJumpHeight: 0
   hasWallJump: 0
@@ -214,7 +257,7 @@ MonoBehaviour:
   minStam: 0
   currentStam: 0
   currentMaxStam: 100
-  regenRateStam: 60
+  regenRateStam: 150
   hasWalk: 0
   walkSpeed: 10
   hasCrouch: 0
@@ -223,15 +266,15 @@ MonoBehaviour:
   hasRun: 0
   runSpeed: 15
   runSpeedMultiplier: 0
-  runCost: 20
+  runCost: 1
   lightAtkSpeed: 0.35
   heavyAtkSpeed: 0.517
   rangeAtkSpeed: 0
-  lightAtkCost: 20
-  heavyAtkCost: 30
+  lightAtkCost: 10
+  heavyAtkCost: 15
   lightAtkCooldown: 0.5
   heavyAtkCooldown: 1
-  rangeAtkCooldown: 0
+  rangeAtkCooldown: 0.5
   knockbackTaken: 500
   wisdomLvl: 0
   maxWisdomLvl: 0
@@ -245,10 +288,11 @@ MonoBehaviour:
   dashDist: 50
   dashCooldown: 1
   dashCost: 30
+  fireballCost: 15
   lightAtkRange: 1.5
   heavyAtkRange: 2
   rangeAtkRange: 0
-  uiViewDist: 5
+  uiViewDist: 10
   charismaLvl: 0
   maxCharismaLvl: 0
   luckLvl: 0
@@ -369,12 +413,10 @@ MonoBehaviour:
   dialogueBox: {fileID: 0}
   nameText: {fileID: 0}
   dialogueText: {fileID: 0}
-  choices:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  choices: []
   continueButton: {fileID: 0}
   anim: {fileID: 0}
   isRambleon: 0
+  isArenaRambleon: 0
   NPC: {fileID: 0}
+  isReady: 0

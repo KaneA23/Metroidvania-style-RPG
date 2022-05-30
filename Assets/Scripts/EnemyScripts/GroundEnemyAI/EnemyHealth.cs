@@ -105,6 +105,14 @@ public class EnemyHealth : MonoBehaviour
 			isDeadOnce = true;
 
 			gameObject.tag = "EnemyCorpse";
+			if (gameObject.GetComponent<SpriteRenderer>() != null)
+			{
+				gameObject.GetComponent<SpriteRenderer>().sortingOrder = 3;
+			}
+			else
+			{
+				gameObject.GetComponentInChildren<SpriteRenderer>().sortingOrder = 3;
+			}
 
 			GameObject.Find("ExperienceBar").GetComponent<LevelSystem>().GainExperience(xp);
 

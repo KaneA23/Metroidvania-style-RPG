@@ -3,6 +3,7 @@
 === Main ===
     Sometimes when you kill enemies, MONOLITHS will appear! #speaker:UNKNOWN MAN
     ...
+    Touch it!
     
     *[Why?]
         ... #speaker:Player
