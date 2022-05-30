@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Active Demon Orb
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 1971591286, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -71010211, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 479362287, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -393078817, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -1983827310, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -905673045, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 74058872, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -297995693, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -82748011, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -381136945, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 832046171, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -54592535, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 847260927, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 277224141, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 1582088772, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -1053568550, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 1363510147, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: -496392274, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 302951104, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  - {fileID: 1480384649, guid: ea2bfd947f3bf0645affd4a02fd694ea, type: 3}
+  m_MinSpeed: 7.5
+  m_MaxSpeed: 9
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
