@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -27,12 +25,10 @@ public class CreateNewCharacter : MonoBehaviour
 		newPlayer = new BasePlayer();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
+	/// <summary>
+	/// Selects Paladin class waiting for confirmation
+	/// </summary>
+	/// <param name="a_isActive">Is currently selected?</param>
 	public void TogglePaladin(bool a_isActive)
 	{
 		isPaladinClass = a_isActive;
@@ -46,6 +42,10 @@ public class CreateNewCharacter : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Selects Arcane Warrior class waiting for confirmation
+	/// </summary>
+	/// <param name="a_isActive">Is currently selected?</param>
 	public void ToggleArcaneWarrior(bool a_isActive)
 	{
 		isArcaneWarriorClass = a_isActive;
@@ -59,6 +59,10 @@ public class CreateNewCharacter : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Selects Rogue class waiting for confirmation
+	/// </summary>
+	/// <param name="a_isActive">Is currently selected?</param>
 	public void ToggleRogue(bool a_isActive)
 	{
 		isRogueClass = a_isActive;
@@ -72,6 +76,10 @@ public class CreateNewCharacter : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Selects Peasant class waiting for confirmation
+	/// </summary>
+	/// <param name="a_isActive">Is currently selected?</param>
 	public void TogglePeasant(bool a_isActive)
 	{
 		isPeasantClass = a_isActive;
@@ -85,6 +93,9 @@ public class CreateNewCharacter : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Chooses current class and alters Base Player Stats to be the selected class'
+	/// </summary>
 	public void ConfirmCharacterChoice()
 	{
 		newPlayer.PlayerLvl = 1;
@@ -115,14 +126,15 @@ public class CreateNewCharacter : MonoBehaviour
 		//Debug.Log("Player lightCool: " + newPlayer.PlayerClass.LightCooldown);
 		//Debug.Log("Player hvycool: " + newPlayer.PlayerClass.HeavyCooldown);
 
-
 		StoreNewPlayerInfo();
 
 		//SaveInformation.SaveAllInformation();
-
 		//GetComponent<Main_Menu_Script>().Play_Game();	// Plays next scene
 	}
 
+	/// <summary>
+	/// Saves new stats to GameInformation to enter new scene as chosen class
+	/// </summary>
 	private void StoreNewPlayerInfo()
 	{
 		GameInformation.PlayerLvl = newPlayer.PlayerLvl;

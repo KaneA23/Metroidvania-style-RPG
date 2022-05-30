@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 using Ink.Runtime;
-//using Ink.UnityIntegration;
 
 /// <summary>
 /// Controls NPC's dialogue, what they say and how they respond to player choices
@@ -151,7 +149,7 @@ public class DialogueManagerScript : MonoBehaviour
 
 		ChangeAnimationState("DialogueBox_Close");
 		animDelay = 1f;
-		Debug.Log("ending dialogue");
+		//Debug.Log("ending dialogue");
 
 		if (isRambleon)
 		{
@@ -162,13 +160,6 @@ public class DialogueManagerScript : MonoBehaviour
 		if (isArenaRambleon)
 		{
 			FindObjectOfType<ArenaWaveManager>().EndDialogue();
-			//isReady = (BoolValue)GetInstance().GetVariableState("startRound").value;
-			//if (isReady)
-			//{
-			//	//NPC.GetComponent<BarrelHealthSystem>().ActivateParticle();
-			//	//NPC.GetComponent<DialogueTriggerScript>().isNewSpeech = false;
-			//	FindObjectOfType<ArenaWaveManager>().EndDialogue();
-			//}
 		}
 
 		Invoke(nameof(CompleteDialogueAnim), animDelay);
@@ -256,7 +247,6 @@ public class DialogueManagerScript : MonoBehaviour
 		{
 			Invoke(nameof(ContinueDialogue), 0.1f);
 			continueButton.GetComponentInChildren<Toggle>().interactable = false;
-			//continueButton.GetComponentInChildren<Toggle>().isOn = false;
 		}
 	}
 
@@ -313,7 +303,7 @@ public class DialogueManagerScript : MonoBehaviour
 	/// </summary>
 	void CompleteDialogueAnim()
 	{
-		Debug.Log("Dialogue Completed");
+		//Debug.Log("Dialogue Completed");
 
 		DVS.StopListening(currentStory);
 
@@ -338,7 +328,6 @@ public class DialogueManagerScript : MonoBehaviour
 
 		for (int i = 0; i < a_line.ToCharArray().Length; i++)
 		{
-
 			if (a_line[i] == '<' || isAddingRichTextTag)
 			{
 				isAddingRichTextTag = true;
@@ -346,17 +335,13 @@ public class DialogueManagerScript : MonoBehaviour
 				{
 					isAddingRichTextTag = false;
 				}
-
 			}
 			else
 			{
 				dialogueText.maxVisibleCharacters++;
 				yield return new WaitForSeconds(typingSpeed);
 			}
-
 		}
-
-
 
 		canContinueNextLine = true;
 		DisplayChoices();
@@ -370,6 +355,11 @@ public class DialogueManagerScript : MonoBehaviour
 	//	EventSystem.current.SetSelectedGameObject(choices[0]);
 	//}
 
+	/// <summary>
+	/// Checks if any variable has been changed by inky file
+	/// </summary>
+	/// <param name="a_variableName">Variable that is being checked</param>
+	/// <returns>New value stored in inky variable</returns>
 	public Ink.Runtime.Object GetVariableState(string a_variableName)
 	{
 		Ink.Runtime.Object variableValue = null;

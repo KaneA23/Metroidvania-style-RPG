@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Changes camera and UI to not be in fight
+/// Created by: Kane Adams
+/// </summary>
 public class ExitArenaScript : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
@@ -15,18 +17,11 @@ public class ExitArenaScript : MonoBehaviour
 		CFS = FindObjectOfType<CameraFollowScript>();
 	}
 
-	// Start is called before the first frame update
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
+	/// <summary>
+	/// If interacts with player, 
+	/// camera follows player and removes boss UI
+	/// </summary>
+	/// <param name="a_collision">Checks if collides with player</param>
 	private void OnTriggerEnter2D(Collider2D a_collision)
 	{
 		if (a_collision.CompareTag("Player"))

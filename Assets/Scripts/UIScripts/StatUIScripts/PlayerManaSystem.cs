@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,6 +51,7 @@ public class PlayerManaSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		// Debugs
 		if (Input.GetKeyDown(KeyCode.Alpha9))
 		{
 			TakeMana(10);
@@ -64,15 +63,8 @@ public class PlayerManaSystem : MonoBehaviour
 
 		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP, 32);   // Changes size of player stamina bar
 
-		//float fillF = Mathf.Round(manaFrontFillBar.fillAmount * 100) * 0.01f;
-		//float fillB = Mathf.Round(manaBackFillBar.fillAmount * 100) * 0.01f;
-
 		double fillF = System.Math.Round(manaFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(manaBackFillBar.fillAmount, 2);
-
-
-		//Debug.Log("MP FillF: " + fillF);
-		//Debug.Log("MP FillB: " + fillB);
 
 		// When no mana is being used, start regening up to 30% of max MP overtime
 		if (!PHS.isDying)

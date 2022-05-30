@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Saves Player class selection between scenes.
+/// Created by: Kane Adams
+/// </summary>
 [System.Serializable]
 public class GameInformation : MonoBehaviour/*, IDataPersistence*/
 {
@@ -29,18 +33,6 @@ public class GameInformation : MonoBehaviour/*, IDataPersistence*/
 	public static float checkpointPosX { get; set; }
 	public static float checkpointPosY { get; set; }
 
-
-	//// Start is called before the first frame update
-	//void Start()
-	//   {
-
-	//   }
-
-	//   // Update is called once per frame
-	//   void Update()
-	//   {
-
-	//   }
 
 	public GameInformation()
 	{

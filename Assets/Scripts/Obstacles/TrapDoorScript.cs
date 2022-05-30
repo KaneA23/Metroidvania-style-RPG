@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls interactable doors that can be destroyed to allow exploration.
+/// Created by: Kane Adams
+/// </summary>
 public class TrapDoorScript : MonoBehaviour
 {
 	[SerializeField] private GameObject[] enemies;
@@ -26,7 +28,6 @@ public class TrapDoorScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		//enemies = gameObject.transform.Find(enemyName).gameObject;
 		enemies = GameObject.FindGameObjectsWithTag(enemyTag);
 		//foreach (ParticleSystem particle in trapDoorParticles)
 		//{
@@ -69,12 +70,13 @@ public class TrapDoorScript : MonoBehaviour
 			}
 
 			//emissionMod.enabled = true;
+
+			// If player is in reach of monolith and interacts, trapdoor is opened
 			if (Physics2D.OverlapCircle(gameObject.transform.position, checkRadius, playerMask))
 			{
 				visualCue.SetActive(true);
 				if (Input.GetKeyDown(KeyCode.F))
 				{
-
 					//trapExplosion.Play();
 					for (int i = 0; i < trapExplosions.Length; i++)
 					{
@@ -110,6 +112,9 @@ public class TrapDoorScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Opens up trap door for player
+	/// </summary>
 	void RemoveTrapDoor()
 	{
 		monolith.SetActive(false);

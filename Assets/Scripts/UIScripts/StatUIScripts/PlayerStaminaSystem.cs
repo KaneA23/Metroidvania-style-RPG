@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,6 +45,7 @@ public class PlayerStaminaSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		// Debugs
 		if (Input.GetKeyDown(KeyCode.Alpha7))
 		{
 			TakeStamina(10);
@@ -60,18 +59,12 @@ public class PlayerStaminaSystem : MonoBehaviour
 		{
 			stamBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxStam, 32);   // Changes size of player stamina bar
 
-			double fillF = System.Math.Round(stamFrontFillBar.fillAmount, 2);//Mathf.Round(stamFrontFillBar.fillAmount * 100) * 0.01f;
-			double fillB = System.Math.Round(stamBackFillBar.fillAmount, 2);//Mathf.Round(stamBackFillBar.fillAmount * 100) * 0.01f;
-																			//Debug.Log("stam FillF: " + fillF);
-																			//Debug.Log("stam FillB: " + fillB);
-
-			//Debug.Log("is Dying:" + PHS.isDying);
+			double fillF = System.Math.Round(stamFrontFillBar.fillAmount, 2);
+			double fillB = System.Math.Round(stamBackFillBar.fillAmount, 2);
 
 			// When no stamina is being used, start regening up overtime
 			if (!PHS.isDying)
 			{
-				//Debug.Log("is running: " + PMS.isRunning);
-				//Debug.Log("is jumping: " + PMS.isJumping);
 				if (!PMS.isRunning && fillF == fillB)
 				{
 					if (fillB == 1 && fillF == 1)

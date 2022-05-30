@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the firing of Ranged attacks from the player.
+/// Created by: Kane Adams
+/// </summary>
 public class RangedAttackSystem : MonoBehaviour
 {
 	public Transform firePoint;
@@ -46,10 +48,8 @@ public class RangedAttackSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//Debug.Log("ManaCooldown:  " + isManaCooldown);
 		if (isManaCooldown)
 		{
-			//Debug.Log("Open");
 			ApplyCooldown();
 		}
 		else if (Input.GetKeyDown(KeyCode.Q) && BPC.currentMP >= BPC.fireballCost)
@@ -57,7 +57,6 @@ public class RangedAttackSystem : MonoBehaviour
 			if (!GetComponent<PlayerHealthSystem>().isHit && !GetComponent<PlayerHealthSystem>().isDying && !GetComponent<PlayerMovementSystem>().isDashing && !DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
 				isFireball = true;
-				//Debug.Log("manacooldown: " + isManaCooldown);
 				cooldownTimer = BPC.dashCooldown;
 
 				Shoot();
@@ -68,9 +67,11 @@ public class RangedAttackSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Created instance of fireball to launch at enemies
+	/// </summary>
 	void Shoot()
 	{
-		//GetComponent<PlayerMovementSystem>().isFacingRight
 		FindObjectOfType<AudioManager>().PlayAudio("PlayerFireball");
 		Instantiate(fireballPrefab, firePoint.position, firePoint.rotation);
 		TakeKnockback();
@@ -80,11 +81,13 @@ public class RangedAttackSystem : MonoBehaviour
 		ApplyCooldown();
 	}
 
+	/// <summary>
+	/// Sends player backwards (can be used as alternative, skilled movement)
+	/// </summary>
 	void TakeKnockback()
 	{
 		if (GetComponent<PlayerMovementSystem>().isFacingRight)
 		{
-			//Debug.Log("knockbackAmount: -" + knockbackAmount);
 			rb.velocity = Vector2.zero;
 			//rb.AddForce(new Vector2(0, 500f), ForceMode2D.Force);
 			//rb.AddForce(new Vector2(-knockbackAmount, 0), ForceMode2D.Force);
@@ -92,7 +95,6 @@ public class RangedAttackSystem : MonoBehaviour
 		}
 		else
 		{
-			//Debug.Log("knockbackAmount: " + knockbackAmount);
 			rb.velocity = Vector2.zero;
 			//rb.AddForce(new Vector2(0, 500f), ForceMode2D.Force);
 			//rb.AddForce(new Vector2(knockbackAmount, 0), ForceMode2D.Force);
@@ -100,13 +102,16 @@ public class RangedAttackSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Prevents animation looping
+	/// </summary>
 	void CompleteAnim()
 	{
 		isFireball = false;
 	}
 
 	/// <summary>
-	/// 
+	/// Prevents player from spamming fireball button by having them wait between shots
 	/// </summary>
 	void ApplyCooldown()
 	{

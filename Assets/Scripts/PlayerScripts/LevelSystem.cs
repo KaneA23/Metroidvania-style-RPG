@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Controls the player Levelling Up system so the can get stronger with experience.
+/// Created by: Kane Adams
+/// </summary>
 public class LevelSystem : MonoBehaviour
 {
 	BasePlayerClass BPC;
@@ -61,6 +63,7 @@ public class LevelSystem : MonoBehaviour
 		double fillF = System.Math.Round(xpFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(xpBackFillBar.fillAmount, 2);
 
+		// Debug
 		if (Input.GetKeyDown(KeyCode.L))
 		{
 			GainExperience(Random.Range(10, 250));
@@ -160,6 +163,9 @@ public class LevelSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Created lerping effect when player gains XP
+	/// </summary>
 	public void UpdateExperienceUI()
 	{
 		float fillF = xpFrontFillBar.fillAmount;
@@ -198,6 +204,9 @@ public class LevelSystem : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// Waits for animation to finish before starting next animation
+	/// </summary>
 	void CompleteAnim()
 	{
 		if (currentAnimState == "XP_FadeIn")
@@ -217,6 +226,10 @@ public class LevelSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Changes animation dependent on XP bar actions
+	/// </summary>
+	/// <param name="a_newAnim">New animation</param>
 	public void ChangeAnimationState(string a_newAnim)
 	{
 		// Stops the same animation from interrupting itself

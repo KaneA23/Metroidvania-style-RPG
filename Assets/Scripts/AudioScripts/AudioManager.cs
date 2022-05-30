@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 /// <summary>
 /// Controls what sound is played when.
@@ -42,12 +39,6 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         PlayAudio("SkyTheme");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /// <summary>

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -158,7 +157,6 @@ public class PlayerMovementSystem : MonoBehaviour
 		//if (isGrounded)
 		//{
 		//	groundedTimer = groundedTime;
-
 		//}
 		//Debug.Log("Time grounded: " + groundedTimer);
 
@@ -196,7 +194,6 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-
 		groundedTimer -= Time.fixedDeltaTime;
 		if (isGrounded)
 		{
@@ -221,6 +218,10 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Prevents player getting stuck under boss after dashing
+	/// </summary>
+	/// <param name="collision">Checks if boss collider</param>
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.collider.gameObject.layer == 6)
@@ -235,6 +236,10 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Prevents player getting stuck under boss after dashing
+	/// </summary>
+	/// <param name="collision">Checks if boss collider</param>
 	private void OnCollisionExit2D(Collision2D collision)
 	{
 		if (collision.collider.gameObject.layer == 6)
@@ -272,12 +277,6 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			if (!DialogueManagerScript.GetInstance().IsDialoguePlaying)
 			{
-				//jumpPressTimer -= Time.deltaTime;
-				//if (Input.GetButtonDown("Jump"))
-				//{
-				//	jumpPressTimer = jumpPressTime;
-				//}
-
 				if (Input.GetButtonDown("Jump") && jumpCount < 1 && !isCrouching && BPC.currentStam >= BPC.jumpCost && BPC.hasJump)
 				{
 					if (!BPC.hasDoubleJump && !isGrounded)
@@ -335,7 +334,6 @@ public class PlayerMovementSystem : MonoBehaviour
 							Invoke(nameof(CompleteCrouchAnim), moveAnimDelay);
 						}
 					}
-
 					//isCrouching = false;
 				}
 
@@ -455,7 +453,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	private void CheckIfCeiling()
 	{
-		//isCeiling = Physics2D.OverlapCircle(ceilingCheck.position, checkRadius * 2.5f, ceilingLayers);
 		isCeiling = Physics2D.OverlapBox(ceilingCheck.position, new Vector2(ceilingCheckWidth, ceilingCheckHeight), 0, ceilingLayers);
 	}
 
@@ -473,27 +470,19 @@ public class PlayerMovementSystem : MonoBehaviour
 
 		if (BPC.hasWallJump && isTouchingWall && canWallJump && BPC.currentStam >= BPC.jumpCost)
 		{
-			Debug.Log("Wall Jump");
-
-			//PSS.TakeStamina(BPC.jumpCost);
+			//Debug.Log("Wall Jump");
 
 			rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 			rb.AddForce(new Vector2(BPC.wallJumpForce * -moveHorizontal, BPC.jumpForce), ForceMode2D.Impulse);
 			jumpCount = 0;
 			canWallJump = false;
-
-			//StartCoroutine(JumpCooldown());
 		}
 
 		if (isGrounded && canJump)
 		{
-
 			canJump = false;
 
-			//Debug.Log("jump");
-
 			CreateDustParticles();
-			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
 		}
@@ -501,35 +490,21 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			canJump = false;
 
-			//Debug.Log("jump");
-
 			CreateDustParticles();
-			//PSS.TakeStamina(BPC.jumpCost);
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
-			//return;
-
-			//StartCoroutine(JumpCooldown());
 		}
 		else if (canDoubleJump && BPC.hasDoubleJump)
 		{
-			//Debug.Log("first if");
 			if (BPC.currentStam >= BPC.jumpCost /*&& jumpCount == 2*/)
 			{
 				canDoubleJump = false;
-				//jumpCount++;
-				// jumpCount++;
 				PSS.TakeStamina(BPC.jumpCost);
-				//Debug.Log("DoubleJump");
 
 				rb.velocity = new Vector2(0f, 0f);
 				rb.velocity = BPC.jumpForce * Vector2.up;
 			}
-
-			//StartCoroutine(JumpCooldown());
 		}
-
-
 	}
 
 	/// <summary>
@@ -537,7 +512,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	/// </summary>
 	private void CheckIfGrounded()
 	{
-
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayers);
 
 		Collider2D enemy = Physics2D.OverlapCircle(groundCheck.position, checkRadius, enemyLayers);
@@ -551,8 +525,6 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			PHS.isEnemyBack = false;
 		}
-
-
 
 		if (isGrounded)
 		{
@@ -661,7 +633,7 @@ public class PlayerMovementSystem : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 
+	/// Prevents dash being spamclicked by having player wait between uses
 	/// </summary>
 	void ApplyCooldown()
 	{
@@ -681,6 +653,9 @@ public class PlayerMovementSystem : MonoBehaviour
 
 	#endregion
 
+	/// <summary>
+	/// Allows player to stand
+	/// </summary>
 	void CompleteCrouchAnim()
 	{
 		if (PAM.currentAnimState == "Player_CrouchEnter")
@@ -718,6 +693,9 @@ public class PlayerMovementSystem : MonoBehaviour
 		Gizmos.DrawWireSphere(wallCheck.position, checkRadius);
 	}
 
+	/// <summary>
+	/// Plays dust particle effect when player runs
+	/// </summary>
 	void CreateDustParticles()
 	{
 		dust.Play();

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +6,6 @@ using UnityEngine;
 public enum CameraState
 {
 	CAM_FOLLOWING,  // default camera
-					//CAM_BERNARDINTRO,
 	CAM_BOSSBERNARD,
 	CAM_ARENA,
 }
@@ -35,7 +32,6 @@ public class CameraFollowScript : MonoBehaviour
 
 	public CameraState cameraState;
 
-	//gameObject.GetComponent<Camera>().orthographicSize
 	Camera cam;
 
 	[SerializeField] private bool isFollowingPlayer;
@@ -62,6 +58,7 @@ public class CameraFollowScript : MonoBehaviour
 			isSeen = Physics2D.OverlapBox(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - yOffset), threshold, 0, playerLayer);
 		}
 
+		// Debugs
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 		{
 			cameraState = CameraState.CAM_FOLLOWING;
@@ -74,16 +71,8 @@ public class CameraFollowScript : MonoBehaviour
 		{
 			cameraState = CameraState.CAM_ARENA;
 		}
-		CheckCameraState();
 
-		//if (playerTransform.position.x != threshold.x || playerTransform.position.y != threshold.y)
-		//{
-		//	isSeen = false;
-		//}
-		//else
-		//{
-		//	isSeen = true;
-		//}
+		CheckCameraState();
 	}
 
 	private void LateUpdate()
@@ -99,8 +88,6 @@ public class CameraFollowScript : MonoBehaviour
 
 			if (playerTempX != camTempX || playerTempY != camTempY)
 			{
-				//isSeen = false;
-				// Store camera's current position
 				Vector3 temp = transform.position;
 				temp.x = playerTransform.position.x;
 				temp.y = playerTransform.position.y;
@@ -139,22 +126,20 @@ public class CameraFollowScript : MonoBehaviour
 		{
 			case CameraState.CAM_FOLLOWING:
 				isFollowingPlayer = true;
-				//cam.orthographicSize = followCamSize;
 				smoothZoom = Mathf.Lerp(cam.orthographicSize, followCamSize, 1f * Time.deltaTime);
 				cam.orthographicSize = smoothZoom;
+
 				break;
 
 			case CameraState.CAM_BOSSBERNARD:
 				isFollowingPlayer = false;
-				//gameObject.GetComponent<Camera>().orthographicSize = 11.3f;
+
 				smoothZoom = Mathf.Lerp(cam.orthographicSize, 11.3f, 2f * Time.deltaTime);
 				cam.orthographicSize = smoothZoom;
 
-				//gameObject.transform.position = ;
-				//Vector3 smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.2f * Time.fixedDeltaTime);
 				smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.3f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
-				//transform.position = new Vector3(8.5f, -30f, -10f);
+
 				break;
 
 			case CameraState.CAM_ARENA:
@@ -164,11 +149,13 @@ public class CameraFollowScript : MonoBehaviour
 
 				smoothedPos = Vector3.Lerp(transform.position, new Vector3(3f, -2.5f, -10f), 0.3f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
+
 				break;
 
 			default:
 				isFollowingPlayer = true;
 				cam.orthographicSize = followCamSize;
+
 				break;
 		}
 	}

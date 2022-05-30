@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -478,7 +476,6 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 
-
 		//Debug.Log("Player Class: " + characterClassName);
 		//Debug.Log("Player Level: " + Level);
 		//Debug.Log("Player HP: " + MaximumHealthPoints);
@@ -520,6 +517,7 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 			hasHeavyAtk = true;
 		}
 
+		// Debugs
 		//if (Input.GetKeyDown(KeyCode.Y))
 		//{
 		//	Debug.Log("Level: " + Level);

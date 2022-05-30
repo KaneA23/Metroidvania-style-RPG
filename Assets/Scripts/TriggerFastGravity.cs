@@ -1,24 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls how fast player falls into arena.
+/// Created by: Kane Adams
+/// </summary>
 public class TriggerFastGravity : MonoBehaviour
 {
     [Header("Referenced Scripts")]
     [SerializeField] private CameraFollowScript CFS;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+	/// <summary>
+	/// Speeds up player's fall amd changes camera
+	/// </summary>
+	/// <param name="a_other">Checks if triggered by player</param>
 	private void OnTriggerEnter2D(Collider2D a_other)
 	{
 		if (a_other.CompareTag("Player"))

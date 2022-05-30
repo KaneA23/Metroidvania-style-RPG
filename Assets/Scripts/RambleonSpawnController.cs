@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls how many Rambleons exist at once.
+/// Created by: Kane Adams
+/// </summary>
 public class RambleonSpawnController : MonoBehaviour
 {
 	public GameObject[] rambleons;

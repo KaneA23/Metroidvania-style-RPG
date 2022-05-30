@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 /// <summary>
-/// Contains all available sounds that can be played
+/// Contains all available sounds that can be played.
 /// Created by: Kane Adams
 /// </summary>
 [System.Serializable]

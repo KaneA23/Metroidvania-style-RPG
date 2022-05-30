@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -84,6 +83,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	{
 		healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxHP, 32); // Changes size of player healthbar
 
+		// Debugs
 		if (Input.GetKeyDown(KeyCode.Minus))
 		{
 			TakeDamage(10, gameObject.transform.position, 0f, false);
@@ -93,14 +93,8 @@ public class PlayerHealthSystem : MonoBehaviour
 			GainHealth(10);
 		}
 
-		//float fillF = Mathf.Round(healthFrontFillBar.fillAmount * 100) * 0.01f;
-		//float fillB = Mathf.Round(healthBackHealthBar.fillAmount * 100) * 0.01f;
 		double fillF = System.Math.Round(healthFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(healthBackFillBar.fillAmount, 2);
-
-
-		//Debug.Log("HP FillF: " + fillF);
-		//Debug.Log("HP FillB: " + fillB);
 
 		// When player isn't being attacked, start regening up to 20% of max HP overtime
 		if (!isHit && !isDying && fillB == fillF)
@@ -285,6 +279,11 @@ public class PlayerHealthSystem : MonoBehaviour
 		isHit = false;
 	}
 
+	/// <summary>
+	/// Changes scene to correct death scene after transition
+	/// </summary>
+	/// <param name="a_sceneName">Either the story or Arena death scene</param>
+	/// <returns>Wait 1 second before loading new scene</returns>
 	IEnumerator LoadLevel(string a_sceneName)
 	{
 		transition.SetTrigger("Start");

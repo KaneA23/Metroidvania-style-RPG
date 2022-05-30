@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,17 +6,13 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    [Header("Referenced Scripts")]
     public BasePlayerClass BPC;
 
+    [Header("User Interface Objects")]
     public GameObject healthBar;
     public GameObject staminaBar;
     public GameObject manaBar;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

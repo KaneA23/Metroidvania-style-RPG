@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// Controls class collection for BasePlayerScript.cs
+/// Created by: Kane Adams
+/// </summary>
 [System.Serializable]
 public class BasePlayer
 {

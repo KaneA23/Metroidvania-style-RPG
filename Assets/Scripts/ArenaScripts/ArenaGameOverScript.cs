@@ -1,8 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Alters what round player got to in Arena Mode on death.
+/// Created by: Kane Adams
+/// </summary>
 public class ArenaGameOverScript : MonoBehaviour
 {
 	int finalRound;
@@ -19,7 +21,7 @@ public class ArenaGameOverScript : MonoBehaviour
 	void Start()
 	{
 		finalRound = PlayerPrefs.GetInt("WAVENUMBER");
-		Debug.Log("Round: " + finalRound);
+		//Debug.Log("Round: " + finalRound);
 
 		// Separates the round numbers into individual digits
 		roundDigit1 = finalRound / 10;
@@ -28,12 +30,11 @@ public class ArenaGameOverScript : MonoBehaviour
 		ChangeRoundImage(rightNumber, roundDigit2);
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
+	/// <summary>
+	/// Alters the values of current round
+	/// </summary>
+	/// <param name="a_number">Round image</param>
+	/// <param name="a_round">Round player died on</param>
 	void ChangeRoundImage(Image a_number, int a_round)
 	{
 		a_number.sprite = numberSprites[a_round];

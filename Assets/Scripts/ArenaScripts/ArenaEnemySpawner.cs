@@ -1,21 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls how many enemies spawn each round.
+/// Created by: Kane Adams
+/// </summary>
 public class ArenaEnemySpawner : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
 	private ArenaWaveManager AWM;
 
+	[Header("Enemy Spawns")]
 	[SerializeField] private GameObject enemyPrefab;
 
 	public List<GameObject> enemySpawns;
 
-	public GameObject previousSpawn;
+	public GameObject previousSpawn;	// prevents 2 enemies spawning on top of eachother
 
 	//public int wave;
 	int round;
 
+	[Header("Enemies per wave")]
 	public int wave1Count;
 	public int wave2Count;
 	public int wave3Count;
@@ -29,54 +34,29 @@ public class ArenaEnemySpawner : MonoBehaviour
 
 	public int spawnNumber;
 
-
 	private void Awake()
 	{
 		AWM = GetComponent<ArenaWaveManager>();
 	}
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		//wave = 1;
-
-		//SpawnEnemy();
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
+		// Debug
 		if (Input.GetKeyDown(KeyCode.T))
 		{
-			//CheckWave(wave);
-			//for (int i = 0; i < spawnNumber; i++)
-			//{
-			//Invoke(nameof(SpawnEnemy), 0.5f);
-			//}
-			//wave++;
 			spawnNumber = 0;
 		}
 	}
 
-	//void SpawnEnemy()
-	//{
-	//	Debug.Log("Wave: " + wave.ToString());
-
-	//	for (int i = 0; i < wave; i++)
-	//	{
-	//		GameObject randomSpawn = enemySpawns[Random.Range(0, enemySpawns.Count)];
-	//		Vector2 spawnPoint = randomSpawn.transform.position;
-
-	//		Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
-	//	}
-	//	wave++;
-	//}
-
+	/// <summary>
+	/// Selects a random spawn point and adds enemy to that point
+	/// </summary>
 	public void SpawnEnemy()
 	{
 		GameObject randomSpawn = enemySpawns[Random.Range(0, enemySpawns.Count)];
 
-
+		// if enemy just spawned at point, wait before spawning again
 		if (randomSpawn == previousSpawn)
 		{
 			Invoke(nameof(SpawnEnemy), 0.1f);
@@ -90,9 +70,15 @@ public class ArenaEnemySpawner : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Changes number of enemies dependent on wave
+	/// </summary>
+	/// <param name="a_waveNum">Next wave</param>
 	public void CheckWave(int a_waveNum)
 	{
 		round = a_waveNum;
+		
+		// Aster 10 rounds, number of enemies loop but are stronger
 		if (round > 10)
 		{
 			IncreaseEnemyStats();
@@ -149,15 +135,20 @@ public class ArenaEnemySpawner : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Enemies health and attack strength increases to add difficulty
+	/// </summary>
 	void IncreaseEnemyStats()
 	{
 		enemyPrefab.GetComponent<EnemyHealth>().m_MaxHP += 10;
 
+		// Earth Elemental attack strength
 		if (enemyPrefab.GetComponent<AIRanged>() != null)
 		{
 			enemyPrefab.GetComponent<AIRanged>().m_DamageAmount++;
 		}
 
+		// Fire Elemental attack strength and speed
 		if (enemyPrefab.GetComponent<EnemyPathfindingNew>() != null)
 		{
 			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_DamageAmount++;

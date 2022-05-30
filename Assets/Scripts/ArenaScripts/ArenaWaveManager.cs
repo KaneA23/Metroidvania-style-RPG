@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
+/// <summary>
+/// Controls when new round starts.
+/// Created by: Kane Adams
+/// </summary>
 public class ArenaWaveManager : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
@@ -17,13 +18,10 @@ public class ArenaWaveManager : MonoBehaviour
 
 	public int wave;
 
-	//[SerializeField] private TextMeshProUGUI waveText;
-	//[SerializeField] private TextMeshProUGUI countdownText;
 	int countdownTimer;
 
 	bool isSpawning;
 
-	//bool isWave;
 	public bool isReady;
 
 	[SerializeField] private GameObject rambleon;
@@ -38,29 +36,21 @@ public class ArenaWaveManager : MonoBehaviour
 
 	[SerializeField] private Sprite[] numberSprites;
 
-	private void Awake()
-	{
-
-	}
-
 	// Start is called before the first frame update
 	void Start()
 	{
 		CFS.cameraState = CameraState.CAM_FOLLOWING;
 
 		wave = 0;
-		//waveText.text = "Wave: " + wave;
 		roundDigit1 = wave / 10;
 		ChangeWaveImage(leftNumber, roundDigit1);
 		roundDigit2 = wave % 10;
 		ChangeWaveImage(rightNumber, roundDigit2);
 
-		//countdownText.text = string.Empty;
 		countdownImage.enabled = false;
 
 		isSpawning = false;
 		PlayerPrefs.SetInt("WAVENUMBER", wave);
-		//isWave = false;
 
 		rambleon.SetActive(true);
 	}
@@ -75,18 +65,11 @@ public class ArenaWaveManager : MonoBehaviour
 			CFS.cameraState = CameraState.CAM_FOLLOWING;
 			rambleon.SetActive(true);
 		}
-
-		//if (isReady && enemies.Length <= 0 && countdownTimer <= 0 && !isSpawning)
-		//{
-		//	rambleon.SetActive(false);
-		//	wave++;
-		//	waveText.text = "Wave: " + wave;
-		//	isSpawning = true;
-		//	countdownTimer = 3;
-		//	Invoke(nameof(Countdown), 1f);
-		//}
 	}
 
+	/// <summary>
+	/// After Rambleon stops talking, starts to countdown
+	/// </summary>
 	public void EndDialogue()
 	{
 		isReady = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("startRound")).value;
@@ -95,8 +78,8 @@ public class ArenaWaveManager : MonoBehaviour
 		{
 			CFS.cameraState = CameraState.CAM_ARENA;
 			rambleon.SetActive(false);
+
 			wave++;
-			//waveText.text = "Wave: " + wave;
 			roundDigit1 = wave / 10;
 			ChangeWaveImage(leftNumber, roundDigit1);
 			roundDigit2 = wave % 10;
@@ -110,28 +93,30 @@ public class ArenaWaveManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Decreases countdown time until reaches zero for round to begin
+	/// </summary>
 	void Countdown()
 	{
 		if (countdownTimer >= 0)
 		{
 			countdownImage.enabled = true;
 			ChangeWaveImage(countdownImage, countdownTimer);
-			//countdownText.text = countdownTimer.ToString();
 			countdownTimer--;
 			Invoke(nameof(Countdown), 1f);
 		}
 		else
 		{
-			//countdownText.text = string.Empty;
 			countdownImage.enabled = false;
 			BeginSpawn();
 		}
 	}
 
+	/// <summary>
+	/// Calls Spawner functions to start spawning different enemy types
+	/// </summary>
 	void BeginSpawn()
 	{
-		//isWave = true;
-
 		AEM1.previousSpawn = null;
 		AEM2.previousSpawn = null;
 
@@ -151,6 +136,11 @@ public class ArenaWaveManager : MonoBehaviour
 		isSpawning = false;
 	}
 
+	/// <summary>
+	/// Alters the numbered image values
+	/// </summary>
+	/// <param name="a_number">The number image to change</param>
+	/// <param name="a_round">The new round (or time)</param>
 	void ChangeWaveImage(Image a_number, int a_round)
 	{
 		a_number.sprite = numberSprites[a_round];

@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls when new scene Boss intro is played.
+/// Created by: Kane Adams
+/// </summary>
 public class BernardIntroCutscene : MonoBehaviour
 {
 	[Header("Referenced Scripts")]
@@ -42,12 +44,10 @@ public class BernardIntroCutscene : MonoBehaviour
 		uiAnim.StopPlayback();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
+	/// <summary>
+	/// If player enters arena trigger, intro plays
+	/// </summary>
+	/// <param name="a_other">Checks if player entered trigger</param>
 	private void OnTriggerEnter2D(Collider2D a_other)
 	{
 		if (a_other.CompareTag("Player"))
@@ -61,6 +61,9 @@ public class BernardIntroCutscene : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Hides UI and plays Intro cutscene
+	/// </summary>
 	void PlayCutscene()
 	{
 		FindObjectOfType<AudioManager>().StopAudio("SkyTheme");
@@ -78,6 +81,9 @@ public class BernardIntroCutscene : MonoBehaviour
 		Invoke(nameof(EndCutscene), animTime);
 	}
 
+	/// <summary>
+	/// Turns back on UI for player control
+	/// </summary>
 	void EndCutscene()
 	{
 		intro.SetActive(false);

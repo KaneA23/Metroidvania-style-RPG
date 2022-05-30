@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -46,6 +44,10 @@ public class EnemyAnimationManager : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 	}
 
+	/// <summary>
+	/// Changes current enemy's animation in relation to its actions
+	/// </summary>
+	/// <param name="a_newAnim">Animation for new action</param>
     public void ChangeAnimationState(AIAnimationState a_newAnim)
 	{
 		// Stops the same animation from interrupting itself

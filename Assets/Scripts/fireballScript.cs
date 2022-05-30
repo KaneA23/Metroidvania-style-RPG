@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls travelling fireball.
+/// Created by: Kane Adams
+/// </summary>
 public class FireballScript : MonoBehaviour
 {
 	BasePlayerClass BPC;
@@ -31,41 +33,44 @@ public class FireballScript : MonoBehaviour
 
 		PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_SHOT);
 		isMidair = false;
-		//Debug.Log("Feur Frei!");
+
 		Invoke(nameof(CompleteAnim), 0.18f);
-		//isMidair = true;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		//if (GetComponent<CircleCollider2D>().bounds.Intersects())
 		//Fireball();
 		if (isMidair)
 		{
-			//Debug.Log("Free Flying");
 			PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_MIDAIR);
 		}
 	}
 
+	/// <summary>
+	/// Checks if collided with enemy
+	/// </summary>
 	void Fireball()
 	{
 		Collider2D hitEnemy = Physics2D.OverlapCircle(gameObject.transform.position, 0.75f, enemyLayers);
-		Debug.Log(hitEnemy.gameObject.name);
+		//Debug.Log(hitEnemy.gameObject.name);
 
 		if (hitEnemy != null)
 		{
-			//Debug.Log("Enemy Hit");
 			hitEnemy.gameObject.GetComponent<EnemyHealth>().TakeDamage(/*BPC.rangeAtkDamage*/25, gameObject.transform.position/*, BPC.lightKnockbackDist*/);
 
 			Destroy(gameObject);
-			//Debug.Log("fire ball destroyed");
 		}
 	}
 
+	/// <summary>
+	/// When fireball collides it is destroyed
+	/// </summary>
+	/// <param name="a_collision">What the fireball hit</param>
 	private void OnTriggerEnter2D(Collider2D a_collision)
 	{
 		//Destroy(gameObject);
+		// Ignores player and other fireballs
 		if (a_collision.gameObject.CompareTag("Player") || a_collision.gameObject.CompareTag("Projectile"))
 		{
 			return;
@@ -81,22 +86,17 @@ public class FireballScript : MonoBehaviour
 		}
 
 		//gameObject.SetActive(false);
-
 		//Destroy(this.gameObject);
+
 		rb.velocity = Vector3.zero;
 		PAS.ChangeAnimationState(ProjectileAnimationState.FIREBALL_HIT);
 		isMidair = false;
 		Invoke(nameof(CompleteAnim), 0.35f);
-		//Debug.Log("is fireball destroyed?");
 	}
 
-	private void OnDrawGizmosSelected()
-	{
-		// Need to manually add Gizmo ranges to work, can't reference other script
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(gameObject.transform.position, 0.75f);
-	}
-
+	/// <summary>
+	/// Determines whether fireball was just launched or has hit something
+	/// </summary>
 	void CompleteAnim()
 	{
 		if (PAS.currentAnimState == "Fireball_Shot")
@@ -109,5 +109,12 @@ public class FireballScript : MonoBehaviour
 			//FindObjectOfType<AudioManager>().PlayAudio("FireballLand");
 			Destroy(gameObject);
 		}
+	}
+	
+	private void OnDrawGizmosSelected()
+	{
+		// Need to manually add Gizmo ranges to work, can't reference other script
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(gameObject.transform.position, 0.75f);
 	}
 }

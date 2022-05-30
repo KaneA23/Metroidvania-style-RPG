@@ -1,8 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Plays animated splashscreen when game begins.
+/// Created by: Kane Adams
+/// </summary>
 public class IntroScript : MonoBehaviour
 {
 	public float introTime = 7f;
@@ -13,12 +16,10 @@ public class IntroScript : MonoBehaviour
 		StartCoroutine(WaitForIntro());
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
+	/// <summary>
+	/// Loads MainMenu after animation
+	/// </summary>
+	/// <returns>Waits for animation to end</returns>
 	IEnumerator WaitForIntro()
 	{
 		yield return new WaitForSeconds(introTime);

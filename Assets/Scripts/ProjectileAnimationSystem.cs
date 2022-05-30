@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Different states for the animation to change dependent on projectile's actions.
+/// </summary>
 public enum ProjectileAnimationState
 {
 	// Fireballs
@@ -10,6 +11,10 @@ public enum ProjectileAnimationState
 	FIREBALL_HIT,
 }
 
+/// <summary>
+/// Controls animations of any projectile player launches.
+/// Created by: Kane Adams
+/// </summary>
 public class ProjectileAnimationSystem : MonoBehaviour
 {
 	private Animator anim;
@@ -22,18 +27,6 @@ public class ProjectileAnimationSystem : MonoBehaviour
 	private void Awake()
 	{
 		anim = GetComponent<Animator>();
-	}
-
-	// Start is called before the first frame update
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
 	}
 
 	/// <summary>

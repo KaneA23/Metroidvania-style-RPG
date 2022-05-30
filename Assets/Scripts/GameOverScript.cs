@@ -1,9 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Controls Death screen.
+/// Created by: Kane Adams
+/// </summary>
 public class GameOverScript : MonoBehaviour
 {
 	[SerializeField] private Animator playerAnim;
@@ -50,6 +52,11 @@ public class GameOverScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Changes the animation of sprite depentend on sprite's action
+	/// </summary>
+	/// <param name="a_newAnim">The new action</param>
+	/// <param name="a_anim">The sprite's unique animimator</param>
 	public void ChangeAnimationState(string a_newAnim, Animator a_anim)
 	{
 		// Stops the same animation from interrupting itself
@@ -65,6 +72,9 @@ public class GameOverScript : MonoBehaviour
 		currentAnimState = a_newAnim;
 	}
 
+	/// <summary>
+	/// Player and Death animated entering the gates
+	/// </summary>
 	void FirstAnimations()
 	{
 		ChangeAnimationState("Player_DashExit", playerAnim);
@@ -74,11 +84,17 @@ public class GameOverScript : MonoBehaviour
 		Invoke(nameof(CompleteDeathAnim), 1.5f);
 	}
 
+	/// <summary>
+	/// Player is no longer entering scene
+	/// </summary>
 	void CompletePlayerAnim()
 	{
 		isPlayerEntrance = false;
 	}
 
+	/// <summary>
+	/// Death has entered scene and player can now interact
+	/// </summary>
 	void CompleteDeathAnim()
 	{
 		isDeathEntrance = false;
@@ -87,6 +103,9 @@ public class GameOverScript : MonoBehaviour
 		menuButton.SetActive(true);
 	}
 
+	/// <summary>
+	/// Respawns player at beginning of current GameMode
+	/// </summary>
 	public void RestartGame()
 	{
 		if (SceneManager.GetActiveScene().name == "StoryDeathScene")
@@ -99,11 +118,19 @@ public class GameOverScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Takes player to Main Menu Screen
+	/// </summary>
 	public void ReturnToMenu()
 	{
 		StartCoroutine(LoadLevel("Main Menu Scene"));
 	}
 
+	/// <summary>
+	/// Changes scene with fade
+	/// </summary>
+	/// <param name="a_sceneName">New scene player is entering</param>
+	/// <returns>Waits 1 second before loading new scene</returns>
 	IEnumerator LoadLevel(string a_sceneName)
 	{
 		transition.SetTrigger("Start");
