@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Contains all the stats needed for player.
@@ -461,19 +462,19 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 		// Comment out if want to test mechanics without class (uses default values)
 
 		//characterClassName = GameInformation.PlayerClass.ToString();
-		//characterClassName = GameInformation.ClassName;
-		//Level = GameInformation.PlayerLvl;
-		//MaximumHealthPoints = GameInformation.PlayerMaxHP;
-		//MaximumMana = GameInformation.PlayerMaxMP;
-		//MaximumManaRegeneration = GameInformation.PlayerMPRegen;
-		//MaximumStamina = GameInformation.PlayerMaxStam;
-		//LightAttackDamage = GameInformation.PlayerLightDmg;
-		//HeavyAttackDamage = GameInformation.PlayerHvyDmg;
-		//WalkSpeed = GameInformation.PlayerWalkSpeed;
-		//CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
-		//RunSpeed = GameInformation.PlayerRunSpeed;
-		//LightCooldown = GameInformation.PlayerLightCooldown;
-		//HeavyCooldown = GameInformation.PlayerHvyCooldown;
+		characterClassName = GameInformation.ClassName;
+		Level = GameInformation.PlayerLvl;
+		MaximumHealthPoints = GameInformation.PlayerMaxHP;
+		MaximumMana = GameInformation.PlayerMaxMP;
+		MaximumManaRegeneration = GameInformation.PlayerMPRegen;
+		MaximumStamina = GameInformation.PlayerMaxStam;
+		LightAttackDamage = GameInformation.PlayerLightDmg;
+		HeavyAttackDamage = GameInformation.PlayerHvyDmg;
+		WalkSpeed = GameInformation.PlayerWalkSpeed;
+		CrouchingSpeed = GameInformation.PlayerCrouchSpeed;
+		RunSpeed = GameInformation.PlayerRunSpeed;
+		LightCooldown = GameInformation.PlayerLightCooldown;
+		HeavyCooldown = GameInformation.PlayerHvyCooldown;
 
 
 
@@ -497,13 +498,26 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	{
 		// Comment out if want to test mechanics without dialogue
 
-		//hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
-		//hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
-		//hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
-		//hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
-		//hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
-		//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
-		//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
+		if (SceneManager.GetActiveScene().buildIndex == 2)
+		{
+			//hasWalk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasWalk")).value;
+			//hasRun = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasRun")).value;
+			//hasDash = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDash")).value;
+			//hasJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasJump")).value;
+			//hasDoubleJump = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasDoubleJump")).value;
+			//hasLightAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasLightAtk")).value;
+			//hasHeavyAtk = ((Ink.Runtime.BoolValue)DialogueManagerScript.GetInstance().GetVariableState("hasHeavyAtk")).value;
+		}
+		else
+		{
+			hasWalk = true;
+			hasRun = true;
+			hasDash = true;
+			hasJump = true;
+			hasDoubleJump = true;
+			hasLightAtk = true;
+			hasHeavyAtk = true;
+		}
 
 		//if (Input.GetKeyDown(KeyCode.Y))
 		//{

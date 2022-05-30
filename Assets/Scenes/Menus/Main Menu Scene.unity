@@ -344,7 +344,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1901133404}
         m_TargetAssemblyTypeName: Main_Menu_Script, Assembly-CSharp
-        m_MethodName: Play_Game
+        m_MethodName: Play_Arena
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

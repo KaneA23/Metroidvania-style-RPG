@@ -108,7 +108,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 3200
         width: 1728
         height: 1600
       alignment: 0
@@ -129,7 +129,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1728
-        y: 0
+        y: 3200
         width: 1728
         height: 1600
       alignment: 0
@@ -150,7 +150,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3456
-        y: 0
+        y: 3200
         width: 1728
         height: 1600
       alignment: 0
@@ -162,6 +162,132 @@ TextureImporter:
       bones: []
       spriteID: f1ad8632fecd15d4fac745f72b87db3d
       internalID: -1041452747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1600
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 650b023a1ecad3e4d8f3855326aa1e7a
+      internalID: 83180228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_4
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 1600
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27a209ba6bed72a4f8a586d8ae78d20c
+      internalID: 1061354381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_5
+      rect:
+        serializedVersion: 2
+        x: 3456
+        y: 1600
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f76ba19a2a94b4e974b47ad6ad0da8
+      internalID: -432551915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a43edfe732f495e4eb07029afdeefce4
+      internalID: -629535640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_7
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 0
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b8b68acce2c87c49a7de5eaa5223230
+      internalID: 1518055809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cutscene_BG_8
+      rect:
+        serializedVersion: 2
+        x: 3456
+        y: 0
+        width: 1728
+        height: 1600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a49cfaab47b149488b46fd051d3a731
+      internalID: -1720879859
       vertices: []
       indices: 
       edges: []
@@ -178,8 +304,14 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Cutscene_BG_1: 1278230484
+      Cutscene_BG_5: -432551915
+      Cutscene_BG_3: 83180228
+      Cutscene_BG_7: 1518055809
+      Cutscene_BG_8: -1720879859
+      Cutscene_BG_6: -629535640
       Cutscene_BG_2: -1041452747
       Cutscene_BG_0: -1068687612
+      Cutscene_BG_4: 1061354381
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

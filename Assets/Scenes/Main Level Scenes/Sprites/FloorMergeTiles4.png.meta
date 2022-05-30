@@ -882,7 +882,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FloorMergeTiles4_10: -1413424354
+      FloorMergeTiles4_31: -944283384
       FloorMergeTiles4_16: 967392272
       FloorMergeTiles4_14: 181358273
       FloorMergeTiles4_34: -163094214
@@ -915,9 +915,9 @@ TextureImporter:
       FloorMergeTiles4_8: 1002180820
       FloorMergeTiles4_6: -281873639
       FloorMergeTiles4_15: -1677943923
-      FloorMergeTiles4_30: -1559930489
       FloorMergeTiles4_17: -706098929
-      FloorMergeTiles4_31: -944283384
+      FloorMergeTiles4_30: -1559930489
+      FloorMergeTiles4_10: -1413424354
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -34,6 +34,11 @@ public class Main_Menu_Script : MonoBehaviour
 		StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + last_Save));
 	}
 
+	public void Play_Arena()
+	{
+		StartCoroutine(LoadLevel(4));	// 4 is arena
+	}
+
 	public void Exit_Game()
 	{
 		Application.Quit();

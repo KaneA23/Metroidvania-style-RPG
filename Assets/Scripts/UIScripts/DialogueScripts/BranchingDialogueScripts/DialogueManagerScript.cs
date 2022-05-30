@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Ink.Runtime;
@@ -198,7 +199,9 @@ public class DialogueManagerScript : MonoBehaviour
 		}
 		else
 		{
+			continueButton.GetComponentInChildren<Toggle>().isOn = false;
 			continueButton.SetActive(true);
+			continueButton.GetComponentInChildren<Toggle>().interactable = true;
 		}
 
 		// Checks if UI can support number of choices
@@ -240,13 +243,20 @@ public class DialogueManagerScript : MonoBehaviour
 	/// </summary>
 	public void ContinueClicked()
 	{
+		if (!continueButton.GetComponentInChildren<Toggle>().isOn)
+		{
+			return;
+		}
+
 		if (!canContinueNextLine)
 		{
 			return;
 		}
 		else
 		{
-			ContinueDialogue();
+			Invoke(nameof(ContinueDialogue), 0.1f);
+			continueButton.GetComponentInChildren<Toggle>().interactable = false;
+			//continueButton.GetComponentInChildren<Toggle>().isOn = false;
 		}
 	}
 

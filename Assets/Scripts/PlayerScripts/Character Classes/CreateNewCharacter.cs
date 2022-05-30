@@ -101,8 +101,8 @@ public class CreateNewCharacter : MonoBehaviour
 		newPlayer.LightAttackCooldown = newPlayer.PlayerClass.LightCooldown;
 		newPlayer.HeavyAttackCooldown = newPlayer.PlayerClass.HeavyCooldown;
 
-		Debug.Log("Player Class: " + newPlayer.PlayerClass.CharacterClassName);
-		Debug.Log("Player Level: " + newPlayer.PlayerLvl);
+		//Debug.Log("Player Class: " + newPlayer.PlayerClass.CharacterClassName);
+		//Debug.Log("Player Level: " + newPlayer.PlayerLvl);
 		//Debug.Log("Player HP: " + newPlayer.PlayerClass.MaximumHealthPoints);
 		//Debug.Log("Player MP: " + newPlayer.PlayerClass.MaximumMana);
 		//Debug.Log("Player MP Regen: " + newPlayer.PlayerClass.MaximumManaRegeneration);
@@ -140,7 +140,7 @@ public class CreateNewCharacter : MonoBehaviour
 		GameInformation.PlayerLightCooldown = newPlayer.LightAttackCooldown;
 		GameInformation.PlayerHvyCooldown = newPlayer.HeavyAttackCooldown;
 
-		Debug.Log("Stored Class Name: " + GameInformation.ClassName);
-		Debug.Log("Stored Level: " + GameInformation.PlayerLvl);
+		//Debug.Log("Stored Class Name: " + GameInformation.ClassName);
+		//Debug.Log("Stored Level: " + GameInformation.PlayerLvl);
 	}
 }

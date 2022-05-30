@@ -15,6 +15,7 @@ public class GameOverScript : MonoBehaviour
 	public string currentAnimState;
 
 	[SerializeField] private GameObject resetButton;
+	[SerializeField] private GameObject menuButton;
 
 	public Animator transition;
 
@@ -24,6 +25,7 @@ public class GameOverScript : MonoBehaviour
 	void Start()
 	{
 		resetButton.SetActive(false);
+		menuButton.SetActive(false);
 
 		ChangeAnimationState("Player_Dash", playerAnim);
 		isPlayerEntrance = true;
@@ -82,6 +84,7 @@ public class GameOverScript : MonoBehaviour
 		isDeathEntrance = false;
 
 		resetButton.SetActive(true);
+		menuButton.SetActive(true);
 	}
 
 	public void RestartGame()
@@ -94,6 +97,11 @@ public class GameOverScript : MonoBehaviour
 		{
 			StartCoroutine(LoadLevel("Level 1 - Temp - Play Test 1"));
 		}
+	}
+
+	public void ReturnToMenu()
+	{
+		StartCoroutine(LoadLevel("Main Menu Scene"));
 	}
 
 	IEnumerator LoadLevel(string a_sceneName)
