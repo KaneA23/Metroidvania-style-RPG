@@ -28,6 +28,12 @@ public class Main_Menu_Script : MonoBehaviour
 
 	public float transitionTime = 1f;
 
+	private void Start()
+	{
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = true;
+	}
+
 	public void Play_Game()
 	{
 		//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + last_Save);

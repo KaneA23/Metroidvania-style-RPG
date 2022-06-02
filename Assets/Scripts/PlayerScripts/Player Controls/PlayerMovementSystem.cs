@@ -153,6 +153,17 @@ public class PlayerMovementSystem : MonoBehaviour
 			Application.Quit();
 		}
 
+		if (DialogueManagerScript.GetInstance().IsDialoguePlaying)
+		{
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = true;
+		}
+		else
+		{
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+		}
+
 		//groundedTimer -= Time.deltaTime;
 		//if (isGrounded)
 		//{

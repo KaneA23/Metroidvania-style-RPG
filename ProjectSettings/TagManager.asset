@@ -77,6 +77,9 @@ TagManager:
   - name: DeadNPCs
     uniqueID: 877603105
     locked: 0
+  - name: Enemy NPCs
+    uniqueID: 3636381121
+    locked: 0
   - name: NPCs
     uniqueID: 3548567479
     locked: 0

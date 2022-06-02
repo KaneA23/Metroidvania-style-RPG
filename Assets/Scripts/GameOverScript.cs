@@ -26,6 +26,9 @@ public class GameOverScript : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+
 		resetButton.SetActive(false);
 		menuButton.SetActive(false);
 
@@ -101,6 +104,9 @@ public class GameOverScript : MonoBehaviour
 
 		resetButton.SetActive(true);
 		menuButton.SetActive(true);
+
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = true;
 	}
 
 	/// <summary>
