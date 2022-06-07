@@ -118,6 +118,7 @@ public class EnemyHealth : MonoBehaviour
 
 			if (gameObject.name == "Bernard")
 			{
+				FindObjectOfType<CameraFollowScript>().cameraState = CameraState.CAM_FOLLOWING;
 				//Destroy(m_SpriteRenderer);
 
 				//InvokeRepeating("Timer", 0, 1);

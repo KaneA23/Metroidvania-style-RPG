@@ -28,7 +28,7 @@ public class ExitArenaScript : MonoBehaviour
 		{
 			bernardUI.SetActive(false);
 
-			CFS.cameraState = CameraState.CAM_FOLLOWING;
+			//CFS.cameraState = CameraState.CAM_FOLLOWING;
 		}
 	}
 }

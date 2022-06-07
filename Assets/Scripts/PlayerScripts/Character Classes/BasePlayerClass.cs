@@ -73,7 +73,7 @@ public class BasePlayerClass : MonoBehaviour/*, IDataPersistence*/
 	[Space(5)]
 	public bool hasJump;
 	public float jumpForce = 25f;
-	public int jumpCost = 5;
+	public int jumpCost = 1;
 
 	[Space(2)]
 	public bool hasDoubleJump;

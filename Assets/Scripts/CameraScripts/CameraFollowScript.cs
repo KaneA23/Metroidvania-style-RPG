@@ -59,18 +59,18 @@ public class CameraFollowScript : MonoBehaviour
 		}
 
 		// Debugs
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			cameraState = CameraState.CAM_FOLLOWING;
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			cameraState = CameraState.CAM_BOSSBERNARD;
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			cameraState = CameraState.CAM_ARENA;
-		}
+		//if (Input.GetKeyDown(KeyCode.Alpha1))
+		//{
+		//	cameraState = CameraState.CAM_FOLLOWING;
+		//}
+		//if (Input.GetKeyDown(KeyCode.Alpha2))
+		//{
+		//	cameraState = CameraState.CAM_BOSSBERNARD;
+		//}
+		//if (Input.GetKeyDown(KeyCode.Alpha3))
+		//{
+		//	cameraState = CameraState.CAM_ARENA;
+		//}
 
 		CheckCameraState();
 	}
@@ -126,7 +126,7 @@ public class CameraFollowScript : MonoBehaviour
 		{
 			case CameraState.CAM_FOLLOWING:
 				isFollowingPlayer = true;
-				smoothZoom = Mathf.Lerp(cam.orthographicSize, followCamSize, 1f * Time.deltaTime);
+				smoothZoom = Mathf.Lerp(cam.orthographicSize, followCamSize, 1f * Time.fixedDeltaTime);
 				cam.orthographicSize = smoothZoom;
 
 				break;
@@ -137,7 +137,7 @@ public class CameraFollowScript : MonoBehaviour
 				smoothZoom = Mathf.Lerp(cam.orthographicSize, 11.3f, 2f * Time.deltaTime);
 				cam.orthographicSize = smoothZoom;
 
-				smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 0.3f * Time.fixedDeltaTime);
+				smoothedPos = Vector3.Lerp(transform.position, new Vector3(1.6f, -6.4f, -10f), 1f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
 
 				break;
@@ -147,7 +147,7 @@ public class CameraFollowScript : MonoBehaviour
 				smoothZoom = Mathf.Lerp(cam.orthographicSize, 14.5f, 2f * Time.deltaTime);
 				cam.orthographicSize = smoothZoom;
 
-				smoothedPos = Vector3.Lerp(transform.position, new Vector3(3f, -2.5f, -10f), 0.3f * Time.fixedDeltaTime);
+				smoothedPos = Vector3.Lerp(transform.position, new Vector3(3f, -2.5f, -10f), 1f * Time.fixedDeltaTime);
 				transform.position = smoothedPos;
 
 				break;

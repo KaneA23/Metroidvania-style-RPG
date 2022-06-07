@@ -52,14 +52,14 @@ public class PlayerManaSystem : MonoBehaviour
 	void Update()
 	{
 		// Debugs
-		if (Input.GetKeyDown(KeyCode.Alpha9))
-		{
-			TakeMana(10);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha0))
-		{
-			RegenMana(10);
-		}
+		//if (Input.GetKeyDown(KeyCode.Alpha9))
+		//{
+		//	TakeMana(10);
+		//}
+		//if (Input.GetKeyDown(KeyCode.Alpha0))
+		//{
+		//	RegenMana(10);
+		//}
 
 		manaBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxMP, 32);   // Changes size of player stamina bar
 

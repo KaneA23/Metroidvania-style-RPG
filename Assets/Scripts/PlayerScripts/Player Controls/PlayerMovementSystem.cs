@@ -489,11 +489,12 @@ public class PlayerMovementSystem : MonoBehaviour
 			canWallJump = false;
 		}
 
-		if (isGrounded && canJump)
+		if (isGrounded && canJump && BPC.currentStam >= BPC.jumpCost)
 		{
-			canJump = false;
-
 			CreateDustParticles();
+
+			PSS.TakeStamina(BPC.jumpCost);
+			canJump = false;
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
 		}
@@ -507,14 +508,17 @@ public class PlayerMovementSystem : MonoBehaviour
 		}
 		else if (canDoubleJump && BPC.hasDoubleJump)
 		{
-			if (BPC.currentStam >= BPC.jumpCost /*&& jumpCount == 2*/)
-			{
-				canDoubleJump = false;
-				PSS.TakeStamina(BPC.jumpCost);
+			CreateDustParticles();
 
-				rb.velocity = new Vector2(0f, 0f);
-				rb.velocity = BPC.jumpForce * Vector2.up;
+			if (BPC.hasDash && BPC.currentMP >= BPC.jumpCost /*&& jumpCount == 2*/)
+			{
+				//PSS.TakeStamina(BPC.jumpCost);
+				PMS.TakeMana(BPC.jumpCost);
 			}
+
+			canDoubleJump = false;
+			rb.velocity = new Vector2(0f, 0f);
+			rb.velocity = BPC.jumpForce * Vector2.up;
 		}
 	}
 

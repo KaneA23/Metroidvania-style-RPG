@@ -43,10 +43,10 @@ public class ArenaEnemySpawner : MonoBehaviour
 	void Update()
 	{
 		// Debug
-		if (Input.GetKeyDown(KeyCode.T))
-		{
-			spawnNumber = 0;
-		}
+		//if (Input.GetKeyDown(KeyCode.T))
+		//{
+		//	spawnNumber = 0;
+		//}
 	}
 
 	/// <summary>

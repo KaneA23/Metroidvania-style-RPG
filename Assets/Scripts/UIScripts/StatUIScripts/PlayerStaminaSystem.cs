@@ -46,14 +46,14 @@ public class PlayerStaminaSystem : MonoBehaviour
 	void Update()
 	{
 		// Debugs
-		if (Input.GetKeyDown(KeyCode.Alpha7))
-		{
-			TakeStamina(10);
-		}
-		if (Input.GetKeyDown(KeyCode.Alpha8))
-		{
-			RegenStamina(10);
-		}
+		//if (Input.GetKeyDown(KeyCode.Alpha7))
+		//{
+		//	TakeStamina(10);
+		//}
+		//if (Input.GetKeyDown(KeyCode.Alpha8))
+		//{
+		//	RegenStamina(10);
+		//}
 
 		if (BPC.hasRun)
 		{

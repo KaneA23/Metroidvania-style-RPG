@@ -84,14 +84,14 @@ public class PlayerHealthSystem : MonoBehaviour
 		healthBarEmpty.GetComponent<RectTransform>().sizeDelta = new Vector2(BPC.currentMaxHP, 32); // Changes size of player healthbar
 
 		// Debugs
-		if (Input.GetKeyDown(KeyCode.Minus))
-		{
-			TakeDamage(10, gameObject.transform.position, 0f, false);
-		}
-		if (Input.GetKeyDown(KeyCode.Equals))
-		{
-			GainHealth(10);
-		}
+		//if (Input.GetKeyDown(KeyCode.Minus))
+		//{
+		//	TakeDamage(10, gameObject.transform.position, 0f, false);
+		//}
+		//if (Input.GetKeyDown(KeyCode.Equals))
+		//{
+		//	GainHealth(10);
+		//}
 
 		double fillF = System.Math.Round(healthFrontFillBar.fillAmount, 2);
 		double fillB = System.Math.Round(healthBackFillBar.fillAmount, 2);

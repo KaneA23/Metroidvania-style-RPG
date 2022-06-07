@@ -64,10 +64,10 @@ public class LevelSystem : MonoBehaviour
 		double fillB = System.Math.Round(xpBackFillBar.fillAmount, 2);
 
 		// Debug
-		if (Input.GetKeyDown(KeyCode.L))
-		{
-			GainExperience(Random.Range(10, 250));
-		}
+		//if (Input.GetKeyDown(KeyCode.L))
+		//{
+		//	GainExperience(Random.Range(10, 250));
+		//}
 
 		if (fillF == fillB)
 		{
