@@ -3,13 +3,14 @@ using UnityEngine;
 using System;
 public class BernardAttacking : MonoBehaviour
 {
+    [Header("Script References")]
     private BernardStates BS;
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
     public AISetUp AISU;
     public EnemyAnimationManager EAM;
     public BernardAnimationSystem BAS;
-
+    [Space]
     private Vector3 m_TargetPos;
     private Vector2 m_TargetDir;
     Vector2 m_ChunkHitDir;
@@ -58,7 +59,6 @@ public class BernardAttacking : MonoBehaviour
     public float HitForce;
     public float m_ProjectileForce;
     public float m_AboveAttackInterval;
-    float minDistance = Mathf.Infinity;
     public float animDelay;
     public float wallDetectionRadius;
     public float m_WaitTime;
@@ -86,6 +86,7 @@ public class BernardAttacking : MonoBehaviour
     private bool CR_RUNNING = false;
     [SerializeField] private bool isFacingRight = false;
     [SerializeField] private bool isFacingLeft = true;
+    private bool acceptableDistace = false;
 
     private int dirChoice = 0;
 
@@ -294,15 +295,16 @@ public class BernardAttacking : MonoBehaviour
 
         if (otherObject.gameObject == m_Player)
         {
-
-            if (m_BodyCollider.bounds.Intersects(m_PlayerCollider.bounds) || m_TailCollider.bounds.Intersects(m_PlayerCollider.bounds))
-            {
-                m_Player.layer = 12;
-            }
-
             if (!secondPhase)
             {
+                Debug.Log("plop");
+
                 PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
+
+                if (m_BodyCollider.bounds.Intersects(m_PlayerCollider.bounds) || m_TailCollider.bounds.Intersects(m_PlayerCollider.bounds))
+                {
+                    m_Player.layer = 12;
+                }
             }
 
             if (PHS.isEnemyBack && !secondPhase)
@@ -330,40 +332,27 @@ public class BernardAttacking : MonoBehaviour
 
         m_TargetPos = m_Player.transform.position;
 
-        if (!onWall)
+        if(!onWall)
         {
-            if (!dirChosen)
+            Collider2D[] wallColliders = Physics2D.OverlapCircleAll(transform.position, wallDetectionRadius);
+
+            if(!dirChosen)
             {
-                dirChoice = UnityEngine.Random.Range(0, 2);
-                Debug.Log("Direction Choice: " + dirChoice);
-                dirChosen = true;
-            }
-            else
+                ChooseDir(wallColliders);
+            }          
+            
+            if(dirChosen)
             {
                 gameObject.layer = 17;
                 transform.Find("WallCollider").gameObject.layer = 17;
+                MoveTowardsWall();
             }
-
-            if (dirChoice >= 0 && dirChoice < 1)
-            {
-                directionChoice = 'R';
-
-                rb.AddForce(new Vector2(1f, 0f).normalized * m_Speed);
-            }
-            else
-            {
-                directionChoice = 'L';
-
-                rb.AddForce(new Vector2(-1f, 0f).normalized * m_Speed);
-            }
-
-            if (!oneTime)
+            
+            if(!oneTime)
             {
                 EnemyFacingSecondPhase();
                 oneTime = true;
             }
-
-            Collider2D[] wallColliders = Physics2D.OverlapCircleAll(transform.position, wallDetectionRadius);
 
             for (int i = 0; i < wallColliders.Length; i++)
             {
@@ -409,6 +398,82 @@ public class BernardAttacking : MonoBehaviour
             {
                 StartCoroutine(AboveAttack(m_ProjectileForce));
             }
+        }
+    }
+
+    void ChooseDir(Collider2D[] wallColliders)
+    {
+        float distance = 0;
+
+        for (int i = 0; i < wallColliders.Length; i++)
+        {
+            if(wallColliders[i].CompareTag("BossWall"))
+            {
+                distance = Vector2.Distance(transform.position, wallColliders[i].transform.position);
+                if(wallColliders[i].transform.Find("SideCheck").CompareTag("LeftWall"))
+                {
+                    directionChoice = 'R';
+                    dirChosen = true;
+                }
+                else if(wallColliders[i].transform.Find("SideCheck").CompareTag("RightWall"))
+                {
+                    directionChoice = 'L';
+                    dirChosen = true;
+                }
+            }
+            else
+            {
+                dirChoice = UnityEngine.Random.Range(0, 2);
+                Debug.Log("Direction Choice: " + dirChoice);
+
+                if (dirChoice >= 0 && dirChoice < 1)
+                {
+                    directionChoice = 'R';
+                }
+                else
+                {
+                    directionChoice = 'L';
+                }
+
+                dirChosen = true;
+            }
+        }
+
+        //if (!dirChosen)
+        //{
+        //    dirChoice = UnityEngine.Random.Range(0, 2);
+        //    Debug.Log("Direction Choice: " + dirChoice);
+        //    dirChosen = true;
+        //}
+        //else
+        //{
+        //    gameObject.layer = 17;
+        //    transform.Find("WallCollider").gameObject.layer = 17;
+        //}
+    }
+
+    void MoveTowardsWall()
+    {
+        //if (dirChoice >= 0 && dirChoice < 1)
+        //{
+        //    directionChoice = 'R';
+
+        //    rb.AddForce(new Vector2(1f, 0f).normalized * m_Speed);
+        //}
+        //else
+        //{
+        //    directionChoice = 'L';
+
+        //    rb.AddForce(new Vector2(-1f, 0f).normalized * m_Speed);
+        //}
+
+        if (directionChoice == 'R')
+        {
+            rb.AddForce(new Vector2(1f, 0f).normalized * m_Speed);
+        }
+        else if(directionChoice == 'L')
+        {
+            rb.AddForce(new Vector2(-1f, 0f).normalized * m_Speed);
         }
     }
 

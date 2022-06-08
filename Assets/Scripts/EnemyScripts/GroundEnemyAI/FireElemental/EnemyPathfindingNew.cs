@@ -13,6 +13,7 @@ public class EnemyPathfindingNew : MonoBehaviour
     public LayerMask m_GroundMask;
 
     public float m_Speed;
+    public float m_LedgeForce;
     public float m_AttackDistance;
     public float m_sightDistance;
     public float HitForce;
@@ -262,13 +263,13 @@ public class EnemyPathfindingNew : MonoBehaviour
         {
             rightColliderHit = false;
             rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(-1f, 0).normalized * 5, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(-1f, 0).normalized * m_LedgeForce, ForceMode2D.Impulse);
         }
         else if (leftHit.collider == null)
         {
             leftColliderHit = false;
             rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(1f, 0).normalized * 5, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(1f, 0).normalized * m_LedgeForce, ForceMode2D.Impulse);
         }
         else
         {

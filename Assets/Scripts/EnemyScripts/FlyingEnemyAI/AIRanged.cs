@@ -6,40 +6,44 @@ using Pathfinding;
 
 public class AIRanged : MonoBehaviour
 {
+    [Header("Script References")]
     public PlayerHealthSystem PHS;
     public EnemyHealth EH;
     public AISetUp AISU;
     public EnemyAnimationManager EAM;
 
+    [Header("Assigned Objects")]
     public GameObject m_Player;
     public GameObject m_DeadEarthElementalPrefab;
     private GameObject m_DeadEarthElemental;
+    [Space]
     private Transform[] m_EarthElementalSpikes;
-
+    public Transform target;
+    public Transform enemyGraphics;
+    [Space]
     public LayerMask m_GroundMask;
 
-    public Transform target;
+    [Header("Changable Values")]
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
     public float m_AttackDistance;
     public float m_HitForce;
+    public int m_DamageAmount;
 
-    public Transform enemyGraphics;
 
     private Vector3 m_TargetPos;
     [SerializeField] private Vector3 m_HoverPos;
     public Vector3 m_HoverDistance;
     private float m_Distance;
 
-    public int m_DamageAmount;
     private int m_Timer = 0;
 
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
 
+    [Header("Statuses")]
     public bool attacking = false;
-
     public bool isAlert;
     public bool isForget;
     public bool isAgro;
