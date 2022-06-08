@@ -493,7 +493,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			CreateDustParticles();
 
-			PSS.TakeStamina(BPC.jumpCost);
+			//PSS.TakeStamina(BPC.jumpCost);
 			canJump = false;
 
 			rb.velocity = BPC.jumpForce * Vector2.up;
@@ -510,11 +510,11 @@ public class PlayerMovementSystem : MonoBehaviour
 		{
 			CreateDustParticles();
 
-			if (BPC.hasDash && BPC.currentMP >= BPC.jumpCost /*&& jumpCount == 2*/)
-			{
-				//PSS.TakeStamina(BPC.jumpCost);
-				PMS.TakeMana(BPC.jumpCost);
-			}
+			//if (BPC.hasDash && BPC.currentMP >= BPC.jumpCost /*&& jumpCount == 2*/)
+			//{
+			//	//PSS.TakeStamina(BPC.jumpCost);
+			//	PMS.TakeMana(BPC.jumpCost);
+			//}
 
 			canDoubleJump = false;
 			rb.velocity = new Vector2(0f, 0f);

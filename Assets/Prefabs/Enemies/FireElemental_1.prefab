@@ -5435,7 +5435,7 @@ MonoBehaviour:
   m_GroundMask:
     serializedVersion: 2
     m_Bits: 263168
-  m_Speed: 10.01
+  m_Speed: 10
   m_LedgeForce: 1.5
   m_AttackDistance: 0.001
   m_sightDistance: 55
@@ -5557,7 +5557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BHUI: {fileID: 0}
   BA: {fileID: 0}
-  m_MaxHP: 210
+  m_MaxHP: 200
   m_CurrentHP: 0
   HitForce: 250
   startTime: 0

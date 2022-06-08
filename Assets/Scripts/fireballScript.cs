@@ -4,7 +4,7 @@ using UnityEngine;
 /// Controls travelling fireball.
 /// Created by: Kane Adams
 /// </summary>
-public class FireballScript : MonoBehaviour
+public class fireballScript : MonoBehaviour
 {
 	BasePlayerClass BPC;
 

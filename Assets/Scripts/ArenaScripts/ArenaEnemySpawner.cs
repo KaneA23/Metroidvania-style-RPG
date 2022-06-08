@@ -39,6 +39,24 @@ public class ArenaEnemySpawner : MonoBehaviour
 		AWM = GetComponent<ArenaWaveManager>();
 	}
 
+	private void Start()
+	{
+		enemyPrefab.GetComponent<EnemyHealth>().m_MaxHP = 200;
+
+		// Earth Elemental attack strength
+		if (enemyPrefab.GetComponent<AIRanged>() != null)
+		{
+			enemyPrefab.GetComponent<AIRanged>().m_DamageAmount = 5; 
+		}
+
+		// Fire Elemental attack strength and speed
+		if (enemyPrefab.GetComponent<EnemyPathfindingNew>() != null)
+		{
+			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_DamageAmount = 1;
+			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_Speed = 5;
+		}
+	}
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -152,7 +170,7 @@ public class ArenaEnemySpawner : MonoBehaviour
 		if (enemyPrefab.GetComponent<EnemyPathfindingNew>() != null)
 		{
 			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_DamageAmount++;
-			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_Speed += 0.01f;
+			enemyPrefab.GetComponent<EnemyPathfindingNew>().m_Speed += 0.001f;
 		}
 	}
 }

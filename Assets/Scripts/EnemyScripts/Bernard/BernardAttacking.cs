@@ -231,6 +231,11 @@ public class BernardAttacking : MonoBehaviour
 
     private void GroundAttacking()
     {
+        // Prevents Bernard from attacking during his entrance
+        if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
+		{
+            return;
+		}
 
         m_TargetPos = new Vector3(m_PlayerTransform.position.x, transform.position.y, m_PlayerTransform.position.z);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
