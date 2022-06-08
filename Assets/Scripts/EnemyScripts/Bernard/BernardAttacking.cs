@@ -64,6 +64,7 @@ public class BernardAttacking : MonoBehaviour
     public float m_WaitTime;
     public float m_HeightAbovePlayer;
     public float m_SpawnCheckRadius;
+    private float m_Time;
 
     private bool wallHit;
     public bool m_MovingToTarget;
@@ -131,15 +132,6 @@ public class BernardAttacking : MonoBehaviour
         }
 
         float h = Input.GetAxisRaw("Horizontal");
-
-        //if (isAgro && !isAlert)                                                ]
-        //{                                                                      ]
-        //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_ATTACK);   ]
-        //}                                                                      ]--- Kane Animation stuff. Uncomment and change as needed.
-        //else if (!isAgro && !isForget)                                         ]
-        //{                                                                      ]
-        //    EAM.ChangeAnimationState(AIAnimationState.FIREELEMENTAL_WALK);     ]
-        //}                                                                      ]     
 
         if (transform.position.x < m_Player.transform.position.x)
         {
@@ -271,6 +263,8 @@ public class BernardAttacking : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        m_Time = 0;
+
         Collider2D otherObject = collision.collider;
 
         if (otherObject.CompareTag("BossWall"))
@@ -297,8 +291,6 @@ public class BernardAttacking : MonoBehaviour
         {
             if (!secondPhase)
             {
-                Debug.Log("plop");
-
                 PHS.TakeDamage(m_GroundAttackDamage, gameObject.transform.position, m_GroundAttackKnockback, true);
 
                 if (m_BodyCollider.bounds.Intersects(m_PlayerCollider.bounds) || m_TailCollider.bounds.Intersects(m_PlayerCollider.bounds))
@@ -317,7 +309,35 @@ public class BernardAttacking : MonoBehaviour
             }
         }
     }
-    //thing
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (m_Time > 1)
+        {
+            if(collision.collider.gameObject == m_Player)
+            {
+                m_Time += Time.deltaTime;
+
+                if (PHS.isEnemyBack && !secondPhase)
+                {
+                    if (Physics2D.IsTouching(m_BodyCollider, floorCollider) || Physics2D.IsTouching(m_TailCollider, floorCollider))
+                    {
+                        m_PlayerBody.AddForce(new Vector2(0f, 1f).normalized * 20, ForceMode2D.Impulse);
+                        rb.AddForce(new Vector2(0f, 1f).normalized * 6, ForceMode2D.Impulse);
+                    }
+                }
+            }          
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject == m_Player)
+        {
+            m_Time = 0;
+        }  
+    }
+
     void Attacking_1()
     {
         firstPhase = true;
