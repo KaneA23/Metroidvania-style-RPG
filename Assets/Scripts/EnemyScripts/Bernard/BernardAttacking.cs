@@ -120,6 +120,7 @@ public class BernardAttacking : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 17);
         Physics2D.IgnoreLayerCollision(3, 17);
         Physics2D.IgnoreLayerCollision(16, 17);
+        Physics2D.IgnoreLayerCollision(17, 12);
     }
 
     // Update is called once per frame
