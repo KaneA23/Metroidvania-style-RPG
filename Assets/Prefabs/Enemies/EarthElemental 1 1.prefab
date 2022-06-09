@@ -631,18 +631,18 @@ MonoBehaviour:
   EAM: {fileID: 0}
   m_Player: {fileID: 0}
   m_DeadEarthElementalPrefab: {fileID: 5424839204103089088, guid: 6f05bc7b259d71f49aa23f3cb8a30c51, type: 3}
+  target: {fileID: 0}
+  enemyGraphics: {fileID: 704486224008737803}
   m_GroundMask:
     serializedVersion: 2
     m_Bits: 263168
-  target: {fileID: 0}
   speed: 500
   nextWaypointDistance: 10
   m_AttackDistance: 15
   m_HitForce: 25
-  enemyGraphics: {fileID: 704486224008737803}
+  m_DamageAmount: 5
   m_HoverPos: {x: 0, y: 0, z: 0}
   m_HoverDistance: {x: 5, y: 3, z: 0}
-  m_DamageAmount: 5
   attacking: 0
   isAlert: 0
   isForget: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   animFinished: 0
   transition: {fileID: 0}
   transitionTime: 1
-  xp: 25
+  xp: 50
 --- !u!114 &-1602572818474940219
 MonoBehaviour:
   m_ObjectHideFlags: 0

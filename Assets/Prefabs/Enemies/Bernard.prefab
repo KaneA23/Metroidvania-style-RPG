@@ -407,7 +407,7 @@ MonoBehaviour:
   animFinished: 0
   transition: {fileID: 0}
   transitionTime: 1
-  xp: 250
+  xp: 300
 --- !u!60 &551591509
 PolygonCollider2D:
   m_ObjectHideFlags: 0
