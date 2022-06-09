@@ -187,7 +187,7 @@ public class EnemyPathfindingNew : MonoBehaviour
 
     #endregion __CHECK_COLLISIONS_END__
 
-    private void Update()
+    private void FixedUpdate()
     {
         m_Velocity = rb.velocity.normalized;
 
