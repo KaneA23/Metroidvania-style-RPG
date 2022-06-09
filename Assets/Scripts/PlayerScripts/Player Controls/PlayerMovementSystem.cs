@@ -277,10 +277,13 @@ public class PlayerMovementSystem : MonoBehaviour
 		// Checks which way the player should be facing
 		if (PAM.currentAnimState != "Player_DashEnter" && PAM.currentAnimState != "Player_DashExit" && !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
 		{
-			if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
+			if (PAM.currentAnimState != "Player_SwordAttack" && PAM.currentAnimState != "Player_HeavyAttack")
 			{
-				transform.Rotate(new Vector2(0, 180f));
-				isFacingRight = !isFacingRight;
+				if ((moveHorizontal > 0 && !isFacingRight) || (moveHorizontal < 0 && isFacingRight))
+				{
+					transform.Rotate(new Vector2(0, 180f));
+					isFacingRight = !isFacingRight;
+				}
 			}
 		}
 

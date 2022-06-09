@@ -118,7 +118,7 @@ public class PlayerHealthSystem : MonoBehaviour
 			PAM.ChangeAnimationState(PlayerAnimationState.PLAYER_DEATH);
 			animDelay = 4f;
 			Invoke(nameof(KillPlayer), animDelay);
-			
+
 			FindObjectOfType<AudioManager>().PlayAudio("PlayerDeath");
 		}
 
@@ -134,7 +134,7 @@ public class PlayerHealthSystem : MonoBehaviour
 	/// <param name="a_isKnockback">some attacks don't knock player back</param>
 	public void TakeDamage(int a_damage, Vector2 a_enemyPos, float a_knockForce, bool a_isKnockback)
 	{
-		if (isEnemyBack)
+		if (isEnemyBack || isDying)
 		{
 			return;
 		}
