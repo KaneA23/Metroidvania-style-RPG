@@ -52,7 +52,7 @@ public class BernardStates : MonoBehaviour
         bernardTailCollider = GetComponent<PolygonCollider2D>();
     }
 
-	private void Update()
+	private void FixedUpdate()
 	{
 		//if (FindObjectOfType<BernardIntroCutscene>().isCutscene)
 		//{

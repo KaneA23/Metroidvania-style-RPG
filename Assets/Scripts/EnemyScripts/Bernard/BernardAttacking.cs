@@ -125,8 +125,7 @@ public class BernardAttacking : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        m_DistanceToPlayer = Vector2.Distance(transform.position, m_PlayerTransform.position);
+    {     
 
         if (m_EarthChunk != null)
         {
@@ -238,14 +237,13 @@ public class BernardAttacking : MonoBehaviour
             return;
 		}
 
-        m_TargetPos = new Vector2(m_PlayerTransform.position.x, transform.position.y);
+        m_TargetPos = new Vector2(m_PlayerTransform.position.x, gameObject.transform.position.y);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
+        m_DistanceToPlayer = Vector2.Distance(transform.position, m_PlayerTransform.position);
 
         if (m_DistanceToPlayer < BS.m_AttackDistance)
         {
             rb.AddForce(m_TargetDir * m_Speed);
-            Debug.Log("Moving");
-
             m_MovingToTarget = true;
         }
         else
