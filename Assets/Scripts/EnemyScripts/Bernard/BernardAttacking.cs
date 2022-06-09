@@ -21,7 +21,7 @@ public class BernardAttacking : MonoBehaviour
 
     private Transform m_PlayerTransform;
 
-    private GameObject m_Player;
+    [SerializeField] private GameObject m_Player;
     GameObject m_EarthChunk;
     public GameObject m_Floor;
     private GameObject m_ChosenWall;
@@ -30,7 +30,7 @@ public class BernardAttacking : MonoBehaviour
 
     public SpriteRenderer m_SpriteRenderer;
 
-    private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     private Rigidbody2D m_PlayerBody;
 
     public CapsuleCollider2D m_BodyCollider;
@@ -53,7 +53,7 @@ public class BernardAttacking : MonoBehaviour
     public int m_GroundAttackDamage;
 
     public float m_GroundAttackKnockback;
-    public float m_Speed;
+    public float m_Speed = 3;
     public float m_WallJumpForce;
     public float m_AttackDistance;
     public float HitForce;
@@ -65,6 +65,7 @@ public class BernardAttacking : MonoBehaviour
     public float m_HeightAbovePlayer;
     public float m_SpawnCheckRadius;
     private float m_Time;
+    [SerializeField] float m_DistanceToPlayer;
 
     private bool wallHit;
     public bool m_MovingToTarget;
@@ -76,7 +77,6 @@ public class BernardAttacking : MonoBehaviour
     private bool flipped = false;
     public bool deathAnimFinished = false;
 
-    [SerializeField] private bool m_Attacking;
     [SerializeField] private bool dirChosen = false;
     [SerializeField] public bool onWall = false;
     [SerializeField] public bool jumpedUp = false;
@@ -126,6 +126,7 @@ public class BernardAttacking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        m_DistanceToPlayer = Vector2.Distance(transform.position, m_PlayerTransform.position);
 
         if (m_EarthChunk != null)
         {
@@ -203,7 +204,6 @@ public class BernardAttacking : MonoBehaviour
 
         if (secondPhase)
         {
-            //Debug.Log("player direction x: " + playerDir.x);
 
             if (directionChoice == 'R' && playerDirection == 'L')
             {
@@ -238,12 +238,13 @@ public class BernardAttacking : MonoBehaviour
             return;
 		}
 
-        m_TargetPos = new Vector3(m_PlayerTransform.position.x, transform.position.y, m_PlayerTransform.position.z);
+        m_TargetPos = new Vector2(m_PlayerTransform.position.x, transform.position.y);
         m_TargetDir = (m_TargetPos - transform.position).normalized;
 
-        if (Vector2.Distance(transform.position, m_TargetPos) < BS.m_AttackDistance)
+        if (m_DistanceToPlayer < BS.m_AttackDistance)
         {
             rb.AddForce(m_TargetDir * m_Speed);
+            Debug.Log("Moving");
 
             m_MovingToTarget = true;
         }
@@ -266,7 +267,7 @@ public class BernardAttacking : MonoBehaviour
             isAgro = false;
         }
     }
-
+    #region COLLISION_CHECKS
     private void OnCollisionEnter2D(Collision2D collision)
     {
         m_Time = 0;
@@ -343,6 +344,8 @@ public class BernardAttacking : MonoBehaviour
             m_Time = 0;
         }  
     }
+
+    #endregion
 
     void Attacking_1()
     {

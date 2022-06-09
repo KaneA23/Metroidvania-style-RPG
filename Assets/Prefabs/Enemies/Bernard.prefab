@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 2042561984185029551}
   - component: {fileID: 2042561984185029550}
   - component: {fileID: 551591509}
-  - component: {fileID: 551591510}
   - component: {fileID: 279307000}
   - component: {fileID: 551591501}
   - component: {fileID: 551591507}
@@ -274,7 +273,7 @@ MonoBehaviour:
   EH: {fileID: 2042561984185029550}
   bernardWallBody: {fileID: 1391011384}
   m_AttackDistance: 50
-  m_StartFightDistance: 10
+  m_StartFightDistance: 15
   m_Health: 0
   m_HealthPercentageRounded: 0
   m_Attacking: 0
@@ -305,16 +304,18 @@ MonoBehaviour:
   BAS: {fileID: 551591507}
   playerDir: {x: 0, y: 0}
   earthChunkAnimator: {fileID: 0}
+  m_Player: {fileID: 0}
   m_Floor: {fileID: 0}
   m_SpawnCheckPrefab: {fileID: 5079449562315481383, guid: 892d193d048e14b4db22e9c7552e5cc6, type: 3}
   m_SpriteRenderer: {fileID: 2042561984185029538}
+  rb: {fileID: 0}
   m_BodyCollider: {fileID: 279307000}
   m_TailCollider: {fileID: 551591509}
   m_EarthChunkPrefab: {fileID: 5079449562315481383, guid: 1c35fc1cf83a8e14a94bf2c7a3c39c24, type: 3}
   m_IgnoreMasks: []
   m_PlayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_FloorMask:
     serializedVersion: 2
     m_Bits: 1537
@@ -323,7 +324,7 @@ MonoBehaviour:
   playerDirNew: 0
   m_GroundAttackDamage: 1
   m_GroundAttackKnockback: 500
-  m_Speed: 3
+  m_Speed: 5
   m_WallJumpForce: 30
   m_AttackDistance: 12
   HitForce: 0
@@ -334,12 +335,12 @@ MonoBehaviour:
   m_WaitTime: 0
   m_HeightAbovePlayer: 10
   m_SpawnCheckRadius: 0
+  m_DistanceToPlayer: 0
   m_MovingToTarget: 0
   isAlert: 0
   isForget: 0
   isAgro: 0
   deathAnimFinished: 0
-  m_Attacking: 0
   dirChosen: 0
   onWall: 0
   jumpedUp: 0
@@ -432,47 +433,21 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.02946778, y: 0.4109635}
+    - - {x: 0.027236372, y: 0.40947595}
       - {x: 0.029487811, y: 0.08113759}
       - {x: 0.12808093, y: 0.088787764}
       - {x: 0.17999999, y: 0.07}
-      - {x: 0.58, y: 0}
-      - {x: 0.90999997, y: 0}
-      - {x: 0.95, y: 0.01}
-      - {x: 0.96, y: 0.03}
+      - {x: 0.58427984, y: 0.014266203}
+      - {x: 0.90999997, y: 0.014266013}
+      - {x: 0.9400135, y: 0.025692709}
+      - {x: 0.95429355, y: 0.041413}
       - {x: 0.96, y: 0.11}
       - {x: 0.83, y: 0.16}
       - {x: 0.71999997, y: 0.08}
       - {x: 0.52, y: 0.14}
       - {x: 0.35, y: 0.22}
       - {x: 0.29, y: 0.28}
-      - {x: 0.029467653, y: 0.41449067}
---- !u!61 &551591510
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042561984185029542}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.45336214, y: 0.20725024}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.92, y: 0.64}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.96571594, y: 0.41450047}
-  m_EdgeRadius: 0
+      - {x: 0.04062488, y: 0.40258977}
 --- !u!70 &279307000
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
