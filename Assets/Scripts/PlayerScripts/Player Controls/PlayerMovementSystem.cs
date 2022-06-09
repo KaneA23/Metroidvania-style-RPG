@@ -299,7 +299,7 @@ public class PlayerMovementSystem : MonoBehaviour
 					Invoke(nameof(CompleteJumpAnim), moveAnimDelay);
 				}
 
-				if (Input.GetButtonDown("Jump") && !isCrouching && BPC.hasJump)
+				if (Input.GetButtonDown("Jump") /*&& !isCrouching*/ && BPC.hasJump)
 				{
 					//Debug.Log("Jump Pressed");
 					jumpCount++;
@@ -411,7 +411,7 @@ public class PlayerMovementSystem : MonoBehaviour
 		moveHorizontal *= Mathf.Pow(1f - horizontalDamping, Time.deltaTime * 10f);
 
 		// Moves player across X-axis
-		if (!PCS.isAttacking && !isCrouchEnter && !isCrouchExit /*&& !DM.isTalking*/&& !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
+		if (!PCS.isAttacking /*&& !isCrouchEnter && !isCrouchExit*/ /*&& !DM.isTalking*/&& !DialogueManagerScript.GetInstance().IsDialoguePlaying && BPC.hasWalk)
 		{
 			if (isGrounded || !isTouchingWall)
 			{
