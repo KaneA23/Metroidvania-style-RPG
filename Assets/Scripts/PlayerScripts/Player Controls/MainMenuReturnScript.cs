@@ -15,9 +15,16 @@ public class MainMenuReturnScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.F5))
+		// Returns to main menu (will change to pause menu in future
+		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			StartCoroutine(LoadLevel("Main Menu Scene"));
+		}
+
+		// Resets level
+		if (Input.GetKeyDown(KeyCode.F5))
+		{
+			StartCoroutine(LoadLevel(SceneManager.GetActiveScene().name));
 		}
 	}
 

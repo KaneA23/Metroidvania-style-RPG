@@ -148,11 +148,6 @@ public class PlayerMovementSystem : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
-
 		if (DialogueManagerScript.GetInstance().IsDialoguePlaying)
 		{
 			Cursor.lockState = CursorLockMode.Confined;
